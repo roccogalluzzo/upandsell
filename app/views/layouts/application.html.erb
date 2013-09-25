@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upandsell</title>
+	<%= stylesheet_link_tag    "application", media: "all" %>
+	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<%= csrf_meta_tags %>
+</head>
+<body>
+	<div class="container">
+	<%= nav_bar :fixed => :top, :brand => "Up & Sell", :responsive => true do %>
+    <%= menu_group do %>
+        <%= menu_item "Home", root_path %>
+        <%= menu_divider %>
+        <%= menu_item "Products", products_path %>
+    <% end %>
+<% end %>
+		<div class="row">
+		<div class="span3">
+		<ul class="nav nav-pills nav-stacked">
+  <%= yield :sidebar %>
+</ul>
+</div>
+			<div class="span9">
+				<%= yield %>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
