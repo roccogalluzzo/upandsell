@@ -1,7 +1,7 @@
-class Customer::ProductsController < ApplicationController
+class Customer::ProductsController < Customer::BaseController
 
  def index
-  @products = Product.all
+  @products = Customer.find(current_customer.id).product
 end
 
 def new
@@ -10,15 +10,18 @@ end
 
 def create
   @product = Product.new(params[:product].permit(:name, :price, :description, :file, :thumb))
-
+  @product.customer_id = current_customer.id
   @product.save
 
-  redirect_to @product
+  redirect_to [:customer, @product]
 
 end
 
 def show
   @product = Product.find(params[:id])
+  if not @product.customer_id == current_customer.id
+    render :file => "public/401.html", :status => :unauthorized
+  end
 end
 
 def edit
@@ -28,8 +31,11 @@ end
 
 def update
   @product = Product.find(params[:id])
+  if not @product.customer_id == current_customer.id
+    render :file => "public/401.html", :status => :unauthorized
+  end
   if @product.update(params[:product].permit(:name, :price, :description, :file, :thumb))
-    redirect_to @product
+    redirect_to [:customer, @product]
   else
     render 'edit'
 
@@ -37,7 +43,10 @@ def update
 end
 def destroy
   @product = Product.find(params[:id])
+  if not @product.customer_id == current_customer.id
+    render :file => "public/401.html", :status => :unauthorized
+  end
   @product.destroy
-  redirect_to products_path
+  redirect_to customer_products_path
 end
 end

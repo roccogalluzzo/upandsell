@@ -1,4 +1,4 @@
-<%= simple_form_for(@product, :defaults => { :input_html => { :class => "form-control" }}) do |f| %>
+<%= simple_form_for([:customer,@product], :defaults => { :input_html => { :class => "form-control" }}) do |f| %>
   <%= f.input :name %>
   <%= f.input :price %>
   <%= f.input :description, size: "60x12" %>
