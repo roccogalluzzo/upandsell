@@ -7,14 +7,16 @@
 	<%= csrf_meta_tags %>
 </head>
 <body>
-	<div class="container">
+	
 	<%= nav_bar :fixed => :top, :brand => "Up & Sell", :responsive => true do %>
     <%= menu_group do %>
         <%= menu_item "Home", root_path %>
         <%= menu_divider %>
         <%= menu_item "Products", products_path %>
+         <%= menu_item "Customers", customers_path %>
     <% end %>
 <% end %>
+<div class="container">
 		<div class="row">
 		<div class="span3">
 		<ul class="nav nav-pills nav-stacked">

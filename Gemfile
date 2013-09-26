@@ -1,8 +1,9 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 gem 'paypal-sdk-adaptivepayments'
+gem 'money-rails'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'simple_form'
