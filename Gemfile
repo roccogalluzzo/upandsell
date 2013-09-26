@@ -2,6 +2,9 @@ source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
+
+#custom gems
+gem 'devise'
 gem 'paypal-sdk-adaptivepayments'
 gem 'money-rails'
 gem 'paperclip'
