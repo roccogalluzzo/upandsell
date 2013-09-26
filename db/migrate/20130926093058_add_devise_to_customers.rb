@@ -2,7 +2,7 @@ class AddDeviseToCustomers < ActiveRecord::Migration
   def self.up
     change_table(:customers) do |t|
       ## Database authenticatable
-      t.string :email,              :null => false, :default => ""
+      #t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
 
       ## Recoverable
@@ -20,9 +20,9 @@ class AddDeviseToCustomers < ActiveRecord::Migration
       t.string   :last_sign_in_ip
 
       ## Confirmable
-      # t.string   :confirmation_token
-      # t.datetime :confirmed_at
-      # t.datetime :confirmation_sent_at
+       t.string   :confirmation_token
+       t.datetime :confirmed_at
+       t.datetime :confirmation_sent_at
       # t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
