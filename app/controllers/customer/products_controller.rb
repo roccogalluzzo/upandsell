@@ -11,9 +11,14 @@ end
 def create
   @product = Product.new(params[:product].permit(:name, :price, :description, :file, :thumb))
   @product.customer_id = current_customer.id
-  @product.save
+  
+  if @product.save
+    redirect_to customer_products_path, notice: 'Product was created.' 
+  else
+    render :new 
 
-  redirect_to [:customer, @product]
+  end
+
 
 end
 

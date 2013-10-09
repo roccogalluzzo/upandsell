@@ -56,6 +56,7 @@ Upandsell::Application.routes.draw do
   namespace :customer do
 
        resources :products
+       resources :payments
 
      end
 end

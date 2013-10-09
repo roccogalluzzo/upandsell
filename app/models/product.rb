@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
-  belongs_to :customer, inverse_of: :product
+  has_many :payment
+  belongs_to :customer
   validates_presence_of :name, :price, :file, :thumb 
 
   has_attached_file :file

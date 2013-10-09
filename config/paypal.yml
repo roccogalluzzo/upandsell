@@ -9,12 +9,12 @@ test: &default
 
   # Credentials for Classic APIs
   app_id: APP-80W284485P519543T
-  username: mail-facilitator_api1.roccogalluzzo.com
-  password: 1380114556
-  signature: AFcWxV21C7fd0v3bYYYRCpSSRl31AnfXvcjA03qZlMyS0iymvuemJc19
+  username: cicio_api1.galluzzo.me
+  password: 1380265896
+  signature: ACXOynAE4-4hmGxsXPS1TQ2mkkDIAkkcSXkACzxwx9jAOOKTEmzGvEFw
   # # With Certificate
   # cert_path: "config/cert_key.pem"
-  sandbox_email_address: angelbit88@gmail.com
+  sandbox_email_address: mail-facilitator@roccogalluzzo.com
 
   # # IP Address
   #ip_address: 127.0.0.1

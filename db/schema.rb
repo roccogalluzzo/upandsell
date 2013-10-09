@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130926093058) do
+ActiveRecord::Schema.define(version: 20130926175603) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 20130926093058) do
   create_table "payments", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.string   "email"
+    t.string   "paykey"
+    t.datetime "date"
+    t.integer  "product_id"
+    t.boolean  "completed"
+    t.integer  "amount_cents",    default: 0,     null: false
+    t.string   "amount_currency", default: "USD", null: false
+    t.integer  "customer_id"
   end
 
   create_table "products", force: true do |t|

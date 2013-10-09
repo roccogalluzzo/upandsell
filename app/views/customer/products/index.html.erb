@@ -1,22 +1,33 @@
-<% content_for :sidebar do %>
-<li>  <%= link_to "Add", new_customer_product_path %></li>
-<% end %>
-
-<table class="table table-striped">
-  <tr><th>Name</th><th>Actions</th>
-  <% if @products.blank? %>
-  <p> No products Founds</p>
-  <% else %>
-  <% @products.each do |product| %>
-    <tr>
-      <td><%= product.name %></td>
-      <td><div class="btn-group">
-       <%= link_to "Show", customer_product_path(product), :class => "btn btn-info" %>
-       <%= link_to "Edit", edit_customer_product_path(product), :class => "btn" %>
-       <%= link_to "Delete", customer_product_path(product), method: :delete, data: { confirm: 'Are you sure?'} , :class => "btn btn-danger" %>
+<div class="block">
+  <div class="navbar navbar-inner block-header">
+    <div class="muted pull-left">Products</div></div>
+    <div class="block-content collapse in">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @products.blank? %>
+          <tr> <td colspan="2">No products Founds</td></tr>
+          <% else %>
+          <% @products.each do |product| %>
+          <tr>
+            <td><%= product.name %></td>
+            <td><div class="btn-group">
+             <%= link_to "Show", customer_product_path(product), :class => "btn btn-info" %>
+             <%= link_to "Edit", edit_customer_product_path(product), :class => "btn" %>
+             <%= link_to "Delete", customer_product_path(product), method: :delete, data: { confirm: 'Are you sure?'} , :class => "btn btn-danger" %>
+           </div>
+         </td>
+       </tr>
+       <% end %>
+       <% end %>
+     </tbody>
+   </table>
+ </div>
 </div>
-      </td>
-    </tr>
-  <% end %>
-  <% end %>
-</table>
+</div>
+</div>

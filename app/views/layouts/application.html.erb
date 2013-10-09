@@ -1,35 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html class="no-js">
 <head>
-	<title>Upandsell</title>
+	<title>Up&sell.It</title>
 	<%= stylesheet_link_tag    "application", media: "all" %>
 	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	<%= csrf_meta_tags %>
 </head>
 <body>
-	     <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="#">Up&Sell.It</a>
+				<div class="nav-collapse collapse">
+					
+					<ul class="nav pull-right">
+						<% if customer_signed_in? %>
+						<li class="dropdown">
+							<a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="icon-user"></i>  
+								<%= current_customer.name %>
+								<i class="caret"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a tabindex="-1" href="#">Profile</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a tabindex="-1" href="<%= url_for(destroy_customer_session_path) %>">Logout</a>
+								</li>
+							</ul>
+						</li>
+						<% else %>
+						<li>
+							<a href="#">Login</a>
+						</li>
+						<% end %>
+					</ul>
+					<ul class="nav">
+						<li class="active">
+							<a href="#">Dashboard</a>
+						</li>
 
-	<%= nav_bar :fixed => :top, :brand => "Up & Sell", :responsive => true do %>
-    <%= menu_group do %>
-        <%= menu_item "Home", root_path %>
-        <%= menu_divider %>
-        <%= menu_item "Products", customer_products_path %>
-        <%= menu_item "Products", customer_payments_path %>
-         <%= menu_item "Customers", customers_path %>
-    <% end %>
-<% end %>
-<div class="container">
-		<div class="row">
-		<div class="span3">
-		<ul class="nav nav-pills nav-stacked">
-  <%= yield :sidebar %>
-</ul>
-</div>
-			<div class="span9">
-				<%= yield %>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
 			</div>
 		</div>
 	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3" id="sidebar">
+				<div class="pagination-centered">
+					<a href="<%= url_for(new_customer_product_path) %>" class="btn btn-large">
+						<i class="icon-plus-sign"></i> Add Product</a>
+					</div>
+					<ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+						<li class="active">
+							<a href="index.html"><i class="icon-chevron-right"></i> Dashboard</a>
+						</li>
+
+						<li>
+							<a href="<%= url_for(customer_products_path) %>"><i class="icon-chevron-right"></i> Products</a>
+						</li>
+						<li>
+							<a href="<%= url_for(customer_payments_path) %>"><span class="badge badge-success pull-right">731</span> Payments</a>
+						</li>
+					</ul>
+				</div>
+
+				<!--/span-->
+				<div class="span9" id="content">
+					<div class="row-fluid" style="height:60px">
+						<%= bootstrap_flash %>
+					</div>
+					<div class="row-fluid">
+						<%= yield %>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<hr>
+		<footer>
+			<p>&copy; Up&Sell It 2013</p>
+		</footer>
+	</div>
 </body>
+
 </html>

@@ -3,5 +3,6 @@ class Customer < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-has_many :product, inverse_of: :customer
+has_many :product
+has_many :payment
 end
