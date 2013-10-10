@@ -10,4 +10,7 @@
 
 <%= image_tag @product.thumb.url %>
 
-<%= link_to 'Buy', [:buy, @product] %>
+
+<%= link_to 'Buy',  buy_product_path(@product.id), remote: true, id: "btn-buy", class: "btn btn-large btn-success" %>
+
+
