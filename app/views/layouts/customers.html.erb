@@ -91,7 +91,7 @@
                                     </ul>  
                                 </div>
                                 <div class="span9">
-                                    <h2>Main content</h2>
+                                <%= yield %>
                                 </div>
                             </div>
                         </div><!--/row-fluid-->
@@ -104,6 +104,6 @@
                 <%= render :partial => 'layouts/footer' %>
                 
                 <%= javascript_include_tag "customer_area" %>
-                
+
             </body>
             </html> 
