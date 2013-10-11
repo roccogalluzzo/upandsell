@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->  
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->  
+<head>
+    <title>Up&Sell.It</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= stylesheet_link_tag "customer_area" %>
+</head> 
+
+<body>
+
+    <!--=== Top ===-->    
+    <div class="top">
+        <div class="container">         
+            <ul class="loginbar pull-right">   
+                <li><a href="page_faq.html" class="login-btn">Help</a></li>  
+                <li class="devider">&nbsp;</li>
+                <li><a href="page_login.html" class="login-btn">Logout</a></li>   
+            </ul>
+        </div>      
+    </div><!--/top-->
+    <!--=== End Top ===-->    
+
+    <!--=== Header ===-->
+    <div class="header">               
+        <div class="container"> 
+            <!-- Logo -->       
+            <div class="logo">                                             
+                <a href="index.html"><%= image_tag "logo.png" %></a>
+            </div><!-- /logo -->        
+
+            <!-- Menu -->       
+            <div class="navbar">                                
+                <div class="navbar-inner">                                  
+
+                    <div class="btn-group">
+                     <a class="btn-u btn-u-blue dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="icon-user icon-white"></i> Rocco Galluzzo&nbsp;&nbsp; <i class="icon-caret-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="icon-pencil"></i> Edit</a></li>
+                            <li><a href="#"><i class="icon-trash"></i> Delete</a></li>
+                            <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="i"></i> Make admin</a></li>
+                        </ul>
+                    </div>                               
+                </div><!-- /navbar-inner -->
+            </div><!-- /navbar -->                          
+        </div><!-- /container -->               
+    </div><!--/header -->      
+    <!--=== End Header ===-->
+
+
+
+    <!--=== Content Part ===-->
+    <div class="container"> 
+        <div class="app-content">
+            <div class="row-fluid">
+                <div class="span3 text-center">
+                   <button type="button" class="admin-add btn-u-large btn-u">
+                       <i class="icon-upload-alt icon-white"></i>
+                       Add Product</button>
+                   </div>
+                   <div class="span9">
+                    <ul class="breadcrumb">
+                      <li><a href="#">Home</a> <span class="divider">/</span></li>
+                      <li><a href="#">Library</a> <span class="divider">/</span></li>
+                      <li class="active">Data</li>
+                      </ul
+                  </div>
+              </div>
+              <div class="row-fluid">
+                <div class="admin-content">
+                  <div class="span3 sidebar">
+
+
+                    <ul class="nav nav-tabs nav-stacked">  
+                        <li class="active">  
+                            <a href="#">
+                                <i class="glyphicons-icon white home"></i> Dashboard</a></li>     
+                                <li>
+                                    <a href="#"><i class="glyphicons-icon file"></i> Products</a></li>  
+                                    <li>
+                                        <a href="#"><i class="glyphicons-icon coins"></i> Orders </a></li>   
+                                        <li><a href="#"><i class="glyphicons-icon charts"></i> Stats</a></li>   
+                                        <li><a href="#"><i class="glyphicons-icon circle_info"></i> Support</a></li>   
+                                    </ul>  
+                                </div>
+                                <div class="span9">
+                                    <h2>Main content</h2>
+                                </div>
+                            </div>
+                        </div><!--/row-fluid-->
+
+                    </div>
+
+
+                </div><!--/container-->     
+                <!-- End Content Part -->
+                <%= render :partial => 'layouts/footer' %>
+                
+                <%= javascript_include_tag "customer_area" %>
+                
+            </body>
+            </html> 
