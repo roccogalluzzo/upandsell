@@ -39,3 +39,48 @@
 	padding: 24px;
 	padding-top: 2px;
 }
+
+.product-cell-thumb {
+	float: left;
+	margin-right: 5px;
+	background-color: #eee; width: 72px; height: 72px;
+}
+
+.product-cell-info {
+	float: left;
+}
+
+.product-cell-info strong {
+	font-size: 16px;
+}
+.product-details {
+	float:left;
+
+}
+
+.product-cell-btn {
+	vertical-align: middle;
+}
+
+.product-stats-cell {
+
+	width: 200px;
+	padding: 0 !important;
+	vertical-align: bottom;
+	position: relative;
+
+}
+
+.product-stats-cell > canvas{
+	position: absolute;
+	top: 50px;
+
+}
+.products-stats-count{
+	position: absolute;
+	top: 10px;
+	left: 0px;
+	font-size: 28px;
+	width: 200px;
+	text-align: center;
+}
