@@ -31,7 +31,7 @@ SimpleForm.setup do |config|
     b.optional :maxlength
 
     # Calculates pattern from format validations for string inputs
-    b.optional :pattern
+    #b.optional :pattern
 
     # Calculates min and max from length validations for numeric inputs
     b.optional :min_max
@@ -98,7 +98,7 @@ SimpleForm.setup do |config|
   config.label_class = 'control-label'
 
   # You can define the class to use on all forms. Default is simple_form.
-  config.form_class = :simple_form, 'form-horizontal'
+  config.form_class = :simple_form
 
   # You can define which elements should obtain additional classes
   # config.generate_additional_classes_for = [:wrapper, :label, :input]

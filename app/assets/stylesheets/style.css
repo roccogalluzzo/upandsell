@@ -7,8 +7,8 @@ Website: http://htmlstream.com/preview/unify
 */
 
 /*Import Google Fonts*/
-@import url(http://fonts.googleapis.com/css?family=Monda:400,700);
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+/*@import url(http://fonts.googleapis.com/css?family=Monda:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);*/
 
 * {
 	border-radius:0 !important;
@@ -455,7 +455,8 @@ blockquote:hover {
 	font-size:12px;
 	padding:5px 10px;
 	background:#3e4753;
-	border-top:solid 1px #777;	
+	border-top:solid 1px #777;
+	margin-top: 40px;	
 }
 .copyright p {
 	color:#dadada;
@@ -1041,6 +1042,7 @@ blockquote:hover {
 	background:#fcfcfc;
 	border:solid 1px #eee;
 	box-shadow:0 0 7px #eee;
+	margin-top: 40px;
 }
 
 /*404 Page

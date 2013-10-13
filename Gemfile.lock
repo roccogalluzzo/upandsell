@@ -33,6 +33,9 @@ GEM
       uuidtools (~> 2.1)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
+    byebug (2.3.0)
+      columnize (~> 0.3.6)
+      debugger-linecache (~> 1.2.0)
     capistrano (3.0.0)
       i18n
       rake (>= 10.0.0)
@@ -48,7 +51,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    columnize (0.3.6)
     commonjs (0.2.7)
+    debugger-linecache (1.2.0)
     devise (3.1.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -179,6 +184,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk
+  byebug
   capistrano
   devise
   jbuilder (~> 1.2)
