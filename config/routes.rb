@@ -54,7 +54,7 @@ Upandsell::Application.routes.draw do
 
   # Example resource route within a namespace:
   namespace :customer do
-
+        post '/products/upload' => 'products#upload'
        resources :products
        resources :payments
 

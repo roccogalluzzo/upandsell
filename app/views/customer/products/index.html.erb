@@ -13,8 +13,7 @@
     <% @products.each do |product| %>
     <tr>
       <td>
-        <div class="img-rounded product-cell-thumb">
-        </div>
+        <%= image_tag product.thumb.url(:small), :class => "img-rounded product-cell-thumb" %>
         <div class="product-cell-info">
           <strong><%= link_to product.name, customer_product_path(product) %></strong>
            <div>

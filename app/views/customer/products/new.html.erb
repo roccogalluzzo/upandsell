@@ -1,1 +1,224 @@
-<%= render 'form' %>
+  <script type="text/javascript">
+  	$(document).ready(function(){
+  		$(document).bind('drop dragover', function (e) {
+  			e.preventDefault();
+  		});
+  		
+        // form validation
+
+        $( "#new_product").submit(function( event ) {
+            sub = true;
+          $( ".text-error").removeClass('text-error');
+          
+          if(!$( "input[id=upload_id]" ).val()){
+            sub = false;
+               showAlert('error', 'You must upload a file prior to create a product');
+          }
+          if(!$('#product_name').val()){
+               $('#product_name_label').addClass('text-error');
+            sub = false;
+          }
+          if((!$('#product_price').val()) || ($('#product_price').val() == '0.00')){
+            $('#product_price_label').addClass('text-error');
+           sub = false;
+          }
+      if(!$('.input-thumb').val()){
+            $('#product_preview_label').addClass('text-error');
+            sub = false;
+          }
+          if(!sub){
+          event.preventDefault();
+          return false;
+      }
+      });
+        // Currency select code
+        $(".dropdown-menu li a").click(function(){
+
+            val = $(".btn-price > span").html();   
+            $(".btn-price > span:first").html($(this).html());
+            currency = $(this).children().first().data('currency');
+            console.log(currency);
+            $( "input[id=currency]" ).val(currency);
+            $(this).html(val);
+            $('.btn-group').removeClass('open');
+
+            return false;
+        });
+
+// Thumb code
+$("#btn-thumb-upload").on('click', function(e){
+ e.preventDefault();
+ $(".input-thumb").trigger('click');
+ showAlert('info', 'ciao');
+});
+
+$('.input-thumb').change(function(e){
+            //check estension
+            var ext = $(this).val().split('.').pop().toLowerCase();
+            if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+                showAlert('error', 'invalid extension');
+            }else{
+                if ( e.target.files &&  e.target.files[0])
+                 loadImage(
+                  e.target.files[0],
+                  function (img) {
+                   if (img.type != 'error'){
+                    $('.preview').html(img);
+                }
+            },{maxWidth: 215,
+                maxHeight: 130,
+                minWidth: 215,
+                munHeight: 130
+            } 
+            );
+             $("#btn-thumb-upload").fadeOut('slow');
+             $('.preview').css("border", "none");
+             $("#btn-thumb-upload").hover(function() {
+               $("#btn-thumb-upload").fadeIn('fast');
+           });
+             $('.preview').hover(function() {
+               $("#btn-thumb-upload").fadeIn('fast');
+           },function() {
+               $("#btn-thumb-upload").fadeOut('slow');
+           }
+           );
+         }
+     });
+
+// Javascript for product upload
+
+var upload;
+
+function toggle_uploading(){
+    $('.percent').toggle();
+    $('#btn-product-cancel-upload').toggle();
+}
+
+function toggle_upload(){
+   $('.product-upload-box > p').toggle();
+   $('#btn-product-upload').toggle();
+}
+
+$('.uploading').hide();
+toggle_uploading();
+//toggle_upload();
+$('#btn-product-cancel-upload').click(function(e) {
+    upload.abort();
+    toggle_uploading();
+    toggle_upload();
+});
+
+
+$('.input-file ').fileupload({
+    dropZone: $('.product-upload-box'),
+    url: "<%= url_for customer_products_upload_path  %>"
+})
+//File Upload Events
+.bind('fileuploadadd', function (e, data) {
+   toggle_uploading();
+   toggle_upload();
+   $('#file_name').text(data.files[0].name);
+  // $('.product-upload-box').fadeTo(100, 0.40);
+})
+.bind('fileuploaddone', function (e, data) { 
+ //  $('.product-upload-box').fadeTo(100, 1);;
+ toggle_uploading();
+ toggle_upload();
+ console.log(data.result.id)
+ $('.product-upload-box > p').text(data.files[0].name);
+ $('.product-upload-box > a > span').text('Choose Another');
+ $( "input[id=upload_id]" ).val(data.result.id);
+})
+ //.bind('fileuploadfail', function (e, data) {/* ... */})
+ //.bind('fileuploadalways', function (e, data) {/* ... */})
+ .bind('fileuploadsubmit', function (e, data) { upload = data;})
+ .bind('fileuploadprogress', function (e, data) {
+    var progress = parseInt(data.loaded / data.total * 100, 10);
+    $('#percentile').text(progress)
+    
+});
+
+
+   // Prevent Default
+   $("#btn-product-upload").on('click', function(e){
+   	e.preventDefault();
+   	$(".input-file").trigger('click');
+   });
+});
+</script>
+<div class="headline"><h3>Create Product</h3></div>
+
+<%= simple_form_for [:customer,@product],:class => 'form-horizontal'  do |f| %>
+<input id="upload_id" type="hidden" name="[product]upload_id" />
+<input id="currency" type="hidden" name="[product]currency" value="EUR" />
+<div class="row">
+ <h2 class="wizard">   <i class="icon-cloud-upload icon-2x icon-muted"></i> 
+     Upload want to sell</h2>
+     <div class="span7 product-upload-box" >
+         <p>
+             Drop File Here 
+             <br />
+             <small>or</small>
+         </p>
+         <div class="percent"><span id="percentile">0</span>%
+            <p class="muted">Uploading <span id="file_name"></span>...</p>
+        </div>
+        <a id="btn-product-upload" class="btn-u" href="#">
+         <i class="icon-upload-alt icon-white"></i> <span>Choose From Computer</span></a>
+         <a id="btn-product-cancel-upload" class="btn-u btn-u-red" href="#">
+             <i class="icon-remove icon-white"></i> Cancel</a>
+         </div>
+     </div>
+
+     <div class="row">
+         <h2 class="wizard">
+            <i class="icon-pencil icon-2x icon-muted"></i> 
+            Set Info</h2>
+            <div class="span5">
+             <label id="product_name_label">Product Name</label>
+             <%= f.input_field :name, class: 'span5' %>
+         </div>
+         <div class="span2">
+             <label id="product_price_label">Price</label>
+            <div class="input-prepend">
+              <div class="btn-group">
+                <button class="btn-price btn dropdown-toggle" data-toggle="dropdown">
+                    <span> <i data-currency="EUR" class="icon-euro"></i></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li>  <a  href="#"><i data-currency="USD" class="icon-usd"></i> </a></li>
+                  <li>  <a  href="#"><i data-currency="GBP" class="icon-gbp"></i> </a> </li>
+              </ul>
+          </div>
+          
+          <%= f.input_field :price, class: 'span1 input-small' %>
+      </div>
+  </div>
+</div>
+<div class="row">
+    <div class="span3">
+      <label id="product_preview_label">Preview</label>
+      <div id="btn-thumb-cont">
+        <a id="btn-thumb-upload" class="btn-u" href="#">
+         <i class="icon-upload-alt icon-white"></i>Choose Image</a>
+     </div>
+     <div class="text-center add-thumb preview">
+     </div>
+ </div>
+ <div class="span4">
+     <label>Description</label>
+     <%= f.input_field :description, class: 'span4 product-description' %>
+ </div>
+</div>
+<%= f.input_field :file, class: 'input-file hide' %>
+<%= f.input_field :thumb, id: 'file-input', class: 'hide input-thumb' %>
+<div class="row">
+    <hr>
+    <%= f.button :submit %>
+</div>
+</div>
+
+<% end %>
+
+</div>
