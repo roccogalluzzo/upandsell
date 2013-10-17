@@ -1,3 +1,4 @@
+require 'modules/base52'
 class Customer::ProductsController < Customer::BaseController
 
  def index
@@ -20,17 +21,16 @@ def upload
       f.write(params[:product][:file].read)
       f.chmod(0600)
     }
-    unless params[:product][:upload_id].blank? or (params[:product][:upload_id] ==
-      '1') 
-    File.delete(File.join(directory, params[:product][:upload_id]))
-  end
-  msg = { status: 'ok', id: request.uuid}
-else
+
+    unless params[:product][:upload_id].blank? or (params[:product][:upload_id] == '1') 
+      File.delete(File.join(directory, params[:product][:upload_id]))
+    end
+    msg = { status: 'ok', id: request.uuid}
+  else
     # File superior to 2GB
     msg = { status: 'too_big'}
   end
   render json: msg
-
 end
 
 def create
@@ -42,15 +42,16 @@ def create
   @product.file_file_name = params[:product][:upload_file_name]
   
   if @product.save
+   #generate slug
+   #@product.slug = 
+   if @product.update(slug: Base52.encode(@product.id))
    File.delete(path)
    redirect_to customer_products_path, notice: 'Product was created.' 
+ end
  else
   print @product.errors.messages
   render :nothing => true
-
-end
-
-
+  end
 end
 
 def show
@@ -62,7 +63,6 @@ end
 
 def edit
   @product = Product.find(params[:id])
-
 end
 
 def update
@@ -78,12 +78,11 @@ def update
  end
 
  if @product.update(params[:product].permit(:name, :price, :description, :thumb))
-  
-  redirect_to [:customer, @product]
-else
-  render 'edit'
 
-end
+  redirect_to [:customer, @product]
+  else
+    render 'edit'
+  end
 end
 def destroy
   @product = Product.find(params[:id])
@@ -92,5 +91,6 @@ def destroy
   end
   @product.destroy
   redirect_to customer_products_path
+  end
 end
-end
+
