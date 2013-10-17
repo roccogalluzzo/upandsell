@@ -9,6 +9,7 @@ def new
 end
 
 def upload
+
   # check if file size is more of 2GB
   if params[:product][:file] and (params[:product][:file].size < 2147483648) 
 
@@ -19,11 +20,12 @@ def upload
       f.write(params[:product][:file].read)
       f.chmod(0600)
     }
-    unless params[:product][:upload_id].blank?
-      File.delete(File.join(directory, params[:product][:upload_id]))
-    end
-    msg = { status: 'ok', id: request.uuid}
-  else
+    unless params[:product][:upload_id].blank? or (params[:product][:upload_id] ==
+      '1') 
+    File.delete(File.join(directory, params[:product][:upload_id]))
+  end
+  msg = { status: 'ok', id: request.uuid}
+else
     # File superior to 2GB
     msg = { status: 'too_big'}
   end
@@ -37,15 +39,16 @@ def create
   @product.customer_id = current_customer.id
   path = File.join(Rails.root.join('app', 'tmp_uploads').to_s, params[:product][:upload_id])
   @product.file =  File.new(path, "r")
+  @product.file_file_name = params[:product][:upload_file_name]
   
   if @product.save
-     File.delete(path)
-    redirect_to customer_products_path, notice: 'Product was created.' 
-  else
-    print @product.errors.messages
-   render :nothing => true
+   File.delete(path)
+   redirect_to customer_products_path, notice: 'Product was created.' 
+ else
+  print @product.errors.messages
+  render :nothing => true
 
-  end
+end
 
 
 end
@@ -67,12 +70,20 @@ def update
   if not @product.customer_id == current_customer.id
     render :file => "public/401.html", :status => :unauthorized
   end
-  if @product.update(params[:product].permit(:name, :price, :description, :file, :thumb))
-    redirect_to [:customer, @product]
-  else
-    render 'edit'
+  if not params[:product][:upload_id] == '1'
+   path = File.join(Rails.root.join('app', 'tmp_uploads').to_s, params[:product][:upload_id])
+   @product.file =  File.new(path, "r")
+   @product.file_file_name = params[:product][:upload_file_name]
+   File.delete(path)
+ end
 
-  end
+ if @product.update(params[:product].permit(:name, :price, :description, :thumb))
+  
+  redirect_to [:customer, @product]
+else
+  render 'edit'
+
+end
 end
 def destroy
   @product = Product.find(params[:id])
