@@ -40,8 +40,8 @@
           <div class="product-cell-info">
             <strong><%= link_to product.name, customer_product_path(product) %></strong>
             <div>
-              <em class="muted"> http://upandsell.it/p/clackc</em> 
-              <i class="icon-external-link"></i>
+              <em class="muted"> <%=  url_for controller: '/products', action: 'show', slug: product.slug, only_path: false %></em> 
+             <a href="<%=  url_for controller: '/products', action: 'show', slug: product.slug, only_path: false %>"> <i class="icon-external-link"></i></a>
             </div>
             <div>
               <i class="icon-picture"></i> <em class="muted"> ~486 Kb </em>
