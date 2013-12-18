@@ -1,16 +1,16 @@
-set :application, 'upandsell_it'
+set :application, 'up-sell'
 set :repo_url, 'git@bitbucket.org:angelbit/up-sell.git'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
-
-# set :deploy_to, '/var/www/my_app'
+set :branch, 'live'
+ set :deploy_to, '/home/byterussian/apps/up-sell'
 # set :scm, :git
 
 # set :format, :pretty
 # set :log_level, :debug
 # set :pty, true
 
-# set :linked_files, %w{config/database.yml}
+ set :linked_files, %w{config/database.yml}
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -22,7 +22,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 
