@@ -11,6 +11,15 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'simple_form'
 
+#test gems
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+group :test do
+  gem 'faker'
+  gem 'capybara'
+end
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development, :test]
 
