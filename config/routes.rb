@@ -45,7 +45,7 @@ Upandsell::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'
@@ -58,6 +58,7 @@ Upandsell::Application.routes.draw do
         post '/products/upload' => 'products#upload'
        resources :products
        resources :payments
+       root :to => "products#index"
 
      end
 end
