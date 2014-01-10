@@ -11,7 +11,11 @@ module Features
       visit new_customer_session_path
       fill_in 'customer_email', with: email
       fill_in 'customer[password]', with: password, exact: true
-click_button 'Sign in'
+      click_button 'Sign in'
+    end
+    def sign_out
+      visit customers_path
+      click_link 'Logout'
     end
   end
 end
