@@ -9,7 +9,6 @@ module Features
     end
     def sign_in(email, password)
       visit new_customer_session_path
-      puts page.body
       fill_in 'customer_email', with: email
       fill_in 'customer[password]', with: password, exact: true
 click_button 'Sign in'
