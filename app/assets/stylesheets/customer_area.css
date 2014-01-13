@@ -1,10 +1,6 @@
 /* Manifest File for Customer Area
  *= require_self
  *= require bootstrap
- *= require style
- *= require header1
- *= require style_responsive
  *= require font-awesome
- *= require default
- *= require_tree ./customer_area
+ *= require customer_area/admin
 */
