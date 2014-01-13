@@ -15,11 +15,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
-//= require customer_area/upload_files/jquery.ui.widget
-//= require customer_area/upload_files/jquery.iframe-transport
-//= require customer_area/upload_files/load-image.min
-//= require customer_area/upload_files/jquery.fileupload
-//= require customer_area/upload_files/jquery.fileupload-process
-//= require_tree ./customer_area/upload_files
-//= require customer_area/jquery.peity
+//= require_tree ../../../vendor/assets/javascripts/jquery.fileupload/.
+//= require jquery.peity
 //= require admin
