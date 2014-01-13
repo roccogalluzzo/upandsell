@@ -1,9 +1,6 @@
 /* Manifest File for Application FrontEnd
  *= require_self
  *= require bootstrap
- *= require style
- *= require header1
- *= require style_responsive
- *= font-awesome
- *= require default
+ *= require font-awesome
+ *= require main
 */
