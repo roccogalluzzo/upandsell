@@ -1,10 +1,10 @@
 /* Manifest File for Application FrontEnd
  *= require_self
- *= require_tree ./plugins/bootstrap
+ *= require bootstrap
  *= require style
  *= require header1
  *= require style_responsive
- *= require plugins/font-awesome 
+ *= require plugins/font-awesome
  *= require plugins/glyphicons
  *= require default
 */
