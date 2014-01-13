@@ -8,12 +8,12 @@
 	    				<span class="icon-bar"></span>
 	    			</button>
 	    			<a class="navbar-brand" href="#"></a>
-	    			<%= link_to('Up&Sell.It',customers_path, :class => 'navbar-brand') %>
+	    			<%= link_to('Up&Sell.It',root_path, :class => 'navbar-brand') %>
 	    		</div>
 	    		<ul class="nav navbar-nav navbar-right">
 	    			<li>
 	    				<% if customer_signed_in? %>
-	    				<%= link_to(customers_path) do %>
+	    				<%= link_to(customer_root_path) do %>
 	    				Go To Dashboard <i class="fa fa-home"></i>
 	    				<% end %>
 	    				<% else %>
