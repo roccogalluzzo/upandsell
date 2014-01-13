@@ -15,6 +15,8 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
-//= require_tree ../../../vendor/assets/javascripts/jquery.fileupload/.
+//= require jquery.fileupload/jquery.ui.widget.js
+//= require jquery.fileupload/jquery.fileupload.js
+//= require jquery.fileupload/jquery.fileupload-image.js
 //= require jquery.peity
 //= require admin
