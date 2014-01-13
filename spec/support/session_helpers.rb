@@ -1,3 +1,5 @@
+include Warden::Test::Helpers
+Warden.test_mode!
 module Features
   module SessionHelpers
     def sign_up(email, password)
@@ -17,5 +19,9 @@ module Features
       visit customers_path
       click_link 'Logout'
     end
-  end
+    def login
+     user = FactoryGirl.create(:customer)
+     login_as(user, :scope => :customer)
+   end
+ end
 end
