@@ -13,7 +13,7 @@
 //= require jquery
 //= require modernizr.custom
 //= require jquery_ujs
-//= require twitter/bootstrap
+//= require bootstrap
 //= require turbolinks
 //= require customer_area/upload_files/jquery.ui.widget
 //= require customer_area/upload_files/jquery.iframe-transport

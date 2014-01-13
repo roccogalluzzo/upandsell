@@ -4,7 +4,6 @@
  *= require style
  *= require header1
  *= require style_responsive
- *= require plugins/font-awesome
- *= require plugins/glyphicons
+ *= font-awesome
  *= require default
 */
