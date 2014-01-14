@@ -2,11 +2,12 @@
 <li>  <%= link_to "Add", new_customer_path %></li>
 <% end %>
 
-<table class="table table-striped">
+ <div class="headline"><h3>Customer list - debug </h3></div>
+  <table class="table table-bordered">
   <tr><th>Name</th><th>Actions</th>
   <% @customers.each do |customer| %>
     <tr>
-      <td><%= customer.name %></td>
+      <td><%= customer.email %></td>
       <td><div class="btn-group">
        <%= link_to "Show", customer_path(customer), :class => "btn btn-info" %>
        <%= link_to "Edit", edit_customer_path(customer), :class => "btn" %>

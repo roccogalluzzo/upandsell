@@ -1,25 +1,22 @@
-<div class="row-fluid">
-	<div class="log-page">
-		<h3>Sign in</h3>    
-		<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :defaults => { :input_html => { :class => "form-control input-xlarge" }}, :html => {:novalidate => true}) do |f| %>
-		<%= f.error_notification %>
-		<div class="input-prepend">
-			<span class="add-on"><i class="icon-envelope"></i></span>
-
-			<%= f.input_field :email, :autofocus => true, :novalidate => true %>
-		</div>
-		<div class="input-prepend">
-			<span class="add-on"><i class="icon-lock"></i></span>
-			<%= f.input_field :password %>
-		</div>
-		<div class="controls form-inline">
-			<%= f.input_field :remember_me, inline_label: 'Remember me', :as => :boolean if devise_mapping.rememberable? %>
-			<%= f.button :submit, "Sign in", class: "btn-u pull-right" %>
-		</div>
-
-		<hr />
-		<h4>Forget your Password ?</h4>
-		<p>no worries,  <%= link_to "click here", new_customer_password_path, class: "color-green" %> to reset your password.</p>
-		<% end %>
+<div class="col-md-4 col-md-offset-5">
+	<h3>Sign in</h3>
+	<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :defaults => { :input_html => { :class => "form-control input-xlarge" }}, :html => {:novalidate => true}) do |f| %>
+	<%= f.error_notification %>
+	<div class="form-group">
+		<%= f.input_field :email, :autofocus => true, :novalidate => true %>
 	</div>
-</div><!--/row-fluid-->
+	<div class="form-group">
+		<%= f.input_field :password %>
+	</div>
+	<div class="form-group">
+		<%= f.input_field :remember_me, inline_label: 'Remember me', :as => :boolean if devise_mapping.rememberable? %>
+	</div>
+	<div class="form-group">
+		<%= f.button :submit, "Sign in", class: "btn btn-primary" %>
+	</div>
+
+	<hr />
+	<h4>Forget your Password ?</h4>
+	<p>no worries,  <%= link_to "click here", new_customer_password_path, class: "color-green" %> to reset your password.</p>
+	<% end %>
+</div>
