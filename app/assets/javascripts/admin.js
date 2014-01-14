@@ -1,4 +1,3 @@
-
 function hidePreviewBtn(){
  $("#btn-thumb-upload").fadeOut('slow');
  $('.preview').css("border", "none");
@@ -9,7 +8,10 @@ function hidePreviewBtn(){
 );
 }
 function initProductForm(action){
-
+        // Hide default file input
+        $('.file-alt').hide();
+        $('.upload-js').removeClass('hide');
+        $('.product-preview-box').removeClass('hide');
         // Thumb code
         if(action == 'edit'){
           hidePreviewBtn();
@@ -36,7 +38,7 @@ function initProductForm(action){
                 maxHeight: 130,
                 minWidth: 215,
                 munHeight: 130
-            } 
+            }
             );
          hidePreviewBtn();
          }
@@ -68,8 +70,8 @@ $('#btn-product-cancel-upload').click(function(e) {
 });
 
 
-$('.input-file ').fileupload({
-    dropZone: $('.product-upload-box')
+$('#product_file').fileupload({
+  dropZone: $('.product-upload-box')
 })
 //File Upload Events
 .bind('fileuploadadd', function (e, data) {
@@ -78,7 +80,7 @@ $('.input-file ').fileupload({
    $('#file_name').text(data.files[0].name);
   // $('.product-upload-box').fadeTo(100, 0.40);
 })
-.bind('fileuploaddone', function (e, data) { 
+.bind('fileuploaddone', function (e, data) {
  //  $('.product-upload-box').fadeTo(100, 1);;
  toggle_uploading();
  toggle_upload();
@@ -93,19 +95,19 @@ $('.input-file ').fileupload({
  .bind('fileuploadprogress', function (e, data) {
     var progress = parseInt(data.loaded / data.total * 100, 10);
     $('#percentile').text(progress)
-    
+
 });
 
 
    // Prevent Default
    $("#btn-product-upload").on('click', function(e){
     e.preventDefault();
-    $(".input-file").trigger('click');
-});
+    $("#product_file").trigger('click');
+  });
         // Currency select code
         $(".dropdown-menu li a").click(function(){
 
-            val = $(".btn-price > span").html();   
+            val = $(".btn-price > span").html();
             $(".btn-price > span:first").html($(this).html());
             currency = $(this).children().first().data('currency');
             console.log(currency);
@@ -115,7 +117,7 @@ $('.input-file ').fileupload({
 
             return false;
         });
-        
+
 // Disable drag and drop on all page
 $(document).bind('drop dragover', function (e) { e.preventDefault();});
 // Form Validation
@@ -123,8 +125,8 @@ initProductFormValidation();
 }
 
 function initProductFormValidation(){
-    $( "#new_product").submit(function( event ) { 
-        sub = true; 
+    $( "#new_product").submit(function( event ) {
+        sub = true;
         $( ".text-error").removeClass('text-error');
 
         if(!$( "input[class=upload_id]" ).val()){

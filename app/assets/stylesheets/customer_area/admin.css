@@ -70,7 +70,8 @@ body { padding-top: 70px; }
 }
 
 .hide {
-	display: none;
+	display: block;
+	visibility: hidden;
 }
 .add-thumb {
 	margin-right: 5px;
