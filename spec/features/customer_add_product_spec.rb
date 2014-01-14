@@ -25,9 +25,8 @@ scenario 'without price' do
   attach_file('product[file]', Rails.root.join('spec','fixtures', 'files', 'test.png'))
   fill_in 'product[name]', :with => 'test product'
   attach_file('product[thumb]', Rails.root.join('spec','fixtures', 'files', 'test.png'))
-  fill_in 'product[price]', :with => ''
   click_on 'Create Product'
-  expect(page).to have_content("can't be blank")
+  expect(page).to have_content("must be greater than")
 end
 scenario 'without preview thumb' do
   attach_file('product[file]', Rails.root.join('spec','fixtures', 'files', 'test.png'))

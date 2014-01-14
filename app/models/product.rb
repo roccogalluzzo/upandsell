@@ -7,4 +7,7 @@ class Product < ActiveRecord::Base
   has_attached_file :thumb, :styles => { :small => "72x72>" }
 
   monetize :price_cents
+  validates :price_cents, :numericality => {
+    :greater_than => 0.50
+  }
 end
