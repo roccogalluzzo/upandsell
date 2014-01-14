@@ -12,13 +12,13 @@ end
 def upload
 
   # check if file size is more of 2GB
-  if params[:product][:file] and (params[:product][:file].size < 2147483648)
+  if params[:product][:file_js] and (params[:product][:file_js].size < 2147483648)
 
     name = request.uuid #+ '---' + params[:product][:file].original_filename
     directory = Rails.root.join('app', 'tmp_uploads').to_s
     path = File.join(directory, name)
     File.open(path, "wb") { |f|
-      f.write(params[:product][:file].read)
+      f.write(params[:product][:file_js].read)
       f.chmod(0600)
     }
 
