@@ -54,8 +54,8 @@ def create
    redirect_to customer_products_path, notice: 'Product was created.'
  end
 else
-  print @product.errors.messages
-  render :nothing => true
+  flash[:error] = @product.errors.messages
+  render new_customer_product_path
 end
 end
 
