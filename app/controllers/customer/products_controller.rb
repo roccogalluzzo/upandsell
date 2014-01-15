@@ -35,7 +35,8 @@ end
 
 def create
   params.permit(:product)
-  @product = Product.new(params[:product].permit(:name, :price, :description, :thumb))
+  @product = Product.new(params[:product].permit(:name, :price, :price_currency,
+   :description, :thumb))
   @product.customer_id = current_customer.id
   if params[:product][:file].present?
     @product.file = params[:product][:file]
@@ -82,9 +83,10 @@ def update
    File.delete(path)
  end
 
- if @product.update(params[:product].permit(:name, :price, :description, :thumb))
+ if @product.update(params[:product].permit(:name, :price, :price_currency,
+  :description, :thumb))
 
-  redirect_to [:customer, @product]
+ redirect_to [:customer, @product]
 else
   render 'edit'
 end

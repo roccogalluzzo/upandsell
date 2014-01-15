@@ -64,6 +64,10 @@
     <div class="col-md-3">
      <div class="form-group">
       <label id="product_price_label">Price</label>
+        <%= f.input :price_currency,
+        collection: Upandsell::Application.config.currencies,
+        include_blank: false,
+        class: 'form-control' %>
       <%= f.input_field :price, class: 'form-control' %>
     </div>
 
