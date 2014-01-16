@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   include PayPal::SDK::AdaptivePayments
   skip_before_filter :verify_authenticity_token, :only => [:ipn]
 
-  def buy 
+  def buy
     @product = Product.find(params[:id])
     @customer  = Customer.find(@product.customer_id)
 
@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
    paypal = PayPal::SDK::AdaptivePayments.new
    req = paypal.BuildPay(
      :actionType => 'CREATE',
-     :receiverList => {'receiver' => 
+     :receiverList => {'receiver' =>
       [{'email' => @customer.email,
        'amount' => @product.price,
        :paymentType => 'DIGITALGOODS'
@@ -18,21 +18,25 @@ class ProductsController < ApplicationController
        },
        :cancelUrl => 'http://localhost:3000/product/fail',
        :returnUrl => 'http://localhost:3000/products/success?payKey=${payKey}',
-       :ipnNotificationUrl => 'https://377d9dc.ngrok.com/products/ipn',
+       :ipnNotificationUrl => if Rails.env.production?
+         'http://upandsell.ngrok.com/products/ipn'
+       else
+         'http://upandsell.it/dev/products/ipn'
+       end,
        :currencyCode => 'USD'
        )
    @response = paypal.pay(req)
    if @response.success?
-    @payment= @product.payment.build(:paykey => @response.payKey, 
+    @payment= @product.payment.build(:paykey => @response.payKey,
       :date => @response.responseEnvelope.timestamp,
       :completed => false,
       :amount => @product.price )
     @payment.customer_id = @product.customer_id
     @payment.save
-   status = 'ok'
+    status = 'ok'
 
   end
- render json: { status: status, pay_key: @response.payKey}
+  render json: { status: status, pay_key: @response.payKey}
 end
 
 def show
