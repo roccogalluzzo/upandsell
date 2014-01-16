@@ -1,2 +1,20 @@
-<p>There's Nothing Here </p>
+<div class="col-md-8 col-md-offset-2">
+  <table class="table">
+   <% if @products.blank? %>
+   <tr> <td colspan="2">No products Founds</td></tr>
+   <% else %>
+   <% @products.each do |product| %>
+   <tr>
+    <td>
+    <strong><%= product.name %></strong>
+    </td>
+    <td>
+<a href="<%=  url_for controller: '/products', action: 'show', slug: product.slug, only_path: false %>">
+View</a>
+    </td>
+  </tr>
+  <% end %>
+  <% end %>
+</table>
+</div>
 
