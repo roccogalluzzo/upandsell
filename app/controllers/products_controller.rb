@@ -5,7 +5,6 @@ class ProductsController < ApplicationController
   def buy
     @product = Product.find(params[:id])
     @customer  = Customer.find(@product.customer_id)
-
    #Paypal logic
    paypal = PayPal::SDK::AdaptivePayments.new
    req = paypal.BuildPay(
@@ -19,11 +18,11 @@ class ProductsController < ApplicationController
        :cancelUrl => 'http://localhost:3000/product/fail',
        :returnUrl => 'http://localhost:3000/products/success?payKey=${payKey}',
        :ipnNotificationUrl => if Rails.env.production?
-         'http://upandsell.ngrok.com/products/ipn'
-       else
          'http://upandsell.it/dev/products/ipn'
+       else
+         'http://upandsell.ngrok.com/products/ipn'
        end,
-       :currencyCode => 'USD'
+       :currencyCode => @product.price_currency.upcase
        )
    @response = paypal.pay(req)
    if @response.success?
