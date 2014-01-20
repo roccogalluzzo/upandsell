@@ -57,7 +57,9 @@ Upandsell::Application.routes.draw do
   namespace :customer do
         post '/products/upload' => 'products#upload'
        resources :products
-       resources :payments
+       resources :payments do
+       get 'refund', on: :member
+       end
        root :to => "products#index"
 
      end

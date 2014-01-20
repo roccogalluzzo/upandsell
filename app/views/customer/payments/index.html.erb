@@ -17,12 +17,15 @@
             <td>
              <%= payment.product.name %>
             <div class="btn-group">
-           
+
 
              <%= link_to "Show", customer_payment_path(payment), :class => "btn btn-info" %>
            </div>
          </td>
          <td><%= payment.amount %></td>
+         <td>
+           <%= link_to "Refund", refund_customer_payment_path(payment), :class => "btn btn-success" %>
+           </td>
        </tr>
        <% end %>
        <% end %>
