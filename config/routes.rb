@@ -8,16 +8,15 @@ Upandsell::Application.routes.draw do
   #product page
   get '/p/:slug' => 'products#show'
   # Example of regular route:
-   get 'products/success' => 'products#success'
-   post 'products/ipn' => 'products#ipn'
-
+  get 'products/success' => 'products#success'
+  post 'products/ipn' => 'products#ipn'
+  get 'download/p/:token' => 'products#download', :as => 'download_product'
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :products  do
    get 'buy',  on: :member
-
  end
  resources :customers
   # Example resource route with options:
@@ -55,12 +54,12 @@ Upandsell::Application.routes.draw do
 
   # Example resource route within a namespace:
   namespace :customer do
-        post '/products/upload' => 'products#upload'
-       resources :products
-       resources :payments do
-       get 'refund', on: :member
-       end
-       root :to => "products#index"
+    post '/products/upload' => 'products#upload'
+    resources :products
+    resources :payments do
+     get 'refund', on: :member
+   end
+   root :to => "products#index"
 
-     end
+ end
 end

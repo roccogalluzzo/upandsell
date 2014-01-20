@@ -37,7 +37,17 @@ class ProductsController < ApplicationController
   end
   render json: { status: status, pay_key: @response.payKey}
 end
+def download
+  @payment = Payment.find_by token: params[:token]
+  if @payment.n_downloads < 5
+    @payment.increment!(:n_downloads)
+    path = @payment.product.file.path
+    head(:bad_request) and return unless File.exist?(path)
+    send_file(path, :filename => @payment.product.file.instance.file_file_name)
+  end
 
+  #TODO error message if number of mak downloads if espired
+end
 def show
  @product = Product.find_by slug: params[:slug]
 end
@@ -47,6 +57,7 @@ def ipn
     payment = Payment.find_by paykey: params["pay_key"]
     if params["status"] == "COMPLETED"
       payment.completed = true
+      payment.token = SecureRandom.urlsafe_base64(16);
       payment.save
     end
 
