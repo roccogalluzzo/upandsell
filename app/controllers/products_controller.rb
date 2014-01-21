@@ -67,7 +67,6 @@ def ipn
 end
 
 def success
-  print params
 
   @payment = Payment.find_by paykey: params[:payKey]
 
