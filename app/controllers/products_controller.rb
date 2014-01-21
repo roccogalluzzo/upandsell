@@ -69,7 +69,10 @@ end
 def success
 
   @payment = Payment.find_by paykey: params[:payKey]
-
+  if @payment.completed
+    session[:user_products] ||= {}
+    session[:user_products][@payment.product.id] = @payment.token
+  end
   render layout: false
 end
 
