@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
 gem 'rails', '4.0.2'
 
 #custom gems
@@ -26,6 +25,8 @@ end
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development, :test]
 gem 'mysql', group: :production
+gem "redis", "~> 3.0.1"
+gem "hiredis", "~> 0.4.5"
 
 # Javscript gems
 gem 'jquery-rails'
