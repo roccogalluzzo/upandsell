@@ -53,7 +53,7 @@ def add_visit
       @redis.hincrby("product:#{@id}:sales", day, -1)
     end
 
-    def sales_last(period)
+    def sales_last(period, mapped = false)
       days = period.to_i / 1.day
       date = (current_day - period).to_i
       timestamps = Array.new(days) do
@@ -63,6 +63,9 @@ def add_visit
       sales = @redis.hmget("product:#{@id}:sales", timestamps)
       sales.map!(&:to_i)
       total = sales.compact.inject(:+)
+      if mapped
+       return [total, Hash[timestamps.zip(sales)]]
+     end
      return total
    end
   end
