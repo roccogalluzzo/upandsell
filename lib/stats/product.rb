@@ -5,7 +5,7 @@ class Stats::Products
     @id = id
   end
 
-  def visits_last(period)
+  def visits_last(period, mapped = false)
     days = period.to_i / 1.day
     date = (current_day - period).to_i
     timestamps = Array.new(days) do
@@ -15,6 +15,9 @@ class Stats::Products
     visits = @redis.hmget("product:#{@id}:views", timestamps)
     visits.map!(&:to_i)
     total = visits.compact.inject(:+)
+    if mapped
+     return [total, Hash[timestamps.zip(visits)]]
+   end
    return total
  end
 
