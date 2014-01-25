@@ -36,7 +36,8 @@ describe Stats::Products do
       s = Stats::Products.new(4)
       s.add_visit
       s.add_visit
-      LibStats::Helpers.add_visit(4, 5.days)
+      LibStats::Helpers.add_visit(4, 6.days)
+      LibStats::Helpers.add_visit(4, 7.days)
       s.add_visit
       s.add_visit
       s.visits(5.days.ago).should == 1
