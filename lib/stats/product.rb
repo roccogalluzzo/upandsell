@@ -21,6 +21,10 @@ class Stats::Products
    return total
  end
 
+ def visits(period)
+  date = period.beginning_of_day.to_i
+  total = @redis.hget("product:#{@id}:views", date).to_i
+end
 
 def add_visit
     #TODO add is human check
