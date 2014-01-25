@@ -7,18 +7,17 @@ class Stats::Products
 
   def visits_last(period)
     days = period.to_i / 1.day
-    date = (current_day - (period - 1.day)).to_i
-    total = 0
-    days.times do
-      total += @redis.hget("product:#{@id}:views", date).to_i
+    date = (current_day - period).to_i
+    timestamps = Array.new(days) do
       date = date + 1.days.to_i
+      date
     end
-    return total
-  end
-  def visits(period)
-    date = period.beginning_of_day.to_i
-    total = @redis.hget("product:#{@id}:views", date).to_i
-  end
+    visits = @redis.hmget("product:#{@id}:views", timestamps)
+    visits.map!(&:to_i)
+    total = visits.compact.inject(:+)
+   return total
+ end
+
 
 def add_visit
     #TODO add is human check
