@@ -20,7 +20,7 @@ class Stats::Products
     total = @redis.hget("product:#{@id}:views", date).to_i
   end
 
-  def add_visit
+def add_visit
     #TODO add is human check
       #increment hour counter
       hour = current_hour
