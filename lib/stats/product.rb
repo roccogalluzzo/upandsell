@@ -44,6 +44,7 @@ def add_visit
       day = current_day
       @redis.hincrby("product:#{@id}:sales", day, 1)
     end
+
     def remove_sale
       #increment hour counter
       hour = current_hour
