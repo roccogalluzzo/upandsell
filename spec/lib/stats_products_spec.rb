@@ -9,7 +9,7 @@ describe Stats::Products do
       s.add_visit
       s.add_visit
       s.add_visit
-      s.today_visits.should == 4
+      s.visits_last(1.day).should == 4
     end
 
      it "should return total week visits" do
@@ -18,7 +18,7 @@ describe Stats::Products do
       s.add_visit
       s.add_visit
       s.add_visit
-      s.week_visits.should == 4
+      s.visits_last(1.week).should == 4
     end
      it "should return total monthly visits" do
       s = Stats::Products.new(3)
@@ -26,7 +26,7 @@ describe Stats::Products do
       s.add_visit
       s.add_visit
       s.add_visit
-      s.month_visits.should == 4
+      s.visits_last(1.month).should == 4
     end
   end
 end

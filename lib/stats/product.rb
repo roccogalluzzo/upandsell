@@ -4,6 +4,18 @@ class Stats::Products
     @redis = redis
     @id = id
   end
+
+  def visits_last(period)
+    days = period.to_i / 1.day
+    date = (current_day - (period - 1.day)).to_i
+    total = 0
+    days.times do
+      total += redis.hget("product:#{@id}:views", date).to_i
+      date = date + 1.days.to_i
+    end
+    return total
+  end
+
   def add_visit
     #TODO add is human check
       #increment hour counter
@@ -15,32 +27,6 @@ class Stats::Products
 
     end
 
-    def today_visits
-      day = current_day
-      @redis.hget("product:#{@id}:views", day).to_i
-    end
-
-    def week_visits
-      day = current_day
-      sum = 0
-      7.times do
-       sum += redis.hget("product:#{@id}:views", day).to_i
-       day = day - 1.days.to_i
-     end
-     sum
-   end
-
-   def month_visits
-    day = current_day
-    sum = 0
-    30.times do
-     sum += @redis.hget("product:#{@id}:views", day).to_i
-     day = day - 1.days.to_i
-   end
-   sum
- end
-
- def add_sale
       #increment hour counter
       hour = current_hour
       @redis.hincrby("product:#{@id}:salses:daily", hour, 1)
