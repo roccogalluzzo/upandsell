@@ -55,16 +55,14 @@ def add_visit
 
     def sales_last(period)
       days = period.to_i / 1.day
-      date = (current_day - (period - 1.day)).to_i
-      total = 0
-      days.times do
-        total += redis.hget("product:#{@id}:sales", date).to_i
+      date = (current_day - period).to_i
+      timestamps = Array.new(days) do
         date = date + 1.days.to_i
+        date
       end
-      return total
-    end
-    def sales(period)
-      date = period.beginning_of_day.to_i
-      total = @redis.hget("product:#{@id}:sales", date).to_i
-    end
+      sales = @redis.hmget("product:#{@id}:sales", timestamps)
+      sales.map!(&:to_i)
+      total = sales.compact.inject(:+)
+     return total
+   end
   end
