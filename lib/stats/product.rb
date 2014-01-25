@@ -46,28 +46,15 @@ class Stats::Products
       day = current_day
       @redis.hincrby("product:#{@id}:sales", day, -1)
     end
-    def today_sales
-      day = current_day
-      @redis.hget("product:#{@id}:sales", day).to_i
+
+    def sales_last(period)
+      days = period.to_i / 1.day
+      date = (current_day - (period - 1.day)).to_i
+      total = 0
+      days.times do
+        total += redis.hget("product:#{@id}:sales", date).to_i
+        date = date + 1.days.to_i
+      end
+      return total
     end
-
-    def week_sales
-      day = current_day
-      sum = 0
-      7.times do
-       sum += redis.hget("product:#{@id}:sales", day).to_i
-       day = day - 1.days.to_i
-     end
-     sum
-   end
-
-   def month_sales
-    day = current_day
-    sum = 0
-    30.times do
-     sum += @redis.hget("product:#{@id}:sales", day).to_i
-     day = day - 1.days.to_i
-   end
-   sum
- end
-end
+  end
