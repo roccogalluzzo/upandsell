@@ -24,9 +24,9 @@ class Stats::Products
       #increment day counter
       day = current_day
       @redis.hincrby("product:#{@id}:views", day, 1)
-
     end
 
+    def add_sale
       #increment hour counter
       hour = current_hour
       @redis.hincrby("product:#{@id}:salses:daily", hour, 1)
