@@ -10,7 +10,7 @@ class Stats::Products
     date = (current_day - (period - 1.day)).to_i
     total = 0
     days.times do
-      total += redis.hget("product:#{@id}:views", date).to_i
+      total += @redis.hget("product:#{@id}:views", date).to_i
       date = date + 1.days.to_i
     end
     return total
