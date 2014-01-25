@@ -57,4 +57,8 @@ class Stats::Products
       end
       return total
     end
+    def sales(period)
+      date = period.beginning_of_day.to_i
+      total = @redis.hget("product:#{@id}:sales", date).to_i
+    end
   end
