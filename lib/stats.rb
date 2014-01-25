@@ -4,12 +4,12 @@ module Stats
   end
 
   def current_hour
-    t = Time.new
+    t = Time.current
     t.beginning_of_hour.to_time.to_i
   end
 
   def current_day
-    t = Time.new
+    t = Time.current
     t.beginning_of_day.to_time.to_i
   end
 
