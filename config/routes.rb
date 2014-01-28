@@ -54,6 +54,10 @@ Upandsell::Application.routes.draw do
 
   # Example resource route within a namespace:
   namespace :customer do
+    # Settings
+    get 'settings/account' => 'settings#account'
+    get 'settings/payments' => 'settings#payments'
+    patch 'settings/update_account' => 'settings#update_account'
     post '/products/upload' => 'products#upload'
     resources :products
     resources :payments do

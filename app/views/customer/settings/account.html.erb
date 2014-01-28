@@ -1,0 +1,41 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#">Account</a></li>
+  <li><a href="#">Payments</a></li>
+</ul>
+<h3 class="wizard">
+    <i class="fa fa-cogs"></i> Account Settings</h3>
+<%= simple_form_for @customer, url:  customer_settings_update_account_path,
+class: 'form-horizontal' do |f| %>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.input :password, :autocomplete => "off"  %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.input :password_confirmation %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.input :email, :autocomplete => "off"  %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="form-group">
+
+    </div>
+  </div>
+</div>
+<div class="row">
+ <div class="col-md-12 text-center"><hr />
+  <%= f.button :submit, class: 'btn btn-primary' %>
+</div>
+</div>
+
+<% end %>

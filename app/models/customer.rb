@@ -5,4 +5,10 @@ class Customer < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 has_many :product
 has_many :payment
+
+validates_confirmation_of :password
+
+def update_account(params)
+self.update_attributes(params)
+end
 end
