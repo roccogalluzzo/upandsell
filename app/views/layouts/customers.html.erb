@@ -29,12 +29,17 @@
       <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-user"></i> Rocco Galluzzo
-                <b class="caret"></b></a>
+                <i class="fa fa-cog"></i>
+                </a>
                 <ul class="dropdown-menu">
                   <li>
 <%= link_to(customer_settings_account_path) do %>
-<i class="fa fa-cog"></i>Settings
+<i class="fa fa-user"></i> Account
+             <% end %>
+                </li>
+                 <li>
+<%= link_to(customer_settings_payments_path) do %>
+<i class="fa fa-money"></i> Payments
              <% end %>
                 </li>
               </ul>

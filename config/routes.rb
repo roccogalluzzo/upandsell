@@ -58,6 +58,7 @@ Upandsell::Application.routes.draw do
     get 'settings/account' => 'settings#account'
     get 'settings/payments' => 'settings#payments'
     patch 'settings/update_account' => 'settings#update_account'
+    patch 'settings/update_payments' => 'settings#update_payments'
     post '/products/upload' => 'products#upload'
     resources :products
     resources :payments do
