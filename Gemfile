@@ -6,6 +6,7 @@ gem 'rails', '4.0.2'
 #custom gems
 gem 'devise'
 gem 'paypal-sdk-adaptivepayments'
+gem 'paymill'
 gem 'money-rails'
 gem 'paperclip'
 gem 'aws-sdk'
@@ -22,9 +23,8 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 end
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', group: [:development, :test]
-gem 'mysql', group: :production
+
+gem 'mysql2'
 gem "redis", "~> 3.0.1"
 gem "hiredis", "~> 0.4.5"
 
