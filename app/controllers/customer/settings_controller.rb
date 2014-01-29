@@ -7,6 +7,14 @@ class Customer::SettingsController < Customer::BaseController
 
   def payments
    #set payment options
+   @customer = current_customer
+   if params[:code]
+     #redirect from paymill site
+     response = Billing::Paymill::Unite.access_token(params[:code])
+     @customer.add_credit_card(response)
+     @customer = current_customer
+   end
+   @paymill_url = Billing::Paymill::Unite.auth_url
  end
 
  def update_account
