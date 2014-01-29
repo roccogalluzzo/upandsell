@@ -32,9 +32,17 @@ class Customer::SettingsController < Customer::BaseController
     end
   end
 end
+  def update_payments
+   @customer = Customer.find(current_customer.id)
+
+   unless @customer.blank?
+     @customer.update_without_password(params[:customer]
+      .permit(:credit_card_status, :paypal_status, :email_paypal))
+    end
+     redirect_to customer_settings_payments_path, notice: 'Account Updated'
+  end
 
 private
-
 def customer_params
   params.require(:customer).permit( :email, :password,
     :password_confirmation)
