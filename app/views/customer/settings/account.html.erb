@@ -1,7 +1,4 @@
-<ul class="nav nav-pills">
-  <li class="active"><a href="#">Account</a></li>
-  <li><a href="#">Payments</a></li>
-</ul>
+  <%= render partial: "tabs" %>
 <h3 class="wizard">
     <i class="fa fa-cogs"></i> Account Settings</h3>
 <%= simple_form_for @customer, url:  customer_settings_update_account_path,
