@@ -3,6 +3,7 @@
   "dependencies": {
     "bootstrap": "3.1.0",
     "font-awesome": "4.0.3",
+    "flat-ui-official": "latest",
     "jquery-file-upload": "latest"
   }
 }

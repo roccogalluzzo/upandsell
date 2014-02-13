@@ -1,4 +1,4 @@
 asset "bootstrap", "3.1.0"
 asset "font-awesome", "4.0.3"
-
+asset "flat-ui-official"
 asset "jquery-file-upload"
