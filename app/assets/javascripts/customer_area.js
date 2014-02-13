@@ -11,15 +11,12 @@
 // about supported directives.
 //
 //= require jquery
-//= require modernizr.custom
 //= require jquery_ujs
-//= require bootstrap
+//= require bootstrap/dist/js/bootstrap
 //= require turbolinks
-//= require jquery.fileupload/jquery.ui.widget.js
-//= require load-image.min
-//= require jquery.fileupload/jquery.fileupload.js
-//= require jquery.fileupload/jquery.iframe-transport.js
-//= require jquery.fileupload/jquery.fileupload-process.js
-//= require jquery.fileupload/jquery.fileupload-image.js
-//= require jquery.peity
+//= require blueimp-load-image/js/load-image
+//= require jquery-file-upload//js/jquery.fileupload.js
+//= require jquery-file-upload/js/jquery.iframe-transport.js
+//= require jquery-file-upload/js/jquery.fileupload-process.js
+//= require jquery-file-upload/js/jquery.fileupload-image.js
 //= require admin
