@@ -39,6 +39,7 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem 'sass-rails'
 gem "twitter-bootstrap-rails"
 gem "font-awesome-rails"
+gem "bower-rails", "~> 0.7.0"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
