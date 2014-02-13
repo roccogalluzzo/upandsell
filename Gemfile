@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
 #custom gems
@@ -24,6 +23,7 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+# database gems
 gem 'mysql2'
 gem "redis", "~> 3.0.1"
 gem "hiredis", "~> 0.4.5"
@@ -45,5 +45,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-# Use Capistrano for deployment
- gem 'capistrano', group: :development
+# Deployment
+gem 'capistrano', group: :development
+gem 'puma'
