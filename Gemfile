@@ -37,8 +37,6 @@ gem 'uglifier', '>= 1.3.0'
 # Css gems
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'sass-rails'
-gem "twitter-bootstrap-rails"
-gem "font-awesome-rails"
 gem "bower-rails", "~> 0.7.0"
 
 group :doc do
