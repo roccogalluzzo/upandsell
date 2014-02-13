@@ -19,6 +19,7 @@ module Upandsell
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.autoload_paths += %W(#{config.root}/lib)
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
     config.i18n.enforce_available_locales = true
     config.action_dispatch.default_headers = {  'X-Frame-Options' => 'GOFORIT' }
     config.currencies = [:usd, :eur, :gbp]
