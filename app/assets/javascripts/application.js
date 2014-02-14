@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require bootstrap/dist/js/bootstrap
 //= require turbolinks
-//= require chosen.jquery.min.js
-//= require morris/morris.min.js
 //= require products
