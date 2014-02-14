@@ -12,11 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap/dist/js/bootstrap
 //= require turbolinks
+//= require bootstrap/dist/js/bootstrap
+//= require jquery-file-upload//js/vendor/jquery.ui.widget.js
+//= require jquery-file-upload//js/jquery.iframe-transport.js
 //= require blueimp-load-image/js/load-image
 //= require jquery-file-upload//js/jquery.fileupload.js
 //= require jquery-file-upload/js/jquery.iframe-transport.js
 //= require jquery-file-upload/js/jquery.fileupload-process.js
-//= require jquery-file-upload/js/jquery.fileupload-image.js
 //= require admin
