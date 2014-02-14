@@ -1,19 +1,88 @@
-<% content_for :sidebar do %>
-<li>  <%= link_to "Add", new_customer_path %></li>
-<% end %>
-
- <div class="headline"><h3>Customer list - debug </h3></div>
-  <table class="table table-bordered">
-  <tr><th>Name</th><th>Actions</th>
-  <% @customers.each do |customer| %>
-    <tr>
-      <td><%= customer.email %></td>
-      <td><div class="btn-group">
-       <%= link_to "Show", customer_path(customer), :class => "btn btn-info" %>
-       <%= link_to "Edit", edit_customer_path(customer), :class => "btn" %>
-       <%= link_to "Delete", customer_path(customer), method: :delete, data: { confirm: 'Are you sure?'} , :class => "btn btn-danger" %>
+   <div class="row headline glue-fix">
+     <div class="col-lg-9">
+      <h1>SUMMARY</h1>
+    </div>
+    <div class="col-lg-3">
+     <div class="btn-group pull-right"  data-toggle="buttons">
+      <label class="btn btn-primary active">
+        <input type="radio" name="options" id="option1"> Today
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" id="option2"> Week
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" id="option3"> Month
+      </label>
+    </div>
+  </div>
 </div>
-      </td>
-    </tr>
-  <% end %>
-</table>
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-6">
+          <div class="row stats-summary">
+
+            <div class="col-lg-4 stats-summary-col visits">
+              <h3>123</h3>
+              <small>Visits</small>
+            </div>
+            <div class="col-lg-4 stats-summary-col sales">
+              <h3>123</h3>
+              <small>Sales</small>
+            </div>
+            <div class="col-lg-4  stats-summary-col earnings">
+              <h3><span class="dollar">$</span>123</h3>
+              <small>Earnings</small>
+            </div>
+          </div>
+</div>
+</div>
+         <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 text-center">
+              <hr></hr>
+
+            </div>
+          </div>
+          <div class="row glue-fix">
+            <div class="col-lg-5 col-lg-offset-1">
+              <h3 class="text-center">LAST PAYMENTS</h3>
+              <div class="notification-box">
+<p class="text-center">No new payments</p>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <h3 class="text-center">TOP SELLING PRODUCTS</h3>
+              <div class="list">
+
+           </div>
+           <div class="list-item row">
+            <div class="col-sm-9">
+             1.
+             <img data-src="holder.js/140x140"
+             class="img-circle"
+             src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCI+PHJlY3Qgd2lkdGg9IjE0MCIgaGVpZ2h0PSIxNDAiIGZpbGw9IiNlZWUiPjwvcmVjdD48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI3MCIgeT0iNzAiIHN0eWxlPSJmaWxsOiNhYWE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LXNpemU6MTJweDtmb250LWZhbWlseTpBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj4xNDB4MTQwPC90ZXh0Pjwvc3ZnPg=="
+             >
+             <a href="#">Otto</a>
+           </div>
+           <div class="col-sm-2 list-earnings">$124</div>
+
+
+         </div>
+         <div class="list-item row">
+          <div class="col-sm-9">
+           1.
+           <img data-src="holder.js/140x140"
+           class="img-circle"
+           src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCI+PHJlY3Qgd2lkdGg9IjE0MCIgaGVpZ2h0PSIxNDAiIGZpbGw9IiNlZWUiPjwvcmVjdD48dGV4dCB0ZXh0LWFuY2hvcj0ibWlkZGxlIiB4PSI3MCIgeT0iNzAiIHN0eWxlPSJmaWxsOiNhYWE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LXNpemU6MTJweDtmb250LWZhbWlseTpBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZjtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj4xNDB4MTQwPC90ZXh0Pjwvc3ZnPg=="
+           >
+           <a href="#">Otto</a>
+         </div>
+         <div class="col-sm-2 list-earnings">$124</div>
+
+
+       </div>
+     </div>
+   </div>
+ </div>
+</div>

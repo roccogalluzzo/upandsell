@@ -1,56 +1,87 @@
 .stats-summary {
   margin-top: 10px;
 }
-.sales {
-  text-align: center;
-  border-right: 2px dotted #eee;
-  padding: 0;
-  margin-bottom: 8px;
-}
-.sales-first {
-  text-align: center;
-  border-right: 2px dotted #eee;
-  border-left: 2px dotted #eee;
-  padding: 0;
-}
-.sales h3 {
+
+.stats-summary-col {
+ text-align: center;
+ border-right: 2px dotted @clouds;
+ padding: 0;
+ h3 {
   text-transform: uppercase;
   font-size: 46px;
-  color: #555;
   margin-bottom: 0;
+  color: @peter-river;
 }
-.sales small {
+small {
+  color: @wet-asphalt;
   text-transform: uppercase;
   font-size: 16px;
-  color: #cccccc;
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
+}
+
+.visits {
+ border-left: 2px dotted @clouds;
+
+}
+
+.sales {
+
+}
+
+.earnings {
+
+.dollar {
+  color:  @turquoise;
+  vertical-align: super;
+  font-size: 26px;
+}
+}
+
 
 .list-item {
   padding: 8px;
   margin: 8px;
   height: 70px;
- /* border-radius: 5px;*/
-  border-bottom: 2px solid  @gray-light;
+  /* border-radius: 5px;*/
+  border-bottom: 2px solid  @clouds;
+img {
+   height: 55px;
+  width: 55px;
+  margin: 0 5px;
+}
+.ext {
+  padding-top: 16px;
+  text-align: right;
+}
+.details {
+   margin-left: -15px;
+   padding-top: 11px;
+   strong {
+    margin-right: 10px;
+   }
+   i {   margin-right: 10px; }
+}
 }
 .list-item:nth-of-type(even) {
   /*background: @gray-light*/
 }
 
-.list-item img{
-  height: 55px;
-  width: 55px;
-  margin: 0 5px;
+.list-stats {
+
+  font-size: 22px;
+   margin: 15px 5px;
+
+  span {
+   margin: 0px 5px;
+  }
+  .dollar {
+  color:  @turquoise;
+  vertical-align: super;
+  font-size: 16px;
 }
-.list-item i {
-  margin: 13px 5px;
-}
-.list-earnings {
-  margin: 15px 5px;
-  font-size: 20px;
-  color: #00ad73;
+  color: @peter-river;
 }
 
 .notification-box {

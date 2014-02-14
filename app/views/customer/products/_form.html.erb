@@ -12,8 +12,10 @@
   <form id="form_file" action="<%= url_for customer_products_upload_path  %>" methos="POST" class="form-inline">
     <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
     <input class="upload_id" type="hidden" name="[product]upload_id" value="<% unless @product.new_record? %>1<% end %>" />
- <input class="file required input-file hide" id="product_file" name="product[file_js]" type="file">
-    <div class="row upload-js hide">
+    <div class="form-group">
+     <input class="file required input-file hide" id="product_file" name="product[file_js]" type="file">
+   </div>
+   <div class="row upload-js hide">
      <h2 class="wizard">   <i class="fa fa-cloud-upload fa-muted"></i>
        Upload File</h2>
        <div class="col-md-12 product-upload-box" >
@@ -30,7 +32,7 @@
         <div class="percent"><span id="percentile">0</span>%
           <p class="muted">Uploading <span id="file_name"></span>...</p>
         </div>
-        <a id="btn-product-upload" class="btn btn-success" href="#">
+        <a id="btn-product-upload" class="btn btn-primary" href="#">
          <i class="fa fa-cloud-upload"></i> <span>
          <% if @product.new_record? %>
          Choose From Computer
@@ -42,34 +44,40 @@
        <a id="btn-product-cancel-upload" class="btn btn-danger" href="#">
          <i class="fa fa-remove"></i> Cancel</a>
        </div>
-    </div>
-  </form>
-  <%= simple_form_for [:customer,@product],:class => 'form-horizontal'  do |f| %>
-  <input class="upload_id" type="hidden" name="[product]upload_id" value="<% unless @product.new_record? %>1<% end %>" />
-  <input class="upload_file_name" type="hidden" name="[product]upload_file_name" />
-  <input id="currency" type="hidden" name="[product]currency" value="EUR" />
+     </div>
+   </form>
+   <%= simple_form_for [:customer,@product],:class => 'form-horizontal'  do |f| %>
+   <input class="upload_id" type="hidden" name="[product]upload_id" value="<% unless @product.new_record? %>1<% end %>" />
+   <input class="upload_file_name" type="hidden" name="[product]upload_file_name" />
+   <input id="currency" type="hidden" name="[product]currency" value="EUR" />
 
-  <div class="row">
-   <h2 class="wizard">
-    <i class="fa fa-pencil fa-muted"></i> Set Info</h2>
-    <div class="col-md-9">
+   <div class="row">
+     <h2 class="wizard">
+      <i class="fa fa-pencil fa-muted"></i> Set Info</h2>
+      <div class="col-md-7">
         <div class="file-alt">
          <%= f.input_field :file, id: 'file-input', class: 'input-product input-file' %>
        </div>
-      <div class="form-group">
+       <div class="form-group">
         <label id="product_name_label">Product Name</label>
         <%= f.input_field :name, class: 'form-control' %>
       </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
      <div class="form-group">
-      <label id="product_price_label">Price</label>
-        <%= f.input :price_currency,
-        collection: Upandsell::Application.config.currencies,
-        include_blank: false,
-        class: 'form-control' %>
-      <%= f.input_field :price, class: 'form-control' %>
+
+      <%= f.input :price_currency,
+      collection: Upandsell::Application.config.currencies,
+      include_blank: false,
+      class: 'form-control select-block' %>
     </div>
+  </div>
+  <div class="col-md-3">
+    <div class="form-group">
+     <label id="product_price_label">Price</label>
+     <%= f.input_field :price, class: 'form-control' %>
+   </div>
+ </div>
 
 <!--        TODO implement currency selection
 <div class="input-prepend">
@@ -86,13 +94,12 @@
 
       </div> -->
     </div>
-  </div>
   <div class="row">
     <div class="col-md-6">
       <div class="product-preview-box hide">
         <label id="product_preview_label">Preview</label>
         <div id="btn-thumb-cont">
-          <a id="btn-thumb-upload" class="btn btn-success" href="#">
+          <a id="btn-thumb-upload" class="btn btn-primary" href="#">
            <i class="fa fa-cloud-upload"></i>Choose Image</a>
          </div>
          <div class="text-center add-thumb preview">

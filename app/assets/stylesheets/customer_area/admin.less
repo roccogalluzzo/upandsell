@@ -1,6 +1,8 @@
 @import "top.less";
 @import "dashboard.less";
-
+@import "common.less";
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700,700italic,900,400italic,300");
+//@brand-secondary:      @peter-river;
 .glue-fix {
 margin-left: 0px;
 margin-right: 0px;
@@ -23,6 +25,9 @@ h3 {
   font-size: 20px;
 }
 
+hr {
+  border-top: 2px solid @clouds;
+}
 #footer {
   height: 30px;
   background-color: @gray-dark;
@@ -32,4 +37,20 @@ min-height: 100%;
 height: auto;
 margin: 0 auto -60px;
 padding: 0 0 60px;
+}
+
+.product-upload-box {
+  border: 2px dotted @clouds;
+  .text-center;
+  padding: 15px;
+}
+.product-preview-box {
+ border: 2px dotted @clouds;
+  .text-center;
+  padding: 15px;
+}
+.wizard {
+
+    font-size: 22px;
+
 }
