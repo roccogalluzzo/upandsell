@@ -22,7 +22,7 @@
 
     <body>
      <div id="wrap">
-      <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -30,40 +30,21 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-
           <%= link_to('UP&SELL.ME',customer_root_path, :class => 'navbar-brand') %>
-
         </div>
-        <div class="navbar-collapse collapse">
+
           <ul class="nav navbar-nav">
-            <%
-            dashboard_icon = "fa fa-home"
-            products_icon = "fa fa-file"
-            orders_icon = "fa fa-money"
-            if current_page?(customers_path)
-              dashboard_icon << " white"
-            end
-
-            if current_page?(customer_products_path)
-              products_icon << " white"
-            end
-
-            if current_page?(customer_payments_path)
-              orders_icon << " white"
-            end
-            %>
             <li class="<%= 'active' if current_page?(customers_path) %>">
-              <%= link_to raw('<i class="' + dashboard_icon + '"></i> Summary'), customers_path %>
-
+              <%= link_to raw('Summary'), customers_path %>
             </li>
             <li class="<%= 'active' if current_page?(customer_products_path) %>">
-             <%= link_to raw('<i class="' + products_icon + '"></i> Products'), customer_products_path %>
+             <%= link_to raw('Products'), customer_products_path %>
            </li>
            <li class="<%= 'active' if current_page?(customer_payments_path) %>">
-            <%= link_to raw('<i class="' + orders_icon + '""></i> Stats'), customer_payments_path %>
+            <%= link_to raw('Stats'), customer_payments_path %>
           </li>
-          <li><a href="#"><i class="fa fa-bar-chart-o"></i> Stats</a></li>
-          <li><a href="#"><i class="fa fa-info-circle"></i> Support</a></li>
+          <li><a href="#">Stats</a></li>
+          <li><a href="#">Support</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
@@ -73,7 +54,7 @@
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-cog"></i>
+              <i class="fa fa-cog fa-lg"></i>
             </a>
             <ul class="dropdown-menu">
               <li>
@@ -90,38 +71,18 @@
           </li>
           <li>
            <%= link_to(destroy_customer_session_path, :method => :delete) do %>
-           <i class="fa fa-sign-out"></i>
+           <i class="fa fa-sign-out fa-lg"></i>
            <% end %>
          </li>
        </ul>
-     </div>
+
    </div>
-   <div class="row headline glue-fix">
-     <div class="col-lg-9">
-      <h1>SUMMARY</h1>
-    </div>
-    <div class="col-lg-3">
-     <div class="btn-group pull-right"  data-toggle="buttons">
-      <label class="btn btn-primary active">
-        <input type="radio" name="options" id="option1"> Today
-      </label>
-      <label class="btn btn-primary">
-        <input type="radio" name="options" id="option2"> Week
-      </label>
-      <label class="btn btn-primary">
-        <input type="radio" name="options" id="option3"> Month
-      </label>
+
+   <div class="row">
+    <div class="col-lg-12 content">
+<%= yield %>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-lg-12 content">
-
-    <%= render partial: "layouts/messages", flash: flash %>
-
-    <%= yield %>
-  </div>
-</div>
 </div>
 </body>
 </html>
