@@ -4,8 +4,20 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700,700italic,900,400italic,300");
 //@brand-secondary:      @peter-river;
 .glue-fix {
-margin-left: 0px;
-margin-right: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  -ms-filter: 'alpha(opacity=0)';
+  font-size: 200px;
+  direction: ltr;
+  cursor: pointer;
 }
 .panel-form {
   padding: 50px;
@@ -33,10 +45,10 @@ hr {
   background-color: @gray-dark;
 }
 #wrap {
-min-height: 100%;
-height: auto;
-margin: 0 auto -60px;
-padding: 0 0 60px;
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding: 0 0 60px;
 }
 
 .product-upload-box {
@@ -46,11 +58,36 @@ padding: 0 0 60px;
 }
 .product-preview-box {
  border: 2px dotted @clouds;
-  .text-center;
-  padding: 15px;
+ .text-center;
+ padding: 15px;
 }
 .wizard {
+  font-size: 22px;
+}
 
-    font-size: 22px;
+.modal-header {
+  background-color: @brand-primary;
+  color: white;
+  h4 {
+    font-weight: 300;
+    text-transform: uppercase;
+  }
+}
+.progress {
+  margin-bottom: 5px;
+}
+.upload-row {
 
+  text-align: center;
+  background-color: white;
+  border: 4px dotted @clouds;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.btn-preview {
+  color: #ffffff !important;
+  background-color: @brand-secondary !important;
+  border: 2px solid @brand-secondary !important;
 }

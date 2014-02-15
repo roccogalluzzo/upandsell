@@ -4,15 +4,34 @@
       <h1>PRODUCTS</h1>
     </div>
     <div class="col-lg-2">
-    <button class="btn btn-primary" data-toggle="modal" data-target="#new-product">
-    Add New Product
+    <button class="btn btn-primary"
+     data-toggle="modal" data-backdrop="static" data-target="#new-product">
+    Add Product
     </button>
     </div>
   </div>
 
 
 </div>
+<!-- Modal -->
+<div class="modal fade in" id="new-product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+      </div>
+      <div class="modal-body">
+      <%= render 'add' %>
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-lg-12 content">
     <div class="row">

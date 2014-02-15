@@ -20,4 +20,14 @@
 //= require jquery-file-upload//js/jquery.fileupload.js
 //= require jquery-file-upload/js/jquery.iframe-transport.js
 //= require jquery-file-upload/js/jquery.fileupload-process.js
-//= require admin
+//= require product
+
+$(document).ready(function(){
+
+ $( "#new-product" ).on('shown.bs.modal', function(){
+
+  Product.init();
+
+});
+});
+
