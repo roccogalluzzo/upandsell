@@ -1,0 +1,76 @@
+    <!-- Modal -->
+
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+
+            <div class="upload-row col-lg-offset-1 col-lg-10">
+             <div class="invisible progress">
+              <div class="progress-bar" style="width: 0%;"></div>
+            </div>
+            <div class="filename invisible"><b>Filename.exe</b></div>
+            <span class="btn btn-primary fileinput-button">
+              <span data-text-type="choose">Choose File to Sell</span>
+              <span class="hidden" data-text-type="cancel">Cancel</span>
+              <span class="hidden" data-text-type="change">Change</span>
+              <input data-url="<%= url_for customer_products_upload_path  %>"
+              id="product-upload-btn" type="file" name="product[file_js]" multiple="" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol', Symbola, EmojiSymbols;">
+            </span>
+          </div>
+
+
+
+        </div>
+        <%= simple_form_for [:customer,@product],:class => 'form-horizontal'  do |f| %>
+        <input class="upload_id" type="hidden" name="[product]upload_id" value="<% unless @product.new_record? %>1<% end %>" />
+        <input class="upload_file_name" type="hidden" name="[product]upload_file_name" />
+        <%= f.input :price_currency, as: :hidden %>
+        <div class="form-group row">
+          <div class="col-xs-10">
+            <%= f.input_field :name, class: 'form-control' %>
+            <span class="help-block">Be descriptive</span>
+          </div>
+          <div class="col-xs-2">
+           <div class="input-group">
+           <span id="currency"
+           data-currency-symbols="[&quot;$&quot;,&quot;\u00a3&quot;,&quot;\u20ac&quot;]"
+           data-currency-values="[&quot;usd&quot;,&quot;gbp&quot;,&quot;eur&quot;]"
+           class="input-group-addon btn btn-preview">$</span>
+            <%= f.input_field :price, class: 'form-control' %>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group row">
+        <div class="col-xs-12">
+          <div class="input-group">
+           <%= f.input_field :thumb, id: 'file-input', class: 'input-thumb input-file' %>
+           <span class="input-group-btn">
+            <button class="btn btn-primary btn-preview" type="button">Choose Preview</button>
+          </span>
+        </div><!-- /input-group -->
+      </div>
+
+
+    </div>
+    <div class="form-group row">
+      <div class="col-xs-12">
+        <%= f.input_field :description, class: 'form-control product-description' %>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <%= f.button :submit, class: 'btn btn-primary' %>
+    </div>
+  </div>
+
+  <% end %>
+</div>
+</div>

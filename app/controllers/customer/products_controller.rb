@@ -7,6 +7,10 @@ end
 
 def new
   @product = Product.new
+  respond_to do |format|
+    format.html
+    format.js
+  end
 end
 
 def upload
