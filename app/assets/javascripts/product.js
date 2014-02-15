@@ -6,6 +6,20 @@
 
 Product.init = function() {
   s = settings;
+  $("#currency").bind('click', function(e){
+
+    syms = $("#currency").data('currency-symbols');
+    vals = $("#currency").data('currency-values');
+    i = $.inArray($(this).text(), syms);
+    console.log(i, syms.length);
+    if(i == (syms.length -1)){
+      i =0;
+    }else {
+      i++;
+    }
+$("#currency").text(syms[i]);
+$("#product_price_currency").val(vals[i]);
+  });
     // setup upload product button
     $("#product-upload-btn").fileupload()
     .bind('fileuploadadd', function (e, data) {
