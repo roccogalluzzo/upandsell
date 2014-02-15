@@ -60,7 +60,7 @@ def create
  end
 else
   flash[:error] = @product.errors.messages
-  render new_customer_product_path
+  render new_customer_product_path, format: 'js'
 end
 end
 
