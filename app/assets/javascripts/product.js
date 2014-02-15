@@ -49,6 +49,8 @@ $("#product_price_currency").val(vals[i]);
     showBtn('cancel', 'danger');
   }
   function fileUploadDone(data){
+   $( "input[class=upload_id]" ).val(data.result.id);
+   $( "input[class=upload_file_name]" ).val(data.files[0].name);
    $('#product-upload-btn').unbind( 'click.abort');
    showBtn('change', 'primary');
  }
