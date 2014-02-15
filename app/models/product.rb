@@ -9,9 +9,10 @@ class Product < ActiveRecord::Base
 
   has_attached_file :file,
   :url => 'download/p/:token',
-  :path => ':rails_root/uploads/products/:customer_id/:id.:style.:extension',
-  :storage => :s3,
-  :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
+  :path => ':rails_root/uploads/products/:customer_id/:id.:style.:extension'
+  #,
+  #:storage => :s3,
+  #:s3_credentials => Proc.new{|a| a.instance.s3_credentials }
 
   has_attached_file :thumb, :styles => { :small => "72x72>" }
   validates_attachment_content_type :thumb, :content_type => %w(image/jpeg image/jpg image/png)
