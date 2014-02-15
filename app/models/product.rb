@@ -14,6 +14,8 @@ class Product < ActiveRecord::Base
   :s3_credentials => Proc.new{|a| a.instance.s3_credentials }
 
   has_attached_file :thumb, :styles => { :small => "72x72>" }
+  validates_attachment_content_type :thumb, :content_type => %w(image/jpeg image/jpg image/png)
+  do_not_validate_attachment_file_type :file
 
   monetize :price_cents, with_model_currency: :price_currency
   validates :price_cents, :numericality => {
