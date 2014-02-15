@@ -20,6 +20,7 @@
 //= require jquery-file-upload//js/jquery.fileupload.js
 //= require jquery-file-upload/js/jquery.iframe-transport.js
 //= require jquery-file-upload/js/jquery.fileupload-process.js
+//= require jquery.validation/jquery.validate.js
 //= require product
 
 $(document).ready(function(){
