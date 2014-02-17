@@ -46,13 +46,6 @@ end
 render 'new'
 end
 
-def show
-  @product = Product.find(params[:id])
-  if not @product.customer_id == current_customer.id
-    render :file => "public/401.html", :status => :unauthorized
-  end
-end
-
 def edit
   @product = Product.find(params[:id])
   if not @product.customer_id == current_customer.id
