@@ -41,9 +41,9 @@ def create
   if @product.save
    if @product.update(slug: Base52.encode(@product.id))
     return redirect_to customer_products_path, notice: 'Product was created.'
-   end
+  end
 end
- render 'new'
+render 'new'
 end
 
 def show
@@ -55,9 +55,8 @@ end
 
 def edit
   @product = Product.find(params[:id])
-  respond_to do |format|
-    format.html
-    format.js
+  if not @product.customer_id == current_customer.id
+    render :file => "public/401.html", :status => :unauthorized
   end
 end
 
