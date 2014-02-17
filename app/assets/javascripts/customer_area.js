@@ -25,30 +25,9 @@
 
 $(document).ready(function(){
 
- $( "#new-product" ).on('shown.bs.modal', function(){
 
   Product.init();
 
-  $("form").validate({
-    debug: true,
-    errorClass: "has-error",
-    errorPlacement: function(error,element) {
-      return true;
-    },
-    highlight: function(element, errorClass, validClass) {
-      $(element).parent().addClass(errorClass).removeClass(validClass);
-    },
-    unhighlight: function(element, errorClass, validClass) {
-      $(element).parent().removeClass(errorClass).addClass(validClass);
-    },
-    rules: {
-      product_price: {
-        min: 1
-      }
-    },
-    onfocusout: false,
 
-  });
-});
 });
 
