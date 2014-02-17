@@ -2,6 +2,7 @@ require 'modules/base52'
 class Customer::ProductsController < Customer::BaseController
 
  def index
+
   @products = Customer.find(current_customer.id).product
 end
 
@@ -9,59 +10,40 @@ def new
   @product = Product.new
   respond_to do |format|
     format.html
-    format.js
   end
 end
 
-def upload
+def upload_request
+  id = SecureRandom.uuid
+  name = sanitize_filename(params[:name])
+  path = "uploads/products/#{Base52.encode(current_customer.id)}/#{id}/#{name}"
+  file = AWS::S3.new.buckets["upandsell"].presigned_post(
+    key: path,
+    success_action_redirect: '/',
+    success_action_status: 201,
+    metadata: {
+      id: id,
+      file_name: name})
 
-  # check if file size is more of 2GB
-  if params[:product][:file_js] and (params[:product][:file_js].size < 2147483648)
+  msg = { status: 'ok', id: id, filename: name, fields: file.fields}
 
-    name = request.uuid #+ '---' + params[:product][:file].original_filename
-    directory = Rails.root.join('app', 'tmp_uploads').to_s
-    path = File.join(directory, name)
-    File.open(path, "wb") { |f|
-      f.write(params[:product][:file_js].read)
-      f.chmod(0600)
-    }
-
-    unless params[:product][:upload_id].blank? or (params[:product][:upload_id] == '1')
-      File.delete(File.join(directory, params[:product][:upload_id]))
-    end
-    msg = { status: 'ok', id: request.uuid}
-  else
-    # File superior to 2GB
-    msg = { status: 'too_big'}
-  end
   render json: msg
 end
+
 
 def create
   params.permit(:product)
   @product = Product.new(params[:product].permit(:name, :price, :price_currency,
    :description, :thumb))
   @product.customer_id = current_customer.id
-  if params[:product][:file].present?
-    @product.file = params[:product][:file]
-  elsif params[:product][:upload_id].present?
-    path = File.join(Rails.root.join('app', 'tmp_uploads').to_s, params[:product][:upload_id])
-    @product.file =  File.new(path, "r")
-    @product.file_file_name = params[:product][:upload_file_name]
-  end
+  @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
+  @product.file_file_name =  params[:product][:filename]
   if @product.save
-   #generate slug
-   #@product.slug =
    if @product.update(slug: Base52.encode(@product.id))
-    unless params[:product][:upload_id].blank?
-     File.delete(path)
+    return redirect_to customer_products_path, notice: 'Product was created.'
    end
-   redirect_to customer_products_path, notice: 'Product was created.'
- end
-else
-  flash[:error] = @product.errors.messages
-  render new_customer_product_path, format: 'js'
 end
+ render 'new'
 end
 
 def show
@@ -73,6 +55,10 @@ end
 
 def edit
   @product = Product.find(params[:id])
+  respond_to do |format|
+    format.html
+    format.js
+  end
 end
 
 def update
@@ -102,6 +88,22 @@ def destroy
   end
   @product.destroy
   redirect_to customer_products_path
+end
+private
+def sanitize_filename(filename)
+  # Split the name when finding a period which is preceded by some
+  # character, and is followed by some character other than a period,
+  # if there is no following period that is followed by something
+  # other than a period (yeah, confusing, I know)
+  fn = filename.split /(?<=.)\.(?=[^.])(?!.*\.[^.])/m
+
+  # We now have one or two parts (depending on whether we could find
+  # a suitable period). For each of these parts, replace any unwanted
+  # sequence of characters with an underscore
+  fn.map! { |s| s.gsub /[^a-z0-9\-]+/i, '_' }
+
+  # Finally, join the parts with a period and return the result
+  return fn.join '.'
 end
 end
 
