@@ -41,11 +41,7 @@ aria-labelledby="myModalLabel" aria-hidden="false">
               </div>
               <div class="col-sm-5 details">
                 <strong>
-                <%= link_to(product.name, edit_customer_product_path(product),
-                  remote: true,
-                  data: { backdrop: "static",
-                   toggle: "modal",
-                   target: "#edit-product" }) %>
+                <%= product.name %>
                  </strong>
 
                </div>
@@ -59,6 +55,9 @@ aria-labelledby="myModalLabel" aria-hidden="false">
               <!--
                 <a href="  url_for controller: '/products', action: 'show', slug: product.slug, only_path: false ">
                 -->
+                <%= link_to(edit_customer_product_path(product)) do %>
+                <i class="fa fa-lg fa-pencil-square-o"></i>
+                <% end %>
                 <em class="text-muted"> <i class="fa fa-external-link fa-lg"></i></em>
               </a>
             </div>
