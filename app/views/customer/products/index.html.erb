@@ -1,6 +1,5 @@
-  <div class="row glue-fix headline">
-    <div class="row">
-     <div class="col-lg-10">
+<% content_for :header do %>
+    <div class="col-lg-10">
       <h1>PRODUCTS</h1>
     </div>
     <div class="col-lg-2">
@@ -12,8 +11,7 @@
        toggle: "modal",
        target: "#new-product" } %>
      </div>
-   </div>
-
+<% end %>
 
  </div>
   <div class="modal fade in" id="new-product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
