@@ -1,6 +1,6 @@
   <%= render partial: "tabs" %>
-<h3 class="wizard">
-    <i class="fa fa-cogs"></i> Payments Settings</h3>
+<div class="row">
+  <div class="col-lg-10 col-lg-offset-1">
 <%= simple_form_for @customer, url:  customer_settings_update_payments_path,
 class: 'form-horizontal' do |f| %>
 <div class="row">
@@ -41,3 +41,6 @@ class: 'form-horizontal' do |f| %>
 </div>
 
 <% end %>
+
+</div>
+</div>

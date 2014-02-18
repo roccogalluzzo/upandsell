@@ -1,34 +1,41 @@
- <div class="headline"><h3>My Orders</h3></div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Product</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
+<% content_for :header do %>
+  <div class="col-lg-10">
+    <h1>ORDERS</h1>
+  </div>
+<% end %>
+    <div class="row">
+  <div class="col-lg-12 content">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-offset-1 col-lg-10">
+            <div class="list">
+
           <% if @payments.blank? %>
           <tr> <td colspan="2">No payments Founds</td></tr>
           <% else %>
           <% @payments.each do |payment| %>
-          <tr>
-            <td></td>
-            <td>
+         <div class="list-item row">
+               <div class="col-sm-1">
              <%= payment.product.name %>
-            <div class="btn-group">
+             </div>
+             <div class="col-sm-2"> <%= payment.amount %></div>
+            <div class="col-sm-4">
 
 
              <%= link_to "Show", customer_payment_path(payment), :class => "btn btn-info" %>
-           </div>
-         </td>
-         <td><%= payment.amount %></td>
-         <td>
+
            <%= link_to "Refund", refund_customer_payment_path(payment), :class => "btn btn-success" %>
-           </td>
-       </tr>
+           </div>
+       </div>
        <% end %>
        <% end %>
-     </tbody>
-</table>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
