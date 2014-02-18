@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap/dist/js/bootstrap
 //= require jquery-file-upload//js/vendor/jquery.ui.widget.js
 //= require jquery-file-upload//js/jquery.iframe-transport.js
