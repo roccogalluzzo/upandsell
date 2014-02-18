@@ -1,18 +1,19 @@
 <% content_for :header do %>
 <div class="col-lg-2">
-  <h1>Settings</h1>
-</div>
-<ul class="nav nav-pills">
-  <li>
+  <h1>SETTINGS</h1>
+  </div>
+   <ul class="col-lg-6 nav nav-tabs">
+  <li class="<%= 'active' if current_page?(customer_settings_account_path) %>">
     <%= link_to(customer_settings_account_path) do %>
-    <i class="fa fa-user"></i> Account
+    Account
     <% end %>
   </li>
-  <li>
+  <li class="<%= 'active' if current_page?(customer_settings_payments_path) %>">
     <%= link_to(customer_settings_payments_path) do %>
-    <i class="fa fa-money"></i> Payments
+    Payments
     <% end %>
   </li>
 </ul>
+</div>
  <% end %>
 

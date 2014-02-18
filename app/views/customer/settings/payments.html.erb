@@ -3,43 +3,32 @@
   <div class="col-lg-10 col-lg-offset-1">
 <%= simple_form_for @customer, url:  customer_settings_update_payments_path,
 class: 'form-horizontal' do |f| %>
-<div class="row">
-  <div class="col-md-10">
-    <div class="form-group">
-      <%= f.input :email_paypal, :autocomplete => "off"  %>
-    </div>
-  </div>
+<div class="row payment">
   <div class="col-md-1">
-    <div class="form-group">
-      <%= f.input :paypal_status, label: false,
-      inline_label: true  %>
-    </div>
   <input type="checkbox" checked="<%= @customer[:paypal_status]%>" data-toggle="switch" />
   </div>
-</div>
-<div class="row">
-<div class="col-md-11">
-  <a href="<%= @paymill_url %>" class="btn btn-primary">Connect with Paymill</a>
-</div>
-  <div class="col-md-1">
-    <div class="form-group">
-      <%= f.input :credit_card_status, label: false,
-      inline_label: true %>
+  <div class="col-md-3">
+  <%= image_tag "paypal_logo.gif" %>
+   </div>
+
+    <div class="col-md-6">
+      <%= f.input_field :email_paypal, :autocomplete => "off"  %>
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="form-group">
 
+<div class="row payment">
 <div class="col-md-1">
  <input type="checkbox" checked="<%= @customer[:credit_card_status]%>" data-toggle="switch" />
 </div>
+  <div class="col-md-3">
+<%= image_tag "paymill.png", style: "width: 200px;" %>
+</div>
+ <div class="col-md-6">
+<a href="<%= @paymill_url %>" class="btn btn-primary">Connect with Paymill</a>
     </div>
   </div>
-</div>
 <div class="row">
- <div class="col-md-12 text-center"><hr />
+ <div class="col-md-10 text-center"><hr />
   <%= f.button :submit, class: 'btn btn-primary' %>
 </div>
 </div>
