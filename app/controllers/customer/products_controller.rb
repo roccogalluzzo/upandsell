@@ -76,8 +76,11 @@ def destroy
   if not @product.customer_id == current_customer.id
     render :file => "public/401.html", :status => :unauthorized
   end
-  @product.destroy
-  redirect_to customer_products_path
+  if @product.destroy
+   msg = { status: 'ok'}
+
+  render json: msg
+  end
 end
 private
 def sanitize_filename(filename)

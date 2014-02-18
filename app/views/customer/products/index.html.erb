@@ -30,24 +30,27 @@
                <div class="col-sm-1">
                 <%= image_tag product.thumb.url(:small), :class => "img-circle" %>
               </div>
-              <div class="col-sm-5 details">
+              <div class="col-sm-4 details">
                 <strong>
                 <%= product.name %>
                  </strong>
 
                </div>
 
-               <div class="col-sm-5 list-stats">
+               <div class="col-sm-4 list-stats">
                 <span><i class="fa fa-eye text-muted"></i> 1234</span>
                 <span><i class="fa fa-shopping-cart"></i> 1268</span>
                 <span><span class="dollar">$</span>123</span>
               </div>
-              <div  class="col-sm-1 ext">
+              <div  class="col-sm-2 ext">
               <!--
                 <a href="  url_for controller: '/products', action: 'show', slug: product.slug, only_path: false ">
                 -->
                 <%= link_to(edit_customer_product_path(product)) do %>
                 <i class="fa fa-lg fa-pencil-square-o"></i>
+                <% end %>
+                <%= link_to(customer_product_path(product), remote: true, :method => :delete) do %>
+                <i class="fa fa-lg fa-times"></i>
                 <% end %>
                 <em class="text-muted"> <i class="fa fa-external-link fa-lg"></i></em>
               </a>
