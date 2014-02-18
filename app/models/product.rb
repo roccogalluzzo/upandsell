@@ -63,6 +63,7 @@ class Product < ActiveRecord::Base
     if self.uuid_was
    #delete old file
    self.delete_file(self.customer_id, self.uuid_was, self.file_file_name_was)
+ end
 end
  def delete_file(customer_id, uuid, file_file_name)
   direct_upload_url_data = "uploads/products/#{Base52.encode(customer_id)}/#{uuid}/#{file_file_name}"
