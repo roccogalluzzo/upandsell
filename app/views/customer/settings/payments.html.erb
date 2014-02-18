@@ -5,7 +5,10 @@
 class: 'form-horizontal' do |f| %>
 <div class="row payment">
   <div class="col-md-1">
-  <input type="checkbox" checked="<%= @customer[:paypal_status]%>" data-toggle="switch" />
+  <%= f.check_box :paypal_status, as: :boolean, data: {toggle: 'switch'},
+  label: false
+  %>
+
   </div>
   <div class="col-md-3">
   <%= image_tag "paypal_logo.gif" %>
@@ -18,13 +21,19 @@ class: 'form-horizontal' do |f| %>
 
 <div class="row payment">
 <div class="col-md-1">
- <input type="checkbox" checked="<%= @customer[:credit_card_status]%>" data-toggle="switch" />
+<%= f.check_box :credit_card_status, as: :boolean, data: {toggle: 'switch'},
+label: false %>
+
 </div>
   <div class="col-md-3">
 <%= image_tag "paymill.png", style: "width: 200px;" %>
 </div>
  <div class="col-md-6">
+ <% if @customer.credit_card_token %>
+ <p class="text-success"> Connected </p>
+ <% else %>
 <a href="<%= @paymill_url %>" class="btn btn-primary">Connect with Paymill</a>
+<% end %>
     </div>
   </div>
 <div class="row">

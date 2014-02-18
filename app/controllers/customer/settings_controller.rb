@@ -14,7 +14,9 @@ class Customer::SettingsController < Customer::BaseController
      @customer.add_credit_card(response)
      @customer = current_customer
    end
-   @paymill_url = Billing::Paymill::Unite.auth_url
+   unless @customer.credit_card_token
+     @paymill_url = Billing::Paymill::Unite.auth_url
+   end
  end
 
  def update_account
@@ -32,15 +34,15 @@ class Customer::SettingsController < Customer::BaseController
     end
   end
 end
-  def update_payments
-   @customer = Customer.find(current_customer.id)
+def update_payments
+ @customer = Customer.find(current_customer.id)
 
-   unless @customer.blank?
-     @customer.update_without_password(params[:customer]
-      .permit(:credit_card_status, :paypal_status, :email_paypal))
-    end
-     redirect_to customer_settings_payments_path, notice: 'Account Updated'
-  end
+ unless @customer.blank?
+   @customer.update_without_password(params[:customer]
+    .permit(:credit_card_status, :paypal_status, :email_paypal))
+ end
+ redirect_to customer_settings_payments_path, notice: 'Account Updated'
+end
 
 private
 def customer_params
