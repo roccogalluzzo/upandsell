@@ -37,7 +37,6 @@ def create
    :description, :thumb))
   @product.customer_id = current_customer.id
   @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
-  @product.file_file_name =  params[:product][:filename]
   @product.file_file_name =  sanitize_filename( params[:product][:filename])
   if @product.save
    if @product.update(slug: Base52.encode(@product.id))
@@ -57,23 +56,21 @@ end
 def update
   @product = Product.find(params[:id])
   if not @product.customer_id == current_customer.id
-    render :file => "public/401.html", :status => :unauthorized
+    return render :file => "public/401.html", :status => :unauthorized
   end
-  if not params[:product][:upload_id] == '1'
-   path = File.join(Rails.root.join('app', 'tmp_uploads').to_s, params[:product][:upload_id])
-   @product.file =  File.new(path, "r")
-   @product.file_file_name = params[:product][:upload_file_name]
-   File.delete(path)
- end
+  @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
+  @product.file_file_name =   sanitize_filename(params[:product][:filename])
+  f_params = params[:product].permit(:name, :price, :price_currency,
+    :description, :thumb)
+  @product.attributes = f_params
 
- if @product.update(params[:product].permit(:name, :price, :price_currency,
-  :description, :thumb))
 
- redirect_to [:customer, @product]
-else
+  if @product.save
+     return redirect_to customer_products_path, notice: 'Product was edited.'
+  end
   render 'edit'
 end
-end
+
 def destroy
   @product = Product.find(params[:id])
   if not @product.customer_id == current_customer.id
