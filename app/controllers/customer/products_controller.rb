@@ -38,6 +38,7 @@ def create
   @product.customer_id = current_customer.id
   @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
   @product.file_file_name =  params[:product][:filename]
+  @product.file_file_name =  sanitize_filename( params[:product][:filename])
   if @product.save
    if @product.update(slug: Base52.encode(@product.id))
     return redirect_to customer_products_path, notice: 'Product was created.'
