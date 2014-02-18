@@ -20,9 +20,11 @@
 //= require jquery-file-upload/js/jquery.iframe-transport.js
 //= require jquery-file-upload/js/jquery.fileupload-process.js
 //= require jquery.validation/jquery.validate.js
+//= require flat-ui-official/js/bootstrap-switch.js
 //= require product
 
 $(document).ready(function(){
+    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
 
 
   Product.init();

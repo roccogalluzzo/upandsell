@@ -14,6 +14,7 @@ class: 'form-horizontal' do |f| %>
       <%= f.input :paypal_status, label: false,
       inline_label: true  %>
     </div>
+  <input type="checkbox" checked="<%= @customer[:paypal_status]%>" data-toggle="switch" />
   </div>
 </div>
 <div class="row">
@@ -31,6 +32,9 @@ class: 'form-horizontal' do |f| %>
   <div class="col-md-12">
     <div class="form-group">
 
+<div class="col-md-1">
+ <input type="checkbox" checked="<%= @customer[:credit_card_status]%>" data-toggle="switch" />
+</div>
     </div>
   </div>
 </div>
