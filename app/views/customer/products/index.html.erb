@@ -1,26 +1,20 @@
 <% content_for :header do %>
-    <div class="col-lg-10">
-      <h1>PRODUCTS</h1>
-    </div>
-    <div class="col-lg-2">
-     <%= link_to "Add Product",
-     new_customer_product_path,
-     class: "btn btn-primary",
-      remote: true,
-      data: { backdrop: "static",
-       toggle: "modal",
-       target: "#new-product" } %>
-     </div>
-<% end %>
+<div class="col-lg-10">
+  <h1>PRODUCTS</h1>
+</div>
+<div class="col-lg-2">
+ <%= link_to "Add Product", new_customer_product_path, class: "btn btn-primary" %>
+ </div>
+ <% end %>
 
-<div class="row">
+ <div class="row">
   <div class="col-lg-12 content">
     <div class="row">
       <div class="col-lg-12">
         <div class="row">
           <div class="col-lg-offset-1 col-lg-10">
-<%= @url %>
-           <div class="list">
+            <%= @url %>
+            <div class="list">
 
              <% if @products.blank? %>
              <p>No products Founds</p>
@@ -32,39 +26,41 @@
               </div>
               <div class="col-sm-4 details">
                 <strong>
-                <%= product.name %>
-                 </strong>
+                  <%= product.name %>
+                </strong>
 
-               </div>
+              </div>
 
-               <div class="col-sm-4 list-stats">
+              <div class="col-sm-4 list-stats">
                 <span><i class="fa fa-eye text-muted"></i> 1234</span>
                 <span><i class="fa fa-shopping-cart"></i> 1268</span>
                 <span><span class="dollar">$</span>123</span>
               </div>
-              <div  class="col-sm-2 ext">
+              <div  class="col-sm-3 ext">
               <!--
                 <a href="  url_for controller: '/products', action: 'show', slug: product.slug, only_path: false ">
                 -->
+
+                <%= link_to(customer_product_path(product), remote: true, :method => :delete) do %>
+                <i class="fa fa-lg fa-times text-danger"></i>
+                <% end %>
+                 <%= link_to  controller: '/products', action: 'show', slug: product.slug, only_path: false do %>
+                <i class="fa fa-link fa-lg"></i>
+                <% end %>
                 <%= link_to(edit_customer_product_path(product)) do %>
                 <i class="fa fa-lg fa-pencil-square-o"></i>
                 <% end %>
-                <%= link_to(customer_product_path(product), remote: true, :method => :delete) do %>
-                <i class="fa fa-lg fa-times"></i>
-                <% end %>
-                <em class="text-muted"> <i class="fa fa-external-link fa-lg"></i></em>
-              </a>
+              </div>
             </div>
+            <% end %>
+            <% end %>
+
+
           </div>
-          <% end %>
-          <% end %>
-
-
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 </div>
 
