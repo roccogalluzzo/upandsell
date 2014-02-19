@@ -32,7 +32,9 @@ $(document).ready(function(){
 
 
   Product.init();
-
+$('.list-item').click(function(){
+    location.href = $(this).data('url');
+});
 
 });
 
