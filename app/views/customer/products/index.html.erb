@@ -3,7 +3,8 @@
   <h1>PRODUCTS</h1>
 </div>
 <div class="col-lg-2">
- <%= link_to "Add Product", new_customer_product_path, class: "btn btn-primary" %>
+ <%= link_to "Add Product",
+ new_customer_product_path, class: "pull-right btn btn-primary" %>
  </div>
  <% end %>
 
@@ -23,17 +24,10 @@
                <div class="col-sm-1">
                 <%= image_tag product.thumb.url(:small), :class => "img-circle" %>
               </div>
-              <div class="col-sm-4 details">
+              <div class="col-sm-8 details">
                 <strong>
                   <%= product.name %>
                 </strong>
-
-              </div>
-
-              <div class="col-sm-4 list-stats">
-                <span><i class="fa fa-eye text-muted"></i> 1234</span>
-                <span><i class="fa fa-shopping-cart"></i> 1268</span>
-                <span><span class="dollar">$</span>123</span>
               </div>
               <div  class="col-sm-3 ext">
               <!--
