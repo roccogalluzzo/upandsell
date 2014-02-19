@@ -22,28 +22,36 @@
              <% @products.each do |product| %>
              <div class="list-item row"
              data-url="<%= url_for edit_customer_product_path(product) %>">
-               <div class="col-sm-1">
+               <div class="col-sm-1 list-img">
                 <%= image_tag product.thumb.url(:small), :class => "img-circle" %>
               </div>
               <div class="col-sm-8 details">
                 <strong>
-              <%= link_to(edit_customer_product_path(product)) do %>
                  <%= product.name %>
-                 <% end %>
                 </strong>
-              </div>
-              <div  class="col-sm-3 ext">
-              <!--
-                <a href="  url_for controller: '/products', action: 'show', slug: product.slug, only_path: false ">
-                -->
-<i class="fa fa-2x fa-chevron-right text-muted"></i>
-                <%= link_to(customer_product_path(product), remote: true, :method => :delete) do %>
-                <i class="fa fa-lg fa-times text-danger"></i>
+                   <%= link_to  controller: '/products', action: 'show',
+                      slug: product.slug, only_path: false do %>
+                <i class="fa fa-link fa-lg hidden"></i>
                 <% end %>
-                 <%= link_to  controller: '/products', action: 'show', slug: product.slug, only_path: false do %>
-                <i class="fa fa-link fa-lg"></i>
-                <% end %>
+                <div clas="row">
+                  <div class="col-sm-12">
 
+                  </div>
+                </div>
+              </div>
+              <div  class="col-sm-2 ext">
+              <!--
+                <a href="  ">
+                -->
+
+                <%# link_to(customer_product_path(product), remote: true, :method => :delete) do %>
+                <!--<i class="fa fa-lg fa-times text-danger"></i> -->
+                <%# end %>
+
+
+              </div>
+              <div class="col-sm-1 chevron">
+              <i class="fa fa-2x fa-chevron-right text-muted"></i>
               </div>
             </div>
             <% end %>

@@ -33,8 +33,15 @@ $(document).ready(function(){
 
   Product.init();
 $('.list-item').click(function(){
-    location.href = $(this).data('url');
-});
+    location.href = $(this).data('url')
+  })
+    .hover(function(){
+      $(this).find('.fa-link').toggleClass('hidden');
+    },
+function(){
+ $(this).find('.fa-link').toggleClass('hidden');
+}
+    );
 
 });
 
