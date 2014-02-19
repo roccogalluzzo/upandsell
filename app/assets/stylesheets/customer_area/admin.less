@@ -8,6 +8,69 @@
 margin-top: 9px;
 }
 
+.tick:not(.zero) line  {
+  opacity: 0 !important;
+}
+.nvtooltip {
+  position: absolute;
+  background-color:  transparent !important;
+  padding: 1px;
+  border: none!important;
+  z-index: 10000;
+
+  font-family: Arial;
+  font-size: 13px;
+  text-align: left;
+  pointer-events: none;
+
+  white-space: nowrap;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+   -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none !important;
+
+  -webkit-border-radius: none;
+  -moz-border-radius: none;
+  border-radius: none !important;
+  .tooltip;
+  .top;
+}
+.tooltip-inner h3 {
+  background-color: transparent;
+
+}
+.tooltip-arrow {
+  left: 50% !important;
+}
+.nv-axisMaxMin text {
+  font-family: inherit;
+  font-size: 13px;
+  fill: @silver !important;
+}
+svg text {
+   fill: @silver !important;
+}
+.nvd3 .nv-axis path {
+  fill: none;
+  stroke: @silver;
+  stroke-width: 3;
+  stroke-opacity: .75;
+  shape-rendering: crispEdges;
+}
+
+.nvd3 .nv-axis line {
+  fill: none;
+  stroke: @silver;
+  stroke-width: 3 !important;
+  stroke-opacity: .75;
+  shape-rendering: crispEdges;
+}
 .payment {
 
   margin-top: 40px;

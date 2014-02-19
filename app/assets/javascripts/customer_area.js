@@ -21,7 +21,11 @@
 //= require jquery-file-upload/js/jquery.fileupload-process.js
 //= require jquery.validation/jquery.validate.js
 //= require flat-ui-official/js/bootstrap-switch.js
+//= require d3/d3.js
+//= require nvd3/nv.d3.js
 //= require product
+//= require nv-model
+//= require graph
 
 $(document).ready(function(){
     $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
