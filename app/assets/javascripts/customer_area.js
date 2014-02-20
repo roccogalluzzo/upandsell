@@ -24,6 +24,7 @@
 //= require d3/d3.js
 //= require nvd3/nv.d3.js
 //= require product
+//= require product/upload
 //= require nv-model
 //= require graph
 
@@ -33,7 +34,7 @@ $(document).ready(function(){
 
   Product.init();
   if($('.new_product').length){
-    Product.AnimationBoxToCenter();
+    Product.Upload.Animations.boxToCenter();
   }
 $('.list-item').click(function(){
     location.href = $(this).data('url')
