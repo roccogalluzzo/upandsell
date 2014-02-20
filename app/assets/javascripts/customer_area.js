@@ -32,6 +32,9 @@ $(document).ready(function(){
 
 
   Product.init();
+  if($('.new_product').length){
+    Product.AnimationBoxToCenter();
+  }
 $('.list-item').click(function(){
     location.href = $(this).data('url')
   })

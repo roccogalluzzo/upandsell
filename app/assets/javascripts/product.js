@@ -6,6 +6,7 @@
 
 Product.init = function() {
   s = settings;
+    $('.progress').css('opacity', 0);
   $("#currency").bind('click', function(e){
 
     syms = $("#currency").data('currency-symbols');
@@ -20,7 +21,7 @@ Product.init = function() {
     $("#currency").text(syms[i]);
     $("#product_price_currency").val(vals[i]);
   });
-    var file_uuid = null;
+  var file_uuid = null;
     // setup upload product button
     $(".direct-upload").fileupload({
       autoUpload: true,
@@ -29,7 +30,8 @@ Product.init = function() {
       dataType: 'xml'}
       )
     .bind('fileuploadadd', function (e, data) {
-      $('.progress').removeClass('invisible');
+      Product.AnimationBoxToLeft();
+      AnimationUploadStart();
       $('.filename').text(data.files[0].name).removeClass('invisible');
       updateProgressBar(0);
       $.ajax({
@@ -74,14 +76,14 @@ Product.init = function() {
   function fileUploadDone(data){
     $( "input[class=upload_uuid]" ).val(window.file_uuid);
     $( "input[class=filename]" ).val(window.filename);
-
+    AnimationUploadComplete();
     $('#product-upload-btn').unbind( 'click.abort');
     showBtn('change', 'primary');
     fileError('hide');
   }
   function fileUploadFail(data){
     $('#product-upload-btn').unbind( 'click.abort');
-    $('.filename').text('');
+    AnimationUploadComplete();
     showBtn('choose', 'primary');
     updateProgressBar(0);
   }
@@ -99,6 +101,28 @@ Product.init = function() {
       .addClass("btn-" + type);
     });
   }
+  Product.AnimationBoxToCenter = function(){
+    $('.filename').css('opacity', 0);
+    $('.simple_form').animate({ opacity: '0.20'}, 1000);
+    $('.upload-box').animate({left: '178%', top: '15%'}, 1000);
+    $('.progress').css('opacity', 0);
+  }
+  Product.AnimationBoxToLeft = function(){
+    $('.simple_form').animate({ opacity: '1'}, 1000);
+    $('.upload-box').animate({left: '0', top: '0'}, 1000);
+    $('.fa-file-0').animate({ opacity: '0.20'}, 1000);
+    $('.upload-box-inner').animate({ opacity: '0.4'}, 1000);
+  };
+  function AnimationUploadStart(){
+    $('.progress').animate({ opacity: '0.8'}, 1000);
+    $('.filename').css('opacity', 0.9);
+  }
+  function AnimationUploadComplete(){
+
+  $('.progress').animate({ opacity: '0'}, 1500, '', function(){
+    $('.upload-box-inner').animate({ opacity: '0.6'}, 1000);
+  });
+}
 
 function fileError(action){
   if(action == 'hide'){
@@ -109,8 +133,8 @@ function fileError(action){
     $('.file-row-error').addClass('file-row-error');
   }
 }
-  function updateProgressBar(percent){
-    $('.progress .progress-bar').css({width: percent +'%'});
-  }
+function updateProgressBar(percent){
+  $('.progress .progress-bar').css({width: percent +'%'});
+}
 
 }(jQuery, window.Product = window.Product || {}));

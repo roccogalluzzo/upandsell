@@ -1,0 +1,95 @@
+.upload-box-inner {
+  background-color: @clouds;
+  position: relative;
+  border-radius: 6px;
+  color: transparent;
+  border: #ddd dotted 3px;
+  border-bottom: none;
+  height: 150px;
+  opacity: 0.6;
+  i {
+    color: #F7F7F7;
+    margin: 11% 0;
+    text-align: center;
+    display: block;
+  }
+
+}
+
+.upload-box {
+  position: relative;
+  z-index: 999;
+  height: 225px;
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 62%;
+    z-index: 9999;
+    .progress {
+      margin: 50px 23px 0px 23px;
+    }
+    .filename {
+      font-size: 18px;
+      color: rgb(88, 88, 88);
+      opacity: 0.9;
+      display: block;
+      text-align: center;
+      word-wrap: break-word;
+      text-decoration: underline;
+      margin: 0 4%;
+    }
+  }
+  .btn {
+    border-radius: 0 0 6px 6px;
+    position: relative;
+    bottom: 6px;
+  }
+
+
+}
+.shadow {
+  opacity: 0.7;
+  background-color: #333;
+}
+.upload-box-preview {
+  .upload-box;
+  height: 240px;
+  border-right: none;
+  .btn {
+    width: 50%;
+    box-sizing: border-box;
+  }
+
+}
+
+.upload-box-preview-inner {
+  .upload-box-inner;
+  height: 199px;
+}
+.form-page {
+  margin-top: 0px;
+  border: #DDDEDF solid 2px;
+  border-top: none;
+  padding: 10px;
+  padding-top: 20px;
+  border-radius: 0 0 6px 6px;
+  background-color: white;
+
+  .left {
+   border-right:  #DDDEDF solid 2px;
+   height: 400px;
+ }
+}
+
+.edit_product {
+  padding-top: 15px;
+
+}
+.edit_product textarea{
+  height: 236px;
+}
+.form-footer {
+  border-top: #ddd solid 2px;
+  padding-top: 20px;
+
+}
