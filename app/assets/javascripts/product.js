@@ -2,7 +2,7 @@
 
  var settings = {};
  function init_settings() {
-  settings = { form: $(".simple_form")};
+  settings = { form: $(".product")};
 }
 
 Product.init = function() {

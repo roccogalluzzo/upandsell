@@ -3,12 +3,12 @@
   var attrs = {uuid: null, filename: null};
   function init_elements() {
     el = {target: $(".direct-upload"),
-    form: $(".simple_form"),
+    form: $(".product"),
     box: $(".upload-box"),
     btn:   $('#product-upload-btn')};
 
     preview = {target: $(".input-thumb "),
-    form: $(".simple_form"),
+    form: $(".product"),
     box: $(".upload-box-preview"),
     btn:   $('.btn-preview')};
   }

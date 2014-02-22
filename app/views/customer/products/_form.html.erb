@@ -45,7 +45,7 @@ tempor incididunt ut labore et dolore magna aliqua∂ß</p>
 </div>
 <div class="col-md-9">
 
-  <%= simple_form_for [:customer,@product], class: 'form-horizontal' do |f| %>
+  <%= simple_form_for [:customer,@product], :html=> { class: 'product' } do |f| %>
         <input class="upload_uuid" type="hidden" name="[product]upload_uuid" value="<%= @product.uuid %>" />
     <input class="filename" type="hidden" name="[product]filename" value="<%= @product.file_file_name %>" />
     <%= f.input_field :price_currency, as: :hidden %>
