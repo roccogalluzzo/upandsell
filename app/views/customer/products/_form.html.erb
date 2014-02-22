@@ -14,7 +14,8 @@ end
 <div class="row form-page">
 <div class="left col-md-3">
 <div class="upload-box">
-        <form action="https://upandsell.s3.amazonaws.com" method="POST" enctype="multipart/form-data" class="direct-upload">
+        <form action="https://upandsell.s3.amazonaws.com" method="POST"
+         enctype="multipart/form-data" class="direct-upload">
           <input type="hidden" name="success_action_status" value="201">
 <div class="overlay">
 <div class="progress">
@@ -68,9 +69,14 @@ tempor incididunt ut labore et dolore magna aliqua∂ß</p>
             rows: 10 %>
     </div>
     <div class="col-md-6 upload-box-preview">
-  <div class="upload-box-preview-inner">
-  <i class="fa fa-picture-o fa-5x"></i>
-</div><div class="btn-group btn-block">
+<input type="hidden" id="local-preview-path" value="" />
+  <div id="preview" class="upload-box-preview-inner"
+  data-preview-url="<%= @product.thumb.url if @product.id%>">
+
+<i class="fa fa-picture-o fa-5x"></i>
+  </div>
+
+<div class="btn-group btn-block">
 
              <a href="#" class="btn btn-primary btn-lg btn-preview">
         <%= f.input_field :thumb, id: 'file-input', class: 'btn-preview input-thumb input-file' %>

@@ -6,15 +6,22 @@
     form: $(".simple_form"),
     box: $(".upload-box"),
     btn:   $('#product-upload-btn')};
+
+    preview = {target: $(".input-thumb "),
+    form: $(".simple_form"),
+    box: $(".upload-box-preview"),
+    btn:   $('.btn-preview')};
   }
   Upload.file = function() {
    init_elements();
-
  // setup upload product button
  el.target.fileupload({
   autoUpload: true,
   type: 'POST',
   paramName: 'file',
+  disableImageLoad: true,
+  disableImageMetaDataLoad: true,
+  dropZone: el.box,
   dataType: 'xml'})
  .bind('fileuploadadd', fileAdd)
  .bind('fileuploadprogress', fileProgress)
@@ -22,6 +29,33 @@
  .bind('fileuploadfail', fileFail);
 }
 
+Upload.filePreview = function() {
+ init_elements();
+
+ preview.target.fileupload({
+  autoUpload: false,
+  replaceFileInput: false,
+  imagePreviewName: preview.box,
+  dropZone: preview.box})
+ .bind('fileuploadadd', filePreviewAdd);
+ if($("#local-preview-path").val()){
+  loadPreview($("#local-preview-path").val());
+}
+ if($("#preview").data('preview-url')){
+  loadPreview($("#preview").data('preview-url'));
+}
+}
+function loadPreview(path){
+  loadImage(path, function (img) {
+    $('#preview').html(img);
+  });
+}
+function filePreviewAdd(e, data){
+ // Upload.Animations.start();
+ // Upload.Animations.fileStatus(data.files[0].name, 'visible');
+ // Upload.Animations.actionBtn('cancel');
+ loadPreview(data.files[0]);
+}
 // private functions
 function fileSignedRequest(filename) {
   $.ajax({
@@ -48,7 +82,6 @@ function bindCancel(action, istance){
 function fileAdd(e, data){
   Upload.Animations.boxToLeft();
   Upload.Animations.start();
-
   Upload.Animations.fileStatus(data.files[0].name, 'visible');
   Upload.Animations.progressBar(0);
   req = fileSignedRequest(data.files[0].name);
@@ -59,10 +92,12 @@ function fileAdd(e, data){
   var jqXHR = data.submit();
   bindCancel(true, jqXHR);
   Upload.Animations.actionBtn('cancel');
+   // after initial file upload drop zone must be only on upload box
+ // not works el.file_upload.dropZone = el.box;
 }
 
 function fileDone(e, data) {
-  el.form.find( "input[class=upload_uuid]" ).val(attrs.file_uuid);
+  el.form.find( "input[class=upload_uuid]" ).val(attrs.uuid);
   el.form.find( "input[class=filename]" ).val(attrs.filename);
   Upload.Animations.done();
   bindCancel(false);

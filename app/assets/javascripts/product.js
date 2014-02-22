@@ -7,8 +7,9 @@
 
 Product.init = function() {
   init_settings();
-  Product.Form.currencyInit();
   Product.Upload.file();
+  Product.Upload.filePreview();
+  Product.Form.currencyInit();
 };
 
 

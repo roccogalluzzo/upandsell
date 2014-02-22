@@ -15,10 +15,11 @@
 //= require bootstrap/dist/js/bootstrap
 //= require jquery-file-upload//js/vendor/jquery.ui.widget.js
 //= require jquery-file-upload//js/jquery.iframe-transport.js
-//= require blueimp-load-image/js/load-image
+//= require blueimp-load-image/js/load-image.min.js
 //= require jquery-file-upload//js/jquery.fileupload.js
 //= require jquery-file-upload/js/jquery.iframe-transport.js
 //= require jquery-file-upload/js/jquery.fileupload-process.js
+//= require jquery-file-upload/js/jquery.fileupload-image.js
 //= require jquery.validation/jquery.validate.js
 //= require flat-ui-official/js/bootstrap-switch.js
 //= require d3/d3.js
@@ -31,9 +32,8 @@
 $(document).ready(function(){
     $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
 
-
   Product.init();
-  if($('.new_product').length){
+  if(!$("input[class=upload_uuid]" ).val()){
     Product.Upload.Animations.boxToCenter();
   }
 $('.list-item').click(function(){
