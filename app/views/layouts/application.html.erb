@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
-<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
-	<title>Up&amp;Sell.It</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Up&amp;Sell.me</title>
 	<!-- Meta -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,11 +17,13 @@
 </head>
 <body>
 	<%= render :partial => 'layouts/header' %>
-	<div class="container">
-		<div class="row">
-			<%= yield %>
-		</div>
-	</div>
-</body>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-offset-2 text-center col-lg-8">
+				<%= yield %>
+				</div>
+				</div>
+				</div>
 
-</html>
+  </body>
+  </html>
