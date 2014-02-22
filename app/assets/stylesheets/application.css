@@ -1,6 +1,5 @@
-/* Manifest File for Application FrontEnd
- *= require_self
- *= require bootstrap
- *= require font-awesome
- *= require main
-*/
+/* Manifest File for Application FrontEnd */
+
+@import "bootstrap/less/bootstrap.less";
+@import "font-awesome/less/font-awesome.less";
+@import "flat-ui-official/less/flat-ui.less";

@@ -1,5 +1,6 @@
-<div class="headline"><h3>Create Product</h3></div>
-
-
-<%= render 'form' %>
-</div>
+<% content_for :header do %>
+  <div class="col-lg-10">
+    <h1>ADD PRODUCT</h1>
+  </div>
+<% end %>
+<%= render partial: "form" %>

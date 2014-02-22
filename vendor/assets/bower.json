@@ -3,6 +3,9 @@
   "dependencies": {
     "bootstrap": "3.1.0",
     "font-awesome": "4.0.3",
-    "jquery-file-upload": "latest"
+    "flat-ui-official": "latest",
+    "jquery-file-upload": "latest",
+    "jquery.validation": "latest",
+    "nvd3": "latest"
   }
 }

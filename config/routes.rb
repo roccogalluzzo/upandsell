@@ -60,6 +60,7 @@ Upandsell::Application.routes.draw do
     patch 'settings/update_account' => 'settings#update_account'
     patch 'settings/update_payments' => 'settings#update_payments'
     post '/products/upload' => 'products#upload'
+    get '/products/upload_request' => 'products#upload_request'
     resources :products
     resources :payments do
      get 'refund', on: :member

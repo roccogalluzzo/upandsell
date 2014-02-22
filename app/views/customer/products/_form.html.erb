@@ -1,124 +1,101 @@
-  <script type="text/javascript">
-    $(document).ready(function(){
-      <% if @product.new_record?
-      action = 'new'
-      else
-        action = 'edit'
-      end
-      %>
-      initProductForm("<%= action %>", "<%= url_for customer_products_upload_path  %>");
-    });
-  </script>
-  <form id="form_file" action="<%= url_for customer_products_upload_path  %>" methos="POST" class="form-inline">
-    <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-    <input class="upload_id" type="hidden" name="[product]upload_id" value="<% unless @product.new_record? %>1<% end %>" />
- <input class="file required input-file hide" id="product_file" name="product[file_js]" type="file">
-    <div class="row upload-js hide">
-     <h2 class="wizard">   <i class="fa fa-cloud-upload fa-muted"></i>
-       Upload File</h2>
-       <div class="col-md-12 product-upload-box" >
-
-         <p>
-          <% if @product.new_record? %>
-          Drop File Here
-          <br />
-          <small>or</small>
-          <% else %>
-          <%= @product.file_file_name %>
-          <% end %>
-        </p>
-        <div class="percent"><span id="percentile">0</span>%
-          <p class="muted">Uploading <span id="file_name"></span>...</p>
-        </div>
-        <a id="btn-product-upload" class="btn btn-success" href="#">
-         <i class="fa fa-cloud-upload"></i> <span>
-         <% if @product.new_record? %>
-         Choose From Computer
-         <% else %>
-         Change
-         <% end %>
-
-       </span></a>
-       <a id="btn-product-cancel-upload" class="btn btn-danger" href="#">
-         <i class="fa fa-remove"></i> Cancel</a>
-       </div>
-    </div>
-  </form>
-  <%= simple_form_for [:customer,@product],:class => 'form-horizontal'  do |f| %>
-  <input class="upload_id" type="hidden" name="[product]upload_id" value="<% unless @product.new_record? %>1<% end %>" />
-  <input class="upload_file_name" type="hidden" name="[product]upload_file_name" />
-  <input id="currency" type="hidden" name="[product]currency" value="EUR" />
-
-  <div class="row">
-   <h2 class="wizard">
-    <i class="fa fa-pencil fa-muted"></i> Set Info</h2>
-    <div class="col-md-9">
-        <div class="file-alt">
-         <%= f.input_field :file, id: 'file-input', class: 'input-product input-file' %>
-       </div>
-      <div class="form-group">
-        <label id="product_name_label">Product Name</label>
-        <%= f.input_field :name, class: 'form-control' %>
-      </div>
-    </div>
-    <div class="col-md-3">
-     <div class="form-group">
-      <label id="product_price_label">Price</label>
-        <%= f.input :price_currency,
-        collection: Upandsell::Application.config.currencies,
-        include_blank: false,
-        class: 'form-control' %>
-      <%= f.input_field :price, class: 'form-control' %>
-    </div>
-
-<!--        TODO implement currency selection
-<div class="input-prepend">
-        <div class="btn-group">
-          <button class="btn-price btn dropdown-toggle" data-toggle="dropdown">
-            <span> <i data-currency="EUR" class="fa fa-euro"></i></span>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li>  <a  href="#"><i data-currency="USD" class="fa fa-usd"></i> </a></li>
-            <li>  <a  href="#"><i data-currency="GBP" class="fa fa-gbp"></i> </a> </li>
-          </ul>
-        </div>
-
-      </div> -->
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="product-preview-box hide">
-        <label id="product_preview_label">Preview</label>
-        <div id="btn-thumb-cont">
-          <a id="btn-thumb-upload" class="btn btn-success" href="#">
-           <i class="fa fa-cloud-upload"></i>Choose Image</a>
+<%
+file_error = false
+uploaded = false
+if @product.errors[:uuid].present?
+  file_row_error = 'file-row-error'
+  file_error = true
+end
+if @product.file_file_name && @product.uuid
+uploaded = true
+end
+%>
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<div class="row form-page">
+<div class="left col-md-3">
+<div class="upload-box">
+        <form action="https://upandsell.s3.amazonaws.com" method="POST"
+         enctype="multipart/form-data" class="direct-upload">
+          <input type="hidden" name="success_action_status" value="201">
+<div class="overlay">
+<div class="progress">
+            <div class="progress-bar" style="width: 0%;"></div>
          </div>
-         <div class="text-center add-thumb preview">
-           <% unless @product.new_record? %>
-           <%= image_tag @product.thumb.url, style: 'max-width: 100%;
-           max-height: 100%;' %>
-           <% end %>
-         </div>
-       </div>
-       <div class="file-alt">
-         <%= f.input_field :thumb, id: 'file-input', class: 'input-thumb input-file' %>
-       </div>
-     </div>
-
-     <div class="col-md-6">
-       <label>Description</label>
-       <%= f.input_field :description, class: 'form-control product-description' %>
-     </div>
-   </div>
-
-
-   <div class="row">
-     <div class="col-md-12 text-center"><hr />
-      <%= f.button :submit, class: 'btn btn-primary' %>
-    </div>
-  </div>
+         <p class="filename"><%= @product.file_file_name %></p>
 </div>
 
+<div class="upload-box-inner">
+<i class="fa fa-file-o fa-5x"></i>
+</div>
+     <span class="btn btn-file-upload btn-primary btn-block btn-large fileinput-button">
+
+            <span class="<% unless uploaded %>  hidden <% end%>" data-text-type="change">Change</span>
+
+            <span class="<% if uploaded %>  hidden <% end%>" data-text-type="choose">Choose File to Sell</span>
+
+            <span class="hidden" data-text-type="cancel">Cancel</span>
+
+            <input data-url="https://upandsell.s3.amazonaws.com/"
+            id="product-upload-btn" type="file" name="product[file_js]" multiple="" >
+          </span>
+          </form>
+</div>
+<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua∂ß</p>
+</div>
+<div class="col-md-9">
+
+  <%= simple_form_for [:customer,@product], :html=> { class: 'product' } do |f| %>
+        <input class="upload_uuid" type="hidden" name="[product]upload_uuid" value="<%= @product.uuid %>" />
+    <input class="filename" type="hidden" name="[product]filename" value="<%= @product.file_file_name %>" />
+    <%= f.input_field :price_currency, as: :hidden %>
+    <div class="form-group row <%= error_class(@product, 'name') %>">
+      <div class="col-md-9 col-lg-10 ">
+        <%= f.input_field :name, class: 'form-control', placeholder: "Product Name" %>
+      </div>
+      <div class="col-md-3 col-lg-2">
+       <div class="input-group <%= error_class(@product, 'price_cents') %>">
+         <span id="currency" data-currency-symbols="[&quot;$&quot;,&quot;\u00a3&quot;,&quot;\u20ac&quot;]" data-currency-values="[&quot;usd&quot;,&quot;gbp&quot;,&quot;eur&quot;]" class="input-group-addon btn-preview">$</span>
+          <%= f.input_field :price, class: 'form-control', placeholder: "2.00" %>
+       </div>
+     </div>
+
+   </div>
+   <div class="form-group row">
+      <div class="col-md-6">
+         <%= f.input_field :description,
+          class: 'form-control product-description',
+            placeholder: "Product Description(optional)",
+            rows: 10 %>
+    </div>
+    <div class="col-md-6 upload-box-preview">
+<input type="hidden" id="local-preview-path" value="" />
+  <div id="preview" class="upload-box-preview-inner"
+  data-preview-url="<%= @product.thumb.url if @product.id%>">
+
+<i class="fa fa-picture-o fa-5x"></i>
+  </div>
+
+<div class="btn-group btn-block">
+
+             <a href="#" class="btn btn-primary btn-lg btn-preview">
+        <%= f.input_field :thumb, id: 'file-input', accept: "image/*", class: 'btn-preview input-thumb input-file' %>
+        <span>From Device</span></a>
+               <a href="#" class="btn btn-default  btn-lg">From Link</a>
+         </div>
+
+          </div>
+
+</div>
+
+  <div class="form-group form-footer">
+    <div class="col-md-offset-5 col-md-5">
+          <%= f.button :submit, class: 'btn btn-primary text-center' %>
+    </div>
+  </div>
+
 <% end %>
+</div>
+</div>
+  </div>
+  </div>

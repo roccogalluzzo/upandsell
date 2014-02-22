@@ -1,19 +1,57 @@
-<% content_for :sidebar do %>
-<li>  <%= link_to "Add", new_customer_path %></li>
+  <% content_for :header do %>
+   <div class="col-lg-9">
+      <h1>SUMMARY</h1>
+    </div>
+    <div class="col-lg-3">
+     <div class="btn-group pull-right"  data-toggle="buttons">
+      <label class="btn btn-primary active">
+        <input type="radio" name="options" id="option1"> Today
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" id="option2"> Week
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="options" id="option3"> Month
+      </label>
+    </div>
+  </div>
 <% end %>
 
- <div class="headline"><h3>Customer list - debug </h3></div>
-  <table class="table table-bordered">
-  <tr><th>Name</th><th>Actions</th>
-  <% @customers.each do |customer| %>
-    <tr>
-      <td><%= customer.email %></td>
-      <td><div class="btn-group">
-       <%= link_to "Show", customer_path(customer), :class => "btn btn-info" %>
-       <%= link_to "Edit", edit_customer_path(customer), :class => "btn" %>
-       <%= link_to "Delete", customer_path(customer), method: :delete, data: { confirm: 'Are you sure?'} , :class => "btn btn-danger" %>
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="row">
+        <div class="col-lg-offset-3 col-lg-6">
+          <div class="row stats-summary">
+
+            <div class="col-lg-4 stats-summary-col visits">
+              <h3>123</h3>
+              <small>Visits</small>
+            </div>
+            <div class="col-lg-4 stats-summary-col sales">
+              <h3>123</h3>
+              <small>Sales</small>
+            </div>
+            <div class="col-lg-4  stats-summary-col earnings">
+              <h3><span class="dollar">$</span>123</h3>
+              <small>Earnings</small>
+            </div>
+          </div>
 </div>
-      </td>
-    </tr>
-  <% end %>
-</table>
+</div>
+         <div class="row">
+            <div class="col-lg-offset-1 col-lg-10 text-center">
+              <hr></hr>
+
+            </div>
+          </div>
+          <div class="row glue-fix">
+            <div class="col-lg-10 col-lg-offset-1">
+          <div id="dashboard_chart" class="graph">
+                     <svg></svg>
+                   </div>
+            </div>
+
+   </div>
+ </div>
+</div>
