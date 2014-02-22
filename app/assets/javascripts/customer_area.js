@@ -30,22 +30,18 @@
 //= require graph
 
 $(document).ready(function(){
-    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
-
+  $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
   Product.init();
-  if(!$("input[class=upload_uuid]" ).val()){
-    Product.Upload.Animations.boxToCenter();
-  }
-$('.list-item').click(function(){
+  $('.list-item').click(function(){
     location.href = $(this).data('url')
   })
-    .hover(function(){
-      $(this).find('.fa-link').toggleClass('hidden');
-    },
-function(){
- $(this).find('.fa-link').toggleClass('hidden');
-}
-    );
+  .hover(function(){
+    $(this).find('.fa-link').toggleClass('hidden');
+  },
+  function(){
+   $(this).find('.fa-link').toggleClass('hidden');
+ }
+ );
 
 });
 

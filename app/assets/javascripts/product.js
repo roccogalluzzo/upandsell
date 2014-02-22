@@ -10,6 +10,7 @@ Product.init = function() {
   Product.Upload.file();
   Product.Upload.filePreview();
   Product.Form.currencyInit();
+  Product.Form.validationInit();
 };
 
 
@@ -27,10 +28,42 @@ Product.Form = {
       settings.form.find("#currency").text(syms[i]);
       settings.form.find("#product_price_currency").val(vals[i]);
     });
+  },
+  validationInit: function(){
+    settings.form.validate({
+      showErrors: function(errorMap, errorList) {
+
+        $.each(this.validElements(), function (index, element) {
+          var $element = $(element);
+          $element.data("title", "")
+          .tooltip("destroy");
+          $element.parent().removeClass("has-error");
+        });
+          // Create new tooltips for invalid elements
+          $.each(errorList, function (index, error) {
+            var $element = $(error.element);
+            $element.tooltip("destroy")
+            .data("title", error.message)
+            .tooltip();
+            console.log($element.parent())
+            $element.parent().addClass("has-error");
+          });
+        },
+        submitHandler: function(form) {
+          if(form.find( "input[class=upload_uuid]" ).val()){}
+            form.submit();
+        }
+      },
+      rules: {
+        "product[price]": {
+          required: true,
+          number: true,
+          min: 0.50
+        }
+      }
+    });
   }
 }
-
-
 
 function fileError(action){
   if(action == 'hide'){

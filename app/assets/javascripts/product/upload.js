@@ -27,6 +27,12 @@
  .bind('fileuploadprogress', fileProgress)
  .bind('fileuploaddone', fileDone)
  .bind('fileuploadfail', fileFail);
+
+ if(!$("input[class=upload_uuid]" ).val()){
+  Product.Upload.Animations.boxToCenter();
+}
+//disable submit
+  el.form.find('input[type=submit]').attr('disabled', 'disabled');
 }
 
 Upload.filePreview = function() {
@@ -41,7 +47,7 @@ Upload.filePreview = function() {
  if($("#local-preview-path").val()){
   loadPreview($("#local-preview-path").val());
 }
- if($("#preview").data('preview-url')){
+if($("#preview").data('preview-url')){
   loadPreview($("#preview").data('preview-url'));
 }
 }
@@ -133,10 +139,12 @@ Upload.Animations = {
  start: function() {
   el.box.find('.progress').animate({ opacity: '0.8'}, 1000);
   el.box.find('.filename').css('opacity', 0.9);
+  el.form.find('input[type=submit]').attr('disabled', 'disabled');
 },
 done: function() {
  el.box.find('.progress').animate({ opacity: '0'}, 1000, '', function(){
    el.box.find('.upload-box-inner').animate({ opacity: '0.6'}, 1000);
+   el.form.find('input[type=submit]').removeAttr('disabled', 'disabled');
  });
 },
 progressBar: function(percent) {
