@@ -2,13 +2,21 @@
 @import "dashboard.less";
 @import "common.less";
 @import "product.less";
-//@brand-secondary:      @peter-river;
+@brand-primary:      @belize-hole;
+
 @local-font-path: "/assets/lato/";
 .has-switch {
   .mask(~"url('/assets/switch/mask.png') 0 0 no-repeat");
   margin-top: 9px;
 }
 
+.content {
+  border: #dedede solid 2px;
+  border-radius: 0 0 6px;
+  background: white;
+  border-top: none !important;
+  padding: 22px;
+}
 .tick:not(.zero) line  {
   opacity: 0 !important;
 }

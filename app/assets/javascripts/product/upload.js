@@ -30,9 +30,9 @@
 
  if(!$("input[class=upload_uuid]" ).val()){
   Product.Upload.Animations.boxToCenter();
-}
-//disable submit
+  //disable submit
   el.form.find('input[type=submit]').attr('disabled', 'disabled');
+}
 }
 
 Upload.filePreview = function() {
