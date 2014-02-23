@@ -13,6 +13,10 @@ def new
   end
 end
 
+def summary
+
+end
+
 def upload_request
   id = SecureRandom.uuid
   name = sanitize_filename(params[:name])
@@ -66,9 +70,9 @@ def update
 
 
   if @product.save
-     return redirect_to customer_products_path, notice: 'Product was edited.'
-  end
-  render 'edit'
+   return redirect_to customer_products_path, notice: 'Product was edited.'
+ end
+ render 'edit'
 end
 
 def destroy
@@ -79,8 +83,8 @@ def destroy
   if @product.destroy
    msg = { status: 'ok'}
 
-  render json: msg
-  end
+   render json: msg
+ end
 end
 private
 def sanitize_filename(filename)

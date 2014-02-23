@@ -34,8 +34,8 @@
         </div>
 
           <ul class="nav navbar-nav">
-            <li class="<%= 'active' if current_page?(customers_path) %>">
-              <%= link_to raw('Summary'), customers_path %>
+            <li class="<%= 'active' if current_page?(customer_root_path) %>">
+              <%= link_to raw('Summary'), customer_root_path %>
             </li>
             <li class="<%= 'active' if current_page?(customer_products_path) %>">
              <%= link_to raw('Products'), customer_products_path %>
