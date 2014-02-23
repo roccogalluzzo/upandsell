@@ -12,7 +12,7 @@ Upandsell::Application.routes.draw do
    get 'buy',  on: :member
  end
 
- namespace :customer do
+ namespace :user do
   root 'products#summary'
     # Settings
     get 'settings/account' => 'settings#account'

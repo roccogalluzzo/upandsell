@@ -1,4 +1,4 @@
-class Customer::PaymentsController < Customer::BaseController
+class User::PaymentsController < User::BaseController
   include PayPal::SDK::AdaptivePayments
 def index
 @payments= Customer.find(current_customer.id).payment

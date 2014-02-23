@@ -1,4 +1,4 @@
-class Customer::SettingsController < Customer::BaseController
+class User::SettingsController < User::BaseController
 
   def account
     #change email, password, default currency
@@ -28,7 +28,7 @@ class Customer::SettingsController < Customer::BaseController
     if @customer.update_account(customer_params)
       # Sign in the user bypassing validation in case his password changed
       sign_in @customer, :bypass => true
-      redirect_to customer_settings_account_path, notice: 'Account Updated'
+      redirect_to user_settings_account_path, notice: 'Account Updated'
     else
       render 'account'
     end
@@ -41,7 +41,7 @@ def update_payments
    @customer.update_without_password(params[:customer]
     .permit(:credit_card_status, :paypal_status, :email_paypal))
  end
- redirect_to customer_settings_payments_path, notice: 'Account Updated'
+ redirect_to user_settings_payments_path, notice: 'Account Updated'
 end
 
 private
