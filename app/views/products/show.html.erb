@@ -31,7 +31,7 @@
           <% if session[:user_products] and session[:user_products].key? @product.id %>
           <%= link_to 'Download',
           download_product_path(session[:user_products][@product.id]),
-          class: "btn btn-large btn-success" %>
+          class: "btn btn-large btn-block btn-success" %>
           <% else %>
           <a href="#buy"
           class="btn btn-large btn-block btn-primary">
@@ -62,21 +62,11 @@
 </div>
 </div>
 <div class="section">
-  <div class="buy">
+  <div class="buy" data-product-id="<%= @product.id %>">
    <div class="row product">
-     <div class="col-md-12">
-
-    <a href="#show"
-    class="btn btn-buy btn-large btn-block btn-primary">
-    Buy Now!
-  </a>
-
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+     <div class="col-md-12 text-center">
+<p> <i class="fa fa-lg fa-refresh fa-spin"></i></p>
+<p>Contacting Paypal...</p>
 </div>
 </div>
  </div>

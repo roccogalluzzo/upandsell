@@ -1,0 +1,25 @@
+  <div class="check_payment">
+   <div class="row product">
+     <div class="col-md-12 text-center">
+<p> <i class="fa fa-lg fa-refresh fa-spin"></i></p>
+<p>Finishing Paypal payment...</p>
+</div>
+</div>
+ </div>
+ <script type="text/javascript">
+   // call paypal
+            $.ajax({
+              url: '/products/check_payment',
+              type: 'GET',
+              dataType: 'json',
+              data: {payKey: <%= payKey %>,
+              async: false,
+              success: function(d) {
+                if(d.status == 'ok'){
+                window.location.replace(d.url)
+                }else {
+                  $.ajax(this);
+                }
+            }
+            });
+</script>

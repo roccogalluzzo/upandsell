@@ -3,8 +3,8 @@ class ProductsController < ApplicationController
   include PayPal::SDK::AdaptivePayments
   skip_before_filter :verify_authenticity_token, :only => [:ipn]
 
-  def buy
-    @product = Product.find(params[:id])
+  def paypal
+    @product = Product.find(params[:product_id])
     @customer  = Customer.find(@product.customer_id)
    #Paypal logic
    paypal = PayPal::SDK::AdaptivePayments.new
@@ -12,19 +12,19 @@ class ProductsController < ApplicationController
      :actionType => 'CREATE',
      :receiverList => {'receiver' =>
       [{'email' => @customer.email,
-       'amount' => @product.price,
-       :paymentType => 'DIGITALGOODS'
+       'amount' => @product.price
        }]
        },
-       :cancelUrl => 'http://localhost:3000/product/fail',
-       :returnUrl => 'http://localhost:3000/products/success?payKey=${payKey}',
-       :ipnNotificationUrl => if Rails.env.production?
-         'http://upandsell.it/dev/products/ipn'
-       else
-         'http://upandsell.ngrok.com/products/ipn'
-       end,
-       :currencyCode => @product.price_currency.upcase
-       )
+       :cancelUrl => product_url(id: @product.id, payment: 'failed'),
+       :returnUrl =>  products_check_payment_url(id: @product.id) +'&payKey=${payKey}',
+       :ipnNotificationUrl =>
+        if Rails.env.production?
+         products_ipn_url()
+      else
+       'http://upandsell.ngrok.com/products/ipn'
+     end,
+     :currencyCode => @product.price_currency.upcase
+     )
    @response = paypal.pay(req)
    if @response.success?
     @payment= @product.payment.build(:paykey => @response.payKey,
@@ -34,23 +34,31 @@ class ProductsController < ApplicationController
     @payment.customer_id = @product.customer_id
     @payment.save
     status = 'ok'
-
   end
-  render json: { status: status, pay_key: @response.payKey}
+  url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
+  render json: { status: status, url:  url + @response.payKey }
 end
+
 def download
   @payment = Payment.find_by token: params[:token]
   if @payment.n_downloads < 5
     @payment.increment!(:n_downloads)
-    path = @payment.product.file.path
-    head(:bad_request) and return unless File.exist?(path)
-    send_file(path, :filename => @payment.product.file.instance.file_file_name)
+    redirect_to @payment.product.expiring_url
+    #head(:bad_request) and return unless File.exist?(path)
+   # send_file(path, :filename => @payment.product.file.instance.file_file_name)
   end
 
   #TODO error message if number of mak downloads if espired
 end
 def show
- @product = Product.find_by slug: params[:slug]
+  if params[:payKey]
+    @payment = Payment.find_by paykey: params[:payKey]
+    if @payment.completed
+      session[:user_products] ||= {}
+      session[:user_products][@payment.product.id] = @payment.token
+    end
+  end
+  @product = Product.find_by slug: params[:slug]
 end
 
 def ipn
@@ -67,15 +75,17 @@ def ipn
 
 end
 
-def success
-
-  @payment = Payment.find_by paykey: params[:payKey]
-  if @payment.completed
-    session[:user_products] ||= {}
-    session[:user_products][@payment.product.id] = @payment.token
-  end
-  render layout: false
+def check_paypal_payment
+ @payment = Payment.find_by paykey: params[:payKey]
+ if @payment.completed
+  status = 'ok'
+  url = product_slug_url(slug: @payment.product.slug, payKey: params[:payKey])
 end
-
+payKey = params[:payKey]
+ respond_to do |format|
+      format.html {redirect_to url if status=='ok'}
+      format.json { render json: { status: status, url: url} }
+    end
+end
 
 end
