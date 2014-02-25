@@ -1,79 +1,36 @@
-(function ($, Product, undefined) {
+// Product landing page related js
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap/dist/js/bootstrap
+//= require fullpage.js/jquery.fullPage
+$(document).ready(function() {
+    $.fn.fullpage({
+        verticalCentered: false,
+        resize : false,
+        anchors:['show', 'buy'],
+        scrollingSpeed: 700,
+        easing: null,
+        menu: false,
+        navigation: false,
+        navigationPosition: 'right',
+        slidesNavigation: true,
+        slidesNavPosition: 'bottom',
+        autoScrolling: true,
+        scrollOverflow: false,
+        css3: false,
+        paddingTop: '50px',
+        paddingBottom: '0',
+        keyboardScrolling: false,
+        touchSensitivity: 15,
+        continuousVertical: false,
+        animateAnchor: true,
+        normalScrollElements: window,
 
- var settings = {};
- function init_settings() {
-  settings = { form: $(".product")};
-}
-
-Product.init = function() {
-  init_settings();
-  Product.Upload.file();
-  Product.Upload.filePreview();
-  Product.Form.currencyInit();
-  Product.Form.validationInit();
-};
-
-
-Product.Form = {
-  currencyInit: function() {
-    settings.form.find("#currency").bind('click', function(e){
-      syms =  settings.form.find("#currency").data('currency-symbols');
-      vals =  settings.form.find("#currency").data('currency-values');
-      i = $.inArray($(this).text(), syms);
-      if(i == (syms.length -1)){
-        i =0;
-      }else {
-        i++;
-      }
-      settings.form.find("#currency").text(syms[i]);
-      settings.form.find("#product_price_currency").val(vals[i]);
+        //events
+        onLeave: function(index, direction){},
+        afterLoad: function(anchorLink, index){},
+        afterRender: function(){},
+        afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){},
+        onSlideLeave: function(anchorLink, index, slideIndex, direction){}
     });
-  },
-  validationInit: function(){
-    settings.form.validate({
-      showErrors: function(errorMap, errorList) {
-
-        $.each(this.validElements(), function (index, element) {
-          var $element = $(element);
-          $element.data("title", "")
-          .tooltip("destroy");
-          $element.parent().removeClass("has-error");
-        });
-          // Create new tooltips for invalid elements
-          $.each(errorList, function (index, error) {
-            var $element = $(error.element);
-            $element.tooltip("destroy")
-            .data("title", error.message)
-            .tooltip();
-            console.log($element.parent())
-            $element.parent().addClass("has-error");
-          });
-        },
-        submitHandler: function(form) {
-          if(form.find( "input[class=upload_uuid]" ).val()){
-            form.submit();
-        }
-      },
-      rules: {
-        "product[price]": {
-          required: true,
-          number: true,
-          min: 0.50
-        }
-      }
-    });
-  }
-}
-
-function fileError(action){
-  if(action == 'hide'){
-    $('.file-error').addClass('hidden');
-    $('.file-row-error').removeClass('file-row-error');
-  }else {
-    $('.file-error').removeClass('hidden');
-    $('.file-row-error').addClass('file-row-error');
-  }
-}
-
-
-}(jQuery, window.Product = window.Product || {}));
+});

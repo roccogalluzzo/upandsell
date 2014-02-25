@@ -24,10 +24,10 @@
 //= require flat-ui-official/js/bootstrap-switch.js
 //= require d3/d3.js
 //= require nvd3/nv.d3.js
-//= require product
-//= require product/upload
-//= require nv-model
-//= require graph
+//= require user/product
+//= require user/product/upload
+//= require user/nv-model
+//= require user/graph
 
 $(document).ready(function(){
   $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
