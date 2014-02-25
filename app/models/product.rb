@@ -62,7 +62,7 @@ class Product < ActiveRecord::Base
       self.file_content_type  = direct_upload_head.content_type
       self.file_updated_at    = direct_upload_head.last_modified
     end
-    if self.uuid_was
+    if self.uuid_was != self.uuid
    #delete old file
    self.delete_file(self.customer_id, self.uuid_was, self.file_file_name_was)
  end
