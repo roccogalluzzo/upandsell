@@ -1,22 +1,80 @@
-<script src="https://www.paypalobjects.com/js/external/dg.js" type="text/javascript"></script>
-<div class="col-md-12 product">
- <h1><%= @product.name %></h1>
- <div class="col-md-8 product-image">
-   <%# image_tag @product.thumb.url, class:"img-thumbnail" %>
-   <%= image_tag 'p01.png', class:"img-thumbnail" %>
- </div>
- <div class="col-md-4">
-  <h2> <%= @product.price %></h2>
-  <% if session[:user_products] and session[:user_products].key? @product.id %>
-  <p> <%= link_to 'Download',
-    download_product_path(session[:user_products][@product.id]),
-    class: "btn btn-large btn-success" %></p>
-    <% else %>
-    <p> <%= link_to 'Buy',  buy_product_path(@product.id),
-      remote: true, id: "btn-buy", class: "btn btn-large btn-block btn-primary" %></p>
-      <% end %>
-      <p><%= @product.description %></p>
-
+<div class="section">
+  <div class="row product">
+     <div class="col-md-12 left">
+     <div class="row">
+    <div class="col-md-12">
+       <div class="product-image">
+         <%= image_tag @product.thumb.url,  class:"img-responsive" %>
+         <%# image_tag 'p01.png', class:"img-responsive" %>
+       </div>
+       </div>
+       </div>
+       <div class="row">
+       <div class="col-md-8">
+       <h3><%= @product.name %> </h3>
+       <p class="description"><%= @product.description %>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+       <div class="col-md-4 info">
+       <div class="row">
+        <div class="col-md-12 text-center">
+          <h2> <%=  humanized_money_with_symbol  @product.price %></h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <% if session[:user_products] and session[:user_products].key? @product.id %>
+          <%= link_to 'Download',
+          download_product_path(session[:user_products][@product.id]),
+          class: "btn btn-large btn-success" %>
+          <% else %>
+          <a href="#buy"
+          class="btn btn-large btn-block btn-primary">
+          Buy Now!
+        </a>
+        <% end %>
+      </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="details col-md-12">
 
+<ul>
+<li><span class="text-muted">Size:</span>
+<b class=""><%= number_to_human_size @product.file_file_size %></b></li>
+<li> <span class="text-muted">Type:</span>
+<b class=""><%= @product.extension.upcase %></b></li>
+<li> <span class="text-muted">By:</span>
+<b class="">Rocco Galluzzo</b></li>
+</ul>
+     </div>
+   </div>
+ </div>
+      </div>
+<div id="footer" class="row">
+  <p> <b>UP&amp;SELL.ME</b> </p>
+</div>
+</div>
+</div>
+</div>
+<div class="section">
+  <div class="buy">
+    <a href="#show"
+    class="btn btn-buy btn-large btn-block btn-primary">
+    Buy Now!
+  </a>
+
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</div>
+</div>
+
+</div>

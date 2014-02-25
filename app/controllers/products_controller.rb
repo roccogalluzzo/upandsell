@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  layout "product"
   include PayPal::SDK::AdaptivePayments
   skip_before_filter :verify_authenticity_token, :only => [:ipn]
 

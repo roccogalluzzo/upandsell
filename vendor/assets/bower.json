@@ -6,6 +6,7 @@
     "flat-ui-official": "latest",
     "jquery-file-upload": "latest",
     "jquery.validation": "latest",
-    "nvd3": "latest"
+    "nvd3": "latest",
+    "fullpage.js": "latest"
   }
 }

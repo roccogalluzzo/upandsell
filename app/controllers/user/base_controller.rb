@@ -1,4 +1,4 @@
 class User::BaseController < ApplicationController
   before_filter :authenticate_customer!
-  layout "customers"
+  layout 'application'
 end

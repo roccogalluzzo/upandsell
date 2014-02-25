@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Up&amp;Sell.me</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<%= stylesheet_link_tag    "application", media: "all" %>
+	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<%= csrf_meta_tags %>
+</head>
+<body class="product-page">
+	<%= render :partial => 'layouts/site/header' %>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-offset-2 text-center col-lg-8">
+				<%= yield %>
+				</div>
+				</div>
+				</div>
+
+  </body>
+  </html>

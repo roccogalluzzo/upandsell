@@ -30,7 +30,9 @@ class Product < ActiveRecord::Base
   def clean_files
     self.delete_file(self.customer_id, self.uuid, self.file_file_name)
   end
-
+  def extension
+     File.extname(self.file_file_name).delete('.')
+  end
   def expiring_url(time = 3600)
     s3 = AWS::S3.new
     tries ||= 5

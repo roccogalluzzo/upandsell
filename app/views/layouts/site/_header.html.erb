@@ -1,0 +1,28 @@
+<div class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<%= link_to(root_path,
+			class: "navbar-brand") do %>
+			<b>UP&amp;SELL.ME</b>
+			<% end %>
+		</div>
+
+		<% if customer_signed_in? %>
+		<%= link_to(user_root_path,
+		class: "btn navbar-btn btn-primary pull-right") do %>
+		Go To Dashboard
+		<% end %>
+		<% else %>
+		<%= link_to("Sign In", new_customer_session_path,
+		class: "btn navbar-btn btn-info pull-right") %>
+
+		<%= link_to("Sign Up", new_customer_registration_path,
+		class: "btn navbar-btn btn-primary pull-right") %>
+		<% end %>
+	</div>
+</div>
