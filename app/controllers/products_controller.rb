@@ -42,13 +42,13 @@ end
 def download
   @payment = Payment.find_by token: params[:token]
   if @payment.n_downloads < 5
-    @payment.increment!(:n_downloads)
     redirect_to @payment.product.expiring_url
+    @payment.increment!(:n_downloads)
+    return
     #head(:bad_request) and return unless File.exist?(path)
    # send_file(path, :filename => @payment.product.file.instance.file_file_name)
   end
-
-  #TODO error message if number of mak downloads if espired
+render json: { status: "no more donwload permitted"}
 end
 def show
   if params[:payKey]
@@ -56,9 +56,16 @@ def show
     if @payment.completed
       session[:user_products] ||= {}
       session[:user_products][@payment.product.id] = @payment.token
+      @downloads =  @payment.n_downloads
     end
   end
-  @product = Product.find_by slug: params[:slug]
+@product = Product.find_by slug: params[:slug]
+  if !@downloads and session[:user_products] and
+    session[:user_products].key? @product.id
+     @payment = Payment.find_by token: session[:user_products][@product.id]
+     @downloads =  @payment.n_downloads
+  end
+
 end
 
 def ipn
@@ -86,6 +93,11 @@ payKey = params[:payKey]
       format.html {redirect_to url if status=='ok'}
       format.json { render json: { status: status, url: url} }
     end
+end
+
+private
+def downadable?
+
 end
 
 end
