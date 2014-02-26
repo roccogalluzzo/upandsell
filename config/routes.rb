@@ -5,6 +5,8 @@ Upandsell::Application.routes.draw do
   #product page
   get '/p/:slug' => 'products#show', :as => 'product_slug'
   get 'products/paypal' => 'products#paypal'
+  get 'products/pay_info' => 'products#pay_info'
+  post 'products/pay' => 'products#pay'
   get 'products/check_payment' => 'products#check_paypal_payment'
   post 'products/ipn' => 'products#ipn'
   get 'download/p/:token' => 'products#download', :as => 'download_product'

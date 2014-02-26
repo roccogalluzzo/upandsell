@@ -16,16 +16,16 @@
           <% else %>
           <% @payments.each do |payment| %>
          <div class="list-item row">
-               <div class="col-sm-1">
+               <div class="col-sm-5">
              <%= payment.product.name %>
              </div>
-             <div class="col-sm-2"> <%= payment.amount %></div>
-            <div class="col-sm-4">
+             <div class="col-sm-3"> <%= payment.amount %></div>
+            <div class="col-sm-3">
 
 
-             <%= link_to "Show", customer_payment_path(payment), :class => "btn btn-info" %>
+             <%= link_to "Show", user_payment_path(payment), :class => "btn btn-info" %>
 
-           <%= link_to "Refund", refund_customer_payment_path(payment), :class => "btn btn-success" %>
+           <%= link_to "Refund", refund_user_payment_path(payment), :class => "btn btn-success" %>
            </div>
        </div>
        <% end %>

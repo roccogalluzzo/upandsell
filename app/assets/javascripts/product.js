@@ -3,11 +3,14 @@
 //= require jquery_ujs
 //= require bootstrap/dist/js/bootstrap
 //= require fullpage.js/jquery.fullPage
+//= require jquery.payment/lib/jquery.payment.js
+//= require pay_form
 $(document).ready(function() {
+  PayForm.init();
   $.fn.fullpage({
     verticalCentered: false,
     resize : false,
-    anchors:['show', 'buy'],
+    anchors:['show', 'buy', 'buy-paypal'],
     scrollingSpeed: 700,
     easing: null,
     menu: false,
@@ -29,13 +32,13 @@ $(document).ready(function() {
         //events
         onLeave: function(index, direction){},
         afterLoad: function(anchorLink, index){
-          if(anchorLink == 'buy'){
+          if(anchorLink == 'buy-paypal'){
             // call paypal
             $.ajax({
               url: '/products/paypal',
               type: 'GET',
               dataType: 'json',
-              data: {product_id: $('.buy').data('product-id')},
+              data: {product_id: $('.buy-paypal').data('product-id')},
               async: false,
               success: function(d) { window.location.replace(d.url) }
             });

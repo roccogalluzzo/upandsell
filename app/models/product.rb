@@ -1,7 +1,7 @@
 require 'modules/base52'
 class Product < ActiveRecord::Base
 
-  has_many :payment
+  has_many :orders
   belongs_to :customer
   validates_presence_of :name, :price, :uuid, :file_file_name
 
