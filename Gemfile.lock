@@ -34,6 +34,9 @@ GEM
     bcrypt-ruby (3.1.2)
     bower-rails (0.7.0)
     builder (3.1.4)
+    byebug (2.6.0)
+      columnize (~> 0.3)
+      debugger-linecache (~> 1.2)
     capistrano (3.1.0)
       i18n
       rake (>= 10.0.0)
@@ -57,7 +60,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    columnize (0.3.6)
     commonjs (0.2.7)
+    debugger-linecache (1.2.0)
     devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -228,6 +233,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   bower-rails (~> 0.7.0)
+  byebug
   capistrano
   capybara
   devise

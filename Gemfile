@@ -11,7 +11,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'simple_form'
 gem 'voight_kampff'
-
+gem 'byebug'
 #test gems
 group :development, :test do
   gem 'rspec-rails'
