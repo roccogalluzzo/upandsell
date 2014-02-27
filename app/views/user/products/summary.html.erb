@@ -1,56 +1,58 @@
   <% content_for :header do %>
-   <div class="col-md-9">
-      <h1>SUMMARY</h1>
-    </div>
-    <div class="col-md-3">
-     <div class="btn-group pull-right"  data-toggle="buttons">
-      <label class="btn btn-primary active">
-        <input type="radio" name="options" id="option1"> Today
-      </label>
-      <label class="btn btn-primary">
-        <input type="radio" name="options" id="option2"> Week
-      </label>
-      <label class="btn btn-primary">
-        <input type="radio" name="options" id="option3"> Month
-      </label>
-    </div>
+  <div class="col-md-9">
+    <h1>SUMMARY</h1>
   </div>
+  <div class="col-md-3">
+   <div class="btn-group pull-right"  data-toggle="buttons">
+    <label class="btn btn-primary active stats-range" data-range="1">
+      <input type="radio" > Today
+    </label>
+    <label class="btn btn-primary stats-range" data-range="7">
+      <input type="radio"  > Week
+    </label>
+    <label class="btn btn-primary stats-range" data-range="30" >
+      <input type="radio" > Month
+    </label>
+  </div>
+</div>
 <% end %>
 
-  <div class="row">
-    <div class="col-md-12">
+<div class="row">
+  <div class="col-md-12">
 
-      <div class="row">
-        <div class="col-md-offset-3 col-md-6">
-          <div class="row stats-summary">
+    <div class="row">
+      <div class="col-md-offset-3 col-md-6">
+        <div class="row stats-summary">
 
-            <div class="col-md-4 stats-summary-col visits">
-              <h3>123</h3>
-              <small>Visits</small>
-            </div>
-            <div class="col-md-4 stats-summary-col sales">
-              <h3>123</h3>
-              <small>Sales</small>
-            </div>
-            <div class="col-md-4  stats-summary-col earnings">
-              <h3><span class="dollar">$</span>123</h3>
-              <small>Earnings</small>
-            </div>
+          <div class="col-md-4 stats-summary-col visits">
+            <h3><%= @visits[0] || 0%></h3>
+            <small>Visits</small>
           </div>
-</div>
-</div>
-         <div class="row">
-            <div class="col-md-offset-1 col-md-10 text-center">
-              <hr></hr>
-
-            </div>
+          <div class="col-md-4 stats-summary-col sales">
+            <h3><%= @sales[0] || 0%></h3>
+            <small>Sales</small>
           </div>
-          <div class="row">
-            <div class="col-md-12">
-          <div id="dashboard_chart" class="graph">
-                     <svg></svg>
-                   </div>
-            </div>
+          <div class="col-md-4  stats-summary-col earnings">
+            <h3><span class="dollar">$</span><%=  humanized_money @earnings_total || 0%></h3>
+            <small>Earnings</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10 text-center">
+        <hr></hr>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+
+       <%= content_tag "div", id: "dashboard_chart", class: "graph",
+       data: { earnings: @earnings[1] } do %>
+       <svg></svg>
+       <% end %>
+     </div>
 
    </div>
  </div>

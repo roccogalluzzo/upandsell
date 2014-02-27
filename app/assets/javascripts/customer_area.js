@@ -30,6 +30,22 @@
 //= require user/graph
 
 $(document).ready(function(){
+  SummaryChart("dashboard_chart", $('.graph').data('earnings'));
+
+
+  $('.stats-range').click(function(){
+
+    $.ajax({
+    url: '/user/products/metrics',
+    type: 'GET',
+    dataType: 'json',
+    data: {type: 'earnings', range: $(this).data('range')},
+    async: false,
+    success: function(d) {
+      console.log(d);
+      redrawSummaryChart("dashboard_chart", d) }
+  });
+  });
   $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
   Product.init();
   $('.list-item').click(function(){

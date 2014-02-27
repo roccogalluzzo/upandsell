@@ -22,7 +22,8 @@ Upandsell::Application.routes.draw do
     patch 'settings/update_account' => 'settings#update_account'
     patch 'settings/update_payments' => 'settings#update_payments'
     root 'products#summary'
-     get 'products/upload_request'  => 'products#upload_request'
+    get 'products/upload_request'  => 'products#upload_request'
+    get 'products/metrics'  => 'products#metrics'
     resources :products, except: [:show] do
       post 'upload'
     end

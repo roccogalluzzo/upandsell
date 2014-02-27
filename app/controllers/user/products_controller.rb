@@ -13,8 +13,24 @@ def new
   end
 end
 
+def metrics
+  product_ids = Customer.find(current_customer.id).products.ids
+  if params[:range] == '1'
+    earnings = Metric::Products.new(product_ids).earnings_today
+  elsif params[:range] == '7'
+   earnings = Metric::Products.new(product_ids).earnings_last 7.days
+ elsif params[:range] == '30'
+  earnings = Metric::Products.new(product_ids).earnings_last 30.days
+end
+render json: earnings[1]
+end
 def summary
-
+ product_ids = Customer.find(current_customer.id).products.ids
+ @visits = Metric::Products.new(product_ids).visits_last 1.days
+ @sales = Metric::Products.new(product_ids).sales_last 1.days
+ @earnings = Metric::Products.new(product_ids).earnings_today
+ # TODO convert to account currency
+ @earnings_total = Money.new(@earnings[0])
 end
 
 def upload_request
