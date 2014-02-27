@@ -1,8 +1,7 @@
-class User::PaymentsController < User::BaseController
+class User::OrdersController < User::BaseController
   include PayPal::SDK::AdaptivePayments
 def index
-@payments= Customer.find(current_customer.id).payment
-.where(completed: true)
+@orders = Order.where(product_id: Customer.find(current_customer.id).products.ids, status: 'completed')
 
 end
 

@@ -8,6 +8,8 @@
     "jquery.validation": "latest",
     "nvd3": "latest",
     "fullpage.js": "latest",
-    "jquery.payment": "latest"
+    "jquery.payment": "latest",
+    "slidr": "latest",
+    "slimScroll": "latest"
   }
 }

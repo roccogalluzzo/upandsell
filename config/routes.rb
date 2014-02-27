@@ -26,7 +26,7 @@ Upandsell::Application.routes.draw do
     resources :products, except: [:show] do
       post 'upload'
     end
-    resources :payments, only: [:index, :show] do
+    resources :orders, only: [:index, :show] do
      get 'refund', on: :member
    end
  end

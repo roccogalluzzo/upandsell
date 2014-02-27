@@ -11,21 +11,21 @@
           <div class="col-lg-offset-1 col-lg-10">
             <div class="list">
 
-          <% if @payments.blank? %>
-          <tr> <td colspan="2">No payments Founds</td></tr>
+          <% if @orders.blank? %>
+          <tr> <td colspan="2">No orders Founds</td></tr>
           <% else %>
-          <% @payments.each do |payment| %>
+          <% @orders.each do |order| %>
          <div class="list-item row">
                <div class="col-sm-5">
-             <%= payment.product.name %>
+             <%= order.product.name %>
              </div>
-             <div class="col-sm-3"> <%= payment.amount %></div>
+             <div class="col-sm-3"> <%= humanized_money_with_symbol order.amount %></div>
             <div class="col-sm-3">
 
 
-             <%= link_to "Show", user_payment_path(payment), :class => "btn btn-info" %>
+             <%= link_to "Show", user_order_path(order), :class => "btn btn-info" %>
 
-           <%= link_to "Refund", refund_user_payment_path(payment), :class => "btn btn-success" %>
+           <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-success" %>
            </div>
        </div>
        <% end %>

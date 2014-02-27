@@ -6,42 +6,170 @@
 @import "fullpage.js/jquery.fullPage.css";
 @local-font-path: "/assets/lato/";
 
+// general
+.product-page {
+  background-color: @belize-hole;
+}
+.product {
+  padding: 0px 15px;
+  padding-bottom: 0px;
+  border-radius: 6px;
+  background-color: white;
+}
+.controlArrow {
+  display: none;
+}
+
+// landing
+.info {
+ border-left: @clouds  solid 1px;
+ margin: 15px 0;
+ h2 {
+  margin-top: 15px;
+}
+}
+
+// credit card form
+.middleline {
+ width: 100%;
+ text-align: center;
+ border-bottom: 1px solid @clouds;
+ line-height: 0.1em;
+ margin: 30px 0 0px;
+ span {
+  background:#fff;
+  padding:0 10px;
+}
+}
+.processing
+{
+  background-color: #535353;
+  filter: alpha(opacity=50);
+  opacity: 0.9;
+  -moz-opacity: 0.50;
+  z-index: 20;
+  height: 24%;
+  width: 42%;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  border-radius: 6px;
+  display: none;
+}
+.message {
+ position: absolute;
+ left: 1%;
+ top: 34%;
+ text-align: center;
+ width: 100%;
+ opacity: 1;
+ color: rgb(255, 255, 255);
+ z-index: 9999999;
+ display: none;
+ p {
+  margin-bottom: 10px;
+}
+}
 .btn-pay {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .left-addon {
-    position: relative;
+  position: relative;
 }
 .left-addon input {
-    padding-left: 40px;
+  padding-left: 40px;
 }
 .left-addon i {
-    position: absolute;
-    left: 0px;
-    padding: 13px 12px;
-    pointer-events: none;
+  position: absolute;
+  left: 0px;
+  padding: 13px 12px;
+  pointer-events: none;
 }
 .credit-card {
   padding: 20px;
   padding-bottom: 0;
 }
-.buy-form {
-    padding: 0px;
-  border-radius: 6px;
-  border: #ededed solid 2px;
-  background-color: white;
-}
 .pay-title {
   background-color: @clouds;
   text-align: center;
-  height: 284px;
+  height: 387px;
+  border-radius: 6px;
+  padding-top: 22px;
+  position: relative;
+  h2 {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+  }
+  h3 {
+    margin-top: 5px !important;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    word-spacing: 4px;
+    font-size: 18px;
+    color: #888 !important;
+  }
+  p {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+  h6 {
+    font-size: 20px;
+    .text-primary;
+    font-weight: 600;
+  }
+  .sec-info {
+    position: absolute;
+    font-size: 15px;
+    margin: 0;
+    bottom: 4px;
+    color: #474747;
+    padding: 0 7px;
+    right: 4px;
+    text-transform: initial;
+    p {
+      font-size: 13px;
+      color: @silver;
+      margin-bottom: 10px
+    }
+    b {
+      font-size: 13px;
+      margin-bottom: 1px;
+    }
+  }
 }
-.pay-title h2 {
-margin-top: 10px;
+.container {
+  max-width: 810px !important;
+  font-weight: 300;
+  font-size: 16px;
+  color: #555;
+  -webkit-font-smoothing: antialiased;
 }
-.pay-title h3 {
-margin-top: 10px;
-color: @brand-primary;
+
+.product {
+  .btn {
+    margin-bottom: 5px;
+  }
+
+  h1 {
+   margin-top: -10px;
+ }
+
+ .title {
+  border-bottom: @clouds solid 2px;
+  padding-bottom: 0px;
+}
+.author {
+  position: relative;
+  bottom: 5px;
+}
+
+.description {
+ margin-top: 20px;
+ padding: 0px;
+}
 }
 /* Titles */
 h1, h2, h3, h4, h5, h6 {
@@ -64,51 +192,6 @@ p {
   font-size: 16px;
   font-weight: 500;
 }
-
-.container {
-  max-width: 810px !important;
-  font-weight: 300;
-  font-size: 16px;
-  color: #555;
-  -webkit-font-smoothing: antialiased;
-}
-.product {
-
-  .btn {
-    margin-bottom: 5px;
-  }
-
-  h1 {
-   margin-top: -10px;
- }
-
- .title {
-  border-bottom: @clouds solid 2px;
-  padding-bottom: 0px;
-}
-.author {
-  position: relative;
-  bottom: 5px;
-}
-.info {
- border-left: @clouds  solid 1px;
-}
-.description {
- margin-top: 20px;
- padding: 0px;
-}
-}
-.product {
-  padding: 0px 15px;
-  padding-bottom: 0px;
-  border-radius: 6px;
-  border: #ededed solid 2px;
-  background-color: white;
-}
-
-.product-page {
-  background-color: @silver;
-}
 .product-image {
   border-bottom: @clouds  solid 2px;
   /*background-color: @clouds;*/
@@ -118,16 +201,17 @@ p {
  margin-top: 15px;
  ul {
   list-style-type: none;
-margin: 0;
-padding: 0;
- }
- li {
+  margin: 0;
+  padding: 0;
+}
+li {
   font-size: 15px;
-line-height: 1.4;
-padding: 10px 0;
-border-bottom: @clouds solid 2px;
-b { float: right; }
- }
+  line-height: 1.4;
+  padding: 10px 0;
+  text-align: left;
+  border-bottom: @clouds solid 2px;
+  b { float: right; }
+}
 }
 .product-image img {
   display: block;

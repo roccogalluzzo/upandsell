@@ -2,37 +2,40 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap/dist/js/bootstrap
+//= require jquery.validation/jquery.validate.js
+//= require slimScroll/jquery.slimscroll
 //= require fullpage.js/jquery.fullPage
 //= require jquery.payment/lib/jquery.payment.js
 //= require pay_form
+var PAYMILL_PUBLIC_KEY = '98121246257b75d119a343538348e8bf';
 $(document).ready(function() {
   PayForm.init();
   $.fn.fullpage({
     verticalCentered: false,
     resize : false,
-    anchors:['show', 'buy', 'buy-paypal'],
-    scrollingSpeed: 700,
+    anchors:['show', 'buy', 'download'],
+    scrollingSpeed: 350,
     easing: null,
     menu: false,
     navigation: false,
     navigationPosition: 'right',
-    slidesNavigation: true,
-    slidesNavPosition: 'bottom',
+    slidesNavigation: false,
     autoScrolling: true,
-    scrollOverflow: false,
+    scrollOverflow: true,
     css3: false,
     paddingTop: '50px',
     paddingBottom: '0',
     keyboardScrolling: false,
     touchSensitivity: 15,
     continuousVertical: false,
-    animateAnchor: true,
+    animateAnchor: false,
     normalScrollElements: window,
 
         //events
         onLeave: function(index, direction){},
-        afterLoad: function(anchorLink, index){
-          if(anchorLink == 'buy-paypal'){
+        afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){
+          console.log(slideIndex)
+          if(slideIndex== 1){
             // call paypal
             $.ajax({
               url: '/products/paypal',
@@ -45,7 +48,8 @@ $(document).ready(function() {
           }
         },
         afterRender: function(){},
-        afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){},
         onSlideLeave: function(anchorLink, index, slideIndex, direction){}
       });
+
+$.getScript('https://bridge.paymill.com/');
 });

@@ -1,78 +1,19 @@
-<div class="section">
- <%= render partial: "products/payments/credit_card" %>
-</div>
-<div class="section">
-  <div class="row product">
-   <div class="col-md-12">
-     <div class="row">
-      <div class="col-md-12">
-       <div class="product-image">
-         <%= image_tag @product.thumb.url,  class:"img-responsive" %>
-         <%# image_tag 'p01.png', class:"img-responsive" %>
-       </div>
-     </div>
+<div id="page" class="col-md-12">
+  <div data-slidr="landing" class="section">
+    <%= render partial: "products/landing" %>
+  </div>
+  <div data-slidr="cc-form" class="section">
+    <div class="slide active">
+     <%= render partial: "products/payments/credit_card" %>
    </div>
-   <div class="row">
-     <div class="col-md-8">
-       <h3><%= @product.name %> </h3>
-       <p class="description"><%= @product.description %>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-      <div class="col-md-4 info">
-       <div class="row">
-        <div class="col-md-12 text-center">
-          <h2> <%=  humanized_money_with_symbol  @product.price %></h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <% if @downloads and @downloads < 5 %>
-          <%= link_to 'Download',
-          download_product_path(@order.token),
-          class: "btn btn-large btn-block btn-success" %>
-          <p>Remaining Downloads <%= 5 - @downloads  %> </p>
-          <% elsif @downloads and @downloads <= 5 %>
-          <a href="#"
-          class="disabled btn btn-large btn-block btn-success">
-          Download
-        </a>
-        <p>Reached limit downloads, <a href="#">buy again</a> </p>
-        <% else %>
-        <a href="#buy"
-        class="btn btn-large btn-block btn-primary">
-        Buy Now!
-      </a>
-      <% end %>
-    </div>
+   <div class="slide"  data-anchor="paypal">
+    <%= render partial: "products/payments/paypal" %>
   </div>
-  <div class="row">
-    <div class="details col-md-12">
+</div>
 
-      <ul>
-        <li><span class="text-muted">Size:</span>
-          <b class=""><%= number_to_human_size @product.file_file_size %></b></li>
-          <li> <span class="text-muted">Type:</span>
-            <b class=""><%= @product.extension.upcase %></b></li>
-            <li> <span class="text-muted">By:</span>
-              <b class="">Rocco Galluzzo</b></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="footer" class="row">
-      <p> <b>UP&amp;SELL.ME</b> </p>
-    </div>
-  </div>
-</div>
-</div>
 
 <div class="section">
- <%= render partial: "products/payments/paypal" %>
+  <%= render partial: "products/payments/download" %>
 </div>
 </div>
+

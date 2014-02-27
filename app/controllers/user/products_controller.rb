@@ -3,7 +3,7 @@ class User::ProductsController < User::BaseController
 
  def index
 
-  @products = Customer.find(current_customer.id).product
+  @products = Customer.find(current_customer.id).products
 end
 
 def new
@@ -103,4 +103,3 @@ def sanitize_filename(filename)
   return fn.join '.'
 end
 end
-

@@ -15,7 +15,6 @@ class ProductsController < ApplicationController
     pay = Paymill::Transaction.create amount: @product.price.cents,
     currency: @product.price_currency.upcase, token: params[:token]
     token = ''
-    Rails.logger.debug pay
     if pay.status == 'closed' && params[:email].present?
       order = @product.orders.build(
         email: params[:email],
@@ -30,13 +29,10 @@ class ProductsController < ApplicationController
       url = download_product_url(order.token)
       update_user_products(order.product.id, order.token)
       render json: { status: 'completed', url: url }
+      return
     else
       render json: { status: 'failed'}
     end
-
-
-
-
   end
 
   def paypal
@@ -48,7 +44,7 @@ class ProductsController < ApplicationController
      :actionType => 'CREATE',
      :receiverList => {'receiver' =>
       [{'email' => @customer.email,
-       'amount' => @product.price_cents
+       'amount' => @product.price
        }]
        },
        :cancelUrl => product_url(id: @product.id, payment: 'failed'),
@@ -63,12 +59,13 @@ class ProductsController < ApplicationController
        )
    @response = paypal.pay(req)
    if @response.success?
-    @order= @product.order.build(
+    @order= @product.orders.build(
       payment_type: 'paypal',
       payment_token: @response.payKey,
       status: 'created',
-      amount_cents: @product.price_cents,
-      amount_currency: @product.price_currency.upcase)
+      amount_cents: @product.price,
+      amount_currency: @product.price_currency.upcase,
+      token: '')
     @order.product_id = @product.id
     @order.save
     status = 'ok'
@@ -90,7 +87,7 @@ def download
 end
 def show
   if params[:payKey]
-    @order = Payment.find_by  payment_token: params[:payKey]
+    @order = Order.find_by  payment_token: params[:payKey]
     if @order.status = 'completed'
       update_user_products(@order.product.id, @order.token)
       @downloads =  @order.n_downloads
@@ -99,7 +96,9 @@ def show
   @product = Product.find_by slug: params[:slug]
   if !@downloads and is_user_product?(@product.id)
     @order = Order.find_by token: session[:user_products][@product.id]
+    if @order.present?
     @downloads =  @order.n_downloads
+  end
   end
   @paypal = @product.customer.paypal_status
   @credit_card =  @product.customer.credit_card_status
