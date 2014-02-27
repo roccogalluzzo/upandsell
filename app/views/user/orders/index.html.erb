@@ -16,16 +16,12 @@
           <% else %>
           <% @orders.each do |order| %>
          <div class="list-item row">
-               <div class="col-sm-5">
+               <div class="col-sm-8">
              <%= order.product.name %>
              </div>
              <div class="col-sm-3"> <%= humanized_money_with_symbol order.amount %></div>
-            <div class="col-sm-3">
-
-
-             <%= link_to "Show", user_order_path(order), :class => "btn btn-info" %>
-
-           <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-success" %>
+            <div class="col-sm-1">
+           <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary" %>
            </div>
        </div>
        <% end %>
