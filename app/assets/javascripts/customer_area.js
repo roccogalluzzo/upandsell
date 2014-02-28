@@ -31,8 +31,9 @@
 
 $(document).ready(function(){
   SummaryChart("dashboard_chart", $('.graph').data('earnings'));
-
-
+  if ($(".alert").text().length > 20) {
+$(".alert").fadeIn(1000, function() { $(this).delay(4000).fadeOut("slow"); });
+}
   $('.stats-range').click(function(){
 
     $.ajax({

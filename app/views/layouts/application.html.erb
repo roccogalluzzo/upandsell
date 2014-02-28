@@ -11,6 +11,7 @@
     </head>
     <body>
      <div id="wrap">
+<%= render partial: "layouts/messages", flash: flash %>
      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -75,7 +76,7 @@
 </div>
    <div class="row">
     <div class="col-lg-10 col-md-offset-1 content">
-    <%= render partial: "layouts/messages", flash: flash %>
+
 <%= yield %>
     </div>
   </div>
