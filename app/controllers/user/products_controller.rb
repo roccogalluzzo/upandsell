@@ -97,9 +97,7 @@ def destroy
     render :file => "public/401.html", :status => :unauthorized
   end
   if @product.destroy
-   msg = { status: 'ok'}
-
-   render json: msg
+  return redirect_to user_products_path, notice: 'Product was deleted.'
  end
 end
 private
