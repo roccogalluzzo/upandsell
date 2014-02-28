@@ -10,12 +10,12 @@ class User::SettingsController < User::BaseController
    @customer = current_customer
    if params[:code]
      #redirect from paymill site
-     response = Billing::Paymill::Unite.access_token(params[:code])
+     response = access_token(params[:code])
      @customer.add_credit_card(response)
      @customer = current_customer
    end
    unless @customer.credit_card_token
-     @paymill_url = Billing::Paymill::Unite.auth_url
+     @paymill_url = auth_url
    end
  end
 
@@ -45,6 +45,36 @@ def update_payments
 end
 
 private
+ def auth_url
+      config =  Upandsell::Application.config.paymill
+      query = {
+        client_id: config[:client_id],
+        scope: config[:scope],
+        response_type: 'code'
+        }.to_query
+
+        URI::HTTPS.build(host: 'connect.paymill.com',
+          path: '/authorize', query: query).to_s
+      end
+      def access_token(auth_code)
+        config = Upandsell::Application.config.paymill
+
+        body = {
+          client_id: config[:client_id],
+          client_secret: config[:client_secret],
+          grant_type: "authorization_code",
+          code: auth_code
+          }.to_query
+
+          uri = URI::HTTPS.build(host: 'connect.paymill.com',
+            path: '/token')
+          http = Net::HTTP.new(uri.host, uri.port)
+          http.use_ssl = true
+          request = Net::HTTP::Post.new(uri.request_uri)
+          request.body =  body
+          res = ActiveSupport::JSON.decode(http.request(request).body)
+          return res
+        end
 def customer_params
   params.require(:customer).permit( :email, :password,
     :password_confirmation)

@@ -1,8 +1,6 @@
   <%= render partial: "tabs" %>
-<div class="row">
+  <div class="row">
 <div class="form-page col-md-10 col-md-offset-1">
-<div class="row">
-  <div class="col-lg-6 col-lg-offset-3">
 <%= simple_form_for @customer, url:  user_settings_update_account_path,
 class: 'form-horizontal' do |f| %>
 <div class="row form-group">
@@ -39,6 +37,5 @@ class: 'form-horizontal' do |f| %>
 </div>
 
 <% end %>
-</div>
 </div>
 </div>
