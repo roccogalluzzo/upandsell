@@ -3,17 +3,19 @@ module Stats
     @@redis ||= Redis.new(Upandsell::Application.config.redis)
   end
 
-  def increment(metric, id, value = 1)
-      #increment hour counter
-      hour = current_hour
-      redis.hincrby("product:#{id}:#{metric}:daily", hour, value)
-      #increment day counter
-      day = current_day
+  def increment(metric, id, value = 1, date = nil)
+    hour = date ? date.beginning_of_hour.to_time.to_i : current_hour
+    day = date ? date.beginning_of_day.to_time.to_i : current_day
+
+    if !date or ( day == current_day)
+       redis.hincrby("product:#{id}:#{metric}:daily", hour, value)
+    end
+
       redis.hincrby("product:#{id}:#{metric}", day, value)
     end
 
-    def decrement(metric, id, value = 1)
-      increment(metric, id, - value)
+    def decrement(metric, id, value = 1, date = nil)
+      increment(metric, id, - value, date)
     end
 
     def get(metric, ids, period)

@@ -23,7 +23,6 @@ class ProductsController < ApplicationController
         status: 'completed',
         amount_cents: @product.price.cents,
         amount_currency: @product.price.currency,
-        token: SecureRandom.urlsafe_base64(16)
         )
       order.save
       url = download_product_url(order.token)
@@ -64,8 +63,8 @@ class ProductsController < ApplicationController
       payment_token: @response.payKey,
       status: 'created',
       amount_cents: @product.price,
-      amount_currency: @product.price_currency.upcase,
-      token: '')
+      amount_currency: @product.price_currency.upcase
+      )
     @order.product_id = @product.id
     @order.save
     status = 'ok'
@@ -102,6 +101,9 @@ def show
   end
   @paypal = @product.customer.paypal_status
   @credit_card =  @product.customer.credit_card_status
+  if request.browser?
+Metric::Products.new(@product.id).incr_visits
+  end
 end
 
 def ipn
@@ -109,7 +111,6 @@ def ipn
     order = Order.find_by payment_token: params["pay_key"]
     if params["status"] == "COMPLETED"
       order.status = 'completed'
-      order.token = SecureRandom.urlsafe_base64(16);
       order.save
     end
 

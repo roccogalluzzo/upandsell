@@ -26,9 +26,9 @@ render json: earnings[1]
 end
 def summary
  product_ids = Customer.find(current_customer.id).products.ids
- @visits = Metric::Products.new(product_ids).visits_last 1.days
- @sales = Metric::Products.new(product_ids).sales_last 1.days
- @earnings = Metric::Products.new(product_ids).earnings_today
+ @visits = Metric::Products.new(product_ids).visits_last 30.days
+ @sales = Metric::Products.new(product_ids).sales_last 30.days
+ @earnings = Metric::Products.new(product_ids).earnings_last 30.days
  # TODO convert to account currency
  @earnings_total = Money.new(@earnings[0])
 end

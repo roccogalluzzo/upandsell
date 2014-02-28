@@ -17,14 +17,14 @@ module Metric
     end
 
     @metrics.each do |attr|
-      define_method("incr_#{attr}") { |by = 1|
-        increment(attr, @ids, by)
+      define_method("incr_#{attr}") { |by = 1, date = nil|
+        increment(attr, @ids, by, date)
       }
     end
 
     @metrics.each do |attr|
-      define_method("decr_#{attr}") { |by = 1|
-        decrement(attr, @ids, by)
+      define_method("decr_#{attr}") { |by = 1, date = nil|
+        decrement(attr, @ids, by, date)
       }
     end
 
