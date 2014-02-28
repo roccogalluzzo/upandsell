@@ -13,6 +13,7 @@ gem 'simple_form'
 gem 'voight_kampff'
 gem 'byebug'
 gem 'eu_central_bank'
+gem 'kaminari'
 #test gems
 group :development, :test do
   gem 'rspec-rails'
