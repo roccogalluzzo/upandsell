@@ -30,35 +30,39 @@
 //= require user/graph
 
 $(document).ready(function(){
+  if ($("#dashboard_chart").text().length > 1) {
   SummaryChart("dashboard_chart", $('.graph').data('earnings'));
-  if ($(".alert").text().length > 20) {
-$(".alert").fadeIn(1000, function() { $(this).delay(4000).fadeOut("slow"); });
-}
   $('.stats-range').click(function(){
 
     $.ajax({
-    url: '/user/products/metrics',
-    type: 'GET',
-    dataType: 'json',
-    data: {type: 'earnings', range: $(this).data('range')},
-    async: false,
-    success: function(d) {
-      console.log(d);
-      redrawSummaryChart("dashboard_chart", d) }
+      url: '/user/products/metrics',
+      type: 'GET',
+      dataType: 'json',
+      data: {type: 'earnings', range: $(this).data('range')},
+      async: false,
+      success: function(d) {
+        console.log(d);
+        redrawSummaryChart("dashboard_chart", d) }
+      });
   });
-  });
-  $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
-  Product.init();
-  $('.list-item').click(function(){
-    location.href = $(this).data('url')
-  })
-  .hover(function(){
-    $(this).find('.fa-link').toggleClass('hidden');
-  },
-  function(){
-   $(this).find('.fa-link').toggleClass('hidden');
- }
- );
+
+}
+if ($(".alert").text().length > 20) {
+  $(".alert").fadeIn(1000, function() { $(this).delay(4000).fadeOut("slow"); });
+}
+
+$("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+Product.init();
+$('.list-item').click(function(){
+  location.href = $(this).data('url')
+})
+.hover(function(){
+  $(this).find('.fa-link').toggleClass('hidden');
+},
+function(){
+ $(this).find('.fa-link').toggleClass('hidden');
+}
+);
 
 });
 
