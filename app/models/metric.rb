@@ -1,24 +1,32 @@
 module Metric
   class Products
     include Stats
-
+    @metrics =  [:visits, :sales, :earnings]
     def initialize(ids)
       @ids = ids
     end
 
-    def visits_last(period = 30.days)
-      get('views', @ids, period)
+    @metrics.each do |attr|
+      define_method("#{attr}_today") { get_daily(attr, @ids) }
     end
 
-    def sales_last(period = 30.days)
-      get('sales', @ids, period)
-    end
-    def earnings_last(period = 30.days)
-      get('earnings', @ids, period)
+    @metrics.each do |attr|
+      define_method("#{attr}_last") { | period = 30.days |
+        get(attr, @ids, period)
+      }
     end
 
-    def earnings_today
-      get_daily('earnings', @ids)
+    @metrics.each do |attr|
+      define_method("incr_#{attr}") { |by = 1|
+        increment(attr, @ids, by)
+      }
     end
+
+    @metrics.each do |attr|
+      define_method("decr_#{attr}") { |by = 1|
+        decrement(attr, @ids, by)
+      }
+    end
+
   end
 end
