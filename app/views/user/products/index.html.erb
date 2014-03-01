@@ -1,0 +1,68 @@
+<% content_for :header do %>
+<div class="col-lg-10">
+  <h1>PRODUCTS</h1>
+</div>
+<div class="col-lg-2">
+ <%= link_to "Add Product",
+ new_user_product_path, class: "pull-right btn btn-primary" %>
+ </div>
+ <% end %>
+
+ <div class="row">
+  <div class="col-lg-12">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="list">
+
+             <% if @products.blank? %>
+             <p>No products Founds</p>
+             <% else %>
+             <% @products.each do |product| %>
+             <div class="list-item row"
+             data-url="<%= url_for edit_user_product_path(product) %>">
+               <div class="col-sm-1 list-img">
+                <%= image_tag product.thumb.url(:small), :class => "img-circle" %>
+              </div>
+              <div class="col-sm-8 details">
+                <strong>
+                 <%= product.name %>
+                </strong>
+                   <%= link_to  controller: '/products', action: 'show',
+                      slug: product.slug, only_path: false do %>
+                <i class="fa fa-link fa-lg hidden"></i>
+                <% end %>
+                <div clas="row">
+                  <div class="col-sm-12">
+
+                  </div>
+                </div>
+              </div>
+              <div  class="col-sm-2 ext">
+              <!--
+                <a href="  ">
+                -->
+
+                <%# link_to(user_product_path(product), remote: true, :method => :delete) do %>
+                <!--<i class="fa fa-lg fa-times text-danger"></i> -->
+                <%# end %>
+
+
+              </div>
+              <div class="col-sm-1 chevron">
+              <i class="fa fa-2x fa-chevron-right text-muted"></i>
+              </div>
+            </div>
+            <% end %>
+            <% end %>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

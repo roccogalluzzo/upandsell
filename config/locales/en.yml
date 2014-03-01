@@ -18,6 +18,11 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        product:
+          attributes:
+            uuid:
+              blank: "You have to upload a file"

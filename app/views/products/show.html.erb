@@ -1,19 +1,14 @@
-<script src="https://www.paypalobjects.com/js/external/dg.js" type="text/javascript"></script>
-<div class="col-md-8 col-md-offset-2">
-    <h1><%= @product.name %></h1>
-    <div class="col-md-6">
-         <%= image_tag @product.thumb.url, class:"img-thumbnail" %>
-    </div>
-    <div class="col-md-6">
-        <p><%= @product.description %></p>
-        <% if session[:user_products] and session[:user_products].key? @product.id %>
-      <p> <%= link_to 'Download',
-      download_product_path(session[:user_products][@product.id]),
-   class: "btn btn-large btn-success" %></p>
-        <% else %>
-       <p> <%= link_to 'Buy',  buy_product_path(@product.id),
-        remote: true, id: "btn-buy", class: "btn btn-large btn-success" %></p>
-       <% end %>
-    </div>
+<div id="page" class="col-md-12">
+  <div data-slidr="landing" class="section">
+    <%= render partial: "products/landing" %>
+  </div>
+  <div data-slidr="cc-form" class="section">
+    <div class="slide active">
+     <%= render partial: "products/payments/credit_card" %>
+   </div>
+   <div class="slide"  data-anchor="paypal">
+    <%= render partial: "products/payments/paypal" %>
+  </div>
+</div>
 </div>
 

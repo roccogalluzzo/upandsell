@@ -11,15 +11,58 @@
 // about supported directives.
 //
 //= require jquery
-//= require modernizr.custom
 //= require jquery_ujs
-//= require bootstrap
-//= require turbolinks
-//= require jquery.fileupload/jquery.ui.widget.js
-//= require load-image.min
-//= require jquery.fileupload/jquery.fileupload.js
-//= require jquery.fileupload/jquery.iframe-transport.js
-//= require jquery.fileupload/jquery.fileupload-process.js
-//= require jquery.fileupload/jquery.fileupload-image.js
-//= require jquery.peity
-//= require admin
+//= require bootstrap/dist/js/bootstrap
+//= require jquery-file-upload//js/vendor/jquery.ui.widget.js
+//= require jquery-file-upload//js/jquery.iframe-transport.js
+//= require blueimp-load-image/js/load-image.min.js
+//= require jquery-file-upload//js/jquery.fileupload.js
+//= require jquery-file-upload/js/jquery.iframe-transport.js
+//= require jquery-file-upload/js/jquery.fileupload-process.js
+//= require jquery-file-upload/js/jquery.fileupload-image.js
+//= require jquery.validation/jquery.validate.js
+//= require flat-ui-official/js/bootstrap-switch.js
+//= require d3/d3.js
+//= require nvd3/nv.d3.js
+//= require user/product
+//= require user/product/upload
+//= require user/nv-model
+//= require user/graph
+
+$(document).ready(function(){
+  if ($("#dashboard_chart").text().length > 1) {
+  SummaryChart("dashboard_chart", $('.graph').data('earnings'));
+  $('.stats-range').click(function(){
+
+    $.ajax({
+      url: '/user/products/metrics',
+      type: 'GET',
+      dataType: 'json',
+      data: {type: 'earnings', range: $(this).data('range')},
+      async: false,
+      success: function(d) {
+        console.log(d);
+        redrawSummaryChart("dashboard_chart", d) }
+      });
+  });
+
+}
+if ($(".alert").text().length > 20) {
+  $(".alert").fadeIn(1000, function() { $(this).delay(4000).fadeOut("slow"); });
+}
+
+$("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+Product.init();
+$('.list-item').click(function(){
+  location.href = $(this).data('url')
+})
+.hover(function(){
+  $(this).find('.fa-link').toggleClass('hidden');
+},
+function(){
+ $(this).find('.fa-link').toggleClass('hidden');
+}
+);
+
+});
+

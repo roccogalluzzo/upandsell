@@ -1,6 +1,5 @@
 source 'http://rubygems.org'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
 #custom gems
@@ -12,11 +11,13 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'simple_form'
 gem 'voight_kampff'
-
+gem 'eu_central_bank'
+gem 'kaminari'
 #test gems
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'byebug'
 end
 group :test do
   gem 'faker'
@@ -24,6 +25,7 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+# database gems
 gem 'mysql2'
 gem "redis", "~> 3.0.1"
 gem "hiredis", "~> 0.4.5"
@@ -37,13 +39,14 @@ gem 'uglifier', '>= 1.3.0'
 # Css gems
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'sass-rails'
-gem "twitter-bootstrap-rails"
-gem "font-awesome-rails"
+gem "bower-rails", "~> 0.7.0"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
 
-# Use Capistrano for deployment
- gem 'capistrano', group: :development
+# Deployment
+gem 'capistrano', group: :development
+gem 'puma'
+gem 'foreman'

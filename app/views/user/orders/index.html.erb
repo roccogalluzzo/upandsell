@@ -1,0 +1,42 @@
+<% content_for :header do %>
+<div class="col-lg-10">
+  <h1>ORDERS</h1>
+</div>
+<% end %>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-offset-1 col-lg-10">
+            <div class="list">
+
+              <% if @orders.blank? %>
+              <tr> <td colspan="2">No orders Founds</td></tr>
+              <% else %>
+              <% @orders.each do |order| %>
+              <div class="list-item row">
+               <div class="col-sm-8">
+                 <%= order.product.name %>
+               </div>
+               <div class="col-sm-3"> <%= humanized_money_with_symbol order.amount %></div>
+               <div class="col-sm-1">
+                 <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary" %>
+               </div>
+             </div>
+             <% end %>
+             <% end %>
+
+
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div class="row">
+   <div class="col-md-offset-5 col-md-6">
+   <%= paginate @orders %>
+    </div>
+  </div>
+</div>
+</div>

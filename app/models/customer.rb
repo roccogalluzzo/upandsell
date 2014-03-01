@@ -3,8 +3,8 @@ class Customer < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-has_many :product
-has_many :payment
+has_many :products
+has_many :orders
 
 validates_confirmation_of :password
 serialize :gateway_info
