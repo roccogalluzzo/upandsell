@@ -11,13 +11,13 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'simple_form'
 gem 'voight_kampff'
-gem 'byebug'
 gem 'eu_central_bank'
 gem 'kaminari'
 #test gems
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  gem 'byebug'
 end
 group :test do
   gem 'faker'
@@ -49,3 +49,4 @@ end
 # Deployment
 gem 'capistrano', group: :development
 gem 'puma'
+gem 'foreman'
