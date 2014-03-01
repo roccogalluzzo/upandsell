@@ -13,6 +13,10 @@ def new
   end
 end
 
+def share
+@product = Product.find(params[:id])
+end
+
 def metrics
   product_ids = Customer.find(current_customer.id).products.ids
   if params[:range] == '1'
@@ -60,7 +64,7 @@ def create
   @product.file_file_name =  sanitize_filename( params[:product][:filename])
   if @product.save
    if @product.update(slug: Base52.encode(@product.id))
-    return redirect_to user_products_path, notice: 'Product was created.'
+    return redirect_to share_user_product_path(@product.id), notice: 'Product was created.'
   end
 end
 render 'new'

@@ -50,7 +50,7 @@ Product.Form = {
           });
         },
         submitHandler: function(form) {
-          if(form.find( "input[class=upload_uuid]" ).val()){
+          if($(form).find( ".upload_uuid" ).val()){
             form.submit();
         }
       },
