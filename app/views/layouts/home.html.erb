@@ -32,13 +32,13 @@
           <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 <div class="carousel-inner">
   <div class="item active">
-  <img src="assets/p01.png" alt="">
+  <img src="<%= asset_path('p01.png')%>" alt="">
   </div>
   <div class="item">
-    <img src="assets/p02.png" alt="">
+    <img src="<%= asset_path('p02.png')%>" alt="">
   </div>
   <div class="item">
-    <img src="assets/p03.png" alt="">
+    <img src="<%= asset_path('p03.png')%>" alt="">
   </div>
 </div>
 </div>
@@ -48,7 +48,7 @@
 </div><!-- /container -->
 </div><!-- /headerwrap -->
 </div>
-<div class="container">
+<!-- <div class="container">
   <div class="row mt centered">
   </div>
 
@@ -80,7 +80,7 @@
             your application to cloud platforms like Heroku, OpenShift and Amazon Web Services. </p>
           </div>
         </div>
-      </div>
+      </div> -->
         <%= render :partial => 'layouts/site/footer' %>
   </body>
   </html>
