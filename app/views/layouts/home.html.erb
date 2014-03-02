@@ -12,7 +12,7 @@
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="home">
   <%= render :partial => 'layouts/site/header' %>
   <div id="headerwrap">
     <div class="container">
@@ -41,45 +41,12 @@
                 </div>
               </div>
             </div>
-          </div><!-- /col-lg-6 -->
-
-        </div><!-- /row -->
-      </div><!-- /container -->
-    </div><!-- /headerwrap -->
-  </div>
-<!-- <div class="container">
-  <div class="row mt centered">
-  </div>
-
-  <div class="row">
-    <div class="col-lg-6 centered">
-      <img src="images/integrated.jpg" alt="wercker" width="385px"> </div>
-      <div class="col-lg-6">
-        <h2>Optimized Landing Page</h2> <p> Wercker integrates with your favorite developer platforms out there, such as
-        GitHub and Bitbucket. </p> <p> When you are ready to deploy your application, wercker enables you to deliver
-        your application to cloud platforms like Heroku, OpenShift and Amazon Web Services. </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <h2>Payments</h2> <p> We support integrations with your favorite developer platforms out there, such as
-        GitHub and Bitbucket. </p> <p> When you are ready to deploy your application, wercker enables you to deliver
-        your application to cloud platforms like Heroku, OpenShift and Amazon Web Services. </p>
-      </div>
-      <div class="col-lg-6 centered">
-        <img src="images/integrated.jpg" alt="wercker" width="385px"> </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-6 centered">
-          <img src="images/integrated.jpg" alt="wercker" width="385px"> </div>
-          <div class="col-lg-6">
-            <h2>Stats, in Realtime</h2> <p> Wercker integrates with your favorite developer platforms out there, such as
-            GitHub and Bitbucket. </p> <p> When you are ready to deploy your application, wercker enables you to deliver
-            your application to cloud platforms like Heroku, OpenShift and Amazon Web Services. </p>
           </div>
         </div>
-      </div> -->
+      </div>
+    </div>
+  </div>
+
       <%= render :partial => 'layouts/site/footer' %>
       <%= javascript_include_tag "application"%>
     </body>
