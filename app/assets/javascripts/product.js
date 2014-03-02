@@ -4,7 +4,7 @@
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validation/jquery.validate.js
 //= require slimScroll/jquery.slimscroll
-//= require fullpage.js/jquery.fullPage
+//= require fullpage/jquery.fullPage
 //= require jquery.payment/lib/jquery.payment.js
 //= require pay_form
 var PAYMILL_PUBLIC_KEY = '98121246257b75d119a343538348e8bf';
