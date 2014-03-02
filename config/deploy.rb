@@ -5,16 +5,16 @@ set :user, "byterussian"
 set :branch, 'master'
 set :deploy_to, '/var/www/up-sell'
 # set :scm, :git
-
-# set :format, :pretty
-# set :log_level, :debug
+set :deploy_via, :remote_cache
+ set :format, :pretty
+ set :log_level, :info
 # set :pty, true
 
 set :linked_files, %w{config/database.yml}
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-# set :keep_releases, 5
+ set :keep_releases, 2
 namespace :foreman do
 
   desc "Export the Procfile to Ubuntu's upstart scripts"
