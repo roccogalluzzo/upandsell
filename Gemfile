@@ -40,6 +40,7 @@ gem 'uglifier', '>= 1.3.0'
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem 'sass-rails'
 gem "bower-rails", "~> 0.7.0"
+gem "font-awesome-rails"
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
