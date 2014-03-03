@@ -19,7 +19,7 @@ set :linked_dirs, %w{log}
 namespace :deploy do
   task :restart do
    on roles(:app) do
-   run "(kill -s SIGUSR1 $(ps -C ruby -F | grep '/puma' | awk {'print $2'})) || #{sudo} service #{application} restart"
+   run "(kill -s SIGUSR1 $(ps -C ruby -F | grep '/puma' | awk {'print $2'}))"
   end
 end
 after :finishing, 'deploy:cleanup'
