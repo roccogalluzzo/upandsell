@@ -41,7 +41,7 @@ def upload_request
   id = SecureRandom.uuid
   name = sanitize_filename(params[:name])
   path = "uploads/products/#{Base52.encode(current_user.id)}/#{id}/#{name}"
-  file = AWS::S3.new.buckets["upandsell"].presigned_post(
+  file = AWS::S3.new.buckets[Rails.configuration.aws["bucket"]].presigned_post(
     key: path,
     success_action_redirect: '/',
     success_action_status: 201,

@@ -26,7 +26,7 @@ before_create { self.settings ={currency: 'USD'}}
   end
 
   serialized_attr_accessor :paypal_status, :paypal_email,
-   :credit_card_token, :credit_card_status, :currency
+   :credit_card_token, :credit_card_status, :currency, :credit_card_public_token
 
   def update_account(params)
     self.update_attributes(params)
@@ -34,6 +34,7 @@ before_create { self.settings ={currency: 'USD'}}
 
   def add_credit_card(data)
     self.credit_card_token = data['access_token']
+    self.credit_card_public_token = data['public_key']
     self.credit_card_status = true
     self.settings[:gateway_info] = data
     self.save

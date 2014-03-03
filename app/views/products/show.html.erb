@@ -3,12 +3,16 @@
     <%= render partial: "products/landing" %>
   </div>
   <div data-slidr="cc-form" class="section">
+  <% if @credit_card %>
     <div class="slide active">
      <%= render partial: "products/payments/credit_card" %>
    </div>
+   <% end %>
+    <% if @paypal %>
    <div class="slide"  data-anchor="paypal">
     <%= render partial: "products/payments/paypal" %>
   </div>
+  <% end %>
 </div>
 </div>
 
