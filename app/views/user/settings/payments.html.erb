@@ -10,12 +10,12 @@ class: 'form-horizontal' do |f| %>
   %>
 
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 col-md-offset-1">
   <%= image_tag "paypal_logo.gif" %>
    </div>
 
     <div class="col-md-6">
-      <%= f.input_field :email_paypal, :autocomplete => "off"  %>
+      <%= f.input_field :paypal_email, :autocomplete => "off"  %>
     </div>
   </div>
 
@@ -25,7 +25,7 @@ class: 'form-horizontal' do |f| %>
 label: false %>
 
 </div>
-  <div class="col-md-3">
+  <div class="col-md-3 col-md-offset-1">
 <%= image_tag "paymill.png", style: "width: 200px;" %>
 </div>
  <div class="col-md-6">

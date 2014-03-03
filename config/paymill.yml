@@ -1,8 +1,8 @@
 test: &default
 
   # Credentials for REST APIs
-  client_id: app_ba7fc5a5200420ba6f1910c963adadc947fb03528
-  client_secret: 53775fd088fed47392028f10cf881002
+  client_id: app_82811c5df5bf575edac936c17d7561d87303adfef
+  client_secret: cbfa7f6e96bf719f622320ef200defcf
   private_key: b7eac220b51b467e7eab7398058ed8ae
 
   # scope
@@ -11,6 +11,8 @@ test: &default
 
 development:
   <<: *default
+  client_id: app_ba7fc5a5200420ba6f1910c963adadc947fb03528
+  client_secret: 53775fd088fed47392028f10cf881002
 
 production:
   <<: *default

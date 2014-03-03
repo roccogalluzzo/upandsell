@@ -22,6 +22,7 @@
 //= require jquery-file-upload/js/jquery.fileupload-image.js
 //= require jquery.validation/jquery.validate.js
 //= require flat-ui-official/js/bootstrap-switch.js
+//= require flat-ui-official/js/bootstrap-select.js
 //= require d3/d3.js
 //= require nvd3/nv.d3.js
 //= require user/product
@@ -50,7 +51,8 @@ $(document).ready(function(){
 if ($(".alert").text().length > 20) {
   $(".alert").fadeIn(1000, function() { $(this).delay(4000).fadeOut("slow"); });
 }
-
+$("select").selectpicker({style: 'btn btn-primary'});
+$(".select").removeClass('form-control');
 $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
 Product.init();
 $('.list-item').click(function(){
