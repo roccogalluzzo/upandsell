@@ -2,7 +2,7 @@ class User::OrdersController < User::BaseController
   include PayPal::SDK::AdaptivePayments
 def index
 @orders = Order.where(product_id:
-  Customer.find(current_customer.id).products.ids, status: 'completed')
+  User.find(current_user.id).products.ids, status: 'completed')
 .page(params[:page]).per(8)
 
 end

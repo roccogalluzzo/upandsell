@@ -1,5 +1,5 @@
 Upandsell::Application.routes.draw do
-  devise_for :customers
+  devise_for :users
 
   root 'site#index'
   #product page

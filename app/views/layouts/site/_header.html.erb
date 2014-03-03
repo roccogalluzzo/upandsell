@@ -12,16 +12,16 @@
 			<% end %>
 		</div>
 
-		<% if customer_signed_in? %>
+		<% if user_signed_in? %>
 		<%= link_to(user_root_path,
 		class: "btn navbar-btn btn-inverse pull-right") do %>
 		Go To Dashboard
 		<% end %>
 		<% else %>
-		<%= link_to("Sign In", new_customer_session_path,
+		<%= link_to("Sign In", new_user_session_path,
 		class: "btn navbar-btn btn-default pull-right") %>
 
-		<%= link_to("Sign Up", new_customer_registration_path,
+		<%= link_to("Sign Up", new_user_registration_path,
 		class: "btn navbar-btn btn-inverse pull-right") %>
 		<% end %>
 	</div>

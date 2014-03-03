@@ -36,13 +36,13 @@ class ProductsController < ApplicationController
 
   def paypal
     @product = Product.find(params[:product_id])
-    @customer  = Customer.find(@product.customer_id)
+    @user  = User.find(@product.user_id)
    #Paypal logic
    paypal = PayPal::SDK::AdaptivePayments.new
    req = paypal.BuildPay(
      :actionType => 'CREATE',
      :receiverList => {'receiver' =>
-      [{'email' => @customer.email,
+      [{'email' => @user.email,
        'amount' => @product.price
        }]
        },
@@ -99,8 +99,8 @@ def show
     @downloads =  @order.n_downloads
   end
   end
-  @paypal = @product.customer.paypal_status
-  @credit_card =  @product.customer.credit_card_status
+  @paypal = @product.user.paypal_status
+  @credit_card =  @product.user.credit_card_status
   if request.browser?
 Metric::Products.new(@product.id).incr_visits
   end

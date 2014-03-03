@@ -1,7 +1,7 @@
   <%= render partial: "tabs" %>
 <div class="row">
   <div class=" col-md-10 col-md-offset-1">
-<%= simple_form_for @customer, url:  user_settings_update_payments_path,
+<%= simple_form_for @user, url:  user_settings_update_payments_path,
 class: 'form-horizontal' do |f| %>
 <div class="row payment">
   <div class="col-md-1 col-md-offset-1">
@@ -29,7 +29,7 @@ label: false %>
 <%= image_tag "paymill.png", style: "width: 200px;" %>
 </div>
  <div class="col-md-6">
- <% if @customer.credit_card_token %>
+ <% if @user.credit_card_token %>
  <p class="text-success"> Connected </p>
  <% else %>
 <a href="<%= @paymill_url %>" class="btn btn-primary">Connect with Paymill</a>

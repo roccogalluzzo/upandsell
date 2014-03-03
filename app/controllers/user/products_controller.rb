@@ -3,7 +3,7 @@ class User::ProductsController < User::BaseController
 
  def index
 
-  @products = Customer.find(current_customer.id).products
+  @products = User.find(current_user.id).products
 end
 
 def new
@@ -18,7 +18,7 @@ def share
 end
 
 def metrics
-  product_ids = Customer.find(current_customer.id).products.ids
+  product_ids = User.find(current_user.id).products.ids
   if params[:range] == '1'
     earnings = Metric::Products.new(product_ids).earnings_today
   elsif params[:range] == '7'
@@ -29,7 +29,7 @@ end
 render json: earnings[1]
 end
 def summary
- product_ids = Customer.find(current_customer.id).products.ids
+ product_ids = User.find(current_user.id).products.ids
  @visits = Metric::Products.new(product_ids).visits_last 30.days
  @sales = Metric::Products.new(product_ids).sales_last 30.days
  @earnings = Metric::Products.new(product_ids).earnings_last 30.days
@@ -40,7 +40,7 @@ end
 def upload_request
   id = SecureRandom.uuid
   name = sanitize_filename(params[:name])
-  path = "uploads/products/#{Base52.encode(current_customer.id)}/#{id}/#{name}"
+  path = "uploads/products/#{Base52.encode(current_user.id)}/#{id}/#{name}"
   file = AWS::S3.new.buckets["upandsell"].presigned_post(
     key: path,
     success_action_redirect: '/',
@@ -59,7 +59,7 @@ def create
   params.permit(:product)
   @product = Product.new(params[:product].permit(:name, :price, :price_currency,
    :description, :thumb))
-  @product.customer_id = current_customer.id
+  @product.user_id = current_user.id
   @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
   @product.file_file_name =  sanitize_filename( params[:product][:filename])
   if @product.save
@@ -72,14 +72,14 @@ end
 
 def edit
   @product = Product.find(params[:id])
-  if not @product.customer_id == current_customer.id
+  if not @product.user_id == current_user.id
     render :file => "public/401.html", :status => :unauthorized
   end
 end
 
 def update
   @product = Product.find(params[:id])
-  if not @product.customer_id == current_customer.id
+  if not @product.user_id == current_user.id
     return render :file => "public/401.html", :status => :unauthorized
   end
   @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
@@ -97,7 +97,7 @@ end
 
 def destroy
   @product = Product.find(params[:id])
-  if not @product.customer_id == current_customer.id
+  if not @product.user_id == current_user.id
     render :file => "public/401.html", :status => :unauthorized
   end
   if @product.destroy
