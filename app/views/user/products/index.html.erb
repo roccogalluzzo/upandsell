@@ -17,7 +17,11 @@
             <div class="list">
 
              <% if @products.blank? %>
-             <p>No products Founds</p>
+             <p class="text-center text-muted">No products Founds</p>
+             <p class="text-center">
+<%= link_to "Add One Now",
+ new_user_product_path, class: "btn btn-primary" %>
+             </p>
              <% else %>
              <% @products.each do |product| %>
              <div class="list-item row"

@@ -12,7 +12,7 @@
             <div class="list">
 
               <% if @orders.blank? %>
-              <tr> <td colspan="2">No orders Founds</td></tr>
+              <p class="text-center text-muted">No orders</p>
               <% else %>
               <% @orders.each do |order| %>
               <div class="list-item row">
