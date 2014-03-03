@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :products
   has_many :orders
 
-before_create { self.settings[:currency] = 'USD'}
+before_create { self.settings ={currency: 'USD'}}
   validates_confirmation_of :password
   serialize :settings
   def self.serialized_attr_accessor(*args)
