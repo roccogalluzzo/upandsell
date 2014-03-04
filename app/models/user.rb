@@ -39,4 +39,9 @@ before_create { self.settings ={currency: 'USD'}}
     self.settings[:gateway_info] = data
     self.save
   end
+   def add_paypal_refund(token, token_secret)
+    self.paypal_status = true
+    self.settings[:paypal_tokens] = {token: token, token_secret: token_secret}
+    self.save
+  end
 end

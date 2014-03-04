@@ -1,16 +1,11 @@
 test: &default
 
-  # Credentials for REST APIs
-  client_id: EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM
-  client_secret: EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM
-
-  # Mode can be 'live' or 'sandbox'
   mode: sandbox
 
   # Credentials for Classic APIs
   app_id: APP-80W284485P519543T
   username: cicio_api1.galluzzo.me
-  password: 1380265896
+  password: '1380265896'
   signature: ACXOynAE4-4hmGxsXPS1TQ2mkkDIAkkcSXkACzxwx9jAOOKTEmzGvEFw
   # # With Certificate
   # cert_path: "config/cert_key.pem"

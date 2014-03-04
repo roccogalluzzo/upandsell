@@ -16,11 +16,20 @@
               <% else %>
               <% @orders.each do |order| %>
               <div class="order-list-item row">
-               <div class="col-sm-8">
-                 <%= order.product.name %>
+              <div class="col-sm-1">
+                <% if order.payment_type == 'paypal' %>
+                <%= image_tag "paypal_logo.gif", width: 50, height: 50 %>
+                <% else %>
+<%= image_tag "paymill.png", width: 50, height: 50 %>
+                <% end %>
+              </div>
+               <div class="col-sm-5">
+                <%= order.email %>  <span class="text-muted"> for </span>
+                  <%= order.product.name %>
                </div>
-               <div class="col-sm-3"> <%= humanized_money_with_symbol order.amount %></div>
-               <div class="col-sm-1">
+                <div class="col-sm-2"> <%= humanized_money_with_symbol order.amount %></div>
+               <div class="col-sm-2"> <%= order.updated_at.to_time.strftime('%e %b %Y %H:%m:%S') %></div>
+               <div class="col-sm-2">
                  <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary" %>
                </div>
              </div>

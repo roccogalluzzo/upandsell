@@ -143,6 +143,8 @@ GEM
     paypal-sdk-core (0.2.7)
       multi_json (~> 1.0)
       xml-simple
+    paypal-sdk-permissions (1.96.3)
+      paypal-sdk-core (~> 0.2.3)
     polyglot (0.3.3)
     puma (2.7.1)
       rack (>= 1.1, < 2.0)
@@ -264,6 +266,7 @@ DEPENDENCIES
   paperclip
   paymill
   paypal-sdk-adaptivepayments
+  paypal-sdk-permissions
   puma
   rails (= 4.0.2)
   redis (~> 3.0.1)

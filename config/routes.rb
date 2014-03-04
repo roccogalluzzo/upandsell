@@ -23,6 +23,8 @@ Upandsell::Application.routes.draw do
     patch 'settings/update_password' => 'settings#update_password'
     patch 'settings/update_payments' => 'settings#update_payments'
     get 'settings/update_cc_token' => 'settings#paymill_refresh'
+    get 'settings/add_paypal_refund' => 'settings#add_paypal_refund'
+    get 'settings/add_paypal_refund_callback' => 'settings#add_paypal_refund_callback'
     root 'products#summary'
     get 'products/upload_request'  => 'products#upload_request'
     get 'products/metrics'  => 'products#metrics'

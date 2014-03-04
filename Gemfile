@@ -5,6 +5,7 @@ gem 'rails', '4.0.2'
 #custom gems
 gem 'devise'
 gem 'paypal-sdk-adaptivepayments'
+gem 'paypal-sdk-permissions'
 gem 'paymill'
 gem 'money-rails'
 gem 'paperclip'

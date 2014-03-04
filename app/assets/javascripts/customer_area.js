@@ -56,7 +56,7 @@ $(".select").removeClass('form-control');
 $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
 Product.init();
 
- if ($(".btn-add").text().length > 1) {
+
 $('.list-item').click(function(){
   location.href = $(this).data('url')
 })
@@ -67,7 +67,7 @@ function(){
  $(this).find('.fa-link').toggleClass('hidden');
 }
 );
-}
+
 
 });
 

@@ -79,7 +79,8 @@ end
 
 def download
   @order = Order.find_by token: params[:token]
-  if @order.n_downloads < 5
+
+  if @order.n_downloads < 5 && @order.status == 'completed'
     redirect_to @order.product.expiring_url
     @order.increment!(:n_downloads)
     return
@@ -99,7 +100,7 @@ def show
   @product = Product.find_by slug: params[:slug]
   if !@downloads and is_user_product?(@product.id)
     @order = Order.find_by token: session[:user_products][@product.id]
-    if @order.present?
+    if @order.present? && @order.status == 'completed'
       @downloads =  @order.n_downloads
     end
   end

@@ -15,7 +15,9 @@ class: 'form-horizontal' do |f| %>
    </div>
 
     <div class="col-md-6">
-      <%= f.input_field :paypal_email, :autocomplete => "off"  %>
+      <% f.input_field :paypal_email, :autocomplete => "off"  %>
+       <%# link_to("Connect Paypal", user_settings_add_paypal_path,
+ class: 'btn btn-primary') %>
     </div>
   </div>
 

@@ -47,19 +47,58 @@ def payments
   unless s_params[:paypal_email].present?
     s_params[:paypal_status] = false
   end
-   @user.update_without_password(s_params)
+  @user.update_without_password(s_params)
 
-   redirect_to user_settings_payments_path, notice: 'Account Updated'
- end
+  redirect_to user_settings_payments_path, notice: 'Account Updated'
+end
+
+def paymill_callback
+
+end
 
 def paymill_refresh
  @user = current_user
  refresh_token(@user.settings[:gateway_info]["refresh_token"])
-   redirect_to user_settings_payments_path, notice: 'Paymill token updated'
+ redirect_to user_settings_payments_path, notice: 'Paymill token updated'
 end
 
- private
- def auth_url
+def add_paypal_refund
+ api = PayPal::SDK::Permissions::API.new
+ request_permissions = api.build_request_permissions({
+  :scope => ["REFUND"],
+  :callback => "http://localhost:3000/user/settings/add_paypal_callback" })
+ response = api.request_permissions(request_permissions)
+ if response.success?
+   redirect_to api.grant_permission_url(response)
+ else
+  redirect_to user_settings_payments_path, warning: 'Error during request processing. Try Again'
+end
+end
+
+def add_paypal_refund_callback
+  complete = false
+  api = PayPal::SDK::Permissions::API.new
+  get_access_token = api.build_get_access_token(
+    token: params["request_token"], verifier: params["verification_code"])
+  access = api.get_access_token(get_access_token)
+  if access.success?
+    s_api = PayPal::SDK::Permissions::API.new({
+   token: access.token.to_s,
+   token_secret: access.token_secret.to_s })
+
+    complete = current_user.add_paypal_refund(access.token, access.token_secret)
+
+  end
+  if complete
+   redirect_to user_settings_payments_path, notice: 'Paypal Refund Abilitated'
+ else
+   redirect_to user_settings_payments_path, warning: 'Error during request processing. Try Again'
+ end
+end
+
+
+private
+def auth_url
   config =  Upandsell::Application.config.paymill
   query = {
     client_id: config[:client_id],
@@ -71,15 +110,15 @@ end
       path: '/en-gb/authorize', query: query).to_s
   end
   def refresh_token(refresh_token)
- config = Upandsell::Application.config.paymill
+   config = Upandsell::Application.config.paymill
 
-    body = {
-      client_id: config[:client_id],
-      client_secret: config[:client_secret],
-      grant_type: "refresh_token",
-      refresh_token: refresh_token,
-      scope:  config[:scope]
-      }.to_query
+   body = {
+    client_id: config[:client_id],
+    client_secret: config[:client_secret],
+    grant_type: "refresh_token",
+    refresh_token: refresh_token,
+    scope:  config[:scope]
+    }.to_query
   end
 
   def access_token(auth_code)
