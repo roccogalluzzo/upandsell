@@ -33,7 +33,7 @@ def payments
      @user.add_credit_card(response)
      @user = current_user
    end
-   unless @user.credit_card_status
+   unless @user.credit_card_token
      @paymill_url = auth_url
    end
  end
@@ -52,6 +52,12 @@ def payments
    redirect_to user_settings_payments_path, notice: 'Account Updated'
  end
 
+def paymill_refresh
+ @user = current_user
+ refresh_token(@user.settings[:gateway_info]["refresh_token"])
+   redirect_to user_settings_payments_path, notice: 'Paymill token updated'
+end
+
  private
  def auth_url
   config =  Upandsell::Application.config.paymill
@@ -64,6 +70,18 @@ def payments
     URI::HTTPS.build(host: 'connect.paymill.com',
       path: '/en-gb/authorize', query: query).to_s
   end
+  def refresh_token(refresh_token)
+ config = Upandsell::Application.config.paymill
+
+    body = {
+      client_id: config[:client_id],
+      client_secret: config[:client_secret],
+      grant_type: "refresh_token",
+      refresh_token: refresh_token,
+      scope:  config[:scope]
+      }.to_query
+  end
+
   def access_token(auth_code)
     config = Upandsell::Application.config.paymill
 

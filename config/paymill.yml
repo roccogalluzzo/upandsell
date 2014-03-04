@@ -6,7 +6,7 @@ test: &default
   private_key: b7eac220b51b467e7eab7398058ed8ae
 
   # scope
-  scope: 'transactions_rw refunds_w'
+  scope: 'transactions_w refunds_w payments_w webhooks_r'
 
 
 development:

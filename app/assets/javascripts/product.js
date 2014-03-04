@@ -7,7 +7,6 @@
 //= require fullpage/jquery.fullPage
 //= require jquery.payment/lib/jquery.payment.js
 //= require pay_form
-var PAYMILL_PUBLIC_KEY = '98121246257b75d119a343538348e8bf';
 $(document).ready(function() {
   PayForm.init();
   $.fn.fullpage({

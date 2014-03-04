@@ -22,6 +22,7 @@ Upandsell::Application.routes.draw do
     patch 'settings/update_account' => 'settings#update_account'
     patch 'settings/update_password' => 'settings#update_password'
     patch 'settings/update_payments' => 'settings#update_payments'
+    get 'settings/update_cc_token' => 'settings#paymill_refresh'
     root 'products#summary'
     get 'products/upload_request'  => 'products#upload_request'
     get 'products/metrics'  => 'products#metrics'
