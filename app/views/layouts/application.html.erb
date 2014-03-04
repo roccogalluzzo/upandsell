@@ -1,85 +1,75 @@
 <!DOCTYPE html>
- <html lang="en">
+<html lang="en">
 <head>
 
-      <title>Up&amp;Sell.me</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <%= stylesheet_link_tag "customer_area" %>
-      <%= javascript_include_tag "customer_area" %>
-      <%= csrf_meta_tag %>
-    </head>
-    <body>
-     <div id="wrap">
-<%= render partial: "layouts/messages", flash: flash %>
-     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <%= link_to(user_root_path, :class => 'navbar-brand') do %>
-<b>UP&amp;SELL.ME</b>
-          <% end %>
-        </div>
+  <title>Up&amp;Sell.me</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag "customer_area" %>
+  <%= javascript_include_tag "customer_area" %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+ <div id="wrap">
+  <%= render partial: "layouts/messages", flash: flash %>
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to(user_root_path, :class => 'navbar-brand') do %>
+      <b>UP&amp;SELL.ME</b>
+      <% end %>
+    </div>
 
-          <ul class="nav navbar-nav">
-            <li class="<%= 'active' if current_page?(user_root_path) %>">
-              <%= link_to raw('Summary'), user_root_path %>
-            </li>
-            <li class="<%= 'active' if current_page?(user_products_path) %>">
-             <%= link_to raw('Products'), user_products_path %>
-           </li>
-           <li class="<%= 'active' if current_page?(user_orders_path) %>">
-            <%= link_to raw('Orders'), user_orders_path %>
-          </li>
+    <ul class="nav navbar-nav">
+      <li class="<%= 'active' if current_page?(user_root_path) %>">
+        <%= link_to raw('Summary'), user_root_path %>
+      </li>
+      <li class="<%= 'active' if current_page?(user_products_path) %>">
+       <%= link_to raw('Products'), user_products_path %>
+     </li>
+     <li class="<%= 'active' if current_page?(user_orders_path) %>">
+      <%= link_to raw('Orders'), user_orders_path %>
+    </li>
 <!--           <li><a href="#">Stats</a></li>
-          <li><a href="#">Support</a></li> -->
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <%= link_to(new_user_product_path) do %>
-            <i class="fa fa-plus fa-lg"></i>
-            <% end %>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-cog fa-lg"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <%= link_to(user_settings_account_path) do %>
-                <i class="fa fa-user"></i> Account
-                <% end %>
-              </li>
-              <li>
-                <%= link_to(user_settings_payments_path) do %>
-                <i class="fa fa-money"></i> Payments
-                <% end %>
-              </li>
-            </ul>
-          </li>
-          <li>
-           <%= link_to(destroy_user_session_path, :method => :delete) do %>
-           <i class="fa fa-sign-out fa-lg"></i>
-           <% end %>
-         </li>
-       </ul>
+  <li><a href="#">Support</a></li> -->
+</ul>
+<ul class="nav navbar-nav navbar-right">
+  <li>
+    <%= link_to(new_user_product_path) do %>
+    <i class="fa fa-plus fa-lg"></i>
+    <% end %>
+  </li>
 
-   </div>
-   <div class="row glue-fix headline">
+  <li>
+   <%= link_to(user_settings_account_path) do %>
+   <i class="fa fa-cog fa-lg"></i>
+   <% end %>
+ </li>
+
+ <li>
+   <%= link_to(destroy_user_session_path, :method => :delete) do %>
+   <i class="fa fa-sign-out fa-lg"></i>
+   <% end %>
+ </li>
+</ul>
+
+</div>
+<div class="row glue-fix headline">
   <div class="row">
    <%= yield :header %>
+ </div>
 </div>
-</div>
-   <div class="row">
-    <div class="col-lg-10 col-md-offset-1 content">
+<div class="row">
+  <div class="col-lg-10 col-md-offset-1 content">
 
-<%= yield %>
-    </div>
+    <%= yield %>
   </div>
+</div>
 </div>
 <div id="footer">
   <p>Up&amp;Sell.Me</p>
