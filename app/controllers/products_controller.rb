@@ -10,7 +10,8 @@ class ProductsController < ApplicationController
   end
 
   def pay
-    Paymill.api_key = Upandsell::Application.config.paymill[:private_key]
+     @user  = User.find(@product.user_id)
+    Paymill.api_key = @user.credit_card_token
     @product = Product.find(params[:product_id])
     pay = Paymill::Transaction.create amount: @product.price.cents,
     currency: @product.price_currency.upcase, token: params[:token]
