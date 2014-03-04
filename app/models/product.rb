@@ -14,11 +14,12 @@ class Product < ActiveRecord::Base
   before_save :set_upload_attributes
   after_destroy :clean_files
 
-  has_attached_file :thumb, :styles => { :small => "72x72>" },
-  :storage => :s3,
-  :s3_credentials => "#{Rails.root}/config/aws.yml",
-  :path => 'uploads/products/images/:uuid/:id.:style.:extension',
-  :s3_permissions => :public_read
+  has_attached_file :thumb, styles: { small: "72x72>" },
+  storage: :s3,
+  s3_protocol: 'https',
+  s3_credentials: "#{Rails.root}/config/aws.yml",
+  path: 'uploads/products/images/:uuid/:id.:style.:extension',
+  s3_permissions: :public_read
 
   validates_attachment_content_type :thumb, :content_type => /\Aimage/
 
