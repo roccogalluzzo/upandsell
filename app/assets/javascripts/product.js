@@ -12,7 +12,7 @@ $(document).ready(function() {
   $.fn.fullpage({
     verticalCentered: false,
     resize : false,
-    anchors:['show', 'buy', 'download'],
+    anchors:['show', 'buy'],
     scrollingSpeed: 350,
     easing: null,
     menu: false,

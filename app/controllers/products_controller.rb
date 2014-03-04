@@ -54,7 +54,7 @@ def paypal
        :returnUrl =>  products_check_payment_url(id: @product.id) +'&payKey=${payKey}',
        :ipnNotificationUrl =>
        if Rails.env.production?
-         products_ipn_url()
+         'https://upandsell.me/products/ipn'
        else
          'http://upandsell.ngrok.com/products/ipn'
        end,
@@ -72,9 +72,13 @@ def paypal
     @order.product_id = @product.id
     @order.save
     status = 'ok'
-  end
-  url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
+      url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
   render json: { status: status, url:  url + @response.payKey }
+  return
+  else
+ render json: { status: 'fail'}
+  end
+
 end
 
 def download
