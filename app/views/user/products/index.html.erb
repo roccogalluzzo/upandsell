@@ -20,14 +20,18 @@
              <p class="text-center text-muted">No products Founds</p>
              <p class="text-center">
 <%= link_to "Add One Now",
- new_user_product_path, class: "btn btn-primary" %>
+ new_user_product_path, class: "btn btn-add btn-primary" %>
              </p>
              <% else %>
              <% @products.each do |product| %>
              <div class="list-item row"
              data-url="<%= url_for edit_user_product_path(product) %>">
                <div class="col-sm-1 list-img">
+               <% unless product.thumb_file_name  %>
+               <div class="missing-img"></div>
+               <% else %>
                 <%= image_tag product.thumb.url(:small), :class => "img-circle" %>
+                <% end %>
               </div>
               <div class="col-sm-8 details">
                 <strong>

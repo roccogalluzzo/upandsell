@@ -15,7 +15,7 @@
               <p class="text-center text-muted">No orders</p>
               <% else %>
               <% @orders.each do |order| %>
-              <div class="list-item row">
+              <div class="order-list-item row">
                <div class="col-sm-8">
                  <%= order.product.name %>
                </div>
