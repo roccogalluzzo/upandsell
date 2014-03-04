@@ -14,7 +14,7 @@ end
     <div class="row">
       <div class="left col-md-3">
         <div class="upload-box">
-          <form action="https://upandsell.s3.amazonaws.com" method="POST"
+          <form action="https://<%= Rails.configuration.aws["bucket"] %>.s3.amazonaws.com" method="POST"
           enctype="multipart/form-data" class="direct-upload">
           <input type="hidden" name="success_action_status" value="201">
           <div class="overlay">
