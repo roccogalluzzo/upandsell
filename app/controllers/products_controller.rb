@@ -70,11 +70,14 @@ def paypal
       amount_currency: @product.price_currency.upcase
       )
     @order.product_id = @product.id
-    @order.save
+
+    if @order.save
     status = 'ok'
       url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
   render json: { status: status, url:  url + @response.payKey }
   return
+end
+ Rails.logger.warn @order
   else
  render json: { status: 'fail'}
   end
@@ -117,8 +120,9 @@ end
 
 def ipn
   if PayPal::SDK::Core::API::IPN.valid?(request.raw_post)
+    print params
     order = Order.find_by payment_token: params["pay_key"]
-    if params["status"] == "COMPLETED"
+    if order and params["status"] == "COMPLETED"
       order.status = 'completed'
       order.save
     end
@@ -130,7 +134,7 @@ end
 
 def check_paypal_payment
  @order = Order.find_by payment_token: params[:payKey]
- if @order.completed
+ if @order and @order.completed
   status = 'ok'
   url = product_slug_url(slug: @order.product.slug, payKey: params[:payKey])
 end
