@@ -26,6 +26,7 @@ class ProductsController < ApplicationController
       payment_token: pay.id,
       status: 'completed',
       amount_cents: @product.price.cents,
+      cc_type: payment.card_type,
       amount_currency: @product.price.currency,
       )
     order.save
@@ -134,21 +135,23 @@ end
 def check_paypal_payment
 
  tries ||= 5
+
  if payment_completed?(params[:payKey])
-  return redirect_to download_url(params[:payKey])
+  redirect_to download_url(params[:payKey])
+  return
 else
-  tries -= 1
-  if tries > 0
+
+  5.times do
     sleep(2)
     if payment_completed?(params[:payKey])
-      return redirect_to download_url(params[:payKey])
+      redirect_to download_url(params[:payKey])
+      return
     end
-  else
-     render nothing: true
   end
+ render nothing: true
+end
 end
 
-end
 
 private
 def download_url(pay_key)

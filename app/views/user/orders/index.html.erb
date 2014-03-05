@@ -16,22 +16,32 @@
               <% else %>
               <% @orders.each do |order| %>
               <div class="order-list-item row">
-              <div class="col-sm-1">
-                <% if order.payment_type == 'paypal' %>
-                <%= image_tag "paypal_logo.gif", width: 50, height: 50 %>
-                <% else %>
-<%= image_tag "paymill.png", width: 50, height: 50 %>
-                <% end %>
-              </div>
-               <div class="col-sm-5">
-                <%= order.email %>  <span class="text-muted"> for </span>
-                  <%= order.product.name %>
+              <div class="col-sm-3">
+                  <%= order.email %>
+                </div>
+
+                <div class="col-sm-1">
+                  <% if  order.cc_type %>
+                  <%= image_tag "cc_icons/#{order.cc_type}.png" %>
+                  <% end %>
+                </div>
+
+                <div class="col-sm-4">
+                 <span class="">  <%= order.product.name %> </span>
                </div>
-                <div class="col-sm-2"> <%= humanized_money_with_symbol order.amount %></div>
-               <div class="col-sm-2"> <%= order.updated_at.to_time.strftime('%e %b %Y %H:%m:%S') %></div>
-               <div class="col-sm-2">
+               <div class="col-sm-1 text-primary"> <%= humanized_money_with_symbol order.amount %></div>
+               <div class="col-sm-2 text-center text-muted">
+                 <p>
+                   <%= order.updated_at.to_time.strftime('%e %b %Y') %>
+
+                   <%= order.updated_at.to_time.strftime('%H:%m:%S') %>
+                 </p>
+               </div>
+               <% unless order.payment_type == 'paypal' %>
+               <div class="col-sm-1">
                  <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary" %>
                </div>
+               <% end %>
              </div>
              <% end %>
              <% end %>
@@ -43,9 +53,9 @@
      </div>
    </div>
    <div class="row">
-   <div class="col-md-offset-5 col-md-6">
-   <%= paginate @orders %>
-    </div>
-  </div>
-</div>
+     <div class="col-md-offset-5 col-md-6">
+       <%= paginate @orders %>
+     </div>
+   </div>
+ </div>
 </div>
