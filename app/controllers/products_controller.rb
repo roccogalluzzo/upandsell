@@ -132,21 +132,33 @@ def ipn
 end
 
 def check_paypal_payment
- @order = Order.find_by payment_token: params[:payKey]
- if @order and @order.status == 'completed'
-  status = 'ok'
-  url = product_slug_url(slug: @order.product.slug, payKey: params[:payKey])
-end
-payKey = params[:payKey]
-respond_to do |format|
-  format.html {redirect_to url if status=='ok'}
-  format.json { render json: { status: status, url: url} }
-end
+
+ tries ||= 5
+ if payment_completed?(params[:payKey])
+  return redirect_to download_url(params[:payKey])
+else
+  tries -= 1
+  if tries > 0
+    sleep(2)
+    if payment_completed?(params[:payKey])
+      return redirect_to download_url(params[:payKey])
+    end
+  else
+     render nothing: true
+  end
 end
 
 private
-def downadable?
-
+def download_url(pay_key)
+  order = Order.find_by payment_token: pay_key
+  return product_slug_url(slug: order.product.slug, payKey: pay_key)
+end
+def payment_completed?(pay_key)
+ order = Order.find_by payment_token: pay_key
+ if order and order.status == 'completed'
+   return true
+ end
+ return false
 end
 
 def update_user_products(product_id, token)
