@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sell downloads and digital products easily - Up&amp;Sell.me</title>
+  <title>Up&amp;Sell.me - Sell downloads and digital products easily </title>
   <meta name="description" content="Sell your music, videos, ebooks, software
   and other any downloadable products. Only 4% fee every sale. No fixed costs." />
   <meta charset="utf-8">
@@ -13,35 +13,27 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="home">
+ <div id="wrap">
   <%= render :partial => 'layouts/site/header' %>
-  <div id="headerwrap">
+  <div id="header">
     <div class="container">
       <div class="row">
         <div class="col-lg-offset-1 text-center col-lg-10">
-          <h1>Easy Way to Sell Digital Products Online</h1>
+        <h1>Easy Way to Sell <span class="dinamic-text">Digital Products</span> Online</h1>
           <h2>Upload and Sell Music, videos, eBooks, software
             or any other downloadable product in no time</h2>
             <%= link_to "Get Started!", new_user_registration_path,
-            class: "btn btn-inverse btn-lg" %>
+            class: "btn btn-primary btn-lg" %>
             <h3>No fixed costs, we take only 4% fee every sale you make</h3>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-offset-1 col-lg-10">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-                <div class="item active">
-                  <img src="<%= asset_path('dashboard.png')%>" alt="">
-                </div>
-              </div>
-            </div>
-          </div>
+          <img class="col-lg-offset-1 col-lg-10" src="<%= asset_path('dashboard.png')%>" alt="">
         </div>
       </div>
     </div>
   </div>
-
-      <%= render :partial => 'layouts/site/footer' %>
-      <%= javascript_include_tag "application"%>
-    </body>
-    </html>
+  <%= render :partial => 'layouts/site/footer' %>
+  <%= javascript_include_tag "application"%>
+</body>
+</html>
