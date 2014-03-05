@@ -15,9 +15,9 @@ class ProductsController < ApplicationController
    Paymill.api_key = @user.credit_card_token
 
    payment = Paymill::Payment.create(token: params[:token])
-Rails.logger.info payment
+   Rails.logger.info payment
    pay = Paymill::Transaction.create(amount: @product.price.cents,
-   currency: @product.price_currency.upcase, payment: payment.id)
+     currency: @product.price_currency.upcase, payment: payment.id)
 
    if pay.status == 'closed' && params[:email].present?
     order = @product.orders.build(
@@ -66,21 +66,20 @@ def paypal
       payment_type: 'paypal',
       payment_token: @response.payKey,
       status: 'created',
-      amount_cents: @product.price,
+      amount_cents: @product.price.cents,
       amount_currency: @product.price_currency.upcase
       )
     @order.product_id = @product.id
-
-    if @order.save
-    status = 'ok'
-      url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
-  render json: { status: status, url:  url + @response.payKey }
-  return
-end
- Rails.logger.warn @order
-  else
- render json: { status: 'fail'}
   end
+
+  if @order and @order.save
+    status = 'ok'
+    url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
+    render json: { status: status, url:  url + @response.payKey }
+    return
+  else
+   render json: { status: 'fail'}
+ end
 
 end
 
