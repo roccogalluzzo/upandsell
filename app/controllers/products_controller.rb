@@ -148,6 +148,8 @@ else
   end
 end
 
+end
+
 private
 def download_url(pay_key)
   order = Order.find_by payment_token: pay_key
