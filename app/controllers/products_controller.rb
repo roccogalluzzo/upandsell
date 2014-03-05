@@ -67,6 +67,7 @@ def paypal
       payment_type: 'paypal',
       payment_token: @response.payKey,
       status: 'created',
+      cc_type: 'paypal',
       amount_cents: @product.price.cents,
       amount_currency: @product.price_currency.upcase
       )
