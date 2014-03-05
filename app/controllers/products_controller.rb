@@ -133,7 +133,7 @@ end
 
 def check_paypal_payment
  @order = Order.find_by payment_token: params[:payKey]
- if @order and @order.completed
+ if @order and @order.status == 'completed'
   status = 'ok'
   url = product_slug_url(slug: @order.product.slug, payKey: params[:payKey])
 end
