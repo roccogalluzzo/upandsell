@@ -1,5 +1,7 @@
-<h2>Resend confirmation instructions</h2>
-
+<div class="col-md-6 col-md-offset-3 sign-box">
+<div class="head">
+<h3>Resend confirmation instructions</h3>
+</div>
 <%= simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
   <%= f.error_notification %>
   <%= f.full_error :confirmation_token %>
@@ -12,5 +14,4 @@
     <%= f.button :submit, "Resend confirmation instructions" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+</div>
