@@ -1,6 +1,11 @@
 class SiteController < ApplicationController
-layout "home"
-def index
-@products = Product.all
-end
+layout "site"
+
+def privacy
+
+  end
+
+  def terms
+
+  end
 end

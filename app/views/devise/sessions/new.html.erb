@@ -1,5 +1,7 @@
 <div class="col-md-6 col-md-offset-3 sign-box">
+<div class="head">
 	<h2>Sign in</h2>
+	</div>
 	<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :defaults => { :input_html => { :class => "form-control input-xlarge" }}, :html => {:novalidate => true}) do |f| %>
 	<%= f.error_notification %>
 	<div class="form-group">
@@ -9,12 +11,7 @@
 	<div class="form-group">
 		<%= f.input_field :password, placeholder: "Your Password" %>
 	</div>
-	<div class="form-group">
-		<%= f.button :submit, "Sign in", class: "btn btn-lg btn-block btn-primary" %>
-	</div>
-
-	<hr />
-	<h4>Forget your Password ?</h4>
-	<p>no worries,  <%= link_to "click here", new_user_password_path, class: "color-green" %> to reset your password.</p>
+		<%= f.button :submit, "Sign in", class: "btn btn-sign-in btn-lg btn-block btn-primary" %>
 	<% end %>
+	<small><%= link_to "Forget your Password ?", new_user_password_path %></small>
 </div>
