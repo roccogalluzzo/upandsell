@@ -2,9 +2,7 @@
 <div class="head">
 	<h3>Forgot your password?</h3>
 	</div>
-	</div>
 	<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }, :defaults => { :input_html => { :class => "form-control input-xlarge" }}) do |f| %>
-	<%= f.error_notification %>
 	<div class="form-group">
 		<%= f.input_field :email, required: true, autofocus: true,
 		placeholder: 'Your Email' %>
