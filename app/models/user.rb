@@ -28,6 +28,13 @@ before_create { self.settings ={currency: 'USD'}}
   serialized_attr_accessor :paypal_status, :paypal_email,
    :credit_card_token, :credit_card_status, :currency, :credit_card_public_token
 
+  after_create :send_welcome_email
+
+  private
+
+    def send_welcome_email
+      UserMailer.welcome_email(self).deliver
+    end
   def update_account(params)
     self.update_attributes(params)
   end

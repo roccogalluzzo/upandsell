@@ -14,6 +14,7 @@ gem 'simple_form'
 gem 'voight_kampff'
 gem 'eu_central_bank'
 gem 'kaminari'
+gem 'sidekiq'
 #test gems
 group :development, :test do
   gem 'rspec-rails'

@@ -32,6 +32,8 @@ class ProductsController < ApplicationController
     order.save
     url = download_product_url(order.token)
     update_user_products(order.product.id, order.token)
+    UserMailer.bought_email(@user, order).deliver
+    UserMailer.sold_email(@user, order).deliver
     render json: { status: 'completed', url: url }
     return
   else
@@ -125,7 +127,11 @@ def ipn
     order = Order.find_by payment_token: params["pay_key"]
     if order and params["status"] == "COMPLETED"
       order.status = 'completed'
-      order.save
+      if order.save
+         user  = User.find(order.product.user_id)
+        UserMailer.bought_email(user, order).deliver
+        UserMailer.sold_email(user, order).deliver
+      end
     end
 
   end
@@ -149,7 +155,7 @@ else
       return
     end
   end
- render nothing: true
+  render nothing: true
 end
 end
 
