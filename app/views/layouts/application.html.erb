@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
   <title>Up&amp;Sell.me</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +11,7 @@
 <body>
  <div id="wrap">
   <%= render partial: "layouts/messages", flash: flash %>
-  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="menu" role="navigation">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -59,20 +58,50 @@
 </ul>
 
 </div>
-<div class="row glue-fix headline">
-  <div class="row">
-   <%= yield :header %>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1 headline">
+    <div class="row">
+     <%= yield :header %>
+   </div>
  </div>
 </div>
+
 <div class="row">
-  <div class="col-lg-10 col-md-offset-1 content">
+  <div class="content">
 
     <%= yield %>
   </div>
 </div>
 </div>
 <div id="footer">
-  <p>Up&amp;Sell.Me</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 navbar-brand">
+      <%= link_to(root_path) do %>
+       <b>UP&amp;SELL.ME</b>
+       <% end %>
+     </div>
+
+     <div class="col-md-8">
+      <ul class="bottom-links">
+        <li>
+          <%= link_to "Terms of Service", terms_path %>
+        </li>
+        <li>
+          <%= link_to "Privacy Policy", privacy_path %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-2">
+      <ul class="bottom-icons">
+        <li><a href="#fakelink" class="fui-facebook"></a></li>
+        <li><a href="#fakelink" class="fui-twitter"></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
 </div>
 </body>
 </html>

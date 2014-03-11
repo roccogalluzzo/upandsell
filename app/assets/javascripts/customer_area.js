@@ -29,6 +29,7 @@
 //= require user/product/upload
 //= require user/nv-model
 //= require user/graph
+//= require user/stats
 
 $(document).ready(function(){
   if ($("#dashboard_chart").text().length > 1) {
@@ -42,8 +43,9 @@ $(document).ready(function(){
       data: {type: 'earnings', range: $(this).data('range')},
       async: false,
       success: function(d) {
-        console.log(d);
-        redrawSummaryChart("dashboard_chart", d) }
+        console.log(d.earnings[1]);
+         //d.earnings[1]
+        redrawSummaryChart("dashboard_chart", d.earnings[1]) }
       });
   });
 
@@ -51,11 +53,11 @@ $(document).ready(function(){
 if ($(".alert").text().length > 20) {
   $(".alert").fadeIn(1000, function() { $(this).delay(4000).fadeOut("slow"); });
 }
-$("select").selectpicker({style: 'btn btn-primary'});
-$(".select").removeClass('form-control');
+ $("select").selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-inverse'});
+ $(".select").removeClass('form-control');
 $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
 Product.init();
-
+Stats.init();
 
 $('.list-item').click(function(){
   location.href = $(this).data('url')

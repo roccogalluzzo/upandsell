@@ -14,22 +14,34 @@ def new
 end
 
 def share
-@product = Product.find(params[:id])
+  @product = Product.find(params[:id])
 end
 
 def metrics
-  product_ids = User.find(current_user.id).products.ids
+  if params[:products] != '0'
+  product_ids = current_user.products.where(id: params[:products]).ids
+else
+  product_ids = current_user.products.ids
+end
+
   if params[:range] == '1'
     earnings = Metric::Products.new(product_ids).earnings_today
+    sales = Metric::Products.new(product_ids).sales_today
+    visits =  Metric::Products.new(product_ids).visits_today
   elsif params[:range] == '7'
    earnings = Metric::Products.new(product_ids).earnings_last 7.days
+   sales = Metric::Products.new(product_ids).sales_last 7.days
+   visits = Metric::Products.new(product_ids).visits_last 7.days
  elsif params[:range] == '30'
   earnings = Metric::Products.new(product_ids).earnings_last 30.days
+     sales = Metric::Products.new(product_ids).sales_last 30.days
+   visits = Metric::Products.new(product_ids).visits_last 30.days
 end
-render json: earnings[1]
+render json: {earnings: [Money.new(earnings[0]).format(:symbol => false), earnings[1]], sales: sales, visits: visits}
 end
 def summary
- product_ids = User.find(current_user.id).products.ids
+ @products = User.find(current_user.id).products
+ product_ids = @products.ids
  @visits = Metric::Products.new(product_ids).visits_last 30.days
  @sales = Metric::Products.new(product_ids).sales_last 30.days
  @earnings = Metric::Products.new(product_ids).earnings_last 30.days
@@ -101,8 +113,8 @@ def destroy
     render :file => "public/401.html", :status => :unauthorized
   end
   if @product.destroy
-  return redirect_to user_products_path, notice: 'Product was deleted.'
- end
+    return redirect_to user_products_path, notice: 'Product was deleted.'
+  end
 end
 private
 def sanitize_filename(filename)

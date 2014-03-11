@@ -31,7 +31,7 @@ label: false %>
  <div class="col-md-6">
  <% if @user.credit_card_token %>
  <p class="text-success"> Connected </p>
- <%= link_to("Refresh Token", user_settings_update_cc_token_path,
+ <%# link_to("Refresh Token", user_settings_update_cc_token_path,
  class: 'btn btn-primary') %>
   <% else %>
 <a href="<%= @paymill_url %>" class="btn btn-primary">Connect with Paymill</a>
