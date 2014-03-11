@@ -117,7 +117,8 @@ def show
   @paypal = @product.user.paypal_status  == '0' ? false : true
   @credit_card = @product.user.credit_card_status == '0' ? false : true
   Rails.logger.info @product.user.paypal_status
-  if request.browser?
+  ua = AgentOrange::UserAgent.new(request.env['HTTP_USER_AGENT'])
+  unless ua.is_bot?
     Metric::Products.new(@product.id).incr_visits
   end
 end
