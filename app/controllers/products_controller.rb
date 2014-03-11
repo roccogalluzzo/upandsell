@@ -114,8 +114,9 @@ def show
       @downloads =  @order.n_downloads
     end
   end
-  @paypal = @product.user.paypal_status
-  @credit_card =  @product.user.credit_card_status
+  @paypal = @product.user.paypal_status  == '0' ? false : true
+  @credit_card = @product.user.credit_card_status == '0' ? false : true
+  Rails.logger.info @product.user.paypal_status
   if request.browser?
     Metric::Products.new(@product.id).incr_visits
   end

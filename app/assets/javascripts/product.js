@@ -33,8 +33,8 @@ $(document).ready(function() {
         //events
         onLeave: function(index, direction){},
         afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){
-          console.log(slideIndex)
-          if(slideIndex== 1){
+          console.log(slideIndex, slideAnchor)
+          if(slideAnchor == 'paypal'){
             // call paypal
             $.ajax({
               url: '/products/paypal',

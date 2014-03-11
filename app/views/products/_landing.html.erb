@@ -1,67 +1,74 @@
 
-   <div class="product col-md-12">
-   <% if @product.thumb_file_name %>
-     <div class="row">
-      <div class="col-md-12">
-       <div class="product-image">
-         <%= image_tag @product.thumb.url,  class:"img-responsive" %>
-         <%# image_tag 'p01.png', class:"img-responsive" %>
-       </div>
-     </div>
+<div class="product col-md-12">
+ <% if @product.thumb_file_name %>
+ <div class="row">
+  <div class="col-md-12">
+   <div class="product-image">
+     <%= image_tag @product.thumb.url,  class:"img-responsive" %>
+     <%# image_tag 'p01.png', class:"img-responsive" %>
    </div>
-   <% end %>
+ </div>
+</div>
+<% end %>
+<div class="row">
+ <div class="col-md-8">
+   <h3><%= @product.name %> </h3>
+   <p class="description"><%= @product.description %></p>
+ </div>
+ <div class="col-md-4 info">
    <div class="row">
-     <div class="col-md-8">
-       <h3><%= @product.name %> </h3>
-       <p class="description"><%= @product.description %></p>
-      </div>
-      <div class="col-md-4 info">
-       <div class="row">
-        <div class="col-md-12 text-center">
-          <h2> <%=  humanized_money_with_symbol  @product.price %></h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <% if @downloads and @downloads < 5 and @order.present? %>
-          <%= link_to 'Download',
-          download_product_path(@order.token),
-          class: "btn btn-large btn-block btn-success" %>
-          <p>You can download the product further <span><%= 5 - @downloads  %></span> times </p>
-          <%# elsif @downloads and @downloads <= 5 %>
+    <div class="col-md-12 text-center">
+      <h2> <%=  humanized_money_with_symbol  @product.price %></h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <% if @downloads and @downloads < 5 and @order.present? %>
+      <%= link_to 'Download',
+      download_product_path(@order.token),
+      class: "btn btn-large btn-block btn-success" %>
+      <p>You can download the product further <span><%= 5 - @downloads  %></span> times </p>
+      <%# elsif @downloads and @downloads <= 5 %>
 <!--           <a href="#"
           class="disabled btn btn-large btn-block btn-success">
           Download
         </a>
         <p>Reached limit downloads, <a href="#buy">buy again</a> </p> -->
         <% else %>
-        <a href="#buy"
+        <% if @paypal and !@credit_card %>
+        <a href="#buy/paypal"
         class="btn btn-large btn-block btn-primary btn-buy">
         Buy Now!
       </a>
-      <a href="#download"
-      class="btn btn-large btn-block btn-success btn-download hidden">
-      Download
+      <% else %>
+      <a href="#buy"
+      class="btn btn-large btn-block btn-primary btn-buy">
+      Buy Now!
     </a>
-      <% end %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="details col-md-12">
+    <% end %>
+    <a href="#download"
+    class="btn btn-large btn-block btn-success btn-download hidden">
+    Download
+  </a>
+  <% end %>
+</div>
+</div>
+<div class="row">
+  <div class="details col-md-12">
 
-      <ul>
-        <li><span class="text-muted">Size:</span>
-          <b class=""><%= number_to_human_size @product.file_file_size %></b></li>
-          <li> <span class="text-muted">Type:</span>
-            <b class=""><%= @product.extension.upcase %></b></li>
-            <li> <span class="text-muted">By:</span>
-              <b class="">George Orwell</b></li>
-            </ul>
-          </div>
+    <ul>
+      <li><span class="text-muted">Size:</span>
+        <b class=""><%= number_to_human_size @product.file_file_size %></b></li>
+        <li> <span class="text-muted">Type:</span>
+          <b class=""><%= @product.extension.upcase %></b></li>
+          <li> <span class="text-muted">By:</span>
+            <b class="">George Orwell</b></li>
+          </ul>
         </div>
       </div>
     </div>
-    <div id="footer" class="row">
-      <p> <b>UP&amp;SELL.ME</b> </p>
-    </div>
   </div>
+  <div id="footer" class="row">
+    <p> <b>UP&amp;SELL.ME</b> </p>
+  </div>
+</div>
