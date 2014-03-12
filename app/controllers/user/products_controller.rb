@@ -15,6 +15,10 @@ end
 
 def share
   @product = Product.find(params[:id])
+  @tweet_url =  URI.escape(
+    "https://twitter.com/intent/tweet?text=#{@product.name} #{product_slug_url(@product.slug)}")
+  @facebook_url = URI.escape(
+    "https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(@product.slug)}&title=#{@product.name}")
 end
 
 def metrics
