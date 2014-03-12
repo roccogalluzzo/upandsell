@@ -129,6 +129,7 @@ def ipn
     order = Order.find_by payment_token: params["pay_key"]
     if order and params["status"] == "COMPLETED"
       order.status = 'completed'
+      order.email = params["sender_email"]
       if order.save
          user  = User.find(order.product.user_id)
         UserMailer.bought_email(user, order).deliver
