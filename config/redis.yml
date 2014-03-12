@@ -6,3 +6,4 @@ test:
 
 production:
   db: 3
+  host: 'db.upandsell.me'
