@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
    Rails.logger.info payment
    pay = Paymill::Transaction.create(amount: @product.price.cents,
      currency: @product.price_currency.upcase, payment: payment.id)
-
+Rails.logger.warn pay
    if pay.status == 'closed' && params[:email].present?
     order = @product.orders.build(
       email: params[:email],
@@ -37,7 +37,7 @@ class ProductsController < ApplicationController
     render json: { status: 'completed', url: url }
     return
   else
-    render json: { status: 'failed'}
+    render json: { status: 'failed', error: pay.response_code}
   end
 end
 

@@ -1,18 +1,17 @@
-<div id="page" class="col-md-12">
+<div id="page" class="col-md-12 ol-md-offset-3">
   <div data-slidr="landing" class="section">
     <%= render partial: "products/landing" %>
   </div>
-  <div data-slidr="cc-form" class="section">
+</div>
+
+
   <% if @credit_card %>
-    <div class="slide active">
+    <div id="buy" style="display:none;">
      <%= render partial: "products/payments/credit_card" %>
    </div>
    <% end %>
     <% if @paypal  %>
-   <div class="slide"  data-anchor="paypal">
+  <div id="paypal"   style="display:none;">
     <%= render partial: "products/payments/paypal" %>
   </div>
   <% end %>
-</div>
-</div>
-

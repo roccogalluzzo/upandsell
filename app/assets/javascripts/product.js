@@ -4,51 +4,29 @@
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validation/jquery.validate.js
 //= require slimScroll/jquery.slimscroll
+//= require custombox/src/jquery.custombox.js
 //= require fullpage/jquery.fullPage
 //= require jquery.payment/lib/jquery.payment.js
 //= require pay_form
 $(document).ready(function() {
-  PayForm.init();
-  $.fn.fullpage({
-    verticalCentered: false,
-    resize : false,
-    anchors:['show', 'buy'],
-    scrollingSpeed: 350,
-    easing: null,
-    menu: false,
-    navigation: false,
-    navigationPosition: 'right',
-    slidesNavigation: false,
-    autoScrolling: true,
-    scrollOverflow: true,
-    css3: false,
-    paddingTop: '50px',
-    paddingBottom: '0',
-    keyboardScrolling: false,
-    touchSensitivity: 15,
-    continuousVertical: false,
-    animateAnchor: false,
-    normalScrollElements: window,
 
-        //events
-        onLeave: function(index, direction){},
-        afterSlideLoad: function(anchorLink, index, slideAnchor, slideIndex){
-          console.log(slideIndex, slideAnchor)
-          if(slideAnchor == 'paypal'){
-            // call paypal
-            $.ajax({
-              url: '/products/paypal',
-              type: 'GET',
-              dataType: 'json',
-              data: {product_id: $('.buy-paypal').data('product-id')},
-              async: false,
-              success: function(d) { window.location.replace(d.url) }
-            });
-          }
-        },
-        afterRender: function(){},
-        onSlideLeave: function(anchorLink, index, slideIndex, direction){}
-      });
 
-$.getScript('https://bridge.paymill.com/');
+    $('.btn').on('click', function ( e ) {
+        $.fn.custombox( this, {
+            width: 380,
+            effect:         'slide',
+            position: 'bottom',
+            customClass:    'justme',
+            speed:          600
+        });
+        PayForm.init();
+        PayForm.paypalInit();
+        e.preventDefault();
+    });
+
+    PayForm.paypalInit();
+
+
+
+    $.getScript('https://bridge.paymill.com/');
 });

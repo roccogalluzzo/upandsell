@@ -10,6 +10,7 @@
     "jquery.payment": "latest",
     "slidr": "latest",
     "slimScroll": "latest",
-    "animate.css": "latest"
+    "animate.css": "latest",
+    "jquery.avgrund": "latest"
   }
 }

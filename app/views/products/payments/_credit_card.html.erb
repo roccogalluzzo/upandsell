@@ -1,25 +1,20 @@
     <script type="text/javascript">
     var PAYMILL_PUBLIC_KEY = '<%= @product.user.credit_card_public_token %>';
   </script>
- <div class="buy product" data-product-id="<%= @product.id %>">
-   <div class="row buy-form">
-     <div class="col-md-5">
+ <div class="buy product buy-form" data-product-id="<%= @product.id %>">
+ <div class="row">
+    <div class="col-md-12">
       <div class="row ">
        <div class="col-md-12 pay-title">
-         <h3>We charge you</h3>
-         <h2 class="text-primary"> <%=  humanized_money_with_symbol  @product.price %></h2>
-         <h3>for</h3>
-         <p><%= @product.name %></p>
-
-         <div class="sec-info">
-          <p> We not store any of your credit card info.</p>
-          <b><i class="fa fa-lock"></i> Your payment is secured by 128 bit SSL protocol.</b>
-        </div>
+           <b><i class="fa fa-lock"></i> Your payment is secured by 128 bit SSL protocol.</b>
+         <b class="text-primary"></b>
       </div>
     </div>
   </div>
-  <div class="credit-card col-md-7">
-   <form role="form" class="cc-form">
+  </div>
+   <div class="row buy-form">
+  <div class="credit-card col-md-12">
+   <form id="cc-form" role="form" class="cc-form">
      <div class="processing"></div>
      <div class="message">  <p> <i class="fa fa-lg fa-refresh fa-spin"></i></p>
      <p>Processing Payment...</p></div>
@@ -36,17 +31,27 @@
         </div>
       </div>
       <div class=" row form-group">
-       <div class="col-md-4">
+       <div class="col-md-5">
+             <div class="left-addon ">
+          <i class="fa fa-calendar fa-lg"></i>
         <input type="text" name="cc-exp" class="cc-exp form-control"
         placeholder="MM/YYYY">
+        </div>
       </div>
-      <div class="col-xs-offset-5 col-xs-3">
-        <input type="text" name="cc-cvc" class="cc-cvc form-control"  placeholder="CVV">
+      <div class="col-xs-offset-3 col-xs-4">
+        <div class="left-addon ">
+          <i class="fa fa-lock fa-lg"></i>
+        <input type="text" name="cc-cvc" class="cc-cvc form-control"  placeholder="CVC">
+        </div>
       </div>
     </div>
     <div class="row form-group">
       <div class="col-md-12">
-        <button type="submit" class="btn btn-pay btn-lg btn-block btn-primary">Pay</button>
+      <p style="display: none;" class="cc-error text-center text-danger">Error: Check credit card info and try again.</p>
+        <button type="submit" class="btn btn-pay btn-lg btn-block btn-primary">Pay
+
+  <span class="btn-tip"><%=  humanized_money_with_symbol  @product.price %></span>
+  </button>
       </div>
     </div>
   </form>
@@ -58,8 +63,8 @@
     </div>
   <div class="row form-group">
     <div class="col-md-offset-1 col-md-10">
-     <button data-index="2" href="#buy/paypal"
-     class="toSlide btn btn-pay btn-lg btn-block btn-info">Checkout with Paypal</button>
+     <a  data-product-id="<%= @product.id %>" data-index="2" href="#paypal"
+     class="paypal btn btn-pay btn-lg btn-block btn-info">Checkout with Paypal</a>
    </div>
  </div>
 <% end %>

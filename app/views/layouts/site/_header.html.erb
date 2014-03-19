@@ -1,4 +1,5 @@
 <div class="navbar navbar-default navbar-fixed-top">
+<hr></hr>
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -8,20 +9,20 @@
 			</button>
 			<%= link_to(root_path,
 			class: "navbar-brand") do %>
-			<b>UP&amp;SELL.ME</b>
+			<b>UP</b>&amp;<b>SELL</b>.ME
 			<% end %>
 		</div>
 
 		<% if user_signed_in? %>
 		<%= link_to(user_root_path,
-		class: "btn navbar-btn btn-default pull-right") do %>
+		class: "btn navbar-btn btn-inverse pull-right") do %>
 		Go To Dashboard
 		<% end %>
 		<% else %>
 		<%= link_to("Sign Up", new_user_registration_path,
-		class: "btn navbar-btn btn-front-primary pull-right") %>
+		class: "btn navbar-btn btn-primary pull-right") %>
 		<%= link_to("Sign In", new_user_session_path,
-		class: "btn navbar-btn btn-default pull-right") %>
+		class: "btn navbar-btn btn-inverse pull-right") %>
 		<% end %>
 	</div>
 </div>
