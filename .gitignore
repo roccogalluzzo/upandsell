@@ -18,7 +18,7 @@
 /tmp
 /public/system
 /config/database.yml
-
+coverage
 config/database.yml
 
 #ignore Bower assets

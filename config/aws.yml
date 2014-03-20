@@ -5,6 +5,9 @@ defaults: &defaults
 development:
   <<: *defaults
   bucket: "upandsell-dev"
+test:
+  <<: *defaults
+  bucket: "upandsell-test"
 production:
   <<: *defaults
   bucket: "upandsell"

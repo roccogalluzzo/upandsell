@@ -13,12 +13,10 @@ class ProductsController < ApplicationController
    @product = Product.find(params[:product_id])
    @user  = User.find(@product.user_id)
    Paymill.api_key = @user.credit_card_token
-
    payment = Paymill::Payment.create(token: params[:token])
-   Rails.logger.info payment
    pay = Paymill::Transaction.create(amount: @product.price.cents,
      currency: @product.price_currency.upcase, payment: payment.id)
-Rails.logger.warn pay
+
    if pay.status == 'closed' && params[:email].present?
     order = @product.orders.build(
       email: params[:email],
