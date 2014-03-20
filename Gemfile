@@ -20,11 +20,16 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'byebug'
+  gem 'guard-rspec', require: false
 end
 group :test do
   gem 'faker'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'database_cleaner'
+  gem 'webmock'
+  gem 'sqlite3'
+  gem 'simplecov', '~> 0.7.1', require: false
 end
 
 # database gems
