@@ -80,6 +80,19 @@ def upload_request
   render json: msg
 end
 
+def file_changed
+    product = Product.find(params[:id])
+    if not product.user_id == current_user.id
+      return render :file => "public/401.html", :status => :unauthorized
+    end
+    product.uuid =  sanitize_filename(params[:new_uuid])
+    product.file_file_name =   sanitize_filename(params[:filename])
+
+
+    if product.save
+     render json: {status: '200'}
+   end
+end
 
 def create
   params.permit(:product)
@@ -103,6 +116,11 @@ def create
 
   def edit
     @product = Product.find(params[:id])
+      @tweet_url =  URI.escape(
+    "https://twitter.com/intent/tweet?text=#{@product.name} #{product_slug_url(@product.slug)}")
+  @facebook_url = URI.escape(
+    "https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(@product.slug)}&title=#{@product.name}")
+  @slug = product_slug_url(@product.slug)
     if not @product.user_id == current_user.id
       render :file => "public/401.html", :status => :unauthorized
     end

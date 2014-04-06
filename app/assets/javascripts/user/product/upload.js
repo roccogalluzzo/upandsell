@@ -33,7 +33,7 @@
   //disable submit
   el.form.find('input[type=submit]').attr('disabled', 'disabled');
 }
-
+ $('.file-change').on('click', fileChange);
 el.form.on("ajax:success", function(event, data, status, xhr) {
   console.log(data);
   if(data.product){
@@ -82,9 +82,18 @@ function fileSignedRequest(filename) {
     url: '/user/products/upload_request',
     type: 'GET',
     dataType: 'json',
-    data: {name: filename},
+    data: {name: filename, uuid:  el.form.find( "input[class=upload_uuid]" ).val()},
     async: false,
     success: function(d) { data = d; }
+  });
+  return data;
+}
+function fileChanged(id, filename, new_uuid) {
+  $.ajax({
+    url: '/user/products/file_changed',
+    type: 'POST',
+    dataType: 'json',
+    data: {id: id, new_uuid:  new_uuid, filename: filename}
   });
   return data;
 }
@@ -102,7 +111,6 @@ function bindCancel(action, istance){
 function fileAdd(e, data){
   Upload.Animations.start();
   Upload.Animations.fileStatus(data.files[0].name, 'visible');
-  console.log(data.files[0].name);
   Upload.Animations.progressBar(0);
   req = fileSignedRequest(data.files[0].name);
   // set data request to form
@@ -120,6 +128,9 @@ function fileChange() {
 }
 
 function fileDone(e, data) {
+  if($('.upload-section').data('product-id')){
+fileChanged($('.upload-section').data('product-id'), attrs.filename, attrs.uuid);
+  }
   el.form.find( "input[class=upload_uuid]" ).val(attrs.uuid);
   el.form.find( "input[class=filename]" ).val(attrs.filename);
   Upload.Animations.done();
@@ -165,7 +176,7 @@ Upload.Animations = {
    });
  },
  progressBar: function(percent) {
-  el.uploading_box.find('.progress').animate({ opacity: '1'}, 100)
+  el.uploading_box.find('.progress').show().animate({ opacity: '1'}, 100)
   el.uploading_box.find('.progress .progress-bar').css({width: percent +'%'});
 },
 actionBtn: function(action) {

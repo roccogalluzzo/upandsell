@@ -29,6 +29,7 @@ Upandsell::Application.routes.draw do
     get 'settings/add_paypal_callback' => 'settings#add_paypal_callback'
     root 'products#summary'
     get 'products/upload_request'  => 'products#upload_request'
+    post 'products/file_changed'  => 'products#file_changed'
     get 'products/metrics'  => 'products#metrics'
     resources :products, except: [:show] do
       post 'upload'
