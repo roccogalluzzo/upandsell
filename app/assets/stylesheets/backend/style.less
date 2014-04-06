@@ -1,0 +1,274 @@
+//
+// Main
+// @contribution Tiarê Balbi Bonamini (@tiarebalbi)
+// --------------------------------------------------
+
+// Fonts
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+// Mixins tools
+@import "mixins";
+
+// Variables of theme
+@import "variables";
+
+// Theme
+@import "theme";
+
+.header-seperation {
+
+  background-color: @peter-river;
+}
+.tab-content {
+
+  border: none;
+  border-radius: 0px;
+}
+
+.user-profile-pic-2x {
+  border-radius: 100px 100px 100px 100px;
+  height: 70px !important;
+  overflow: hidden;
+  width: 70px !important;
+}
+#area-example {
+  background-color: @clouds;
+}
+.head-title {
+  text-transform: uppercase;
+  margin-left: 15px;
+  font-size: 30px;
+  margin-top: 14px;
+}
+
+.header-seperation {
+  float: none;
+  .text-center;
+  padding-top: 15px;
+}
+.brand {
+
+  float: none !important;
+  margin-top: 5px;
+  .text-center;
+  .navbar-brand;
+  color: white;
+  font-weight: 100;
+  font-family: 'Lato';
+  text-transform: uppercase;
+}
+
+.quicklinks {
+
+  i {
+    font-size: 18px !important;
+  }
+}
+.page-sidebar {
+
+//width: 200px;
+}
+
+.user-info-wrapper {
+  display: block;
+  margin: 20px 31px;
+  margin-bottom: 20px !important;
+}
+.page-sidebar-wrapper {
+
+  ul {
+    .active {
+      background-color: #34495e !important;
+      border-left: #3498db 4px solid !important;
+    }
+    li {
+      border-left: transparent 4px solid !important;
+
+      a {
+        padding: 18.5px 31px 18.5px 31px !important;
+        font-size: 20px !important;
+
+        i { font-size: 20px !important; color: #3498db !important;}
+      }
+    }
+  }
+}
+.small-text {
+
+  font-size: 16px !important;
+}
+
+
+.cbp_tmtimeline {
+ &:before {
+   left: 5% !important;
+ }
+}
+
+.cbp_tmtimeline > li .cbp_tmlabel {
+  margin: 0 0 15px 10% !important;
+}
+
+.cbp_tmtimeline > li .cbp_tmicon {
+
+ left: 5%;
+}
+.upload-box {
+  border: #eee dotted 3px;
+  margin: 10px;
+}
+
+
+.upload-box {
+  position: relative;
+  z-index: 9;
+  height: 200px;
+  background-color: rgba(236, 240, 241, 0.21);
+  border-radius: 6px;
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 9999;
+    p {
+
+     font-size: 24px;
+     line-height: 1.72222;
+     margin: 0 0 15px;
+     position: relative;
+     text-align: center;
+     top: 18%;
+     color: @silver;
+
+   }
+
+   .filename {
+    font-size: 18px;
+    color: rgb(88, 88, 88);
+    opacity: 0.9;
+    display: block;
+    text-align: center;
+    word-wrap: break-word;
+    text-decoration: underline;
+    margin: 0 4%;
+  }
+}
+.btn {
+  border-radius: 0 0 6px 6px;
+  position: relative;
+  bottom: 6px;
+}
+
+
+}
+.progress {
+  margin: 0px 23px 0px 23px !important;
+  margin-bottom: 10px !important;
+  height: 30px !important;
+}
+.upload-box:hover {
+
+  background-color: darken(@clouds, 3%);
+}
+.upload-box-inner {
+  position: relative;
+  border-radius: 6px;
+  color: transparent;
+  border-bottom: none;
+  height: 150px;
+  opacity: 0.6;
+  i {
+    color: @silver;
+    margin: 11% 0;
+    text-align: center;
+    display: block;
+  }
+
+}
+.fileInput {
+  cursor: pointer;
+  height: 100% !important;
+  position:absolute;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  /*This makes the button huge. If you want a bigger button, increase the font size*/
+  font-size:50px;
+  /*Opacity settings for all browsers*/
+  opacity: 0;
+  -moz-opacity: 0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
+
+.share-url {
+  background-color: @clouds;
+  background-color: #ecf0f1;
+width: 100%;
+border: none;
+margin-bottom: 15px;
+padding: 11px;
+border-radius: 6px;
+font-size: 23px;
+
+}
+.upload-box-preview {
+  padding-left: 0px !important;
+  padding-right:  0px;
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 9;
+  }
+
+
+
+  height: 265px;
+  border-radius: 6px;
+  border: #eee dotted 3px;
+  background-color: rgba(236, 240, 241, 0.21);
+  //margin-top: 24px;
+
+  .upload-box-preview-inner {
+    //padding-left: 15px;
+    position: relative;
+    border-radius: 6px;
+    color: transparent;
+    border-bottom: none;
+    opacity: 0.9;
+    overflow: hidden;
+    height: 100%;
+    p {
+
+     font-size: 25px;
+     line-height: 1.72222;
+     margin-top: 15px;
+     position: relative;
+     text-align: center;
+     top: 6%;
+     margin: 6px;
+     color: @silver;
+
+   }
+
+   i {
+    color: @silver;
+    margin: 13% 0;
+    text-align: center;
+    display: block;
+  }
+
+}
+}
+
+.upload-box-preview:hover {
+  background-color: darken(@clouds, 3%);
+}
+.payment {
+border-bottom: 1px solid @clouds;
+padding-bottom: 10px;
+margin-bottom: 30px;
+height: 70px;
+}

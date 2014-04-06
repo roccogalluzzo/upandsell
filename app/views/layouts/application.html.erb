@@ -4,104 +4,147 @@
   <title>Up&amp;Sell.me</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag "customer_area" %>
-  <%= javascript_include_tag "customer_area" %>
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
 </head>
 <body>
- <div id="wrap">
-  <%= render partial: "layouts/messages", flash: flash %>
-  <div class="menu" role="navigation">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to(user_root_path, :class => 'navbar-brand') do %>
-      <b>UP&amp;SELL.ME</b>
-      <% end %>
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-inverse">
+  <!-- BEGIN TOP NAVIGATION BAR -->
+  <div class="navbar-inner">
+    <!-- BEGIN NAVIGATION HEADER -->
+    <div class="header-seperation text-center">
+      <!-- BEGIN MOBILE HEADER -->
+      <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">
+        <li class="dropdown">
+          <a id="main-menu-toggle" href="#main-menu" class="">
+            <div class="iconset top-menu-toggle-white"></div>
+          </a>
+        </li>
+      </ul>
+      <!-- END MOBILE HEADER -->
+      <!-- BEGIN LOGO -->
+      <a class="brand" href="#"><b>Up</b>&amp;<b>Sell</b>.Me</a>
+      <!-- END LOGO -->
     </div>
+    <!-- END NAVIGATION HEADER -->
+    <!-- BEGIN CONTENT HEADER -->
+    <div class="header-quick-nav">
+      <!-- BEGIN HEADER LEFT SIDE SECTION -->
+      <div class="pull-left">
+<h3 class="head-title">Summary</h3>
+      </div>
+      <!-- END HEADER LEFT SIDE SECTION -->
+      <!-- BEGIN HEADER RIGHT SIDE SECTION -->
+      <div class="pull-right">
+        <div class="chat-toggler">
+          <!-- BEGIN NOTIFICATION CENTER -->
+          <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom" data-content="" data-toggle="dropdown" data-original-title="Notifications">
+            <div class="user-details">
+              <div class="username">
+                <span class="bold">&nbsp;<%= current_user.name %>&nbsp;&nbsp;</span>
+              </div>
+            </div>
+          </a>
+        <!-- END NOTIFICATION CENTER -->
+          <!-- BEGIN PROFILE PICTURE -->
+          <div class="profile-pic">
 
-    <ul class="nav navbar-nav">
+<%= gravatar_for current_user.email, :size => 35, :class => 'img-class', :alt => 'me' %>
+          </div>
+          <!-- END PROFILE PICTURE -->
+        </div>
+        <!-- BEGIN HEADER NAV BUTTONS -->
+        <ul class="nav quick-section">
+
+             <li class="quicklinks"><%= link_to(user_settings_account_path) do %>
+             <i class="fa fa-gear"></i>
+             <% end %>
+             </li>
+
+          <li class="quicklinks"><span class="h-seperate"></span></li>
+ <li class="quicklinks"><a href="#"><i class="fa fa-power-off"></i></a></li>
+
+
+        </ul>
+        <!-- END HEADER NAV BUTTONS -->
+      </div>
+      <!-- END HEADER RIGHT SIDE SECTION -->
+    </div>
+    <!-- END CONTENT HEADER -->
+  </div>
+  <!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->
+<!-- BEGIN CONTENT -->
+<div class="page-container row-fluid">
+  <!-- BEGIN SIDEBAR -->
+  <!-- BEGIN MENU -->
+  <div class="page-sidebar" id="main-menu">
+<div class="user-info-wrapper">
+		 <%= link_to(new_user_product_path, class: "btn btn-block btn-primary") do %>
+<span class="bold">NEW PRODUCT</span>
+<% end %>
+
+</div>
+
+      <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+   <!-- BEGIN SIDEBAR MENU -->
+    <ul>
       <li class="<%= 'active' if current_page?(user_root_path) %>">
-        <%= link_to raw('Summary'), user_root_path %>
+        <%= link_to user_root_path do %>
+<i class="fa fa-lg fa-home"></i>
+<span> Summary </span>
+<% end %>
       </li>
       <li class="<%= 'active' if current_page?(user_products_path) %>">
-       <%= link_to raw('Products'), user_products_path %>
+       <%= link_to user_products_path do %>
+<i class="fa fa-file"></i>
+<span> Products </span>
+<% end %>
      </li>
      <li class="<%= 'active' if current_page?(user_orders_path) %>">
-      <%= link_to raw('Orders'), user_orders_path %>
+      <%= link_to user_orders_path do %>
+      <i class="fa fa-envelope"></i>
+<span>Orders</span>
+<% end %>
     </li>
-<!--           <li><a href="#">Stats</a></li>
-  <li><a href="#">Support</a></li> -->
-</ul>
-<ul class="nav navbar-nav navbar-right">
-  <li>
-    <%= link_to(new_user_product_path) do %>
-    <i class="fa fa-plus fa-lg"></i>
-    <% end %>
-  </li>
-
-  <li>
-   <%= link_to(user_settings_account_path) do %>
-   <i class="fa fa-cog fa-lg"></i>
-   <% end %>
- </li>
-
- <li>
-   <%= link_to(destroy_user_session_path, :method => :delete) do %>
-   <i class="fa fa-sign-out fa-lg"></i>
-   <% end %>
- </li>
-</ul>
-
-</div>
-
-<div class="row">
-  <div class="col-md-10 col-md-offset-1 headline">
-    <div class="row">
-     <%= yield :header %>
-   </div>
+    </ul>
+    <!-- END SIDEBAR MENU -->
  </div>
-</div>
-
-<div class="row">
-  <div class="content">
-
-    <%= yield %>
   </div>
-</div>
-</div>
-<div id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-2 navbar-brand">
-        <%= link_to(root_path) do %>
-        <b>UP&amp;SELL.ME</b>
-        <% end %>
+  <!-- BEGIN SCROLL UP HOVER -->
+  <a href="#" class="scrollup">Scroll</a>
+  <!-- END SCROLL UP HOVER -->
+  <!-- END MENU -->
+  <!-- BEGIN SIDEBAR FOOTER WIDGET -->
+  <div class="footer-widget">
+    <div class="progress transparent progress-small no-radius no-margin">
+      <div data-percentage="79%" class="progress-bar progress-bar-success animate-progress-bar"></div>
+    </div>
+    <div class="pull-right">
+      <div class="details-status">
+        <span data-animation-duration="560" data-value="86" class="animate-number"></span>%
       </div>
-
-      <div class="col-md-8">
-        <ul class="bottom-links">
-          <li>
-            <%= link_to "Terms of Service", terms_path %>
-          </li>
-          <li>
-            <%= link_to "Privacy Policy", privacy_path %>
-          </li>
-        </ul>
-      </div>
-
-      <div class="col-md-2">
-        <ul class="bottom-icons">
-          <li><a href="https://www.facebook.com/pages/UpSellme/590644707644241" class="fui-facebook"></a></li>
-          <li><a href="https://twitter.com/upandsell_me" class="fui-twitter"></a></li>
-        </ul>
-      </div>
+   <%= link_to(destroy_user_session_path, :method => :delete) do %>
+   <i class="fa fa-power-off"></i>
+   <% end %>
     </div>
   </div>
+
+  <!-- END SIDEBAR FOOTER WIDGET -->
+  <!-- END SIDEBAR -->
+  <%# render partial: "layouts/messages", flash: flash %>
+  <!-- BEGIN PAGE CONTAINER-->
+  <div class="page-content">
+    <div class="content">
+<%= yield %>
+    </div>
+  </div>
+  <!-- END PAGE CONTAINER -->
 </div>
+<!-- END CONTENT -->
+   </div>
 </body>
 </html>

@@ -1,6 +1,8 @@
-<% content_for :header do %>
-   <ul class="col-lg-6 nav nav-tabs">
-  <li class="<%= 'active' if current_page?(user_settings_account_path) %>">
+     <div class="row">
+        <div class="col-md-12">
+          <div class="tabbable tabs-left">
+            <ul class="nav nav-tabs" id="tab-2">
+          <li class="<%= 'active' if current_page?(user_settings_account_path) %>">
     <%= link_to(user_settings_account_path) do %>
     Account
     <% end %>
@@ -10,7 +12,10 @@
     Payments
     <% end %>
   </li>
-</ul>
-
- <% end %>
-
+  <li><a href="#">Change Password</a></li>
+   </ul> 
+             <div class="tab-content">
+  
+              <div class="tab-pane active">
+                <div class="row">
+                  <div class="col-md-12">

@@ -49,11 +49,6 @@ Product.Form = {
             $element.parent().addClass("has-error");
           });
         },
-        submitHandler: function(form) {
-          if($(form).find( ".upload_uuid" ).val()){
-            form.submit();
-        }
-      },
       rules: {
         "product[price]": {
           required: true,

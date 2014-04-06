@@ -23,34 +23,44 @@ end
 
 def metrics
   if params[:products] != '0'
-  product_ids = current_user.products.where(id: params[:products]).ids
-else
-  product_ids = current_user.products.ids
+    product_ids = current_user.products.where(id: params[:products]).ids
+  else
+    product_ids = current_user.products.ids
+  end
+
+  earnings = {}
+  earnings[:today] = (Metric::Products.new(product_ids).earnings_today)[0]
+  earnings[:week] = (Metric::Products.new(product_ids).earnings_last 7.days)[0]
+  earnings[:month] = Metric::Products.new(product_ids).earnings_last 30.days
+  sales = Metric::Products.new(product_ids).sales_last 30.days
+  visits = Metric::Products.new(product_ids).visits_last 30.days
+  if visits[0] > 0 and  sales[0] > 0
+   conversion_rate = visits[0] / sales[0]
+ else
+  conversion_rate = 0
+end
+render json: {earnings: earnings, sales: sales, visits: visits, conversion_rate: conversion_rate}
 end
 
-  if params[:range] == '1'
-    earnings = Metric::Products.new(product_ids).earnings_today
-    sales = Metric::Products.new(product_ids).sales_today
-    visits =  Metric::Products.new(product_ids).visits_today
-  elsif params[:range] == '7'
-   earnings = Metric::Products.new(product_ids).earnings_last 7.days
-   sales = Metric::Products.new(product_ids).sales_last 7.days
-   visits = Metric::Products.new(product_ids).visits_last 7.days
- elsif params[:range] == '30'
-  earnings = Metric::Products.new(product_ids).earnings_last 30.days
-     sales = Metric::Products.new(product_ids).sales_last 30.days
-   visits = Metric::Products.new(product_ids).visits_last 30.days
-end
-render json: {earnings: [Money.new(earnings[0]).format(:symbol => false), earnings[1]], sales: sales, visits: visits}
-end
 def summary
- @products = User.find(current_user.id).products
+ @products = current_user.products
  product_ids = @products.ids
- @visits = Metric::Products.new(product_ids).visits_last 30.days
- @sales = Metric::Products.new(product_ids).sales_last 30.days
- @earnings = Metric::Products.new(product_ids).earnings_last 30.days
+ @visits = (Metric::Products.new(product_ids).visits_last 30.days)[0]
+ @sales = (Metric::Products.new(product_ids).sales_last 30.days)[0]
+ if @visits > 0 and  @sales > 0
+   @conversion_rate = @visits / @sales
+ else
+  @conversion_rate = 0
+end
+earns =  Metric::Products.new(product_ids).earnings_last 30.days
+Rails.logger.warn earns
+@earnings = {}
+@earnings[:month] =  Money.new(earns[0])
+@earnings[:summary_data] = earns[1]
+@earnings[:week] = Money.new((Metric::Products.new(product_ids).earnings_last 7.days)[0]).format(:symbol => false)
+@earnings[:today] = Money.new((Metric::Products.new(product_ids).earnings_today)[0]).format(:symbol => false)
+
  # TODO convert to account currency
- @earnings_total = Money.new(@earnings[0])
 end
 
 def upload_request
@@ -79,37 +89,44 @@ def create
   @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
   @product.file_file_name =  sanitize_filename( params[:product][:filename])
   if @product.save
-    return redirect_to share_user_product_path(@product.id), notice: 'Product was created.'
-end
-render 'new'
-end
-
-def edit
-  @product = Product.find(params[:id])
-  if not @product.user_id == current_user.id
-    render :file => "public/401.html", :status => :unauthorized
+    tweet_url =  URI.escape(
+      "https://twitter.com/intent/tweet?text=#{@product.name} #{product_slug_url(@product.slug)}")
+    facebook_url = URI.escape(
+      "https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(@product.slug)}&title=#{@product.name}")
+    msg = { status: 'ok', product: {name: @product.name,
+      preview: @product.thumb.url, price_cents: @product.price_cents,
+      price_currency:  @product.price.symbol, twitter_url: tweet_url, facebook_url: facebook_url,
+      slug: product_slug_url(@product.slug) }}
+    end
+    render json: msg
   end
-end
 
-def update
-  @product = Product.find(params[:id])
-  if not @product.user_id == current_user.id
-    return render :file => "public/401.html", :status => :unauthorized
+  def edit
+    @product = Product.find(params[:id])
+    if not @product.user_id == current_user.id
+      render :file => "public/401.html", :status => :unauthorized
+    end
   end
-  @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
-  @product.file_file_name =   sanitize_filename(params[:product][:filename])
-  f_params = params[:product].permit(:name, :price, :price_currency,
-    :description, :thumb)
-  @product.attributes = f_params
+
+  def update
+    @product = Product.find(params[:id])
+    if not @product.user_id == current_user.id
+      return render :file => "public/401.html", :status => :unauthorized
+    end
+    @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
+    @product.file_file_name =   sanitize_filename(params[:product][:filename])
+    f_params = params[:product].permit(:name, :price, :price_currency,
+      :description, :thumb)
+    @product.attributes = f_params
 
 
-  if @product.save
-   return redirect_to user_products_path, notice: 'Product was edited.'
+    if @product.save
+     return redirect_to user_products_path, notice: 'Product was edited.'
+   end
+   render 'edit'
  end
- render 'edit'
-end
 
-def destroy
+ def destroy
   @product = Product.find(params[:id])
   if not @product.user_id == current_user.id
     render :file => "public/401.html", :status => :unauthorized

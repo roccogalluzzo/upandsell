@@ -11,6 +11,8 @@
     "slidr": "latest",
     "slimScroll": "latest",
     "animate.css": "latest",
-    "jquery.avgrund": "latest"
+    "custombox": "latest",
+    "morris.js": "latest",
+    "bootstrap-switch": "latest"
   }
 }

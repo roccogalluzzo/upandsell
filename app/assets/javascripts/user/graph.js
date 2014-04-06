@@ -1,6 +1,25 @@
 
 
 function SummaryChart(containerid, raw_data) {
+	Morris.Area({
+	  element: 'area-example',
+	  data: [
+		{ y: '2006', a: 100, b: 90 },
+		{ y: '2007', a: 75,  b: 65 },
+		{ y: '2008', a: 50,  b: 40 },
+		{ y: '2009', a: 75,  b: 65 },
+		{ y: '2010', a: 50,  b: 40 },
+		{ y: '2011', a: 75,  b: 65 },
+		{ y: '2012', a: 100, b: 90 }
+	  ],
+	  xkey: 'y',
+	  ykeys: ['a', 'b'],
+	  labels: ['Series A', 'Series B'],
+	  lineColors:['#0090d9','#b7c1c5'],
+	  lineWidth:'0',
+	   grid:'false',
+	  fillOpacity:'0.5'
+	});
 
   function data(data) {
     var rval = {key: 'Earnings', values: []};

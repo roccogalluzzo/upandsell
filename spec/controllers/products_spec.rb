@@ -1,8 +1,10 @@
 require 'spec_helper'
 describe ProductsController do
   describe 'POST #pay' do
-    before(:each) do
-      stub_request(:head,
+
+    context 'when payment info are valid' do
+      it 'return success status' do
+              stub_request(:head,
         /https:\/\/upandsell-test.s3.amazonaws.com\/uploads\/products\/.*/)
       .to_return(status: 200, body: "kk", headers: {
         'x-amz-meta-file_name' => 'test.png',
@@ -40,9 +42,6 @@ describe ProductsController do
         "is_fraud" : false
     },
     "mode" : "test" }')
-    end
-    context 'when payment info are valid' do
-      it 'return success status' do
         product = create(:product)
         product.user.add_credit_card({'access_token' => 'fdsafsa', 'public_key' => 'ffjajfljl'})
         post :pay,  {product_id: product.id, token: '098f6bcd4621d373cade4e832627b4f6', email: 'ciao@ckalk.com'}

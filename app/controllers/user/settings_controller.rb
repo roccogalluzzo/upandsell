@@ -8,20 +8,24 @@ class User::SettingsController < User::BaseController
   def update_account
     @user = current_user
     s_params = user_params
-    if s_params[:password].blank?
-      s_params.delete("current_password")
-      s_params.delete("password")
-      s_params.delete("password_confirmation")
-      resp = @user.update_without_password(s_params)
-    else
-      resp = @user.update_with_password(user_params)
-      sign_in @user, :bypass => true
-    end
+    resp = @user.update_without_password(s_params)
     if resp
      redirect_to user_settings_account_path, notice: 'Account Updated'
    else
     render 'account'
   end
+end
+
+def update_password
+  s_params = user_params
+  resp = @user.update_with_password(user_params)
+  sign_in @user, :bypass => true
+  if resp
+   redirect_to user_settings_account_path, notice: 'Account Updated'
+ else
+  render 'account'
+end
+
 end
 
 def payments
@@ -39,17 +43,13 @@ def payments
  end
 
  def update_payments
-   @user = current_user
-   s_params = payment_params
-   unless @user.credit_card_token
-    s_params[:credit_card_status] = false
+  if params[:type] == 'paypal'
+    current_user.update_without_password(paypal_status: params[:value])
   end
-  unless s_params[:paypal_email].present?
-    s_params[:paypal_status] = false
+  if params[:type] == 'paymill'
+    current_user.update_without_password(credit_card_status: params[:value])
   end
-  @user.update_without_password(s_params)
-
-  redirect_to user_settings_payments_path, notice: 'Account Updated'
+  render json: {msg: 'success'}
 end
 
 def paymill_callback
@@ -62,7 +62,7 @@ def paymill_refresh
  redirect_to user_settings_payments_path, notice: 'Paymill token updated'
 end
 
-def add_paypal_refund
+def add_paypal
  api = PayPal::SDK::Permissions::API.new
  request_permissions = api.build_request_permissions({
   :scope => ["REFUND"],
@@ -75,7 +75,7 @@ def add_paypal_refund
 end
 end
 
-def add_paypal_refund_callback
+def add_paypal_callback
   complete = false
   api = PayPal::SDK::Permissions::API.new
   get_access_token = api.build_get_access_token(
@@ -83,8 +83,8 @@ def add_paypal_refund_callback
   access = api.get_access_token(get_access_token)
   if access.success?
     s_api = PayPal::SDK::Permissions::API.new({
-   token: access.token.to_s,
-   token_secret: access.token_secret.to_s })
+     token: access.token.to_s,
+     token_secret: access.token_secret.to_s })
 
     complete = current_user.add_paypal_refund(access.token, access.token_secret)
 

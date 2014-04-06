@@ -1,77 +1,61 @@
 <% content_for :header do %>
 
- <% end %>
+<% end %>
+<div class="row tiles-container  m-b-20 hidden-xlg">
+  <div class="m-l-10 ">
 
- <div class="row page-head">
+    <div class="tiles white ">
 
-  <div class="col-lg-10">
-</div>
-<div class="col-lg-2">
- <%= link_to "Add New Product",
- new_user_product_path, class: "pull-right btn btn-lg btn-primary" %>
- </div>
- </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="list">
+     <% if @products.blank? %>
+     <p class="text-center text-muted">No products Founds</p>
+     <p class="text-center">
+      <%= link_to "Add One Now",
+      new_user_product_path, class: "btn btn-lg btn-add btn-primary" %>
+    </p>
+    <% else %>
+    <% @products.each do |product| %>
 
-             <% if @products.blank? %>
-             <p class="text-center text-muted">No products Founds</p>
-             <p class="text-center">
-<%= link_to "Add One Now",
- new_user_product_path, class: "btn btn-lg btn-add btn-primary" %>
-             </p>
-             <% else %>
-             <% @products.each do |product| %>
-             <div class="list-item row"
-             data-url="<%= url_for edit_user_product_path(product) %>">
-               <div class="col-sm-1 list-img">
-               <% unless product.thumb_file_name  %>
-               <div class="missing-img"></div>
-               <% else %>
-                <%= image_tag product.thumb.url(:small), :class => "img-circle" %>
-                <% end %>
-              </div>
-              <div class="col-sm-8 details">
-                <strong>
-                 <%= product.name %>
-                </strong>
-                   <%= link_to  controller: '/products', action: 'show',
-                      slug: product.slug, only_path: false do %>
-                <i class="fa fa-link fa-lg hidden"></i>
-                <% end %>
-                <div clas="row">
-                  <div class="col-sm-12">
-
-                  </div>
-                </div>
-              </div>
-              <div  class="col-sm-2 ext">
-              <!--
-                <a href="  ">
-                -->
-
-                <%# link_to(user_product_path(product), remote: true, :method => :delete) do %>
-                <!--<i class="fa fa-lg fa-times text-danger"></i> -->
-                <%# end %>
-
-
-              </div>
-              <div class="col-sm-1 chevron">
-              <i class="fa fa-2x fa-chevron-right text-muted"></i>
-              </div>
-            </div>
+    <div class="p-t-20 p-b-15 b-b p-l-10 p-r-10 b-grey">
+      <div class="post">
+        <div class="user-profile-pic-wrapper">
+          <div class="user-profile-pic-2x white-border">
+            <% unless product.thumb_file_name  %>
+            <div class="missing-img"></div>
+            <% else %>
+            <%= image_tag product.thumb.url(:small), :class => "img-circl" %>
             <% end %>
-            <% end %>
-
-
           </div>
         </div>
+        <div class="info-wrapper small-width inline">
+          <div class="info text-black ">
+            <p>        <strong> <%= product.name %>
+            </strong>
+          </p>
+        </div>
+        <div class="clearfix"></div>
       </div>
+      <div class="inline pull-right">
+        <div class="tiles text-white p-t-5 p-l-5 p-b-5 p-r-5 inline">
+          <%= link_to edit_user_product_path(product) do %>
+          <i class="fa fa-pencil fa-lg"></i>
+          <% end %>
+        </div>
+        <div class="tiles white p-t-5 p-l-5 p-b-5 p-r-5 inline">
+          <%= link_to  controller: '/products', action: 'show',
+          slug: product.slug, only_path: false do %>
+          <i class="fa fa-link fa-lg"></i>
+          <% end %>
+        </div>
+      </div>
+      <div class="clearfix"></div>
     </div>
   </div>
+  <% end %>
+  <% end %>
+</div>
+<div class="tiles grey p-t-5 p-b-5 ">
+ <p class="text-center"> <a href="javascript:;" class="text-black semi-bold  small-text">Load More</a></p>
+</div>
 </div>
 </div>
 

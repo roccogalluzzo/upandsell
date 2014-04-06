@@ -1,7 +1,52 @@
- <div class="row">
   <div class="col-md-12">
-    <div class="row">
-      <div class="col-md-8">
+        <!-- BEGIN MARKET SALES WIDGET -->
+        <div class="row tiles-container tiles white"  data-aspect-ratio="true">
+          <div class="col-md-9 b-grey b-r no-padding" style="height:382px">
+
+              <div class="p-l-45">
+<div class="row">
+			<div class="col-md-12 col-sm-12 no-padding">
+				  <h5 class="semi-bold p-t-5">EARNINGS</h5>
+				</div>
+</div>	
+	<div class="col-md-4 col-sm-4 no-padding">
+				  <p class="semi-bold">TODAY</p>
+				  <h4>
+          <span 
+          class="earnings-today item-count animate-number semi-bold" >
+          <%=  @earnings[:today] %>
+          </span> USD</h4>
+				</div>
+				<div class="col-md-4 col-sm-4 no-padding">
+				  <p class="semi-bold">THIS WEEK</p>
+				  <h4><span class="item-count
+ animate-number earnings-week semi-bold">
+ <%=  @earnings[:week] %>
+</span> USD</h4>
+				</div>
+				<div class="col-md-4 col-sm-4 no-padding">
+				  <p class="semi-bold">THIS MONTH</p>
+				  <h4>
+          <span 
+          class="item-count earnings-month animate-number
+          semi-bold">
+           <%=  @earnings[:month] %>
+</span> USD</h4>
+				</div>
+				<div class="clearfix"></div>
+<%#  humanized_money @earnings_total || 0%>
+            </div>
+            <div class="overlayer bottom-left fullwidth">
+              <div class="overlayer-wrapper">
+                    <%= content_tag "div", id: "chart", class: "graph",
+     data: { earnings: @earnings[:summary_data] } do %>
+     
+<div id="area-example" style="height: 245px;"></div><% end %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 no-padding text-center">
+            <div class="p-l-15 p-r-15 text-center p-b-25 p-t-25 b-b b-grey">
           <select name="products" class="mbn">
               <option value="0">All Products</option>
                <% @products.each do |product| %>
@@ -9,56 +54,42 @@
                <% end %>
           </select>
 
-      </div>
-      <div class="col-md-4">
-        <ul class="period-selector">
-         <li> <a data-toggle="pill" data-action="1" href="#">Today</a></li>
-         <li><a data-toggle="pill" data-action= "7" href="#">Week</a></li>
-         <li class="active"><a data-toggle="pill" data-action="30" href="#">Month</a></li>
-       </ul>
-     </div>
-   </div>
-   <div class="row">
-    <div class="col-md-12 text-center">
-      <hr></hr>
 
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-offset-3 col-md-6">
-      <div class="row stats-summary">
+     </div>         
+              <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-b b-grey">
 
-        <div class="col-md-4 stats-summary-col visits">
-          <h3 class="visits_count"><%= @visits[0] || 0%></h3>
-          <small>Visits</small>
+                  <p class="small-text">SALES</p>
+     
+                <div class="clearfix"></div>
+               
+                  <h4 class="sales-month semi-bold"><%= @sales || 0%></h4>
+              
+
+                <div class="clearfix"></div>
+              </div>
+              <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-b b-grey">
+             
+                  <p class="small-text">VISITS</p>
+          
+                <div class="clearfix"></div>
+             
+                  <h4 class="visits-month semi-bold"><%= @visits || 0%></h4>
+            
+             
+                <div class="clearfix"></div>
+              </div>
+              <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-grey">
+         
+                  <p class="small-text">CONVERSION RATE</p>
+     
+                <div class="clearfix"></div>
+          
+                  <h4 class="semi-bold">
+<span class="conversion-rate"><%= @conversion_rate %></span>%</h4>
+          
+             
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4 stats-summary-col sales">
-          <h3 class="sales_count"><%= @sales[0] || 0%></h3>
-          <small>Sales</small>
-        </div>
-        <div class="col-md-4  stats-summary-col earnings">
-          <h3>
-          <span class="dollar">$</span><span class="earnings_count"><%=  humanized_money @earnings_total || 0%></span></h3>
-          <small>Earnings</small>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-offset-1 col-md-10 text-center">
-      <hr></hr>
-
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-
-     <%= content_tag "div", id: "dashboard_chart", class: "graph",
-     data: { earnings: @earnings[1] } do %>
-     <svg></svg>
-     <% end %>
-   </div>
-
- </div>
-</div>
-</div>

@@ -5,6 +5,7 @@
     el = {target: $(".direct-upload"),
     form: $(".product"),
     box: $(".upload-box"),
+    uploading_box:  $('.uploading-box'),
     btn:   $('#product-upload-btn')};
 
     preview = {target: $(".input-thumb "),
@@ -29,21 +30,37 @@
  .bind('fileuploadfail', fileFail);
 
  if(!$("input[class=upload_uuid]" ).val()){
-  Product.Upload.Animations.boxToCenter();
   //disable submit
   el.form.find('input[type=submit]').attr('disabled', 'disabled');
 }
+
+el.form.on("ajax:success", function(event, data, status, xhr) {
+  console.log(data);
+  if(data.product){
+  $('.product-image').attr('src',data.product.preview);
+  $('.product-name').text(data.product.name);
+  $('.product-price').text(data.product.price_currency + ' ' +(data.product.price_cents/100));
+  $('.slug').text(data.product.slug);
+  $('.btn-social-twitter').on('click', function(){
+      window.open(data.product.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
+  });
+  $('.btn-social-facebook').on('click', function(){
+      window.open(data.product.facebook_url, 'share','toolbar=0,status=0,width=600,height=305')
+  });
+$('.share').show(400);
+  Upload.Animations.product_added();
+}
+});
+$('.edit-product').on('click', function(){
+ Upload.Animations.product_edit();
+});
 }
 
 Upload.filePreview = function() {
  init_elements();
 
- preview.target.fileupload({
-  autoUpload: false,
-  replaceFileInput: false,
-  imagePreviewName: preview.box,
-  dropZone: preview.box})
- .bind('fileuploadadd', filePreviewAdd);
+ preview.target.change(filePreviewAdd);
+
  if($("#local-preview-path").val()){
   loadPreview($("#local-preview-path").val());
 }
@@ -57,10 +74,7 @@ function loadPreview(path){
   });
 }
 function filePreviewAdd(e, data){
- // Upload.Animations.start();
- // Upload.Animations.fileStatus(data.files[0].name, 'visible');
- // Upload.Animations.actionBtn('cancel');
- loadPreview(data.files[0]);
+ loadPreview(e.target.files[0]);
 }
 // private functions
 function fileSignedRequest(filename) {
@@ -86,9 +100,9 @@ function bindCancel(action, istance){
 }
 }
 function fileAdd(e, data){
-  Upload.Animations.boxToLeft();
   Upload.Animations.start();
   Upload.Animations.fileStatus(data.files[0].name, 'visible');
+  console.log(data.files[0].name);
   Upload.Animations.progressBar(0);
   req = fileSignedRequest(data.files[0].name);
   // set data request to form
@@ -101,6 +115,9 @@ function fileAdd(e, data){
    // after initial file upload drop zone must be only on upload box
  // not works el.file_upload.dropZone = el.box;
 }
+function fileChange() {
+ Upload.Animations.change();
+}
 
 function fileDone(e, data) {
   el.form.find( "input[class=upload_uuid]" ).val(attrs.uuid);
@@ -109,12 +126,12 @@ function fileDone(e, data) {
   bindCancel(false);
   Upload.Animations.actionBtn('change');
   //fileError('hide');
+  $('.fileinput-button').on('click', fileChange);
 }
 
 function fileFail(e, data) {
   bindCancel(false);
-  Upload.Animations.done();
-  Upload.Animations.actionBtn('choose');
+  Upload.Animations.change();
   Upload.Animations.progressBar(0);
 }
 function fileProgress(e, data) {
@@ -123,52 +140,46 @@ function fileProgress(e, data) {
 
 // Animations
 Upload.Animations = {
-  boxToLeft: function() {
-    el.form.animate({ opacity: '1'}, 1000);
-    el.box.animate({left: '0', top: '0'}, 1000);
-    el.box.find('.fa').animate({ opacity: '0.20'}, 1000);
-    el.box.find('.upload-box-inner').animate({ opacity: '0.4'}, 1000);
+  product_added: function() {
+    $('.product_form').slideUp(500);
+    $('.product_show').show(400);
   },
-  boxToCenter: function() {
-   el.box.find('.filename').css('opacity', 0);
-   el.form.animate({ opacity: '0.20'}, 1000);
-   el.box.animate({left: '178%', top: '15%'}, 1000);
-   el.box.find('.progress').css('opacity', 0);
-   el.box.find('.upload-box-inner').animate({ opacity: '1'}, 1000);
+  product_edit: function() {
+    $('.product_form').show(500);
+    $('.product_show').slideUp(400);
+  },
+  start: function() {
+    $('.upload-box').slideUp(500);
+    $('.uploading-box').show(400);
+    el.form.find('input[type=submit]').attr('disabled', 'disabled');
+  },
+  change: function() {
+    $('.upload-box').show(400);
+    $('.uploading-box').slideDown(500);
+    el.form.find('input[type=submit]').attr('disabled', 'disabled');
+  },
+  done: function() {
+   el.uploading_box.find('.progress').animate({ opacity: '0'}, 1000, '', function(){
+     el.form.find('input[type=submit]').removeAttr('disabled', 'disabled');
+     el.uploading_box.find('.progress .progress-bar').css({width: '0%'});
+   });
  },
- start: function() {
-  el.box.find('.progress').animate({ opacity: '0.8'}, 1000);
-  el.box.find('.filename').css('opacity', 0.9);
-  el.form.find('input[type=submit]').attr('disabled', 'disabled');
-},
-done: function() {
- el.box.find('.progress').animate({ opacity: '0'}, 1000, '', function(){
-   el.box.find('.upload-box-inner').animate({ opacity: '0.6'}, 1000);
-   el.form.find('input[type=submit]').removeAttr('disabled', 'disabled');
- });
-},
-progressBar: function(percent) {
-  el.box.find('.progress .progress-bar').css({width: percent +'%'});
+ progressBar: function(percent) {
+  el.uploading_box.find('.progress').animate({ opacity: '1'}, 100)
+  el.uploading_box.find('.progress .progress-bar').css({width: percent +'%'});
 },
 actionBtn: function(action) {
- btns = {cancel: 'btn-danger', choose: 'btn-primary',
- change: 'btn-primary'}
- el.box.find(".fileinput-button span").each(function() {
-  if($(this).data('text-type') == action){
-    $(this).removeClass('hidden');
-  }else {
-    $(this).addClass('hidden');
-  }
-  $('.fileinput-button')
-  .removeClass('btn-primary')
-  .removeClass('btn-danger')
-  .addClass(btns[action]);
-});
+ btns = {cancel: 'btn-danger', change: 'btn-primary'};
+ btns_text = {cancel: 'Cancel', change: 'Change'};
+ $('.fileinput-button')
+ .removeClass('btn-primary')
+ .removeClass('btn-danger')
+ .addClass(btns[action]).text(btns_text[action]);
 },
 fileStatus: function(filename, status) {
   switch(status){
    case 'visible':
-   el.box.find('.filename').text(filename).removeClass('invisible');
+   el.uploading_box.find('.filename').text(filename).removeClass('invisible');
    break;
    case 'error':
 //TODO error case

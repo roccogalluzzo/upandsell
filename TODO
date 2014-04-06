@@ -1,49 +1,14 @@
 TODO
 
+v check valori conversion rate
+- aggiornare layout edit
+- finire integrazione paypal
+- pagina supporto
+- check completo
+- submit paypal app live
+
 - pagina crea prodotto
  v creare test
  v check parametri necessari prima invio form
  * resize thumb
  (dopo) test diversi browser
-
-- pagina edita prodotto
- *upload file in diverso form
-
-- pagina ordin
- * cambiato layout
-
-- pagina landing prodotto
-*
-<!-- <div class="container">
-  <div class="row mt centered">
-  </div>
-
-  <div class="row">
-    <div class="col-lg-6 centered">
-      <img src="images/integrated.jpg" alt="wercker" width="385px"> </div>
-      <div class="col-lg-6">
-        <h2>Optimized Landing Page</h2> <p> Wercker integrates with your favorite developer platforms out there, such as
-        GitHub and Bitbucket. </p> <p> When you are ready to deploy your application, wercker enables you to deliver
-        your application to cloud platforms like Heroku, OpenShift and Amazon Web Services. </p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <h2>Payments</h2> <p> We support integrations with your favorite developer platforms out there, such as
-        GitHub and Bitbucket. </p> <p> When you are ready to deploy your application, wercker enables you to deliver
-        your application to cloud platforms like Heroku, OpenShift and Amazon Web Services. </p>
-      </div>
-      <div class="col-lg-6 centered">
-        <img src="images/integrated.jpg" alt="wercker" width="385px"> </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-6 centered">
-          <img src="images/integrated.jpg" alt="wercker" width="385px"> </div>
-          <div class="col-lg-6">
-            <h2>Stats, in Realtime</h2> <p> Wercker integrates with your favorite developer platforms out there, such as
-            GitHub and Bitbucket. </p> <p> When you are ready to deploy your application, wercker enables you to deliver
-            your application to cloud platforms like Heroku, OpenShift and Amazon Web Services. </p>
-          </div>
-        </div>
-      </div> -->
