@@ -1,15 +1,16 @@
+<%- title "Orders" %>
 <div class="row-fluid">
         <div class="span12">
           <div class="grid simple ">
-    
+
             <div class="grid-body ">
-        
-              
-              <table class="table table-hover 
+
+
+              <table class="table table-hover
               table-condensed dataTable" id="example" aria-describedby="example_info">
                 <thead>
                   <tr role="row">
-               <th style="width:18%" 
+               <th style="width:18%"
                class="sorting_asc" rowspan="1" colspan="1">
                Customer Email</th>
                <th style="width:6%"rowspan="1" colspan="1">
@@ -19,7 +20,7 @@
 
                <th style="width:18%">date</th></tr>
                 </thead>
-                
+
               <tbody role="alert" aria-live="polite" aria-relevant="all">
                      <% if @orders.blank? %>
           <p class="text-center text-muted">No orders</p>
@@ -27,30 +28,30 @@
           <tr>
           <% @orders.each do |order| %>
                    <td> <%= order.email %></td>
-            
+
             <td>
               <% if  order.cc_type %>
                 <%= image_tag "cc_icons/#{order.cc_type}.png" %>
               <% end %>
            </td>
-            <td> <%= order.product.name %> </td>              
+            <td> <%= order.product.name %> </td>
             <td><%= humanized_money_with_symbol order.amount %></td>
            <td>               <%= order.updated_at.to_time.strftime('%e %b %Y') %>
 
                <%= order.updated_at.to_time.strftime('%H:%m:%S') %>
              </td>           <% unless order.payment_type == 'paypal' %>
-           <td>   
+           <td>
            <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary" %>
            </td>
            <% end %>
-        
+
          </tr>
          <% end %>
          <% end %>
-                             
-                  
+
+
             </tbody></table>
-            
+
             </div>
           </div>
         </div>

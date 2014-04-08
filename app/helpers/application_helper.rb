@@ -5,20 +5,24 @@ module ApplicationHelper
     url = 'http://www.gravatar.com/avatar/' + id + '.jpg?s=' + options[:size].to_s + '&d=identicon'
     options.delete :size
     image_tag url, options
-  end 
-  
+  end
+
   def bootstrap_class_for flash_type
    case flash_type
    when :success
-   "alert-success"
+     "alert-success"
    when :error
-   "alert-error"
+     "alert-error"
    when :alert
-   "alert-block"
+     "alert-block"
    when :notice
-   "alert-info"
+     "alert-info"
    else
-   flash_type.to_s
+     flash_type.to_s
    end
+ end
+
+ def title(page_title)
+  content_for(:title) { page_title }
 end
 end

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Up&amp;Sell.me</title>
+  <title>Up&amp;Sell.me - <%= content_for :title %></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag "application" %>
@@ -33,7 +33,7 @@
     <div class="header-quick-nav">
       <!-- BEGIN HEADER LEFT SIDE SECTION -->
       <div class="pull-left">
-<h3 class="head-title">Summary</h3>
+<h3 class="head-title"><%= content_for :title %></h3>
       </div>
       <!-- END HEADER LEFT SIDE SECTION -->
       <!-- BEGIN HEADER RIGHT SIDE SECTION -->
@@ -64,7 +64,10 @@
              </li>
 
           <li class="quicklinks"><span class="h-seperate"></span></li>
- <li class="quicklinks"><a href="#"><i class="fa fa-power-off"></i></a></li>
+ <li class="quicklinks"><%= link_to(destroy_user_session_path, :method => :delete) do %>
+ <i class="fa fa-power-off"></i>
+<% end %>
+ </li>
 
 
         </ul>
@@ -118,22 +121,6 @@
   <a href="#" class="scrollup">Scroll</a>
   <!-- END SCROLL UP HOVER -->
   <!-- END MENU -->
-  <!-- BEGIN SIDEBAR FOOTER WIDGET -->
-  <div class="footer-widget">
-    <div class="progress transparent progress-small no-radius no-margin">
-      <div data-percentage="79%" class="progress-bar progress-bar-success animate-progress-bar"></div>
-    </div>
-    <div class="pull-right">
-      <div class="details-status">
-        <span data-animation-duration="560" data-value="86" class="animate-number"></span>%
-      </div>
-   <%= link_to(destroy_user_session_path, :method => :delete) do %>
-   <i class="fa fa-power-off"></i>
-   <% end %>
-    </div>
-  </div>
-
-  <!-- END SIDEBAR FOOTER WIDGET -->
   <!-- END SIDEBAR -->
   <%# render partial: "layouts/messages", flash: flash %>
   <!-- BEGIN PAGE CONTAINER-->

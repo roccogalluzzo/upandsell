@@ -1,3 +1,4 @@
+<%- title "Summary" %>
   <div class="col-md-12">
         <!-- BEGIN MARKET SALES WIDGET -->
         <div class="row tiles-container tiles white"  data-aspect-ratio="true">
@@ -8,11 +9,11 @@
 			<div class="col-md-12 col-sm-12 no-padding">
 				  <h5 class="semi-bold p-t-5">EARNINGS</h5>
 				</div>
-</div>	
+</div>
 	<div class="col-md-4 col-sm-4 no-padding">
 				  <p class="semi-bold">TODAY</p>
 				  <h4>
-          <span 
+          <span
           class="earnings-today item-count animate-number semi-bold" >
           <%=  @earnings[:today] %>
           </span> USD</h4>
@@ -27,7 +28,7 @@
 				<div class="col-md-4 col-sm-4 no-padding">
 				  <p class="semi-bold">THIS MONTH</p>
 				  <h4>
-          <span 
+          <span
           class="item-count earnings-month animate-number
           semi-bold">
            <%=  @earnings[:month] %>
@@ -40,7 +41,7 @@
               <div class="overlayer-wrapper">
                     <%= content_tag "div", id: "chart", class: "graph",
      data: { earnings: @earnings[:summary_data] } do %>
-     
+
 <div id="area-example" style="height: 245px;"></div><% end %>
               </div>
             </div>
@@ -55,39 +56,39 @@
           </select>
 
 
-     </div>         
+     </div>
               <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-b b-grey">
 
                   <p class="small-text">SALES</p>
-     
+
                 <div class="clearfix"></div>
-               
+
                   <h4 class="sales-month semi-bold"><%= @sales || 0%></h4>
-              
+
 
                 <div class="clearfix"></div>
               </div>
               <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-b b-grey">
-             
+
                   <p class="small-text">VISITS</p>
-          
+
                 <div class="clearfix"></div>
-             
+
                   <h4 class="visits-month semi-bold"><%= @visits || 0%></h4>
-            
-             
+
+
                 <div class="clearfix"></div>
               </div>
               <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-grey">
-         
+
                   <p class="small-text">CONVERSION RATE</p>
-     
+
                 <div class="clearfix"></div>
-          
+
                   <h4 class="semi-bold">
 <span class="conversion-rate"><%= @conversion_rate %></span>%</h4>
-          
-             
+
+
                 <div class="clearfix"></div>
               </div>
             </div>
