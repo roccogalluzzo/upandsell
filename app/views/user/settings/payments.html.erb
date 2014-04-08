@@ -9,7 +9,7 @@
 
   %>
 <input type="checkbox"
-<% if @user.paypal_status == 'true' %>
+<% if @user.paypal %>
   checked
   <% end %>
   data-toggle="switch" data-type="paypal" />
@@ -19,7 +19,11 @@
    </div>
 
     <div class="col-md-7">
+    <% if @user.paypal_email %>
+    <a href="#" class="btn btn-primary pull-right" disabled >Connected</a>
+    <% else %>
       <%= link_to "Connect", user_settings_add_paypal_path, class: 'btn btn-primary pull-right' %>
+      <% end %>
     </div>
   </div>
 
@@ -28,7 +32,7 @@
 <%# f.check_box :credit_card_status, as: :boolean, data: {toggle: 'switch'},
 label: false %>
 <input type="checkbox"
-<% if @user.credit_card_status == 'true' %>
+<% if @user.credit_card_token %>
   checked
   <% end %>
  data-toggle="switch" data-type="paymill" />

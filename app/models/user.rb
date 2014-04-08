@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,
   :confirmable
@@ -8,47 +7,51 @@ class User < ActiveRecord::Base
   has_many :products
   has_many :orders
 
-before_create { self.settings ={currency: 'USD'}}
   validates_confirmation_of :password
   serialize :settings
-  def self.serialized_attr_accessor(*args)
+  serialize :credit_card_info
+  serialize :paypal_info
+
+  def self.serialize_payment_info(type, *args)
     args.each do |method_name|
       eval "
-        def #{method_name}
-          (self.settings || {})[:#{method_name}]
-        end
-        def #{method_name}=(value)
-          self.settings ||= {}
-          self.settings[:#{method_name}] = value
-        end
+      def #{type}_#{method_name}
+        (self.#{type}_info || {})[:#{method_name}]
+      end
+      def #{type}_#{method_name}=(value)
+        self.#{type}_info ||= {}
+        self.#{type}_info[:#{method_name}] = value
+      end
       "
     end
   end
 
-  serialized_attr_accessor :paypal_status, :paypal_email,
-   :credit_card_token, :credit_card_status, :currency, :credit_card_public_token
+  serialize_payment_info :paypal, :email, :token, :token_secret
+  serialize_payment_info :credit_card, :token, :public_token, :response
 
   after_create :send_welcome_email
 
+  def send_welcome_email
+    UserMailer.welcome_email(self).deliver
+  end
 
-
-    def send_welcome_email
-      UserMailer.welcome_email(self).deliver
-    end
   def update_account(params)
     self.update_attributes(params)
   end
 
   def add_credit_card(data)
+    self.credit_card = true
     self.credit_card_token = data['access_token']
     self.credit_card_public_token = data['public_key']
-    self.credit_card_status = true
-    self.settings[:gateway_info] = data
+    self.credit_card_response = data
     self.save
   end
-   def add_paypal_refund(token, token_secret)
-    self.paypal_status = true
-    self.settings[:paypal_tokens] = {token: token, token_secret: token_secret}
+
+  def add_paypal_refund(email, token, token_secret)
+    self.paypal = true
+    self.paypal_email = email
+    self.paypal_token = token
+    self.paypal_token_secret = token_secret
     self.save
   end
 end

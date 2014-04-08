@@ -1,7 +1,6 @@
 class User::SettingsController < User::BaseController
 
   def account
-    #change email, password, default currency
     @user = current_user
   end
 
@@ -37,17 +36,17 @@ def payments
      @user.add_credit_card(response)
      @user = current_user
    end
-   unless @user.credit_card_token
+   unless @user.credit_card
      @paymill_url = auth_url
    end
  end
 
  def update_payments
-  if params[:type] == 'paypal'
-    current_user.update_without_password(paypal_status: params[:value])
+  if params[:type] == 'paypal' && current_user.paypal_email
+    current_user.update_without_password(paypal: params[:value])
   end
-  if params[:type] == 'paymill'
-    current_user.update_without_password(credit_card_status: params[:value])
+  if params[:type] == 'paymill' && current_user.credit_card_token
+    current_user.update_without_password(credit_card: params[:value])
   end
   render json: {msg: 'success'}
 end
@@ -65,8 +64,8 @@ end
 def add_paypal
  api = PayPal::SDK::Permissions::API.new
  request_permissions = api.build_request_permissions({
-  :scope => ["REFUND"],
-  :callback => "http://localhost:3000/user/settings/add_paypal_callback" })
+  :scope => ["REFUND", "ACCESS_BASIC_PERSONAL_DATA"],
+  :callback => user_settings_add_paypal_callback_url })
  response = api.request_permissions(request_permissions)
  if response.success?
    redirect_to api.grant_permission_url(response)
@@ -81,12 +80,17 @@ def add_paypal_callback
   get_access_token = api.build_get_access_token(
     token: params["request_token"], verifier: params["verification_code"])
   access = api.get_access_token(get_access_token)
+
   if access.success?
     s_api = PayPal::SDK::Permissions::API.new({
      token: access.token.to_s,
-     token_secret: access.token_secret.to_s })
+     token_secret: access.tokenSecret.to_s })
 
-    complete = current_user.add_paypal_refund(access.token, access.token_secret)
+    payer_id_call = s_api.get_basic_personal_data({
+      :attributeList => {
+        :attribute => [ "https://www.paypal.com/webapps/auth/schema/payerID" ] } })
+    payer_id = payer_id_call.response.personalData[0].personalDataValue.to_s
+    complete = current_user.add_paypal_refund(payer_id, access.token, access.token_secret)
 
   end
   if complete
@@ -142,7 +146,7 @@ def auth_url
     end
 
     def payment_params
-      params.require(:user).permit(:credit_card_status, :paypal_status, :paypal_email)
+      params.require(:user).permit(:credit_card, :paypal)
     end
 
     def user_params

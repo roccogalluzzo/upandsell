@@ -15,7 +15,10 @@ class ProductsController < ApplicationController
    Paymill.api_key = @user.credit_card_token
    payment = Paymill::Payment.create(token: params[:token])
    pay = Paymill::Transaction.create(amount: @product.price.cents,
-     currency: @product.price_currency.upcase, payment: payment.id)
+     currency: @product.price_currency.upcase, payment: payment.id,
+     fee_amount: (@product.price * 4) / 100,
+     fee_payment: payment.id
+  )
 
    if pay.status == 'closed' && params[:email].present?
     order = @product.orders.build(
@@ -45,22 +48,28 @@ def paypal
    #Paypal logic
    paypal = PayPal::SDK::AdaptivePayments.new
    req = paypal.BuildPay(
-     :actionType => 'CREATE',
-     :receiverList => {'receiver' =>
-      [{'email' => @user.email,
-       'amount' => @product.price
-       }]
+     actionType: 'CREATE',
+     receiverList: {'receiver' =>
+      [{'accountId' => @user.paypal_email,
+       'amount' => @product.price,
+       'primary' => true
        },
-       :cancelUrl => product_url(id: @product.id, payment: 'failed'),
-       :returnUrl =>  products_check_payment_url(id: @product.id) +'&payKey=${payKey}',
-       :ipnNotificationUrl =>
-       if Rails.env.production?
-         'https://upandsell.me/products/ipn'
-       else
-         'http://upandsell.ngrok.com/products/ipn'
-       end,
-       :currencyCode => @product.price_currency.upcase
-       )
+       {'email' => 'mail-facilitator@roccogalluzzo.com',
+         'amount' => (@product.price * 4) / 100
+       }
+     ]
+     },
+     cancelUrl: product_url(id: @product.id, payment: 'failed'),
+     returnUrl:  products_check_payment_url(id: @product.id) +'&payKey=${payKey}',
+     ipnNotificationUrl:
+     if Rails.env.production?
+       'https://upandsell.me/products/ipn'
+     else
+       'http://upandsell.ngrok.com/products/ipn'
+     end,
+     currencyCode: @product.price_currency.upcase,
+     feesPayer: 'PRIMARYRECEIVER'
+     )
    @response = paypal.pay(req)
    if @response.success?
     @order= @product.orders.build(
@@ -112,9 +121,9 @@ def show
       @downloads =  @order.n_downloads
     end
   end
-  @paypal = @product.user.paypal_status  == '0' ? false : true
-  @credit_card = @product.user.credit_card_status == '0' ? false : true
-  Rails.logger.info @product.user.paypal_status
+  @paypal = @product.user.paypal
+  @credit_card = @product.user.credit_card
+  Rails.logger.info @product.user.paypal
   ua = AgentOrange::UserAgent.new(request.env['HTTP_USER_AGENT'])
   unless ua.is_bot?
     Metric::Products.new(@product.id).incr_visits
@@ -129,14 +138,14 @@ def ipn
       order.status = 'completed'
       order.email = params["sender_email"]
       if order.save
-         user  = User.find(order.product.user_id)
-        UserMailer.bought_email(user, order).deliver
-        UserMailer.sold_email(user, order).deliver
-      end
-    end
+       user  = User.find(order.product.user_id)
+       UserMailer.bought_email(user, order).deliver
+       UserMailer.sold_email(user, order).deliver
+     end
+   end
 
-  end
-  render :nothing => true
+ end
+ render :nothing => true
 
 end
 

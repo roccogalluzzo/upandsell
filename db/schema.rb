@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140305171622) do
+ActiveRecord::Schema.define(version: 20140408094902) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -83,16 +83,16 @@ ActiveRecord::Schema.define(version: 20140305171622) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "name",                                null: false
+    t.string   "name",                                   null: false
     t.text     "settings"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -101,6 +101,11 @@ ActiveRecord::Schema.define(version: 20140305171622) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.string   "currency",               default: "USD", null: false
+    t.boolean  "credit_card",            default: false
+    t.boolean  "paypal",                 default: false
+    t.text     "credit_card_info"
+    t.text     "paypal_info"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
