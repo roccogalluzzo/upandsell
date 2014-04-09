@@ -23,7 +23,7 @@
 
               <tbody role="alert" aria-live="polite" aria-relevant="all">
                      <% if @orders.blank? %>
-          <p class="text-center text-muted">No orders</p>
+          <tr><td col-span="5"><p class="text-center text-muted">No orders</p></td></tr>
           <% else %>
           <tr>
           <% @orders.each do |order| %>

@@ -15,7 +15,7 @@ class Product < ActiveRecord::Base
   before_save :set_upload_attributes
   after_destroy :clean_files
 
-  has_attached_file :thumb, styles: { small: "72x72>" },
+  has_attached_file :thumb, styles: { small: "72x60" },
   storage: :s3,
   s3_protocol: 'https',
   s3_credentials: "#{Rails.root}/config/aws.yml",

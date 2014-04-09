@@ -1,5 +1,5 @@
 <%- title "Products" %>
-<div class="row tiles-container  m-b-20 hidden-xlg">
+<div class="row tiles-container  m-b-20">
   <div class="m-l-10 ">
 
     <div class="tiles white ">
@@ -33,17 +33,20 @@
         <div class="clearfix"></div>
       </div>
       <div class="inline pull-right">
-        <div class="tiles text-white p-t-5 p-l-5 p-b-5 p-r-5 inline">
-          <%= link_to edit_user_product_path(product) do %>
-          <i class="fa fa-pencil fa-lg"></i>
-          <% end %>
-        </div>
-        <div class="tiles white p-t-5 p-l-5 p-b-5 p-r-5 inline">
-          <%= link_to  controller: '/products', action: 'show',
-          slug: product.slug, only_path: false do %>
-          <i class="fa fa-link fa-lg"></i>
-          <% end %>
-        </div>
+
+        <%= link_to edit_user_product_path(product), class: 'action-link' do %>
+                <span class="fa-stack fa-lg">
+    <i class="fa fa-circle fa-stack-2x"></i>
+    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+</span>
+        <% end %>
+
+        <%= link_to   product_slug_path(product.slug), class: 'action-link' do %>
+        <span class="fa-stack fa-lg">
+    <i class="fa fa-circle fa-stack-2x"></i>
+    <i class="fa fa-link fa-stack-1x fa-inverse"></i>
+</span>
+        <% end %>
       </div>
       <div class="clearfix"></div>
     </div>
