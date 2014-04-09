@@ -16,11 +16,11 @@
 //= require jquery.validation/jquery.validate.js
 //= require flat-ui-official/js/bootstrap-switch.js
 //= require flat-ui-official/js/bootstrap-select.js
+//= require momentjs/min/moment.min.js
 //= require user/product
 //= require raphael/raphael
 //= require morris.js/morris
 //= require user/product/upload
-//= require user/graph
 //= require user/stats
 
 $(document).ready(function(){

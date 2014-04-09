@@ -13,6 +13,7 @@
     "animate.css": "latest",
     "custombox": "latest",
     "morris.js": "latest",
-    "bootstrap-switch": "latest"
+    "bootstrap-switch": "latest",
+    "momentjs": "latest"
   }
 }

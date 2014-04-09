@@ -64,7 +64,13 @@ function buildSummaryChart(element, data) {
   lineWidth:'0',
   grid: false,
   axes: false,
-  fillOpacity:'0.5'
+  fillOpacity:'0.5',
+  hoverCallback: function (index, options, content) {
+  var row = options.data[index];
+       date = moment(row.x).format('D MMMM YYYY');
+
+  return  date + " - <b>$ " + row.y + '</b>';
+}
 });
 
 }
