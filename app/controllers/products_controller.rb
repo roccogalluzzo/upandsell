@@ -10,13 +10,14 @@ class ProductsController < ApplicationController
   end
 
   def pay
+
    @product = Product.find(params[:product_id])
    @user  = User.find(@product.user_id)
    Paymill.api_key = @user.credit_card_token
    payment = Paymill::Payment.create(token: params[:token])
    pay = Paymill::Transaction.create(amount: @product.price.cents,
      currency: @product.price_currency.upcase, payment: payment.id,
-     fee_amount: (@product.price * 4) / 100,
+     fee_amount: ((@product.price * 4) / 100).cents,
      fee_payment: payment.id
   )
 
@@ -55,7 +56,7 @@ def paypal
        'primary' => true
        },
        {'email' => 'paypal@upandsell.me',
-         'amount' => (@product.price * 4) / 100
+         'amount' => ((@product.price * 4) / 100).cents
        }
      ]
      },

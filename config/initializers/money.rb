@@ -10,6 +10,9 @@ MoneyRails.configure do |config|
   #
   # Example:
   config.default_bank = EuCentralBank.new
+  EU_CENTRAL_BANK_CACHE = '/tmp/eu_bank_exchange_rates.xml'
+  Money.default_bank.save_rates(EU_CENTRAL_BANK_CACHE)
+  Money.default_bank.update_rates(EU_CENTRAL_BANK_CACHE)
 
   # Add exchange rates to current money bank object.
   # (The conversion rate refers to one direction only)

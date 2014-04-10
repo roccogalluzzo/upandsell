@@ -21,14 +21,14 @@ Stats.init = function() {
     async: false,
     success: function(d) {
       console.log(d);
-      $('.earnings-today').text(d.earnings["today"]/100);
+      $('.earnings-today').text(d.earnings.today/100);
       $('.earnings-week').text(d.earnings.week/100);
-      $('.earnings-month').text(d.earnings.month[0]/100);
+      $('.earnings-month').text(d.earnings.month/100);
       $('.visits-month').text(d.visits[0]);
       $('.sales-month').text(d.sales[0]);
       $('.conversion-rate').text(d.conversion_rate);
 
-       updateSummaryChart(d.earnings.month[1])
+       updateSummaryChart(d.earnings.summary_data)
      }
     });
  });
@@ -58,7 +58,7 @@ function buildSummaryChart(element, data) {
   xkey: 'x',
   ykeys: 'y',
   ymin: 0,
-  labels: ['Earnings', 'Series B'],
+  labels: ['Earnings'],
   hideHover: true,
   lineColors:['#0090d9','#b7c1c5'],
   lineWidth:'0',
@@ -69,7 +69,7 @@ function buildSummaryChart(element, data) {
   var row = options.data[index];
        date = moment(row.x).format('D MMMM YYYY');
 
-  return  date + " - <b>$ " + row.y + '</b>';
+  return  "<b class='text-center'>" + date + "</b><br /> <b>" + row.y + '</b> ' + $('.graph').data('currency');
 }
 });
 

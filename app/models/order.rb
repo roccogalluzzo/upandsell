@@ -7,13 +7,12 @@ class Order < ActiveRecord::Base
 
   private
   def update_metrics
-    print self.status
     if self.status == 'completed' && self.status_was != 'completed'
       Metric::Products.new(self.product_id).incr_sales
-      Metric::Products.new(self.product_id).incr_earnings(self.amount_cents)
+      Metric::Products.new(self.product_id).incr_earnings(self.amount.exchange_to("USD").cents)
     elsif self.status == 'refunded' && self.status_was == 'completed'
      Metric::Products.new(self.product_id).decr_sales(1, self.created_at)
-     Metric::Products.new(self.product_id).decr_earnings(self.amount_cents, self.created_at)
+     Metric::Products.new(self.product_id).decr_earnings(self.amount.exchange_to("USD").cents, self.created_at)
    end
  end
 end

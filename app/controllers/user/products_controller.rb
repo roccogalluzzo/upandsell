@@ -30,9 +30,18 @@ def metrics
   end
 
   earnings = {}
-  earnings[:today] = (Metric::Products.new(product_ids).earnings_today)[0]
-  earnings[:week] = (Metric::Products.new(product_ids).earnings_last 7.days)[0]
-  earnings[:month] = Metric::Products.new(product_ids).earnings_last 30.days
+  earnings[:today] = Money.us_dollar(Metric::Products.new(product_ids).earnings_today[0])
+  .exchange_to(current_user.currency).cents
+  earnings[:week] = Money.us_dollar((Metric::Products.new(product_ids).earnings_last 7.days)[0])
+  .exchange_to(current_user.currency).cents
+  earns =  Metric::Products.new(product_ids).earnings_last 30.days
+  earnings[:month] =  Money.us_dollar(earns[0]).exchange_to(current_user.currency).cents
+  earnings[:summary_data] = {}
+  earns[1].each do |time,earns|
+    earnings[:summary_data][time] =  Money.us_dollar(earns).exchange_to(current_user.currency).cents
+  end
+
+
   sales = Metric::Products.new(product_ids).sales_last 30.days
   visits = Metric::Products.new(product_ids).visits_last 30.days
   if visits[0] > 0 and  sales[0] > 0
@@ -54,14 +63,17 @@ def summary
   @conversion_rate = 0
 end
 earns =  Metric::Products.new(product_ids).earnings_last 30.days
-Rails.logger.warn earns
 @earnings = {}
-@earnings[:month] =  Money.new(earns[0])
-@earnings[:summary_data] = earns[1]
-@earnings[:week] = Money.new((Metric::Products.new(product_ids).earnings_last 7.days)[0]).format(:symbol => false)
-@earnings[:today] = Money.new((Metric::Products.new(product_ids).earnings_today)[0]).format(:symbol => false)
+@earnings[:month] =  Money.us_dollar(earns[0]).exchange_to(current_user.currency)
+@earnings[:summary_data] = {}
+  earns[1].each do |time,earns|
+    @earnings[:summary_data][time] =  Money.us_dollar(earns).exchange_to(current_user.currency).cents
+  end
+@earnings[:week] =  Money.us_dollar((Metric::Products.new(product_ids).earnings_last 7.days)[0])
+.exchange_to(current_user.currency)
+@earnings[:today] = Money.us_dollar((Metric::Products.new(product_ids).earnings_today)[0])
+.exchange_to(current_user.currency)
 
- # TODO convert to account currency
 end
 
 def upload_request
@@ -82,17 +94,17 @@ def upload_request
 end
 
 def file_changed
-    product = Product.find(params[:id])
-    if not product.user_id == current_user.id
-      return render :file => "public/401.html", :status => :unauthorized
-    end
-    product.uuid =  sanitize_filename(params[:new_uuid])
-    product.file_file_name =   sanitize_filename(params[:filename])
+  product = Product.find(params[:id])
+  if not product.user_id == current_user.id
+    return render :file => "public/401.html", :status => :unauthorized
+  end
+  product.uuid =  sanitize_filename(params[:new_uuid])
+  product.file_file_name =   sanitize_filename(params[:filename])
 
 
-    if product.save
-     render json: {status: '200'}
-   end
+  if product.save
+   render json: {status: '200'}
+ end
 end
 
 def create
@@ -117,11 +129,11 @@ def create
 
   def edit
     @product = Product.find(params[:id])
-      @tweet_url =  URI.escape(
-    "https://twitter.com/intent/tweet?text=#{@product.name} #{product_slug_url(@product.slug)}")
-  @facebook_url = URI.escape(
-    "https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(@product.slug)}&title=#{@product.name}")
-  @slug = product_slug_url(@product.slug)
+    @tweet_url =  URI.escape(
+      "https://twitter.com/intent/tweet?text=#{@product.name} #{product_slug_url(@product.slug)}")
+    @facebook_url = URI.escape(
+      "https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(@product.slug)}&title=#{@product.name}")
+    @slug = product_slug_url(@product.slug)
     if not @product.user_id == current_user.id
       render :file => "public/401.html", :status => :unauthorized
     end
