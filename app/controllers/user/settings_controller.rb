@@ -1,5 +1,8 @@
 class User::SettingsController < User::BaseController
 
+  def setup
+  end
+
   def account
     @user = current_user
   end

@@ -14,6 +14,7 @@
     "custombox": "latest",
     "morris.js": "latest",
     "bootstrap-switch": "latest",
-    "momentjs": "latest"
+    "momentjs": "latest",
+    "infinite-scroll": "latest"
   }
 }

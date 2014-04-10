@@ -1,14 +1,10 @@
     <%= render partial: "tabs" %>
 
-            <div class="tab-content">
-
-              <div class="tab-pane active">
                 <div class="row">
                   <div class="col-md-8 col-md-offset-2">
-
       <%= simple_form_for @user, url:  user_settings_update_account_path,
       class: 'form-horizontal' do |f| %>
-      <h3>Info</h3>
+
       <div class="row form-group">
           <%= f.input_field :email,  placeholder: "Email"  %>
 </div>
@@ -17,7 +13,7 @@
         </div>
            <div class="row form-group">
              <div class=" col-md-7">
-             <span>Account Currency</span>
+             <p>Account Currency</p>
              </div>
               <div class=" col-md-5">
           <%= f.input_field :currency, collection: ['USD', 'EUR', 'GBP']   %>

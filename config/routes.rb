@@ -21,6 +21,7 @@ Upandsell::Application.routes.draw do
     # Settings
     get 'settings/account' => 'settings#account'
     get 'settings/payments' => 'settings#payments'
+    get 'settings/setup' => 'settings#setup'
     patch 'settings/update_account' => 'settings#update_account'
     patch 'settings/update_password' => 'settings#update_password'
     post 'settings/update_payments' => 'settings#update_payments'

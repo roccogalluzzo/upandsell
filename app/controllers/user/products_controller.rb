@@ -3,7 +3,8 @@ class User::ProductsController < User::BaseController
 
  def index
 
-  @products = User.find(current_user.id).products
+
+  @products = User.find(current_user.id).products.page(params[:page]).per(7)
 end
 
 def new

@@ -4,18 +4,18 @@ v check valori conversion rate
 v aggiornare layout edit
 v finire integrazione paypal
  v recuperare email
-- pagina supporto
-- check completo
 v add fee (ma testarlo appena possibile)
+- deploy
 - submit paypal app live
 - refresh currency
+- setup account pagina
 - publishied unpublishied products
 - delete products
-- sidesik
+- sideqik
+- indegrare chef
+- pagina supporto
 
+appena prima di partire
 
-- pagina crea prodotto
- v creare test
- v check parametri necessari prima invio form
- * resize thumb
- (dopo) test diversi browser
+- setup db backup
+- update ssl
