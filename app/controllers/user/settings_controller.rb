@@ -70,6 +70,7 @@ def add_paypal
   :scope => ["REFUND", "ACCESS_BASIC_PERSONAL_DATA"],
   :callback => user_settings_add_paypal_callback_url })
  response = api.request_permissions(request_permissions)
+ Rails.logger.info response
  if response.success?
    redirect_to api.grant_permission_url(response)
  else

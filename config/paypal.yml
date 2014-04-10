@@ -2,10 +2,10 @@ test: &default
 
   mode: sandbox
   app_id: APP-80W284485P519543T
-  username: paypal_api1.upandsell.me
-  password: '4E5UCPB57PG6YNF9'
-  signature: AsPxQ1QE08pceY0JRUjrNP0wGOlZAXh73eD9RNsGgSmy-YtVDg06-AGx
-  sandbox_email_address: mail-facilitator@roccogalluzzo.com
+  username: paypal-facilitator_api1.upandsell.me
+  password: 1397145109
+  signature: AFcWxV21C7fd0v3bYYYRCpSSRl31AgtEdy0k9Q0TW737D.pzUB2OP6Ot
+  sandbox_email_address: paypal-facilitator@upandsell.me
 
 development:
   <<: *default
@@ -14,3 +14,6 @@ production:
   <<: *default
   mode: live
   app_id: APP-3V302379BY2834801
+  username: paypal_api1.upandsell.me
+  password: '4E5UCPB57PG6YNF9'
+  signature: AsPxQ1QE08pceY0JRUjrNP0wGOlZAXh73eD9RNsGgSmy-YtVDg06-AGx
