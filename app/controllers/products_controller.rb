@@ -54,7 +54,7 @@ def paypal
        'amount' => @product.price,
        'primary' => true
        },
-       {'email' => 'mail-facilitator@roccogalluzzo.com',
+       {'email' => 'paypal@upandsell.me',
          'amount' => (@product.price * 4) / 100
        }
      ]
