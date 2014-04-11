@@ -102,11 +102,6 @@ def ipn
     if order and params["status"] == "COMPLETED"
       order.status = 'completed'
       order.email = params["sender_email"]
-      if order.save
-       user  = User.find(order.product.user_id)
-       UserMailer.bought_email(user, order).deliver
-       UserMailer.sold_email(user, order).deliver
-     end
    end
 
  end
