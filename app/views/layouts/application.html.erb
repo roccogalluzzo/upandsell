@@ -102,7 +102,7 @@
   <div class="page-sidebar" id="main-menu">
 <div class="user-info-wrapper">
 		 <%= link_to(new_user_product_path, class: "btn btn-block btn-primary") do %>
-<span class="bold">NEW PRODUCT</span>
+<i class="fa fa-lg fa-plus-circle"></i>&nbsp;<span class="bold"> NEW PRODUCT</span>
 <% end %>
 
 </div>
@@ -112,7 +112,7 @@
     <ul>
       <li class="<%= 'active' if current_page?(user_root_path) %>">
         <%= link_to user_root_path do %>
-<i class="fa fa-lg fa-home"></i>
+<i class="fa fa-lg fa-dashboard"></i>
 <span> Summary </span>
 <% end %>
       </li>
@@ -124,7 +124,7 @@
      </li>
      <li class="<%= 'active' if current_page?(user_orders_path) %>">
       <%= link_to user_orders_path do %>
-      <i class="fa fa-envelope"></i>
+      <i class="fa fa-shopping-cart"></i>
 <span>Orders</span>
 <% end %>
     </li>
