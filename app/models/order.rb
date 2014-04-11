@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
   monetize :amount_cents
 
   before_create { self.token = SecureRandom.urlsafe_base64(16)}
+  after_create :send_emails
   after_save :update_metrics
 
   private
@@ -15,4 +16,11 @@ class Order < ActiveRecord::Base
      Metric::Products.new(self.product_id).decr_earnings(self.amount.exchange_to("USD").cents, self.created_at)
    end
  end
+
+ private
+ def send_emails
+  user = User.find(self.product.user_id)
+  UserMailer.bought_email(user, self).deliver
+  UserMailer.sold_email(user, self).deliver
+end
 end

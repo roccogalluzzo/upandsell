@@ -8,14 +8,16 @@ v add fee (ma testarlo appena possibile)
 v deploy
 v submit paypal app live
 v refresh currency
+- test paypal payments
 - setup account pagina
 - publishied unpublishied products
 - delete products
+- pannello admin
 - sideqik
 - indegrare chef
 - pagina supporto
 
-appena prima di partire
+prima di partire
 
 - setup db backup
 v update ssl

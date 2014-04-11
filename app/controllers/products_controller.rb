@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   layout "product"
-  include PayPal::SDK::AdaptivePayments
   skip_before_filter :verify_authenticity_token, :only => [:ipn]
 
   def pay_info
@@ -10,89 +9,51 @@ class ProductsController < ApplicationController
   end
 
   def pay
+    product = Product.find(params[:product_id])
+    user  = product.user
+    pay = product.pay('paymill', params[:token])
 
-   @product = Product.find(params[:product_id])
-   @user  = User.find(@product.user_id)
-   Paymill.api_key = @user.credit_card_token
-   payment = Paymill::Payment.create(token: params[:token])
-   pay = Paymill::Transaction.create(amount: @product.price.cents,
-     currency: @product.price_currency.upcase, payment: payment.id,
-     fee_amount: ((@product.price * 4) / 100).cents,
-     fee_payment: payment.id
-  )
-
-   if pay.status == 'closed' && params[:email].present?
-    order = @product.orders.build(
+    order = product.orders.build(
       email: params[:email],
       payment_type: 'paymill',
       payment_token: pay.id,
       status: 'completed',
-      amount_cents: @product.price.cents,
-      cc_type: payment.card_type,
-      amount_currency: @product.price.currency,
-      )
-    order.save
-    url = download_product_url(order.token)
-    update_user_products(order.product.id, order.token)
-    UserMailer.bought_email(@user, order).deliver
-    UserMailer.sold_email(@user, order).deliver
-    render json: { status: 'completed', url: url }
-    return
-  else
+      amount: product.price,
+      cc_type: pay.payment["card_type"])
+
+    if pay.status == 'closed' && params[:email].present? && order.save
+
+     url = download_product_url(order.token)
+     update_user_products(order.product.id, order.token)
+     render json: { status: 'completed', url: url }
+     return
+   else
     render json: { status: 'failed', error: pay.response_code}
   end
 end
 
 def paypal
-  @product = Product.find(params[:product_id])
-  @user  = User.find(@product.user_id)
-   #Paypal logic
-   paypal = PayPal::SDK::AdaptivePayments.new
-   req = paypal.BuildPay(
-     actionType: 'CREATE',
-     receiverList: {'receiver' =>
-      [{'accountId' => @user.paypal_email,
-       'amount' => @product.price,
-       'primary' => true
-       },
-       {'email' => 'paypal@upandsell.me',
-         'amount' => ((@product.price * 4) / 100).cents
-       }
-     ]
-     },
-     cancelUrl: product_url(id: @product.id, payment: 'failed'),
-     returnUrl:  products_check_payment_url(id: @product.id) +'&payKey=${payKey}',
-     ipnNotificationUrl:
-     if Rails.env.production?
-       'https://upandsell.me/products/ipn'
-     else
-       'http://upandsell.ngrok.com/products/ipn'
-     end,
-     currencyCode: @product.price_currency.upcase,
-     feesPayer: 'PRIMARYRECEIVER'
-     )
-   @response = paypal.pay(req)
-   if @response.success?
-    @order= @product.orders.build(
-      payment_type: 'paypal',
-      payment_token: @response.payKey,
-      status: 'created',
-      cc_type: 'paypal',
-      amount_cents: @product.price.cents,
-      amount_currency: @product.price_currency.upcase
-      )
-    @order.product_id = @product.id
-  end
+  product = Product.find(params[:product_id])
+  user  = product.user
+  response = product.pay('paypal')
 
-  if @order and @order.save
+  order = product.orders.build(
+    payment_type: 'paypal',
+    payment_token: response.payKey,
+    status: 'created',
+    cc_type: 'paypal',
+    amount_cents: product.price.cents,
+    amount_currency: product.price_currency.upcase
+    )
+
+  if response.success? and order.save
     status = 'ok'
     url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
-    render json: { status: status, url:  url + @response.payKey }
+    render json: { status: status, url:  url + response.payKey }
     return
   else
    render json: { status: 'fail'}
  end
-
 end
 
 def download
@@ -107,6 +68,7 @@ def download
  end
  render json: { status: "no more donwload permitted"}
 end
+
 def show
   if params[:payKey]
     @order = Order.find_by  payment_token: params[:payKey]
@@ -133,7 +95,6 @@ end
 
 def ipn
   if PayPal::SDK::Core::API::IPN.valid?(request.raw_post)
-    print params
     order = Order.find_by payment_token: params["pay_key"]
     if order and params["status"] == "COMPLETED"
       order.status = 'completed'

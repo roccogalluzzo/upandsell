@@ -1,0 +1,3 @@
+module Gateway
+
+end
