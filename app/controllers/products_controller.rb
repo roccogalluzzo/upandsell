@@ -35,7 +35,9 @@ end
 def paypal
   product = Product.find(params[:product_id])
   user  = product.user
-  response = product.pay('paypal')
+  response = product.pay('paypal',
+    product_url(id: product.id, payment: 'failed'),
+    products_check_payment_url(id: product.id))
 
   order = product.orders.build(
     payment_type: 'paypal',
@@ -45,10 +47,11 @@ def paypal
     amount_cents: product.price.cents,
     amount_currency: product.price_currency.upcase
     )
-
+Rails.logger.info response
   if response.success? and order.save
     status = 'ok'
     url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
+
     render json: { status: status, url:  url + response.payKey }
     return
   else

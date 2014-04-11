@@ -8,12 +8,13 @@ v add fee (ma testarlo appena possibile)
 v deploy
 v submit paypal app live
 v refresh currency
-- test paypal payments
+v test paypal payments
 - setup account pagina
 - publishied unpublishied products
 - delete products
 - pannello admin
 - sideqik
+- email for refunds
 - indegrare chef
 - pagina supporto
 

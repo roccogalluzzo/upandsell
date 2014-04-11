@@ -10,10 +10,11 @@ class User::OrdersController < User::BaseController
   def refund
     @order = Order.find(params[:id])
 
-    if @order.payment_type == 'paypal' and current_user.settings[:paypal_tokens][:token]
+    if @order.payment_type == 'paypal' and current_user.paypal_token
      paypal = PayPal::SDK::AdaptivePayments.new
-     response = paypal.Refund( :payKey => @payment.paykey)
+     response = paypal.Refund( payKey: @order.payment_token)
      if response.success?
+      @order.update_attributes(status: 'refunded')
       redirect_to user_orders_path, notice: 'Payment Refunded'
       return
     else
