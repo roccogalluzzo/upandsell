@@ -10,10 +10,11 @@ if @product.file_file_name && @product.uuid
 end
 %>
 <div class="row">
-  <div class="col-md-10">
+  <div class="col-md-12">
     <ul class="cbp_tmtimeline">
       <li class="upload-section" data-product-id="<%= @product.id %>">
-        <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-cloud-upload"></i> </div>
+        <div class="cbp_tmicon info animated bounceIn">
+        <i class="fa fa-cloud-upload"></i> </div>
         <div class="cbp_tmlabel">
           <div class="p-t-10 p-l-10 p-r-10 ">
            <div class="upload-box <% if uploaded %>  hid <% end%>">
@@ -61,8 +62,9 @@ end
 
     <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-pencil"></i> </div>
     <div class="cbp_tmlabel">
-     <div class="p-t-20 p-l-30 p-r-30 p-b-20 product_form <% if uploaded %>  hid <% end%>">
-      <%= simple_form_for [:user,@product], :html=> { multipart: true, class: 'product' }, remote: true, :data => { :type => :json }  do |f| %>
+     <div class="p-t-20 p-l-30 p-r-10 p-b-20 product_form <% if uploaded %>  hid <% end%>">
+      <%= simple_form_for [:user,@product], :html=> { multipart: true, class: 'product' },
+       remote: true, :data => { type: :json }  do |f| %>
 
       <input class="upload_uuid" type="hidden" name="[product]upload_uuid" value="<%= @product.uuid %>" />
       <input class="filename" type="hidden" name="[product]filename" value="<%= @product.file_file_name %>" />
@@ -106,7 +108,7 @@ end
          </div>
        </div>
        <div class="col-md-2 col-lg-2">
-        <%= f.button :submit,  "Save", class: 'btn btn-block btn-primary text-center' %>
+        <%= f.button :submit,  "Save",  disable_with: 'Saving...', class: 'btn btn-block btn-primary text-center' %>
       </div>
     </div>
     <div class="form-group row">
@@ -121,10 +123,12 @@ end
 </div>
 </div>
 <% end %>
-<div class="show-product-box p-t-10 p-l-10 p-r-10 p-b-10 product_show <% unless uploaded %>  hid <% end%>">
+<div class="show-product-box p-t-10 p-l-10 p-r-10 p-b-10
+product_show <% unless uploaded %>  hid <% end%>">
 <div class="row">
  <div class="col-md-1 preview-product-image">
-   <img class="product-image img-rounded" src="<%= @product.thumb.url if @product.id%>"
+   <img class="product-image img-rounded"
+    src="<%= @product.thumb.url(:small) if @product.id%>"
    style="height: 60px; width: 60px;">
  </div>
  <div class="col-md-7">

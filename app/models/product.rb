@@ -18,6 +18,8 @@ class Product < ActiveRecord::Base
   after_destroy :clean_files
 
   has_attached_file :thumb, styles: { small: "72x60" },
+  convert_options: {
+  thumb: "-quality 75 -strip -thumbnail" },
   storage: :s3,
   s3_protocol: 'https',
   s3_credentials: "#{Rails.root}/config/aws.yml",

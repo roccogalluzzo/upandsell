@@ -1,21 +1,31 @@
 (function ($, Upload, undefined) {
+
   var el = {};
   var attrs = {uuid: null, filename: null};
-  function init_elements() {
-    el = {target: $(".direct-upload"),
-    form: $(".product"),
-    box: $(".upload-box"),
-    uploading_box:  $('.uploading-box'),
-    btn:   $('#product-upload-btn')};
 
-    preview = {target: $(".input-thumb "),
-    form: $(".product"),
-    box: $(".upload-box-preview"),
-    btn:   $('.btn-preview')};
-  }
-  Upload.file = function() {
-   init_elements();
- // setup upload product button
+  Upload.init = function() {
+   initElements();
+   initFileUpload();
+   initForm();
+   initFilePreview();
+ }
+
+// Init Functions
+
+function initElements() {
+  el = {target: $(".direct-upload"),
+  form: $(".product"),
+  box: $(".upload-box"),
+  uploading_box:  $('.uploading-box'),
+  btn:   $('#product-upload-btn')};
+
+  preview = {target: $(".input-thumb "),
+  form: $(".product"),
+  box: $(".upload-box-preview"),
+  btn:   $('.btn-preview')};
+}
+
+function initFileUpload() {
  el.target.fileupload({
   autoUpload: true,
   type: 'POST',
@@ -29,45 +39,61 @@
  .bind('fileuploaddone', fileDone)
  .bind('fileuploadfail', fileFail);
 
- if(!$("input[class=upload_uuid]" ).val()){
-  //disable submit
-  el.form.find('input[type=submit]').attr('disabled', 'disabled');
-}
  $('.file-change').on('click', fileChange);
-el.form.on("ajax:success", function(event, data, status, xhr) {
-  console.log(data);
+}
+
+function initForm() {
+ if(!$("input[class=upload_uuid]" ).val()){
+  el.form.find('input[type=submit]').attr('disabled', 'disabled');}
+
+  el.form.on("ajax:success", productSave);
+
+  $('.edit-product').on('click', Upload.Animations.product_edit);
+}
+
+function initFilePreview() {
+
+  preview.target.change(filePreviewAdd);
+  if($("#local-preview-path").val()){
+    loadPreview($("#local-preview-path").val());}
+
+    if($("#preview").data('preview-url')){
+      loadPreview($("#preview").data('preview-url'));
+    }
+  }
+
+// Form Related Actions
+
+function productSave(event, data, status, xhr) {
+
   if(data.product){
-  $('.product-image').attr('src',data.product.preview);
-  $('.product-name').text(data.product.name);
-  $('.product-price').text(data.product.price_currency + ' ' +(data.product.price_cents/100));
-  $('.slug').text(data.product.slug);
-  $('.btn-social-twitter').on('click', function(){
-      window.open(data.product.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
-  });
-  $('.btn-social-facebook').on('click', function(){
-      window.open(data.product.facebook_url, 'share','toolbar=0,status=0,width=600,height=305')
-  });
-$('.share').show(400);
-  Upload.Animations.product_added();
-}
-});
-$('.edit-product').on('click', function(){
- Upload.Animations.product_edit();
-});
+    $('.product-image').attr('src',data.product.preview);
+    $('.product-name').text(data.product.name);
+    $('.product-price').text(data.product.price_currency + ' ' +(data.product.price_cents/100));
+    if(data.status == 200){
+      el.form.attr('action', data.product.edit_url);
+      $('<input>').attr({
+        type: 'hidden',
+        value: 'patch',
+        name: '_method'
+      }).appendTo(el.form);
+
+      $('.slug').text(data.product.slug);
+      $('.btn-social-twitter').on('click', function(){
+        window.open(data.product.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
+      });
+      $('.btn-social-facebook').on('click', function(){
+        window.open(data.product.facebook_url, 'share','toolbar=0,status=0,width=600,height=305')
+      });
+      $('.share').show(400);
+    }
+    Upload.Animations.product_added();
+  }
 }
 
-Upload.filePreview = function() {
- init_elements();
 
- preview.target.change(filePreviewAdd);
+// FilePreview reletad actions
 
- if($("#local-preview-path").val()){
-  loadPreview($("#local-preview-path").val());
-}
-if($("#preview").data('preview-url')){
-  loadPreview($("#preview").data('preview-url'));
-}
-}
 function loadPreview(path){
   loadImage(path, function (img) {
     $('#preview').html(img);
@@ -76,7 +102,9 @@ function loadPreview(path){
 function filePreviewAdd(e, data){
  loadPreview(e.target.files[0]);
 }
-// private functions
+
+// File related actions
+
 function fileSignedRequest(filename) {
   $.ajax({
     url: '/user/products/upload_request',
@@ -129,7 +157,7 @@ function fileChange() {
 
 function fileDone(e, data) {
   if($('.upload-section').data('product-id')){
-fileChanged($('.upload-section').data('product-id'), attrs.filename, attrs.uuid);
+    fileChanged($('.upload-section').data('product-id'), attrs.filename, attrs.uuid);
   }
   el.form.find( "input[class=upload_uuid]" ).val(attrs.uuid);
   el.form.find( "input[class=filename]" ).val(attrs.filename);

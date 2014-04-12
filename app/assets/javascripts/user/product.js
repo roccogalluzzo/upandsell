@@ -7,8 +7,7 @@
 
 Product.init = function() {
   init_settings();
-  Product.Upload.file();
-  Product.Upload.filePreview();
+  Product.Upload.init();
   Product.Form.currencyInit();
   Product.Form.validationInit();
 };

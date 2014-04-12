@@ -66,9 +66,9 @@ earns =  Metric::Products.new(product_ids).earnings_last 30.days
 @earnings = {}
 @earnings[:month] =  Money.us_dollar(earns[0]).exchange_to(current_user.currency)
 @earnings[:summary_data] = {}
-  earns[1].each do |time,earns|
-    @earnings[:summary_data][time] =  Money.us_dollar(earns).exchange_to(current_user.currency).cents
-  end
+earns[1].each do |time,earns|
+  @earnings[:summary_data][time] =  Money.us_dollar(earns).exchange_to(current_user.currency).cents
+end
 @earnings[:week] =  Money.us_dollar((Metric::Products.new(product_ids).earnings_last 7.days)[0])
 .exchange_to(current_user.currency)
 @earnings[:today] = Money.us_dollar((Metric::Products.new(product_ids).earnings_today)[0])
@@ -119,10 +119,10 @@ def create
       "https://twitter.com/intent/tweet?text=#{@product.name} #{product_slug_url(@product.slug)}")
     facebook_url = URI.escape(
       "https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(@product.slug)}&title=#{@product.name}")
-    msg = { status: 'ok', product: {name: @product.name,
-      preview: @product.thumb.url, price_cents: @product.price_cents,
+    msg = { status: 200, product: {name: @product.name,
+      preview: @product.thumb.url(:small), price_cents: @product.price_cents,
       price_currency:  @product.price.symbol, twitter_url: tweet_url, facebook_url: facebook_url,
-      slug: product_slug_url(@product.slug) }}
+      slug: product_slug_url(@product.slug), edit_url: user_product_path(@product) }}
     end
     render json: msg
   end
@@ -142,7 +142,7 @@ def create
   def update
     @product = Product.find(params[:id])
     if not @product.user_id == current_user.id
-      return render :file => "public/401.html", :status => :unauthorized
+      status = 401
     end
     @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
     @product.file_file_name =   sanitize_filename(params[:product][:filename])
@@ -150,24 +150,28 @@ def create
       :description, :thumb)
     @product.attributes = f_params
 
-
     if @product.save
-     return redirect_to user_products_path, notice: 'Product was edited.'
-   end
-   render 'edit'
- end
+     render json: { status: 201, product: {name: @product.name,
+      preview: @product.thumb.url(:small), price_cents: @product.price_cents,
+      price_currency:  @product.price.symbol }}
+      return
+    else
+      status = 500
+    end
+    render json: {status: status}
+  end
 
- def destroy
-  @product = Product.find(params[:id])
-  if not @product.user_id == current_user.id
-    render :file => "public/401.html", :status => :unauthorized
+  def destroy
+    @product = Product.find(params[:id])
+    if not @product.user_id == current_user.id
+      render :file => "public/401.html", :status => :unauthorized
+    end
+    if @product.destroy
+      return redirect_to user_products_path, notice: 'Product was deleted.'
+    end
   end
-  if @product.destroy
-    return redirect_to user_products_path, notice: 'Product was deleted.'
-  end
-end
-private
-def sanitize_filename(filename)
+  private
+  def sanitize_filename(filename)
   # Split the name when finding a period which is preceded by some
   # character, and is followed by some character other than a period,
   # if there is no following period that is followed by something
