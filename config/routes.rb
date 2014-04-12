@@ -1,5 +1,5 @@
 Upandsell::Application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { confirmations: 'confirmations' }
 
   root 'landing#index'
   get 'privacy' => 'site#privacy'
@@ -22,6 +22,8 @@ Upandsell::Application.routes.draw do
     get 'settings/account' => 'settings#account'
     get 'settings/payments' => 'settings#payments'
     get 'settings/setup' => 'settings#setup'
+    get 'settings/resend_email' => 'settings#resend_email'
+    patch 'settings/update_email' => 'settings#update_email'
     patch 'settings/update_account' => 'settings#update_account'
     patch 'settings/update_password' => 'settings#update_password'
     post 'settings/update_payments' => 'settings#update_payments'

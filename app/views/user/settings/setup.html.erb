@@ -6,36 +6,92 @@
         <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-envelope-o"></i> </div>
         <div class="cbp_tmlabel">
           <div class="p-t-10 p-l-10 p-r-10 ">
-check email
+            <div class="row">
+              <% if @email %>
+              <div class="col-md-10 col-md-offset-1 text-center">
+              <p class="text-success">
+               <i class="fa fa-check-circle-o fa-lg"></i> Email Confirmed</p>
+              </div>
+              <% else %>
+              <div class="col-md-10 col-md-offset-1 text-center">
+                <p> We've sent an email to <b id="email"><%= current_user.email %></b>. </p>
+                <p> Please click the link in that message to confirm your email andress.</p>
+                <p id="email-box" style="display: none;">
+                  <%= form_tag user_settings_update_email_path,
+                  disable_with: "Saving...",
+                  method: :patch, remote: true, class: "form-inline hidden" do %>
+                  <div class="form-group" style="width:40%;">
+                    <input id="new-email" type="email" name="user[email]"
+                    style="width:100%;" class="form-control" placeholder="New Email">
+                  </div>
+                  <button type="submit" class="btn btn-info">Save</button>
 
+                  <% end %>
+                </p>
+                <p>
+                  <%= link_to "Resend", user_settings_resend_email_path, remote: true,
+                  data: { disable_with: "Resending..."},
+                  class: "btn btn-primary", id: "resend-email" %>
+
+                  <a class="btn btn-primary" id="change-email" href="#">Change Email</a></p>
+                  <small>Make sure to check your junk or spam folder.
+                   The sender is <b>bot@upandsell.me</b></small>
+                 </div>
+                 <% end %>
+               </div>
+
+             </div>
+             <div class="clearfix"></div>
+           </div>
+         </li>
+         <li class="info-section">
+          <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-money"></i> </div>
+          <div class="cbp_tmlabel">
+           <div class="p-t-10 p-l-10 p-r-10 product_form">
+             <div class="row">
+                      <% if @payments %>
+              <div class="col-md-10 col-md-offset-1 text-center">
+              <p class="text-success">
+               <i class="fa fa-check-circle-o fa-lg"></i> Payment Gateway Added</p>
+              </div>
+              <% else %>
+              <div class="col-md-10 col-md-offset-1 text-center">
+                <p>Connect a payment gateway to your account.</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 col-md-offset-1 text-center">
+                <%= image_tag "paypal_logo.gif" %>
+                <p>
+                 <%= link_to "Connect", user_settings_add_paypal_path, class: 'btn btn-primary m-t-20' %>
+               </p>
+             </div>
+             <div class="col-md-4 text-center">
+              <%= image_tag "paymill.png" %>
+              <p><a class="btn btn-primary m-t-20" href="<%= @paymill_url %>" >Connect</a></p>
+            </div>
+          </div>
+          <% end %>
         </div>
-        <div class="clearfix"></div>
-      </div>
+      </li>
+      <li class="share-section">
+        <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-file-o"></i> </div>
+        <div class="cbp_tmlabel p-b-0">
+          <div  class="share p-t-10 p-l-30 p-r-20 p-b-20 text-center">
+            <div class="row">
+              <div class="col-md-10 col-md-offset-1 text-center">
+                <p>Setup complete, add your first product and start selling with us.</p>
+                <p>    <%= link_to(new_user_product_path, class: "btn btn-lg btn-primary") do %>
+                  <i class="fa fa-lg fa-plus-circle"></i>&nbsp; ADD NEW PRODUCT
+                  <% end %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
 
 
-  </li>
-
-  <li class="info-section">
-
-    <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-money"></i> </div>
-    <div class="cbp_tmlabel">
-     <div class="p-t-20 p-l-30 p-r-30 p-b-20 product_form">
- setup payment
-</div>
-</li>
-
-<li class="share-section">
-
-  <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-file-o"></i> </div>
-  <div class="cbp_tmlabel p-b-0">
-    <div  class="share p-t-10 p-l-30 p-r-20 p-b-20 text-center">
-add first product
-</div>
-</div>
-</li>
-
-
-</ul>
-</div>
-</div>
+      </ul>
+    </div>
+  </div>
 

@@ -22,6 +22,7 @@
 //= require morris.js/morris
 //= require user/product/upload
 //= require user/stats
+//= require user/setup
 
 $(document).ready(function(){
 
@@ -48,5 +49,6 @@ $("[data-toggle='switch']").change( function(){
 });
 
 Product.init();
+Setup.init();
 
 });

@@ -9,14 +9,18 @@ v deploy
 v submit paypal app live
 v refresh currency
 v test paypal payments
-- setup account pagina
+v setup account pagina
 - publishied unpublishied products
 - delete products
 - pannello admin
+- change password
+- missing.png
 - sideqik
-- email for refunds
-- indegrare chef
 - pagina supporto
+- email for refunds
+- cron per cleaning file caricati e non associati a prodotti
+- indegrare chef
+
 
 prima di partire
 
