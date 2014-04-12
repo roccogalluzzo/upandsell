@@ -132,7 +132,7 @@ product_show <% unless uploaded %>  hid <% end%>">
    src="<%= @product.thumb.url(:small) if @product.id%>"
    style="height: 60px; width: 60px;">
  </div>
- <div class="col-md-6">
+ <div class="col-md-5">
   <p class="product-name"><%= @product.name %></p>
 </div>
 <div class="col-md-2">
@@ -141,8 +141,12 @@ product_show <% unless uploaded %>  hid <% end%>">
   </b></p>
 </div>
 
-<div class="col-md-3 text-right">
+<div class="col-md-4 text-right">
   <% if uploaded == true %>
+  <%= link_to "Delete", user_product_path(@product),
+method: :delete,
+class: "m-r-5 btn btn-danger" %>
+
   <%
   if @product.published
    btn_text = "Unpublish"
@@ -155,7 +159,7 @@ end
 <%= link_to btn_text, toggle_published_user_product_path(@product),
 remote: true,
 data: {with: btn_with},
-class: "m-r-10 btn btn-info toggle-published" %>
+class: "m-r-5 btn btn-info toggle-published" %>
 
 <% end %>
 <a class="edit-product btn btn-primary">Edit</a>

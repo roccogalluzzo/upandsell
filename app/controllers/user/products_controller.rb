@@ -17,7 +17,6 @@ end
 def toggle_published
   product = Product.find(params[:id])
   product.toggle(:published)
-  sleep 3
   action = product.published ? "Unpublish" : "Publish"
   with = product.published ? "Unpublishing..." : "Publishing..."
   if product.save
@@ -167,11 +166,11 @@ def create
   end
 
   def destroy
-    @product = Product.find(params[:id])
-    if not @product.user_id == current_user.id
+    product = Product.find(params[:id])
+    if not product.user_id == current_user.id
       render :file => "public/401.html", :status => :unauthorized
     end
-    if @product.destroy
+    if product.destroy
       return redirect_to user_products_path, notice: 'Product was deleted.'
     end
   end
