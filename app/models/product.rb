@@ -22,7 +22,8 @@ class Product < ActiveRecord::Base
   s3_protocol: 'https',
   s3_credentials: "#{Rails.root}/config/aws.yml",
   path: 'uploads/products/images/:uuid/:id.:style.:extension',
-  s3_permissions: :public_read
+  s3_permissions: :public_read,
+  :default_url => ActionController::Base.helpers.asset_path('missing.png')
 
   validates_attachment_content_type :thumb, :content_type => /\Aimage/
 

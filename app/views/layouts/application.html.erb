@@ -8,145 +8,145 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
   <script type="text/javascript">
-  WebFontConfig = {
-    google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
-  };
-  (function() {
-    var wf = document.createElement('script');
-    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+    WebFontConfig = {
+      google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
+    };
+    (function() {
+      var wf = document.createElement('script');
+      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
       '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-    wf.type = 'text/javascript';
-    wf.async = 'true';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(wf, s);
-  })(); </script>
-</head>
-<body>
-<!-- BEGIN HEADER -->
-<div class="header navbar navbar-inverse">
-  <!-- BEGIN TOP NAVIGATION BAR -->
-  <div class="navbar-inner">
-    <!-- BEGIN NAVIGATION HEADER -->
-    <div class="header-seperation text-center">
-      <!-- BEGIN MOBILE HEADER -->
-      <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">
-        <li class="dropdown">
-          <a id="main-menu-toggle" href="#main-menu" class="">
-            <div class="iconset top-menu-toggle-white"></div>
-          </a>
-        </li>
-      </ul>
-      <!-- END MOBILE HEADER -->
-      <!-- BEGIN LOGO -->
-       <%= link_to user_root_path, class:'brand' do %>
-      <b>Up</b>&amp;<b>Sell</b>.Me
-      <% end %>
-      <!-- END LOGO -->
-    </div>
-    <!-- END NAVIGATION HEADER -->
-    <!-- BEGIN CONTENT HEADER -->
-    <div class="header-quick-nav">
-      <!-- BEGIN HEADER LEFT SIDE SECTION -->
-      <div class="pull-left">
-<h3 class="head-title"><%= content_for :title %></h3>
-      </div>
-      <!-- END HEADER LEFT SIDE SECTION -->
-      <!-- BEGIN HEADER RIGHT SIDE SECTION -->
-      <div class="pull-right">
-        <div class="chat-toggler">
-          <!-- BEGIN NOTIFICATION CENTER -->
-          <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom" data-content="" data-toggle="dropdown" data-original-title="Notifications">
-            <div class="user-details">
-              <div class="username">
-                <span class="bold">&nbsp;<%= current_user.name %>&nbsp;&nbsp;</span>
-              </div>
-            </div>
-          </a>
-        <!-- END NOTIFICATION CENTER -->
-          <!-- BEGIN PROFILE PICTURE -->
-          <div class="profile-pic">
-
-<%= gravatar_for current_user.email, :size => 35, :class => 'img-class', :alt => 'me' %>
-          </div>
-          <!-- END PROFILE PICTURE -->
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+    })(); </script>
+  </head>
+  <body>
+    <!-- BEGIN HEADER -->
+    <div class="header navbar navbar-inverse">
+      <!-- BEGIN TOP NAVIGATION BAR -->
+      <div class="navbar-inner">
+        <!-- BEGIN NAVIGATION HEADER -->
+        <div class="header-seperation text-center">
+          <!-- BEGIN MOBILE HEADER -->
+          <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">
+            <li class="dropdown">
+              <a id="main-menu-toggle" href="#main-menu" class="">
+                <div class="iconset top-menu-toggle-white"></div>
+              </a>
+            </li>
+          </ul>
+          <!-- END MOBILE HEADER -->
+          <!-- BEGIN LOGO -->
+          <%= link_to user_root_path, class:'brand' do %>
+          <b>Up</b>&amp;<b>Sell</b>.Me
+          <% end %>
+          <!-- END LOGO -->
         </div>
-        <!-- BEGIN HEADER NAV BUTTONS -->
-        <ul class="nav quick-section">
+        <!-- END NAVIGATION HEADER -->
+        <!-- BEGIN CONTENT HEADER -->
+        <div class="header-quick-nav">
+          <!-- BEGIN HEADER LEFT SIDE SECTION -->
+          <div class="pull-left">
+            <h3 class="head-title"><%= content_for :title %></h3>
+          </div>
+          <!-- END HEADER LEFT SIDE SECTION -->
+          <!-- BEGIN HEADER RIGHT SIDE SECTION -->
+          <div class="pull-right">
+            <div class="chat-toggler">
+              <!-- BEGIN NOTIFICATION CENTER -->
+              <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom" data-content="" data-toggle="dropdown" data-original-title="Notifications">
+                <div class="user-details">
+                  <div class="username">
+                    <span class="bold">&nbsp;<%= current_user.name %>&nbsp;&nbsp;</span>
+                  </div>
+                </div>
+              </a>
+              <!-- END NOTIFICATION CENTER -->
+              <!-- BEGIN PROFILE PICTURE -->
+              <div class="profile-pic">
+
+                <%= gravatar_for current_user.email, :size => 35, :class => 'img-class', :alt => 'me' %>
+              </div>
+              <!-- END PROFILE PICTURE -->
+            </div>
+            <!-- BEGIN HEADER NAV BUTTONS -->
+            <ul class="nav quick-section">
 
              <li class="quicklinks"><%= link_to(user_settings_account_path) do %>
-             <i class="fa fa-gear"></i>
-             <% end %>
+               <i class="fa fa-gear"></i>
+               <% end %>
              </li>
 
-          <li class="quicklinks"><span class="h-seperate"></span></li>
- <li class="quicklinks"><%= link_to(destroy_user_session_path, :method => :delete) do %>
- <i class="fa fa-power-off"></i>
-<% end %>
- </li>
+             <li class="quicklinks"><span class="h-seperate"></span></li>
+             <li class="quicklinks"><%= link_to(destroy_user_session_path, :method => :delete) do %>
+               <i class="fa fa-power-off"></i>
+               <% end %>
+             </li>
 
 
-        </ul>
-        <!-- END HEADER NAV BUTTONS -->
-      </div>
-      <!-- END HEADER RIGHT SIDE SECTION -->
-    </div>
-    <!-- END CONTENT HEADER -->
-  </div>
-  <!-- END TOP NAVIGATION BAR -->
-</div>
-<!-- END HEADER -->
-<!-- BEGIN CONTENT -->
-<div class="page-container row-fluid">
-  <!-- BEGIN SIDEBAR -->
-  <!-- BEGIN MENU -->
-  <div class="page-sidebar" id="main-menu">
-<div class="user-info-wrapper">
-		 <%= link_to(new_user_product_path, class: "btn btn-block btn-primary") do %>
-<i class="fa fa-lg fa-plus-circle"></i>&nbsp;<span class="bold"> NEW PRODUCT</span>
-<% end %>
+           </ul>
+           <!-- END HEADER NAV BUTTONS -->
+         </div>
+         <!-- END HEADER RIGHT SIDE SECTION -->
+       </div>
+       <!-- END CONTENT HEADER -->
+     </div>
+     <!-- END TOP NAVIGATION BAR -->
+   </div>
+   <!-- END HEADER -->
+   <!-- BEGIN CONTENT -->
+   <div class="page-container row-fluid">
+    <!-- BEGIN SIDEBAR -->
+    <!-- BEGIN MENU -->
+    <div class="page-sidebar" id="main-menu">
+      <div class="user-info-wrapper">
+       <%= link_to(new_user_product_path, class: "btn btn-block btn-primary") do %>
+       <i class="fa fa-lg fa-plus-circle"></i>&nbsp;<span class="bold"> NEW PRODUCT</span>
+       <% end %>
 
-</div>
+     </div>
 
-      <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-   <!-- BEGIN SIDEBAR MENU -->
-    <ul>
-      <li class="<%= 'active' if current_page?(user_root_path) %>">
-        <%= link_to user_root_path do %>
-<i class="fa fa-lg fa-dashboard"></i>
-<span> Summary </span>
-<% end %>
+     <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+       <!-- BEGIN SIDEBAR MENU -->
+       <ul>
+        <li class="<%= 'active' if current_page?(user_root_path) %>">
+          <%= link_to user_root_path do %>
+          <i class="fa fa-lg fa-dashboard"></i>
+          <span> Summary </span>
+          <% end %>
+        </li>
+        <li class="<%= 'active' if current_page?(user_products_path) %>">
+         <%= link_to user_products_path do %>
+         <i class="fa fa-file"></i>
+         <span> Products </span>
+         <% end %>
+       </li>
+       <li class="<%= 'active' if current_page?(user_orders_path) %>">
+        <%= link_to user_orders_path do %>
+        <i class="fa fa-shopping-cart"></i>
+        <span>Orders</span>
+        <% end %>
       </li>
-      <li class="<%= 'active' if current_page?(user_products_path) %>">
-       <%= link_to user_products_path do %>
-<i class="fa fa-file"></i>
-<span> Products </span>
-<% end %>
-     </li>
-     <li class="<%= 'active' if current_page?(user_orders_path) %>">
-      <%= link_to user_orders_path do %>
-      <i class="fa fa-shopping-cart"></i>
-<span>Orders</span>
-<% end %>
-    </li>
     </ul>
     <!-- END SIDEBAR MENU -->
- </div>
   </div>
-  <!-- BEGIN SCROLL UP HOVER -->
-  <a href="#" class="scrollup">Scroll</a>
-  <!-- END SCROLL UP HOVER -->
-  <!-- END MENU -->
-  <!-- END SIDEBAR -->
-  <%# render partial: "layouts/messages", flash: flash %>
-  <!-- BEGIN PAGE CONTAINER-->
-  <div class="page-content">
-    <div class="content">
-<%= yield %>
-    </div>
+</div>
+<!-- BEGIN SCROLL UP HOVER -->
+<a href="#" class="scrollup">Scroll</a>
+<!-- END SCROLL UP HOVER -->
+<!-- END MENU -->
+<!-- END SIDEBAR -->
+<%# render partial: "layouts/messages", flash: flash %>
+<!-- BEGIN PAGE CONTAINER-->
+<div class="page-content">
+  <div class="content">
+    <%= yield %>
   </div>
-  <!-- END PAGE CONTAINER -->
+</div>
+<!-- END PAGE CONTAINER -->
 </div>
 <!-- END CONTENT -->
-   </div>
+</div>
 </body>
 </html>

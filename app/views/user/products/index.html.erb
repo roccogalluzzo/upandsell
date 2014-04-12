@@ -5,54 +5,51 @@
     <div class="tiles white ">
 
      <% if @products.blank? %>
-     <p class="text-center text-muted">No products Founds</p>
-     <p class="text-center">
-      <%= link_to "Add One Now",
-      new_user_product_path, class: "btn btn-lg btn-add btn-primary" %>
-    </p>
+     <div class="p-t-10 p-b-10 m-l-10 m-r-10">
+       <p class="text-center text-muted">No products Founds</p>
+       <p class="text-center">
+        <%= link_to "Add One Now",
+        new_user_product_path, class: "btn btn-lg btn-add btn-primary" %>
+      </p>
+    </div>
     <% else %>
     <% @products.each do |product| %>
 
-    <div class="p-t-20 p-b-15 p-l-10 p-r-10">
-      <div class="post b-grey b-b">
-        <div class="user-profile-pic-wrapper">
-          <div class="user-profile-pic-2x white-border">
-            <% unless product.thumb_file_name  %>
-            <div class="missing-img"></div>
-            <% else %>
-            <%= image_tag product.thumb.url(:small), :class => "img-circl" %>
-            <% end %>
-          </div>
-        </div>
-        <div class="info-wrapper small-width inline">
-          <div class="info text-black ">
-            <p>        <strong> <%= product.name %>
-            </strong>
-          </p>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <div class="inline pull-right">
+    <div class="p-t-10 p-b-10 m-l-10 m-r-10 b-b b-gray">
+      <div class="post row">
+        <div class="col-md-1">
+         <img class="product-image img-rounded" src="<%= product.thumb.url %>"
+         style="height: 60px; width: 60px;">
+       </div>
 
-        <%= link_to edit_user_product_path(product), class: 'action-link' do %>
-                <span class="fa-stack fa-lg">
-    <i class="fa fa-circle fa-stack-2x"></i>
-    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-</span>
-        <% end %>
+       <div class="col-md-9">
+        <div class="info text-black ">
+          <p>
+           <strong> <%= product.name %></strong>
+         </p>
+       </div>
+     </div>
+     <div class="col-md-2 text-right">
 
-        <%= link_to   product_slug_path(product.slug), class: 'action-link' do %>
-        <span class="fa-stack fa-lg">
-    <i class="fa fa-circle fa-stack-2x"></i>
-    <i class="fa fa-link fa-stack-1x fa-inverse"></i>
-</span>
-        <% end %>
-      </div>
-      <div class="clearfix"></div>
+      <%= link_to edit_user_product_path(product), class: 'action-link' do %>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+      </span>
+      <% end %>
+
+      <%= link_to   product_slug_path(product.slug), class: 'action-link' do %>
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-link fa-stack-1x fa-inverse"></i>
+      </span>
+      <% end %>
     </div>
+
   </div>
-  <% end %>
-  <% end %>
+</div>
+<% end %>
+<% end %>
 </div>
 <div class="tiles white text-center p-t-5 p-b-5 ">
  <%= paginate @products %>

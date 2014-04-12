@@ -32,6 +32,7 @@ end
           </form>
         </div>
         <div class="uploading-box <% unless uploaded %>  hid <% end%>">
+        <div class="row">
           <div class="col-md-5">
             <p class="filename"><%= @product.file_file_name %></p>
           </div>
@@ -48,6 +49,7 @@ end
             <a class="fileinput-button btn btn-danger pull-right" data-text-type="cancel">Cancel</a>
             <% end %>
           </div>
+        </div>
         </div>
         <div class="clearfix"></div>
       </div>
@@ -119,10 +121,11 @@ end
 </div>
 </div>
 <% end %>
-
-<div class="row show-product-box p-t-10 p-l-30 p-r-20 p-b-10 product_show <% unless uploaded %>  hid <% end%>">
+<div class="show-product-box p-t-10 p-l-10 p-r-10 p-b-10 product_show <% unless uploaded %>  hid <% end%>">
+<div class="row">
  <div class="col-md-1 preview-product-image">
-   <img class="product-image" src="<%= @product.thumb.url if @product.id%>" alt= class="img-rounded" style="height: 60px; width: 60px;">
+   <img class="product-image img-rounded" src="<%= @product.thumb.url if @product.id%>"
+   style="height: 60px; width: 60px;">
  </div>
  <div class="col-md-7">
   <p class="product-name"><%= @product.name %></p>
@@ -135,6 +138,7 @@ end
 
 <div class="col-md-2">
   <a class="edit-product btn btn-primary pull-right">Edit</a>
+</div>
 </div>
 </div>
 <div class="clearfix"></div>
