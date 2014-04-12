@@ -36,7 +36,7 @@ Upandsell::Application.routes.draw do
     get 'products/metrics'  => 'products#metrics'
     resources :products, except: [:show] do
       post 'upload'
-      get 'share',  on: :member
+      get 'toggle_published',  on: :member
     end
     resources :orders, only: [:index, :show] do
      get 'refund', on: :member

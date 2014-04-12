@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140408094902) do
+ActiveRecord::Schema.define(version: 20140412194841) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20140408094902) do
     t.string   "slug"
     t.text     "uuid"
     t.integer  "user_id"
+    t.boolean  "published",          default: false
   end
 
   create_table "users", force: true do |t|

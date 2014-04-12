@@ -31,6 +31,8 @@
           Download
         </a>
         <p>Reached limit downloads, <a href="#buy">buy again</a> </p> -->
+        <% elsif !@published %>
+          <p class="text-danger text-center">This product is not currently for sale.</p>
         <% else %>
         <% if @paypal and !@credit_card %>
         <a href="#paypal"  data-product-id="<%= @product.id %>"

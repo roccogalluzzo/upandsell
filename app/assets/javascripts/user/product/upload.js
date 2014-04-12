@@ -47,6 +47,13 @@ function initForm() {
   el.form.find('input[type=submit]').attr('disabled', 'disabled');}
 
   el.form.on("ajax:success", productSave);
+  
+  $('.toggle-published').on("ajax:beforeSend", function(event, data, status, xhr){
+    $(this).attr('disabled', 'disabled').text($(this).data('with'));
+  })
+  .on("ajax:success", function(event, data, status, xhr){
+    $(this).removeAttr("disabled").text(data.action).data('with', data.with);
+  });
 
   $('.edit-product').on('click', Upload.Animations.product_edit);
 }

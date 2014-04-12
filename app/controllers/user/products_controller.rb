@@ -14,12 +14,17 @@ def new
   end
 end
 
-def share
-  @product = Product.find(params[:id])
-  @tweet_url =  URI.escape(
-    "https://twitter.com/intent/tweet?text=#{@product.name} #{product_slug_url(@product.slug)}")
-  @facebook_url = URI.escape(
-    "https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(@product.slug)}&title=#{@product.name}")
+def toggle_published
+  product = Product.find(params[:id])
+  product.toggle(:published)
+  sleep 3
+  action = product.published ? "Unpublish" : "Publish"
+  with = product.published ? "Unpublishing..." : "Publishing..."
+  if product.save
+    render json: {status: 200, action: action, with: with}
+  else
+    render json: {status: 500, action: action}
+  end
 end
 
 def metrics

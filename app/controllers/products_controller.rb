@@ -89,7 +89,7 @@ def show
   end
   @paypal = @product.user.paypal
   @credit_card = @product.user.credit_card
-  Rails.logger.info @product.user.paypal
+  @published = true if (@paypal || @credit_card) && @product.published
   ua = AgentOrange::UserAgent.new(request.env['HTTP_USER_AGENT'])
   unless ua.is_bot?
     Metric::Products.new(@product.id).incr_visits
