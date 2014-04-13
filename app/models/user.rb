@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,
-  :confirmable
+  :confirmable, :async
 
   has_many :products
   has_many :orders

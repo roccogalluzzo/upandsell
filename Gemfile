@@ -1,9 +1,11 @@
 source 'http://rubygems.org'
 
 gem 'rails', '4.0.2'
+gem 'puma'
 
 #custom gems
 gem 'devise'
+gem "devise-async"
 gem 'paypal-sdk-adaptivepayments'
 gem 'paypal-sdk-permissions'
 gem 'paymill'
@@ -47,21 +49,17 @@ gem 'jbuilder', '~> 1.2'
 gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 # Css gems
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "less-rails"
 gem 'sass-rails'
 gem "bower-rails", "~> 0.7.0"
 gem "font-awesome-rails"
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
 # Deployment
-gem 'capistrano', group: :development
-gem 'capistrano-rails', '~> 1.1'
-gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-sidekiq'
-gem 'capistrano-rvm'
-gem 'puma'
-gem 'foreman'
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-sidekiq'
+  gem 'capistrano-rvm'
+  gem 'foreman'
+end
