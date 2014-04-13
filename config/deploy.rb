@@ -8,7 +8,7 @@ set :scm, :git
 set :deploy_via, :remote_cache
 set :format, :pretty
 set :log_level, :info
-
+set :bundle_without, [:development, :test]
 
 set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{log}
