@@ -24,8 +24,8 @@ namespace :deploy do
  end
  task :currency_db do
   on roles(:app) do
-   run "cd #{deploy_to}/current"
-   run "bundle exec rake money:update_rates"
+   execute "cd #{deploy_to}/current"
+   execute "bundle exec rake money:update_rates"
  end
 end
 
