@@ -10,7 +10,7 @@ MoneyRails.configure do |config|
   #
   # Example:
   config.default_bank = EuCentralBank.new
-  EU_CENTRAL_BANK_CACHE = '/db/eu_bank_exchange_rates.xml'
+  EU_CENTRAL_BANK_CACHE = cache = Rails.root.join('db', 'eu_bank_exchange_rates.xml')
   Money.default_bank.save_rates(EU_CENTRAL_BANK_CACHE)
   Money.default_bank.update_rates(EU_CENTRAL_BANK_CACHE)
 

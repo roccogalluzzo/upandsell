@@ -22,6 +22,14 @@ namespace :deploy do
      execute "(kill -s SIGUSR1 $(ps -C ruby -F | grep '/puma' | awk {'print $2'}))"
    end
  end
- after :finishing, 'deploy:cleanup'
- after :finishing, 'deploy:restart'
+ task :currency_db do
+  on roles(:app) do
+   run "cd #{deploy_to}/current"
+   run "bundle exec rake money:update_rates"
+ end
+end
+
+after :finishing, 'deploy:cleanup'
+after :finishing, 'deploy:restart'
+after :finishing, 'deploy:currency_db'
 end

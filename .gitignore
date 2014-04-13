@@ -28,3 +28,5 @@ vendor/assets/bower_components
 *.rdb
 
 db/exchange_rates.xml
+
+db/eu_bank_exchange_rates.xml
