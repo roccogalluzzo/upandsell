@@ -11,8 +11,8 @@ class Order < ActiveRecord::Base
       Metric::Products.new(self.product_id).incr_sales
       Metric::Products.new(self.product_id).incr_earnings(self.amount.exchange_to("USD").cents)
       user = User.find(self.product.user_id)
-      UserMailer.bought_email(user, self).deliver
-      UserMailer.sold_email(user, self).deliver
+      UserMailer.delay.bought_email(user, self)
+      UserMailer.delay.sold_email(user, self)
     elsif self.status == 'refunded' && self.status_was == 'completed'
      Metric::Products.new(self.product_id).decr_sales(1, self.created_at)
      Metric::Products.new(self.product_id).decr_earnings(self.amount.exchange_to("USD").cents, self.created_at)
