@@ -5,5 +5,6 @@ namespace :money do
     cache = Rails.root.join('db', 'eu_bank_exchange_rates.xml')
     eu_bank.save_rates(cache)
     eu_bank.update_rates(cache)
+    puts "Rates Updated"
   end
 end
