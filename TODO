@@ -15,11 +15,12 @@ v delete products
 - pannello admin
 - change password
 v missing.png
-- fix twitter share url
+v fix twitter share url
 - sideqik
 - pagina supporto
 - email for refunds
-- cron per cleaning file caricati e non associati a prodotti
+- template email html
+v cron per cleaning file caricati e non associati a prodotti
 - indegrare chef
 
 
@@ -27,3 +28,24 @@ prima di partire
 
 - setup db backup
 v update ssl
+
+dopo
+
+- v 1.1
+ -Tasto compra Embeddabbile
+
+- v 1.2
+ - coupons
+ - limitare prodotti vendibili
+
+- v 1.3
+ - affiliazioni
+ - statistiche
+
+- v 1.4
+ - vendita software migliorata
+ - webhooks
+
+- v 1.5
+ - fatturazione
+ - profilo utente

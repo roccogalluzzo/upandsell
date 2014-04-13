@@ -1,59 +1,57 @@
-require 'modules/base52'
 class User::ProductsController < User::BaseController
+  include S3Service
 
- def index
-
-
-  @products = User.find(current_user.id).products.page(params[:page]).per(7)
-end
-
-def new
-  @product = Product.new
-  respond_to do |format|
-    format.html
-  end
-end
-
-def toggle_published
-  product = Product.find(params[:id])
-  product.toggle(:published)
-  action = product.published ? "Unpublish" : "Publish"
-  with = product.published ? "Unpublishing..." : "Publishing..."
-  if product.save
-    render json: {status: 200, action: action, with: with}
-  else
-    render json: {status: 500, action: action}
-  end
-end
-
-def metrics
-  if params[:products] != '0'
-    product_ids = current_user.products.where(id: params[:products]).ids
-  else
-    product_ids = current_user.products.ids
+  def index
+    @products = User.find(current_user.id).products.page(params[:page]).per(7)
   end
 
-  earnings = {}
-  earnings[:today] = Money.us_dollar(Metric::Products.new(product_ids).earnings_today[0])
-  .exchange_to(current_user.currency).cents
-  earnings[:week] = Money.us_dollar((Metric::Products.new(product_ids).earnings_last 7.days)[0])
-  .exchange_to(current_user.currency).cents
-  earns =  Metric::Products.new(product_ids).earnings_last 30.days
-  earnings[:month] =  Money.us_dollar(earns[0]).exchange_to(current_user.currency).cents
-  earnings[:summary_data] = {}
-  earns[1].each do |time,earns|
-    earnings[:summary_data][time] =  Money.us_dollar(earns).exchange_to(current_user.currency).cents
+  def new
+    @product = Product.new
+    respond_to do |format|
+      format.html
+    end
   end
 
+  def toggle_published
+    product = Product.find(params[:id])
+    product.toggle(:published)
+    action = product.published ? "Unpublish" : "Publish"
+    with = product.published ? "Unpublishing..." : "Publishing..."
+    if product.save
+      render json: {status: 200, action: action, with: with}
+    else
+      render json: {status: 500, action: action}
+    end
+  end
 
-  sales = Metric::Products.new(product_ids).sales_last 30.days
-  visits = Metric::Products.new(product_ids).visits_last 30.days
-  if visits[0] > 0 and  sales[0] > 0
-   conversion_rate = visits[0] / sales[0]
- else
-  conversion_rate = 0
-end
-render json: {earnings: earnings, sales: sales, visits: visits, conversion_rate: conversion_rate}
+  def metrics
+    if params[:products] != '0'
+      product_ids = current_user.products.where(id: params[:products]).ids
+    else
+      product_ids = current_user.products.ids
+    end
+
+    earnings = {}
+    earnings[:today] = Money.us_dollar(Metric::Products.new(product_ids).earnings_today[0])
+    .exchange_to(current_user.currency).cents
+    earnings[:week] = Money.us_dollar((Metric::Products.new(product_ids).earnings_last 7.days)[0])
+    .exchange_to(current_user.currency).cents
+    earns =  Metric::Products.new(product_ids).earnings_last 30.days
+    earnings[:month] =  Money.us_dollar(earns[0]).exchange_to(current_user.currency).cents
+    earnings[:summary_data] = {}
+    earns[1].each do |time,earns|
+      earnings[:summary_data][time] =  Money.us_dollar(earns).exchange_to(current_user.currency).cents
+    end
+
+
+    sales = Metric::Products.new(product_ids).sales_last 30.days
+    visits = Metric::Products.new(product_ids).visits_last 30.days
+    if visits[0] > 0 and  sales[0] > 0
+     conversion_rate = visits[0] / sales[0]
+   else
+    conversion_rate = 0
+  end
+  render json: {earnings: earnings, sales: sales, visits: visits, conversion_rate: conversion_rate}
 end
 
 def summary
@@ -81,31 +79,21 @@ end
 end
 
 def upload_request
-  id = SecureRandom.uuid
   name = sanitize_filename(params[:name])
-  path = "uploads/products/#{Base52.encode(current_user.id)}/#{id}/#{name}"
-  file = AWS::S3.new.buckets[Rails.configuration.aws["bucket"]].presigned_post(
-    key: path,
-    success_action_redirect: '/',
-    success_action_status: 201,
-    metadata: {
-      id: id,
-      file_name: name})
-
-  msg = { status: 'ok', id: id, filename: name, fields: file.fields}
-
-  render json: msg
+  file = S3Service.upload(name)
+  render json: { status: 'ok', id: file[:id], filename: name, fields: file[:fields]}
 end
 
 def file_changed
   product = Product.find(params[:id])
+
   if not product.user_id == current_user.id
-    return render :file => "public/401.html", :status => :unauthorized
+    return render json: {status: 401}
   end
+
   product.uuid =  sanitize_filename(params[:new_uuid])
   product.file_file_name =   sanitize_filename(params[:filename])
-
-
+  S3Service.upload_confirm(product.uuid, product.file_file_name)
   if product.save
    render json: {status: '200'}
  end
@@ -115,10 +103,15 @@ def create
   params.permit(:product)
   @product = Product.new(params[:product].permit(:name, :price, :price_currency,
    :description, :thumb))
+  @product.published = true
   @product.user_id = current_user.id
   @product.uuid =  sanitize_filename(params[:product][:upload_uuid])
   @product.file_file_name =  sanitize_filename( params[:product][:filename])
+
+  S3Service.upload_confirm(@product.uuid, @product.file_file_name)
+
   if @product.save
+
     tweet_url =  URI.escape(
       "https://twitter.com/intent/tweet?text=#{@product.name} #{product_slug_url(@product.slug)}")
     facebook_url = URI.escape(
@@ -133,7 +126,7 @@ def create
 
   def edit
     @product = Product.find(params[:id])
-    @tweet_url =  URI.escape(
+    @twitter_url =  URI.escape(
       "https://twitter.com/intent/tweet?text=#{@product.name} #{product_slug_url(@product.slug)}")
     @facebook_url = URI.escape(
       "https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(@product.slug)}&title=#{@product.name}")

@@ -135,7 +135,7 @@ product_show <% unless uploaded %>  hid <% end%>">
  <div class="col-md-5">
   <p class="product-name"><%= @product.name %></p>
 </div>
-<div class="col-md-2">
+<div class="col-md-2 text-center">
   <p><b class="product-price">
     <%= humanized_money_with_symbol @product.price %>
   </b></p>
