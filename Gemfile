@@ -15,6 +15,7 @@ gem 'agent_orange'
 gem 'eu_central_bank'
 gem 'kaminari'
 gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'whenever', require: false
 gem 'remotipart', '~> 1.2'
 #test gems

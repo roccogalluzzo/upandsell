@@ -31,6 +31,10 @@ class User < ActiveRecord::Base
 
   after_create :send_welcome_email
 
+  def admin?
+   true if self.id == 1
+  end
+
   def send_welcome_email
     UserMailer.welcome_email(self).deliver
   end
