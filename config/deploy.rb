@@ -25,7 +25,7 @@ namespace :deploy do
  task :currency_db do
   on roles(:app) do
    execute "cd #{deploy_to}/current"
-   execute "bundle exec rake money:update_rates"
+   execute "RAILS_ENV=production bundle exec rake money:update_rates"
  end
 end
 
