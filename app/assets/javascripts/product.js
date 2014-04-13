@@ -11,7 +11,7 @@
 $(document).ready(function() {
 
 
-    $('.btn').on('click', function ( e ) {
+    $('.btn-buy').on('click', function ( e ) {
         $.fn.custombox( this, {
             width: 380,
             effect:         'slide',

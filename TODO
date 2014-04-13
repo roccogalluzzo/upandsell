@@ -12,8 +12,8 @@ v test paypal payments
 v setup account pagina
 v publishied unpublishied products
 v delete products
-- check mancato download files
-- check delete file
+v check mancato download files
+v check delete file, al download risulta 404
 - check perche non funziona il setup account
 - check perche non si vedono gli switch in produzione
 - tasto copia nella clipboard
@@ -22,7 +22,7 @@ v delete products
 - change password
 v missing.png
 v fix twitter share url
-- sideqik
+v sideqik
 - pagina supporto
 - email for refunds
 - template email html
