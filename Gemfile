@@ -62,5 +62,6 @@ gem 'capistrano', group: :development
 gem 'capistrano-rails', '~> 1.1'
 gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-sidekiq'
+gem 'capistrano-rvm'
 gem 'puma'
 gem 'foreman'

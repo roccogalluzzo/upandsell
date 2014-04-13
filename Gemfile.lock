@@ -59,6 +59,9 @@ GEM
     capistrano-rails (1.1.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.1)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
     capistrano-sidekiq (0.2.5)
       capistrano
       sidekiq
@@ -333,6 +336,7 @@ DEPENDENCIES
   capistrano
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1)
+  capistrano-rvm
   capistrano-sidekiq
   capybara
   database_cleaner
