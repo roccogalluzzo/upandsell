@@ -24,6 +24,7 @@ Upandsell::Application.routes.draw do
  namespace :user do
     # Settings
     get 'settings/account' => 'settings#account'
+    get 'settings/password' => 'settings#password'
     get 'settings/payments' => 'settings#payments'
     get 'settings/setup' => 'settings#setup'
     get 'settings/resend_email' => 'settings#resend_email'

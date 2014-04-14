@@ -20,24 +20,21 @@ v tasto copia nella clipboard
 v tasto go to page
 v aggingere callback mixpanel alla pagina setup
 - pannello admin
-- change password
+v change password
+- ordini devono salvare anche la default curency convertita
+- calcolo metriche prodotti da db mysql
 v missing.png
 v fix twitter share url
 v sideqik
-- pagina supporto
 - email for refunds
 - template email html
 - stylized error pages
 v cron per cleaning file caricati e non associati a prodotti
-- indegrare chef
-
-
-prima di partire
-
 - setup db backup
+- widget uservoice
 v update ssl
 
-dopo
+SI PARTE!
 
 - v 1.1
 - aggiungere custom GA codice
@@ -50,6 +47,7 @@ dopo
  - associare a diversi link/tasti embendabbili uno stesso prodotto
  - invio emails
  - integrazione mailchimp
+ - indegrare chef
 
 - v 1.3
  - affiliazioni

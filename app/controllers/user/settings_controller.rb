@@ -3,30 +3,35 @@ class User::SettingsController < User::BaseController
   def setup
     @email = current_user.confirmed?
     @payments = true if current_user.paypal || current_user.credit_card
-     unless current_user.credit_card
+    unless current_user.credit_card
      @paymill_url = auth_url
    end
-  end
+ end
 
-  def resend_email
-    current_user.send_confirmation_instructions
-    render json: {status: 200}
+ def resend_email
+  current_user.send_confirmation_instructions
+  render json: {status: 200}
 
-  end
+end
 
-  def account
-    @user = current_user
-  end
+def account
+  @user = current_user
+end
 
-  def update_account
-    @user = current_user
-    s_params = user_params
-    resp = @user.update_without_password(s_params)
-    if resp
-     redirect_to user_settings_account_path, notice: 'Account Updated'
-   else
-    render 'account'
-  end
+def password
+  @user = current_user
+end
+
+
+def update_account
+  @user = current_user
+  s_params = user_params
+  resp = @user.update_without_password(s_params)
+  if resp
+   redirect_to user_settings_account_path, notice: 'Account Updated'
+ else
+  render 'account'
+end
 end
 
 def update_email
@@ -43,12 +48,13 @@ end
 
 def update_password
   s_params = user_params
-  resp = @user.update_with_password(user_params)
-  sign_in @user, :bypass => true
+  resp = current_user.update_with_password(user_params)
+  sign_in current_user, bypass: true
   if resp
-   redirect_to user_settings_account_path, notice: 'Account Updated'
+   redirect_to user_settings_account_path, notice: 'Password Updated'
  else
-  render 'account'
+  @user = current_user
+  render 'password'
 end
 
 end
