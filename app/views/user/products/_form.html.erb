@@ -103,7 +103,7 @@ end
              <span id="currency"
              data-currency-symbols="[&quot;$&quot;,&quot;\u00a3&quot;,&quot;\u20ac&quot;]"
              data-currency-values="[&quot;usd&quot;,&quot;gbp&quot;,&quot;eur&quot;]"
-             class="input-group-addon btn-preview btn-primary">$</span>
+             class="input-group-addon btn-preview btn-primary"><%= @product.price.symbol %></span>
              <%= f.input_field :price, class: 'form-control', placeholder: "2.00" %>
            </div>
          </div>
@@ -144,8 +144,8 @@ product_show <% unless uploaded %>  hid <% end%>">
 <div class="col-md-4 text-right">
   <% if uploaded == true %>
   <%= link_to "Delete", user_product_path(@product),
-method: :delete,
-class: "m-r-5 btn btn-danger" %>
+  method: :delete,
+  class: "m-r-5 btn btn-danger" %>
 
   <%
   if @product.published
@@ -180,37 +180,48 @@ class: "m-r-5 btn btn-info toggle-published" %>
      <h3> Share to your audience!</h3>
      <div class="share <% unless uploaded %>  hid <% end%>">
        <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <h4 class="share-url col-md-3 slug"><%= @slug %></h4>
+        <div class="col-md-6 col-md-offset-3 share-url">
+
+        <div class="col-md-10 slug">
+        <h4 id="js-slug"><%= @slug %></h4>
+        </div>
+          <div class="col-md-1"><a id="js-copy-to-clipboard"
+          data-clipboard-target="js-slug"
+           class="btn btn-info"
+            href="#"><i class="fa fa-clipboard"></i></a></div>
+
+            <div class="col-md-1"><a id="js-ext-link" class="btn btn-info"
+              href="<%= @slug %>" target="_blank">
+              <i class="fa  fa-external-link"></i></a></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <a href=" javascript: void(0)"
+              <% if @twitter_url %>
+              onclick="window.open(
+              '<%= @twitter_url %>',
+              'tweet','toolbar=0,status=0,width=600,height=305')"
+              <% end %>
+              class="btn btn-social-twitter btn-lg">
+              <i class="fui-twitter"></i>
+              Tweet
+            </a>
+
+            <a href=" javascript: void(0)"
+            <% if @facebook_url %>
+            onclick="window.open(
+            '<%= @facebook_url %>',
+            'share','toolbar=0,status=0,width=600,height=305')"
+            <% end %>
+            class="btn btn-lg btn-social-facebook">
+            <i class="fui-facebook"></i>
+            Share
+          </a>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <a href=" javascript: void(0)"
-          <% if @twitter_url %>
-          onclick="window.open(
-          '<%= @twitter_url %>',
-          'tweet','toolbar=0,status=0,width=600,height=305')"
-          <% end %>
-          class="btn btn-social-twitter btn-lg">
-          <i class="fui-twitter"></i>
-          Tweet
-        </a>
-
-        <a href=" javascript: void(0)"
-        <% if @facebook_url %>
-        onclick="window.open(
-        '<%= @facebook_url %>',
-        'share','toolbar=0,status=0,width=600,height=305')"
-        <% end %>
-        class="btn btn-lg btn-social-facebook">
-        <i class="fui-facebook"></i>
-        Share
-      </a>
     </div>
   </div>
-</div>
-</div>
 </div>
 </li>
 

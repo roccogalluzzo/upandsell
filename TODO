@@ -16,8 +16,8 @@ v check mancato download files
 v check delete file, al download risulta 404
 v check perche non funziona il setup account
 v check perche non si vedono gli switch in produzione
-- tasto copia nella clipboard
-- tasto go to page
+v tasto copia nella clipboard
+v tasto go to page
 v aggingere callback mixpanel alla pagina setup
 - pannello admin
 - change password
@@ -27,6 +27,7 @@ v sideqik
 - pagina supporto
 - email for refunds
 - template email html
+- stylized error pages
 v cron per cleaning file caricati e non associati a prodotti
 - indegrare chef
 
@@ -39,11 +40,16 @@ v update ssl
 dopo
 
 - v 1.1
+- aggiungere custom GA codice
  -Tasto compra Embeddabbile
+ - split front end e backend
 
 - v 1.2
  - coupons
  - limitare prodotti vendibili
+ - associare a diversi link/tasti embendabbili uno stesso prodotto
+ - invio emails
+ - integrazione mailchimp
 
 - v 1.3
  - affiliazioni

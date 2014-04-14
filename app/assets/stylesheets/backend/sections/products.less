@@ -1,119 +1,3 @@
-//
-// Main
-// @contribution Tiarê Balbi Bonamini (@tiarebalbi)
-// --------------------------------------------------
-
-
-// Mixins tools
-@import "mixins";
-
-// Variables of theme
-@import "variables";
-
-// Theme
-@import "theme";
-
-.header-seperation {
-
-  background-color: @peter-river;
-}
-.tab-content {
-
-  border: none;
-  border-radius: 0px;
-}
-
-.user-profile-pic-2x {
-  border-radius: 100px 100px 100px 100px;
-  height: 70px !important;
-  overflow: hidden;
-  width: 70px !important;
-}
-#area-example {
-  background-color: @clouds;
-}
-.head-title {
-  text-transform: uppercase;
-  margin-left: 15px;
-  font-size: 30px;
-  margin-top: 14px;
-}
-
-.header-seperation {
-  float: none;
-  .text-center;
-  padding-top: 15px;
-}
-.brand {
-
-  float: none !important;
-  margin-top: 5px;
-  .text-center;
-  .navbar-brand;
-  color: white;
-  font-weight: 100;
-  font-family: 'Lato';
-  text-transform: uppercase;
-}
-
-.quicklinks {
-
-  i {
-    font-size: 20px !important;
-  }
-}
-.page-sidebar {
-
-//width: 200px;
-}
-
-.user-info-wrapper {
-  display: block;
-  margin: 20px 31px;
-  margin-bottom: 20px !important;
-}
-.page-sidebar-wrapper {
-
-  ul {
-    .active {
-      background-color: #2A394F !important;
-      border-left: #3498db 4px solid !important;
-    }
-    li {
-      border-left: transparent 4px solid !important;
-
-      a {
-        padding: 18.5px 31px 18.5px 31px !important;
-        font-size: 20px !important;
-
-        i { font-size: 28px !important; color: #3498db !important;}
-      }
-    }
-  }
-}
-.small-text {
-
-  font-size: 16px !important;
-}
-
-
-.cbp_tmtimeline {
- &:before {
-   left: 4% !important;
- }
-}
-
-.cbp_tmtimeline > li .cbp_tmlabel {
-  margin: 0 0 15px 7% !important;
-}
-
-.cbp_tmtimeline > li .cbp_tmicon {
-
- left: 4%;
-}
-.cbp_tmtimeline {
-margin: 10px 0 0 0 !important;
-}
 .upload-box {
   border: #eee dotted 3px;
   margin: 10px;
@@ -187,6 +71,12 @@ margin: 10px 0 0 0 !important;
   }
 
 }
+
+#currency {
+  cursor: pointer;
+  color: white !important;
+  background-color: @brand-secondary !important;
+}
 .fileInput {
   cursor: pointer;
   height: 100% !important;
@@ -203,14 +93,21 @@ margin: 10px 0 0 0 !important;
 }
 
 .share-url {
+  h4 {
+    font-size: 23px;
+}
+
+  border: none;
+  margin-bottom: 15px;
+  padding: 11px;
+  border-radius: 6px;
+
+  .slug {
   background-color: @clouds;
   background-color: #ecf0f1;
-width: 100%;
-border: none;
-margin-bottom: 15px;
-padding: 11px;
-border-radius: 6px;
-font-size: 23px;
+  border-radius: 6px;
+  }
+
 
 }
 .upload-box-preview {
@@ -266,10 +163,4 @@ font-size: 23px;
 
 .upload-box-preview:hover {
   background-color: darken(@clouds, 3%);
-}
-.payment {
-border-bottom: 1px solid @clouds;
-padding-bottom: 10px;
-margin-bottom: 30px;
-height: 70px;
 }

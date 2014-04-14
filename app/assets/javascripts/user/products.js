@@ -1,19 +1,42 @@
-(function ($, Product, undefined) {
+(function ($, Products, undefined) {
 
  var settings = {};
  function init_settings() {
   settings = { form: $(".product")};
 }
 
-Product.init = function() {
-  init_settings();
-  Product.Upload.init();
-  Product.Form.currencyInit();
-  Product.Form.validationInit();
+Products.Summary = function() {
+ Stats.init();
 };
 
+Products.New = function() {
+  Products.init();
+  Products.Form.init();
+};
 
-Product.Form = {
+Products.Edit = function() {
+  Products.init();
+  Products.Form.init();
+};
+
+Products.init = function() {
+  init_settings();
+  copyToClipboard($("#js-copy-to-clipboard"));
+};
+
+function copyToClipboard(element) {
+    ZeroClipboard.config( { moviePath: '/ZeroClipboard.swf' } );
+  var client = new ZeroClipboard(element);
+}
+
+Products.Form = {
+
+  init: function() {
+    Upload.init();
+    Products.Form.currencyInit();
+    Products.Form.validationInit();
+  },
+
   currencyInit: function() {
     settings.form.find("#currency").bind('click', function(e){
       syms =  settings.form.find("#currency").data('currency-symbols');
@@ -48,14 +71,14 @@ Product.Form = {
             $element.parent().addClass("has-error");
           });
         },
-      rules: {
-        "product[price]": {
-          required: true,
-          number: true,
-          min: 0.50
+        rules: {
+          "product[price]": {
+            required: true,
+            number: true,
+            min: 0.50
+          }
         }
-      }
-    });
+      });
   }
 }
 
@@ -70,4 +93,4 @@ function fileError(action){
 }
 
 
-}(jQuery, window.Product = window.Product || {}));
+}(jQuery, window.Products = window.Products || {}));

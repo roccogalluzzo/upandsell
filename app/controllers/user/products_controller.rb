@@ -7,9 +7,11 @@ class User::ProductsController < User::BaseController
 
   def new
     @product = Product.new
+    @product.price_currency = current_user.currency
     respond_to do |format|
       format.html
     end
+
   end
 
   def toggle_published

@@ -47,7 +47,7 @@ function initForm() {
   el.form.find('input[type=submit]').attr('disabled', 'disabled');}
 
   el.form.on("ajax:success", productSave);
-  
+
   $('.toggle-published').on("ajax:beforeSend", function(event, data, status, xhr){
     $(this).attr('disabled', 'disabled').text($(this).data('with'));
   })
@@ -85,7 +85,8 @@ function productSave(event, data, status, xhr) {
         name: '_method'
       }).appendTo(el.form);
 
-      $('.slug').text(data.product.slug);
+      $('#js-slug').text(data.product.slug);
+      $("#js-ext-link").attr('href', data.product.slug);
       $('.btn-social-twitter').on('click', function(){
         window.open(data.product.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
       });
@@ -233,4 +234,4 @@ break;
 }
 }
 }
-}(jQuery, window.Product.Upload = window.Upload || {}));
+}(jQuery, window.Upload = window.Upload || {}));
