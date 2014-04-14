@@ -5,8 +5,4 @@ class ConfirmationsController < Devise::ConfirmationsController
     user_settings_setup_path
   end
 
-  private
-  def after_inactive_sign_up_path_for(resource)
-    user_settings_setup_path
-  end
 end

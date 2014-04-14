@@ -2,11 +2,12 @@ require 'sidekiq/web'
 
 
 Upandsell::Application.routes.draw do
-  devise_for :users, controllers: { confirmations: 'confirmations' }
-  mount Sidekiq::Web => '/sidekiq'
-  root 'landing#index'
-  get 'privacy' => 'site#privacy'
-  get 'terms' => 'site#terms'
+  devise_for :users, controllers: { confirmations: 'confirmations',
+    registrations: "registrations" }
+    mount Sidekiq::Web => '/sidekiq'
+    root 'landing#index'
+    get 'privacy' => 'site#privacy'
+    get 'terms' => 'site#terms'
   #product page
   get '/p/:slug' => 'products#show', :as => 'product_slug'
   get 'products/paypal' => 'products#paypal'

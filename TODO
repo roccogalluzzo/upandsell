@@ -14,10 +14,11 @@ v publishied unpublishied products
 v delete products
 v check mancato download files
 v check delete file, al download risulta 404
-- check perche non funziona il setup account
+v check perche non funziona il setup account
 - check perche non si vedono gli switch in produzione
 - tasto copia nella clipboard
 - tasto go to page
+v aggingere callback mixpanel alla pagina setup
 - pannello admin
 - change password
 v missing.png

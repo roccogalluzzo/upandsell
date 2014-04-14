@@ -14,8 +14,8 @@
 //= require jquery-file-upload/js/jquery.fileupload-process.js
 //= require jquery-file-upload/js/jquery.fileupload-image.js
 //= require jquery.validation/jquery.validate.js
-//= require flat-ui-official/js/bootstrap-switch.js
-//= require flat-ui-official/js/bootstrap-select.js
+//= require flat-ui-pro/js/bootstrap-switch.js
+//= require flat-ui-pro/js/bootstrap-select.js
 //= require momentjs/min/moment.min.js
 //= require user/product
 //= require raphael/raphael
