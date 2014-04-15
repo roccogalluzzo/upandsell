@@ -28,56 +28,47 @@ class User::ProductsController < User::BaseController
 
   def metrics
     if params[:products] != '0'
-      product_ids = current_user.products.where(id: params[:products]).ids
+      products = current_user.products.where(id: params[:products])
     else
-      product_ids = current_user.products.ids
+      products = current_user.products
     end
 
-    earnings = {}
-    earnings[:today] = Money.us_dollar(Metric::Products.new(product_ids).earnings_today[0])
-    .exchange_to(current_user.currency).cents
-    earnings[:week] = Money.us_dollar((Metric::Products.new(product_ids).earnings_last 7.days)[0])
-    .exchange_to(current_user.currency).cents
-    earns =  Metric::Products.new(product_ids).earnings_last 30.days
-    earnings[:month] =  Money.us_dollar(earns[0]).exchange_to(current_user.currency).cents
-    earnings[:summary_data] = {}
-    earns[1].each do |time,earns|
-      earnings[:summary_data][time] =  Money.us_dollar(earns).exchange_to(current_user.currency).cents
-    end
+    visits = (Metric::Products.new(products.ids).visits_last 30.days)[0]
+    sales = products.sales
 
-
-    sales = Metric::Products.new(product_ids).sales_last 30.days
-    visits = Metric::Products.new(product_ids).visits_last 30.days
-    if visits[0] > 0 and  sales[0] > 0
-     conversion_rate = visits[0] / sales[0]
+    if visits > 0 and  sales > 0
+     conversion_rate = ((sales.fdiv(visits)) * 100).round(2)
    else
     conversion_rate = 0
   end
-  render json: {earnings: earnings, sales: sales, visits: visits, conversion_rate: conversion_rate}
-end
+  earns = products.earnings
+  earnings = {}
+  earnings[:month] =  earns[0].cents
+  earnings[:summary_data] = earns[1]
+  earnings[:week] =  Money.new(split_week(earns[1]), current_user.currency).cents
+  earnings[:today] = Money.new(earns[1][Date.today.to_time.to_i], current_user.currency).cents
 
-def summary
- @products = current_user.products
- product_ids = @products.ids
- @visits = (Metric::Products.new(product_ids).visits_last 30.days)[0]
- @sales = (Metric::Products.new(product_ids).sales_last 30.days)[0]
- if @visits > 0 and  @sales > 0
-   @conversion_rate = @visits / @sales
- else
-  @conversion_rate = 0
-end
-earns =  Metric::Products.new(product_ids).earnings_last 30.days
-@earnings = {}
-@earnings[:month] =  Money.us_dollar(earns[0]).exchange_to(current_user.currency)
-@earnings[:summary_data] = {}
-earns[1].each do |time,earns|
-  @earnings[:summary_data][time] =  Money.us_dollar(earns).exchange_to(current_user.currency).cents
-end
-@earnings[:week] =  Money.us_dollar((Metric::Products.new(product_ids).earnings_last 7.days)[0])
-.exchange_to(current_user.currency)
-@earnings[:today] = Money.us_dollar((Metric::Products.new(product_ids).earnings_today)[0])
-.exchange_to(current_user.currency)
+  render json: {earnings: earnings, sales: sales,
+    visits: visits, conversion_rate: conversion_rate}
+  end
 
+  def summary
+    @products = current_user.products
+    @visits = (Metric::Products.new(current_user.products.ids).visits_last 30.days)[0]
+    @sales = current_user.products.sales
+
+    if @visits > 0 and  @sales > 0
+     @conversion_rate = ((@sales.fdiv(@visits)) * 100).round(2)
+   else
+    @conversion_rate = 0
+  end
+
+  earns = current_user.products.earnings
+  @earnings = {}
+  @earnings[:month] =  earns[0]
+  @earnings[:summary_data] = earns[1]
+  @earnings[:week] =  Money.new(split_week(earns[1]), current_user.currency)
+  @earnings[:today] = Money.new(earns[1][Date.today.to_time.to_i], current_user.currency)
 end
 
 def upload_request
@@ -171,18 +162,18 @@ def create
   end
   private
   def sanitize_filename(filename)
-  # Split the name when finding a period which is preceded by some
-  # character, and is followed by some character other than a period,
-  # if there is no following period that is followed by something
-  # other than a period (yeah, confusing, I know)
-  fn = filename.split /(?<=.)\.(?=[^.])(?!.*\.[^.])/m
+    fn = filename.split /(?<=.)\.(?=[^.])(?!.*\.[^.])/m
+    fn.map! { |s| s.gsub /[^a-z0-9\-]+/i, '_' }
+    return fn.join '.'
+  end
 
-  # We now have one or two parts (depending on whether we could find
-  # a suitable period). For each of these parts, replace any unwanted
-  # sequence of characters with an underscore
-  fn.map! { |s| s.gsub /[^a-z0-9\-]+/i, '_' }
-
-  # Finally, join the parts with a period and return the result
-  return fn.join '.'
-end
+  private
+  def split_week(data)
+    today = Date.today
+    days = (today.at_beginning_of_week..today.at_end_of_week)
+    .map.each { |day| day.to_time.to_i }
+    d_data = data.clone
+    d_data.extract!(*days)
+    .reduce(0) {|t,i| t + i[1]}
+  end
 end
