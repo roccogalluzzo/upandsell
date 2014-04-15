@@ -4,7 +4,7 @@ require 'sidekiq/web'
 Upandsell::Application.routes.draw do
   devise_for :users, controllers: { confirmations: 'confirmations',
     registrations: "registrations" }
-    mount Sidekiq::Web => '/sidekiq'
+
     root 'landing#index'
     get 'privacy' => 'site#privacy'
     get 'terms' => 'site#terms'
@@ -19,6 +19,11 @@ Upandsell::Application.routes.draw do
 
   resources :products, only: [:show]  do
    #get 'paypal',  on: :member
+ end
+
+ namespace :admin do
+   mount Sidekiq::Web => 'sidekiq'
+   root 'admin#summary'
  end
 
  namespace :user do

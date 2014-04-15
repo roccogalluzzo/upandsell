@@ -5,11 +5,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>
+  <%# javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
-  <script type="text/javascript">
-    Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
-  </script>
+
   <script type="text/javascript">
     WebFontConfig = {
       google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
@@ -75,13 +73,11 @@
             </div>
             <!-- BEGIN HEADER NAV BUTTONS -->
             <ul class="nav quick-section">
-            <% if is_admin? %>
-             <li class="quicklinks"><%= link_to(admin_root_path) do %>
-               <i class="fa fa-user"></i>
+            <li class="quicklinks"><%= link_to(user_root_path) do %>
+               <i class="fa fa-users"></i>
                <% end %>
              </li>
-               <li class="quicklinks"><span class="h-seperate"></span></li>
-<% end %>
+              <li class="quicklinks"><span class="h-seperate"></span></li>
              <li class="quicklinks"><%= link_to(user_settings_account_path) do %>
                <i class="fa fa-gear"></i>
                <% end %>
@@ -109,26 +105,20 @@
     <!-- BEGIN SIDEBAR -->
     <!-- BEGIN MENU -->
     <div class="page-sidebar" id="main-menu">
-      <div class="user-info-wrapper">
-       <%= link_to(new_user_product_path, class: "btn btn-block btn-primary") do %>
-       <i class="fa fa-lg fa-plus-circle"></i>&nbsp;<span class="bold"> NEW PRODUCT</span>
-       <% end %>
-
-     </div>
 
      <div class="page-sidebar-wrapper" id="main-menu-wrapper">
        <!-- BEGIN SIDEBAR MENU -->
        <ul>
-        <li class="<%= 'active' if current_page?(user_root_path) %>">
-          <%= link_to user_root_path do %>
+        <li class="<%= 'active' if current_page?(admin_root_path) %>">
+          <%= link_to admin_root_path do %>
           <i class="fa fa-lg fa-dashboard"></i>
           <span> Summary </span>
           <% end %>
         </li>
         <li class="<%= 'active' if current_page?(user_products_path) %>">
-         <%= link_to user_products_path do %>
+         <%= link_to admin_sidekiq_web_path do %>
          <i class="fa fa-file"></i>
-         <span> Products </span>
+         <span> Sidekiq </span>
          <% end %>
        </li>
        <li class="<%= 'active' if current_page?(user_orders_path) %>">

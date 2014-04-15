@@ -1,0 +1,95 @@
+<%- title "Summary" %>
+  <div class="col-md-12">
+        <!-- BEGIN MARKET SALES WIDGET -->
+        <div class="row tiles-container tiles white"  data-aspect-ratio="true">
+          <div class="col-md-9 b-grey b-r no-padding" style="height:382px">
+
+              <div class="p-l-45">
+<div class="row">
+      <div class="col-md-12 col-sm-12 no-padding">
+          <h5 class="semi-bold p-t-5">EARNINGS</h5>
+        </div>
+</div>
+  <div class="col-md-4 col-sm-4 no-padding">
+          <p class="semi-bold">TODAY</p>
+          <h4>
+          <span
+          class="earnings-today item-count animate-number semi-bold" >
+          <%#  @earnings[:today] %>
+          </span> <%= current_user.currency %></h4>
+        </div>
+        <div class="col-md-4 col-sm-4 no-padding">
+          <p class="semi-bold">THIS WEEK</p>
+          <h4><span class="item-count
+ animate-number earnings-week semi-bold">
+ <%#  @earnings[:week] %>
+</span> <%= current_user.currency %></h4>
+        </div>
+        <div class="col-md-4 col-sm-4 no-padding">
+          <p class="semi-bold">THIS MONTH</p>
+          <h4>
+          <span
+          class="item-count earnings-month animate-number
+          semi-bold">
+           <%=  @earnings[:month] %>
+</span> <%= current_user.currency %></h4>
+        </div>
+        <div class="clearfix"></div>
+            </div>
+            <div class="overlayer bottom-left fullwidth">
+              <div class="overlayer-wrapper">
+                    <%= content_tag "div", id: "chart", class: "graph",
+     data: { earnings: @earnings[:summary_data], currency: current_user.currency } do %>
+
+<div id="area-example" style="height: 245px;"></div><% end %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 no-padding text-center">
+               <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-b b-grey">
+
+                  <p class="small-text">TODAY SIGNUPS</p>
+
+                <div class="clearfix"></div>
+
+                  <h4 class="sales-month semi-bold"><%= @users_today || 0%></h4>
+
+
+                <div class="clearfix"></div>
+              </div>
+              <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-b b-grey">
+
+                  <p class="small-text">USERS</p>
+
+                <div class="clearfix"></div>
+
+                  <h4 class="sales-month semi-bold"><%= @users || 0%></h4>
+
+
+                <div class="clearfix"></div>
+              </div>
+              <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-b b-grey">
+
+                  <p class="small-text">PRODUTS</p>
+
+                <div class="clearfix"></div>
+
+                  <h4 class="visits-month semi-bold"><%= @products || 0%></h4>
+
+
+                <div class="clearfix"></div>
+              </div>
+              <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-grey">
+
+                  <p class="small-text">AVERAGE PRODUCT PRICE</p>
+
+<h4 class="visits-month semi-bold"><%= humanized_money_with_symbol @average_product_price || 0%></h4>
+                <div class="clearfix"></div>
+
+
+
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
