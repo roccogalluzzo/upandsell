@@ -4,14 +4,8 @@
   </div>
 </div>
 
+<div id="buy" style="display:none;">
+ <%= render partial: "products/modal" %>
+</div>
 
-  <% if @credit_card %>
-    <div id="buy" style="display:none;">
-     <%= render partial: "products/payments/credit_card" %>
-   </div>
-   <% end %>
-    <% if @paypal  %>
-  <div id="paypal"   style="display:none;">
-    <%= render partial: "products/payments/paypal" %>
-  </div>
-  <% end %>
+

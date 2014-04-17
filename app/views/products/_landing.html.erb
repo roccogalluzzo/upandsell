@@ -1,9 +1,9 @@
-
-<div class="product col-md-12">
- <% if @product.thumb_file_name %>
- <div class="row">
+<div id="js-product" class="product col-md-12"
+data-action="<%= @action %>" data-product-id="<%= @product.id %>">
+<% if @product.thumb_file_name %>
+<div class="row">
   <div class="col-md-12 product-image">
-     <%= image_tag @product.thumb.url,  class:"img-responsive" %>
+   <%= image_tag @product.thumb.url,  class:"img-responsive" %>
  </div>
 </div>
 <% end %>
@@ -20,41 +20,42 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <% if @downloads and @downloads < 5 and @order.present? %>
+      <% if @downloadable %>
       <%= link_to 'Download',
-      download_product_path(@order.token),
-      class: "btn btn-large btn-block btn-success" %>
-      <p>You can download the product further <span><%= 5 - @downloads  %></span> times </p>
-      <%# elsif @downloads and @downloads <= 5 %>
+      download_product_path(@token),
+      class: "btn btn-large btn-block btn-success  btn-link-download" %>
+      <p class="text-center">
+        You can download the product further
+        <b id="js-download-counts"><%= 5 - @downloads  %></b> times </p>
+        <%# elsif @downloads and @downloads <= 5 %>
 <!--           <a href="#"
           class="disabled btn btn-large btn-block btn-success">
           Download
         </a>
         <p>Reached limit downloads, <a href="#buy">buy again</a> </p> -->
         <% elsif !@published %>
-          <p class="text-danger text-center">This product is not currently for sale.</p>
+        <p class="text-danger text-center">This product is not currently for sale.</p>
         <% else %>
         <% if @paypal and !@credit_card %>
         <a href="#paypal"  data-product-id="<%= @product.id %>"
-        class="paypal btn btn-large btn-block btn-primary btn-buy">
+          class="paypal btn btn-large btn-block btn-primary btn-buy">
+          Buy Now!
+        </a>
+        <% else %>
+        <a id="js-btn-buy" href="#cc-form"
+        class="btn btn-large btn-block btn-primary btn-buy">
         Buy Now!
       </a>
-      <% else %>
-      <a href="#buy"
-      class="btn btn-large btn-block btn-primary btn-buy">
-      Buy Now!
+      <% end %>
+      <a href="#download"
+      class="btn btn-large btn-block btn-success btn-download hidden">
+      Download
     </a>
     <% end %>
-    <a href="#download"
-    class="btn btn-large btn-block btn-success btn-download hidden">
-    Download
-  </a>
-  <% end %>
-</div>
+  </div>
 </div>
 <div class="row">
   <div class="details col-md-12">
-
     <ul>
       <li><span class="text-muted">Size:</span>
         <b class=""><%= number_to_human_size @product.file_file_size %></b></li>
@@ -67,7 +68,9 @@
       </div>
     </div>
   </div>
+
   <div id="footer" class="row">
-    <p> <b>UP&amp;SELL.ME</b> </p>
+    <hr></hr>
+    <p>POWERED BY <b>UP</b>&amp;<b>SELL</b>.ME </p>
   </div>
 </div>

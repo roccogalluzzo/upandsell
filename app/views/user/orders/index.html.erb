@@ -36,9 +36,9 @@
               </td>
               <td> <%= order.product.name %> </td>
               <td><%= humanized_money_with_symbol order.amount %></td>
-              <td>               <%= order.updated_at.to_time.strftime('%e %b %Y') %>
+              <td>               <%= order.created_at.to_time.strftime('%e %b %Y') %>
 
-               <%= order.updated_at.to_time.strftime('%H:%m:%S') %>
+               <%= order.created_at.to_time.strftime('%H:%m:%S') %>
              </td>
              <td>
                <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary" %>

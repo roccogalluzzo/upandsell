@@ -11,7 +11,6 @@ Stats.init = function() {
   buildSummaryChart('area-example', data);
 
   $('select').on('change', function() {
-   console.log($(this).val())
    $.ajax({
     url: '/user/products/metrics',
     type: 'GET',
@@ -24,8 +23,8 @@ Stats.init = function() {
       $('.earnings-today').text(d.earnings.today/100);
       $('.earnings-week').text(d.earnings.week/100);
       $('.earnings-month').text(d.earnings.month/100);
-      $('.visits-month').text(d.visits[0]);
-      $('.sales-month').text(d.sales[0]);
+      $('.visits-month').text(d.visits);
+      $('.sales-month').text(d.sales);
       $('.conversion-rate').text(d.conversion_rate);
 
        updateSummaryChart(d.earnings.summary_data)

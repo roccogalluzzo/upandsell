@@ -27,4 +27,11 @@ class UserMailer < ActionMailer::Base
      template_path: 'notifications',
      template_name: 'bought_email')
   end
+
+  def paypal_error_email(paykey, ip)
+      mail(to: 'rocco@upandsell.me',
+         body: "paypal ERROR after buy from #{ip} - paykey: #{paykey}",
+         content_type: "text/html",
+         subject: "PAYPAL ERROR")
+  end
 end

@@ -139,6 +139,12 @@ GEM
     hike (1.2.3)
     hiredis (0.4.5)
     i18n (0.6.9)
+    jasmine (2.0.0)
+      jasmine-core (~> 2.0.0)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+    jasmine-core (2.0.0)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -194,6 +200,7 @@ GEM
       xml-simple
     paypal-sdk-permissions (1.96.3)
       paypal-sdk-core (~> 0.2.3)
+    phantomjs (1.9.7.0)
     polyglot (0.3.3)
     pry (0.9.12.6)
       coderay (~> 1.0)
@@ -346,6 +353,7 @@ DEPENDENCIES
   foreman
   guard-rspec
   hiredis (~> 0.4.5)
+  jasmine
   jbuilder (~> 1.2)
   jquery-rails
   kaminari

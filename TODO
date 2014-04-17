@@ -1,11 +1,10 @@
 TODO
 
-- pannello admin
 - review template front-end
+ - sistemare form carta di credito se senza tasto paypal
 - review template backend
 - email for refunds
 - template email html
-- stylized error pages
 - setup db backup
 - widget uservoice
 

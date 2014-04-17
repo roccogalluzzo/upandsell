@@ -25,4 +25,11 @@ module ApplicationHelper
  def title(page_title)
   content_for(:title) { page_title }
 end
+
+def is_admin?
+  current_user.admin?
+end
+def rot13(string)
+  string.tr "A-Za-z", "N-ZA-Mn-za-m"
+end
 end

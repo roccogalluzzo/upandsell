@@ -4,7 +4,6 @@
     "bootstrap": "3.1.0",
     "jquery-file-upload": "latest",
     "jquery.validation": "latest",
-    "fullpage.js": "latest",
     "jquery.payment": "latest",
     "slidr": "latest",
     "slimScroll": "latest",
@@ -14,6 +13,7 @@
     "bootstrap-switch": "latest",
     "momentjs": "latest",
     "infinite-scroll": "latest",
-    "zeroclipboard": "latest"
+    "zeroclipboard": "latest",
+    "jquery.transit": "latest"
   }
 }
