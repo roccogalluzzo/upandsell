@@ -42,7 +42,7 @@
           <!-- END MOBILE HEADER -->
           <!-- BEGIN LOGO -->
           <%= link_to user_root_path, class:'brand' do %>
-          <b>Up</b>&amp;<b>Sell</b>.Me
+          <b>Up</b><span>&amp;<b>Sell</b>.Me</span>
           <% end %>
           <!-- END LOGO -->
         </div>
@@ -55,95 +55,72 @@
           </div>
           <!-- END HEADER LEFT SIDE SECTION -->
           <!-- BEGIN HEADER RIGHT SIDE SECTION -->
-          <div class="pull-right">
-            <div class="chat-toggler">
-              <!-- BEGIN NOTIFICATION CENTER -->
-              <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom" data-content="" data-toggle="dropdown" data-original-title="Notifications">
-                <div class="user-details">
-                  <div class="username">
-                    <span class="bold">&nbsp;<%= current_user.name %>&nbsp;&nbsp;</span>
-                  </div>
-                </div>
-              </a>
-              <!-- END NOTIFICATION CENTER -->
-              <!-- BEGIN PROFILE PICTURE -->
-              <div class="profile-pic">
 
-                <%= gravatar_for current_user.email, :size => 35, :class => 'img-class', :alt => 'me' %>
-              </div>
-              <!-- END PROFILE PICTURE -->
-            </div>
-            <!-- BEGIN HEADER NAV BUTTONS -->
-            <ul class="nav quick-section">
+          <!-- BEGIN HEADER NAV BUTTONS -->
+          <ul class="nav quick-section pull-right">
+
             <% if is_admin? %>
-             <li class="quicklinks"><%= link_to(admin_root_path) do %>
-               <i class="fa fa-user"></i>
-               <% end %>
-             </li>
-               <li class="quicklinks"><span class="h-seperate"></span></li>
-<% end %>
-             <li class="quicklinks"><%= link_to(user_settings_account_path) do %>
-               <i class="fa fa-gear"></i>
-               <% end %>
-             </li>
+            <li class="quicklinks"><%= link_to(admin_root_path) do %>
+             <i class="fa fa-user  icon-user-2"></i>
+             <% end %>
+           </li>
+           <li class="quicklinks"><span class="h-seperate"></span></li>
+           <% end %>
+           <li class="quicklinks"><%= link_to(new_user_product_path) do %>
+             <i class="fa  icon-add-symbol"></i>
+             <% end %>
+           </li>
+           <li class="quicklinks"><span class="h-seperate"></span></li>
+           <li class="quicklinks"><%= link_to(user_settings_account_path) do %>
+             <i class="fa  icon-settings-wheel-fill"></i>
+             <% end %>
+           </li>
 
-             <li class="quicklinks"><span class="h-seperate"></span></li>
-             <li class="quicklinks"><%= link_to(destroy_user_session_path, :method => :delete) do %>
-               <i class="fa fa-power-off"></i>
-               <% end %>
-             </li>
-
-
-           </ul>
-           <!-- END HEADER NAV BUTTONS -->
-         </div>
-         <!-- END HEADER RIGHT SIDE SECTION -->
+           <li class="quicklinks"><span class="h-seperate"></span></li>
+           <li class="quicklinks"><%= link_to(destroy_user_session_path, :method => :delete) do %>
+             <i class="fa  fa-power-off"></i>
+             <% end %>
+           </li>
+         </ul>
        </div>
-       <!-- END CONTENT HEADER -->
+       <!-- END HEADER RIGHT SIDE SECTION -->
      </div>
-     <!-- END TOP NAVIGATION BAR -->
+     <!-- END CONTENT HEADER -->
    </div>
-   <!-- END HEADER -->
-   <!-- BEGIN CONTENT -->
-   <div class="page-container row-fluid">
-    <!-- BEGIN SIDEBAR -->
-    <!-- BEGIN MENU -->
-    <div class="page-sidebar" id="main-menu">
-      <div class="user-info-wrapper">
-       <%= link_to(new_user_product_path, class: "btn btn-block btn-primary") do %>
-       <i class="fa fa-lg fa-plus-circle"></i>&nbsp;<span class="bold"> NEW PRODUCT</span>
-       <% end %>
+   <!-- END TOP NAVIGATION BAR -->
+ </div>
+ <!-- END HEADER -->
+ <!-- BEGIN CONTENT -->
+ <div class="page-container row-fluid">
+  <!-- BEGIN SIDEBAR -->
+  <!-- BEGIN MENU -->
+  <div class="page-sidebar" id="main-menu">
 
-     </div>
-
-     <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-       <!-- BEGIN SIDEBAR MENU -->
-       <ul>
-        <li class="<%= 'active' if current_page?(user_root_path) %>">
-          <%= link_to user_root_path do %>
-          <i class="fa fa-lg fa-dashboard"></i>
-          <span> Summary </span>
-          <% end %>
-        </li>
-        <li class="<%= 'active' if current_page?(user_products_path) %>">
-         <%= link_to user_products_path do %>
-         <i class="fa fa-file"></i>
-         <span> Products </span>
-         <% end %>
-       </li>
-       <li class="<%= 'active' if current_page?(user_orders_path) %>">
-        <%= link_to user_orders_path do %>
-        <i class="fa fa-shopping-cart"></i>
-        <span>Orders</span>
+   <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+     <!-- BEGIN SIDEBAR MENU -->
+     <ul>
+      <li class="<%= 'active' if current_page?(user_root_path) %>">
+        <%= link_to user_root_path do %>
+        <i class="fa fa-lg fa-w icon-graph-up-1"></i>
+        <span> Summary </span>
         <% end %>
       </li>
-    </ul>
-    <!-- END SIDEBAR MENU -->
-  </div>
+      <li class="<%= 'active' if current_page?(user_products_path) %>">
+       <%= link_to user_products_path do %>
+       <i class="fa fa-lg fa-w icon-tag-2"></i>
+       <span> Products </span>
+       <% end %>
+     </li>
+     <li class="<%= 'active' if current_page?(user_orders_path) %>">
+      <%= link_to user_orders_path do %>
+      <i class="fa  fa-lg fa-w icon-reciept-1"></i>
+      <span>Orders</span>
+      <% end %>
+    </li>
+  </ul>
+  <!-- END SIDEBAR MENU -->
 </div>
-<!-- BEGIN SCROLL UP HOVER -->
-<a href="#" class="scrollup">Scroll</a>
-<!-- END SCROLL UP HOVER -->
+</div>
 <!-- END MENU -->
 <!-- END SIDEBAR -->
 <%# render partial: "layouts/messages", flash: flash %>

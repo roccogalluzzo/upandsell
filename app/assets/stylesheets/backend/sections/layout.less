@@ -1,5 +1,10 @@
 .header-seperation {
   background-color: @peter-river;
+  width: 215px;
+}
+h6 {
+  margin-top: 5px;
+  font-size: 17px;
 }
 .tab-content {
   border: none;
@@ -43,9 +48,32 @@
 
 .quicklinks {
 
+    &:hover {
+      a {
+      i {color: @peter-river !important;}
+
+    }
+    }
+
   i {
     font-size: 20px !important;
   }
+}
+
+.quick-section {
+background-color: @clouds;
+margin: 0 !important;
+padding: 16px;
+height: 60px;
+.h-seperate {
+  top: -5px !important;
+  display: block !important;
+  margin: 0px 14px 0px 14px !important;
+  height: 42px !important;
+}
+}
+.header-quick-nav {
+padding-right: 0 !important;
 }
 .page-sidebar {
 
@@ -62,19 +90,24 @@
   ul {
     .active {
       background-color: #2A394F !important;
-      border-left: #3498db 4px solid !important;
-    }
-    li {
-      border-left: transparent 4px solid !important;
-
-      a {
-        padding: 18.5px 31px 18.5px 31px !important;
-        font-size: 20px !important;
-
-        i { font-size: 28px !important; color: #3498db !important;}
-      }
+     // border-left: #3498db 4px solid !important;
+   }
+   li {
+    //  border-left: transparent 4px solid !important;
+    &:hover {
+     a {
+      background-color: #2A394F !important;
     }
   }
+  a {
+    padding: 18.5px 23px 18.5px 23px !important;
+    font-size: 18px !important;
+    color: @clouds;
+
+    i { font-size: 28px !important; color: @silver;}
+  }
+}
+}
 }
 .small-text {
 

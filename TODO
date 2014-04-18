@@ -1,7 +1,9 @@
 TODO
 
 - review template front-end
+ - provare a migliorare l-home page
 - review template backend
+ - il menu da cambiare
 - email for refunds
 - template email html
 - setup db backup
@@ -12,6 +14,7 @@ SI PARTE!
 - aggiungere custom GA codice
  -Tasto compra Embeddabbile
  - split front end e backend
+ - checkout versione mobile
 
 - v 1.2
  - coupons
