@@ -19,10 +19,10 @@
     opts.productId = $('#js-modal').data('product-id');
     opts.paypal = $('#js-modal').data('paypal');
    // opts.paypal = false;
-    ProductPage[opts.action]();
-  }
+   ProductPage[opts.action]();
+ }
 
-  ProductPage.buy = function() {
+ ProductPage.buy = function() {
    ProductPage.Modal.set('cc');
    $('#js-btn-buy').on('click', ProductPage.Form.open);
  }
@@ -59,12 +59,9 @@
 },
 open: function() {
   $.fn.custombox(opts.modal.options);
-
-
   if(opts.paypal == false) {
     $('#cc').height(250);
   }
-
   return false;
 },
 close: function() {
@@ -213,7 +210,12 @@ ProductPage.Paypal = {
       dataType: 'json',
       data: {product_id:  opts.productId},
       async: true,
-      success: function(d) { window.location.replace(d.url) }
+      success: function(d) {
+        window.location.replace(d.url)
+      },
+      error: function() {
+        ProductPage.Modal.close();
+      }
     });
     return  false;
   }

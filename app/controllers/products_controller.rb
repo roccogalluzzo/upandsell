@@ -31,6 +31,7 @@ class ProductsController < ApplicationController
 end
 
 def paypal
+  url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
   product = Product.find(params[:product_id])
   user  = product.user
   response = product.pay('paypal',
@@ -46,11 +47,10 @@ def paypal
     amount_currency: product.price_currency.upcase)
 
   if response.success? and order.save
-    url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
-    render json: { url:  url + response.payKey }, status: :ok
-  else
-    render json: {head: :unprocessable_entity}
+    render json: { url:  url + response.payKey }, status: :ok and return
   end
+
+  render json: {}, status: :unprocessable_entity
 end
 
 def download
