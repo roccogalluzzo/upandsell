@@ -1,21 +1,24 @@
 (function ($, ProductPage, undefined) {
 
-  var opts = {modal: {
-    options: {
-      url: '#js-modal',
-      width: 315,
-      effect: 'slide',
-      position: 'bottom',
-      speed:          600
-    },
-    pages: ['cc', 'paypal', 'download']
-  }};
+  var opts = {
+    height: 348,
+    modal: {
+      options: {
+        url: '#js-modal',
+        width: 315,
+        effect: 'slide',
+        position: 'bottom',
+        speed:          600
+      },
+      pages: ['cc', 'paypal', 'download']
+    }};
 
-  ProductPage.init = function() {
+    ProductPage.init = function() {
     // buy, buyPaypal, download, afterPaypal
-    opts.action = $('#js-product').data('action');
-    opts.productId = $('#js-product').data('product-id');
-    opts.onlyPaypal = $('#js-product').data('only-paypal');
+    opts.action = $('#js-modal').data('action');
+    opts.productId = $('#js-modal').data('product-id');
+    opts.paypal = $('#js-modal').data('paypal');
+   // opts.paypal = false;
     ProductPage[opts.action]();
   }
 
@@ -44,17 +47,24 @@
  ProductPage.Modal = {
   set: function(page, noAnimation) {
     for (i = 0; i < opts.modal.pages.length; ++i) {
-     var height = ((opts.modal.pages[i] == page) ? 348 : 0);
+     var height = ((opts.modal.pages[i] == page) ? opts.height : 0);
+
      if(noAnimation == true) {
       $('#' + opts.modal.pages[i]).height(height);
     }else{
-      $('#' + opts.modal.pages[i]).transition({height: height + 'px', queue: false},
-        600, 'easeInOutQuart');
-    }
-  }
+     $('#' + opts.modal.pages[i]).transition({height: height + 'px', queue: false},
+      600, 'easeInOutQuart');
+   }
+ }
 },
 open: function() {
   $.fn.custombox(opts.modal.options);
+
+
+  if(opts.paypal == false) {
+    $('#cc').height(250);
+  }
+
   return false;
 },
 close: function() {

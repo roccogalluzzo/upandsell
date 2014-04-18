@@ -1,4 +1,5 @@
-<div id="js-modal" class="buy-form" data-product-id="<%= @product.id %>">
+<div id="js-modal" class="buy-form" data-product-id="<%= @product.id %>"
+ data-action="<%= @action %>" data-paypal="<%= @paypal %>">
   <script type="text/javascript">
     var PAYMILL_PUBLIC_KEY = '<%= @product.user.credit_card_public_token %>';
   </script>
@@ -7,13 +8,10 @@
       <h3> <i class="fa icon-tag-2 fa-lg"></i>  <%= @product.name %></h3>
     </div>
 
-
-
-
   </div>
   <hr></hr>
-  <div class="row buy-form credit-card">
-   <div id="cc" class="c-form col-md-12" style="height: 348px !important; min-height: 0">
+  <div id="js-modal-body" class="row buy-form">
+  <div  id="cc" class="credit-card col-md-12 c-form" style="height: 348px !important; min-height: 0">
      <form id="cc-form" role="form" class="cc-form">
        <div class="processing"></div>
        <div class="message">  <p> <i class="fa fa-lg fa-refresh fa-spin"></i></p>
@@ -70,7 +68,7 @@
    </div>
    <% end %>
  </div>
- <div id="download" class="download-form" style="height: 0px;">
+ <div id="download" class="col-md-12 download-form" style="height: 0px;">
    <div class="row product">
      <div class="col-md-12 text-center">
        <h2><i class="fa  icon-checkmark-thick"></i></h2>
@@ -89,7 +87,7 @@
   </div>
 
 
-  <div id="paypal" class="download-form" style="height: 0px;">
+  <div id="paypal" class="col-md-12 download-form" style="height: 0px;">
    <div class="row product">
      <div class="col-md-12 text-center">
       <h2> <i class="fa fa-lg fa-refresh fa-spin fa-2x"></i></h2>
