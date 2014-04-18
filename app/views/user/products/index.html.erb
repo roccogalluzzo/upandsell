@@ -1,9 +1,7 @@
 <%- title "Products" %>
 <div class="row tiles-container  m-b-20">
   <div class="m-l-10 ">
-
     <div class="tiles white ">
-
      <% if @products.blank? %>
      <div class="p-t-10 p-b-10 m-l-10 m-r-10">
        <p class="text-center text-muted">No products Founds</p>
@@ -14,7 +12,6 @@
     </div>
     <% else %>
     <% @products.each do |product| %>
-
     <div class="p-t-10 p-b-10 m-l-10 m-r-10 b-b b-gray">
       <div class="post row">
         <div class="col-md-1">
@@ -30,20 +27,13 @@
          </p>
        </div>
      </div>
-     <div class="col-md-2 text-right">
+     <div class="col-md-2 text-right action-links">
 
-      <%= link_to edit_user_product_path(product), class: 'action-link' do %>
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-      </span>
+      <%= link_to   product_slug_path(product.slug), class: 'btn-circle-b' do %>
+      <i class="fa icon-link"></i>
       <% end %>
-
-      <%= link_to   product_slug_path(product.slug), class: 'action-link' do %>
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-link fa-stack-1x fa-inverse"></i>
-      </span>
+      <%= link_to edit_user_product_path(product), class: 'btn-circle' do %>
+      <i class="fa  icon-wrench-fill"></i>
       <% end %>
     </div>
 

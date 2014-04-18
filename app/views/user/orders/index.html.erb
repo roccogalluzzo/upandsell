@@ -6,8 +6,7 @@
       <div class="grid-body ">
 
 
-        <table class="table table-hover
-        table-condensed dataTable" id="example" aria-describedby="example_info">
+        <table class="table table-condensed ">
         <thead>
           <tr role="row">
            <th style="width:18%"
@@ -23,7 +22,7 @@
 
            <tbody role="alert" aria-live="polite" aria-relevant="all">
              <% if @orders.blank? %>
-             <tr><td col-span="5"><p class="text-center text-muted">No orders</p></td></tr>
+             <tr><td colspan="5"><p class="text-center text-muted">No orders</p></td></tr>
              <% else %>
              <tr>
               <% @orders.each do |order| %>

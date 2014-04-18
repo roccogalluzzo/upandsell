@@ -48,12 +48,12 @@ h6 {
 
 .quicklinks {
 
-    &:hover {
-      a {
+  &:hover {
+    a {
       i {color: @peter-river !important;}
 
     }
-    }
+  }
 
   i {
     font-size: 20px !important;
@@ -61,19 +61,19 @@ h6 {
 }
 
 .quick-section {
-background-color: @clouds;
-margin: 0 !important;
-padding: 16px;
-height: 60px;
-.h-seperate {
-  top: -5px !important;
-  display: block !important;
-  margin: 0px 14px 0px 14px !important;
-  height: 42px !important;
-}
+  background-color: @clouds;
+  margin: 0 !important;
+  padding: 16px;
+  height: 60px;
+  .h-seperate {
+    top: -5px !important;
+    display: block !important;
+    margin: 0px 14px 0px 14px !important;
+    height: 42px !important;
+  }
 }
 .header-quick-nav {
-padding-right: 0 !important;
+  padding-right: 0 !important;
 }
 .page-sidebar {
 
@@ -110,6 +110,57 @@ padding-right: 0 !important;
 }
 }
 .small-text {
-
   font-size: 16px !important;
 }
+
+ul > li {
+padding-left: 0px !important;
+}
+
+.action-links {
+  margin-top: 10px;
+}
+.btn-circle {
+ font-size: 21px;
+ border-radius: 50%;
+ width: 40px;
+ height:  40px;
+ border: 2px solid  #dfdfdf;
+ color: @silver;
+ display: block;
+ float: right;
+ margin-right: 10px;
+ &:hover{
+  background-color: @clouds;
+  color: @peter-river;
+}
+display: table-cell;
+vertical-align: middle;
+text-align: center;
+text-decoration: none;
+i {
+  top: 3px;
+  font-size: 24px;
+  position: relative;
+}
+
+}
+
+.btn-circle-b {
+  .btn-circle;
+  font-size: 23px;
+  i {
+    font-size: 24px;
+    top: 6px;
+  }
+
+}
+
+
+
+
+
+
+
+
+

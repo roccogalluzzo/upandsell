@@ -19,32 +19,7 @@
 //= require raphael/raphael
 //= require morris.js/morris
 //= require zeroclipboard/ZeroClipboard.min.js
-
 //= require_tree ./user
 
 
-$(document).ready(function(){
-
- Up.init();
-
-
-if ($(".alert").text().length > 20) {
-  $(".alert").fadeIn(1000, function() { $(this).delay(4000).fadeOut("slow"); });
-}
-
-$("select").selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-inverse'});
-$(".select").removeClass('form-control');
-
-$("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
-$("[data-toggle='switch']").change( function(){
- $.ajax({
-  url: '/user/settings/update_payments',
-  type: 'POST',
-  dataType: 'json',
-  data: {type: $(this).data('type'), value:  $(this).prop('checked')}
-});
-});
-
-Setup.init();
-
-});
+$(document).ready(Up.init);

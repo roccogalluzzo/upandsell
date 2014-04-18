@@ -19,6 +19,4 @@ Setup.init = function() {
   })
 };
 
-
-
 }(jQuery, window.Setup = window.Setup || {}));

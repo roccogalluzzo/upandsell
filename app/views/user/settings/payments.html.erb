@@ -32,7 +32,7 @@
 <%# f.check_box :credit_card_status, as: :boolean, data: {toggle: 'switch'},
 label: false %>
 <input type="checkbox"
-<% if @user.credit_card_token %>
+<% if @user.credit_card %>
   checked
   <% end %>
  data-toggle="switch" data-type="paymill" />
@@ -45,7 +45,7 @@ label: false %>
  <%# link_to("Refresh Token", user_settings_update_cc_token_path,
  class: 'btn btn-primary') %>
   <%# else %>
-  <% if @paymill_url %>
+  <% if !@user.credit_card_token %>
 <a href="<%= @paymill_url %>" class="btn btn-primary pull-right">Connect</a>
 <% else %>
 <a href="#" class="btn btn-primary pull-right" disabled >Connected</a>

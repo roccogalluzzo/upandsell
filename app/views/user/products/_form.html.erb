@@ -145,7 +145,7 @@ product_show <% unless uploaded %>  hid <% end%>">
   <% if uploaded == true %>
   <%= link_to "Delete", user_product_path(@product),
   method: :delete,
-  class: "m-r-5 btn btn-danger" %>
+  class: "m-r-5 btn btn-danger", confirm: "Are you sure?" %>
 
   <%
   if @product.published
@@ -159,7 +159,7 @@ end
 <%= link_to btn_text, toggle_published_user_product_path(@product),
 remote: true,
 data: {with: btn_with},
-class: "m-r-5 btn btn-info toggle-published" %>
+class: "m-r-5 btn btn-warning toggle-published" %>
 
 <% end %>
 <a class="edit-product btn btn-primary">Edit</a>

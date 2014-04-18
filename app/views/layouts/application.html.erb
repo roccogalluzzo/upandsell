@@ -25,6 +25,7 @@
     })(); </script>
   </head>
   <body>
+
     <!-- BEGIN HEADER -->
     <div class="header navbar navbar-inverse">
       <!-- BEGIN TOP NAVIGATION BAR -->
@@ -126,6 +127,10 @@
 <%# render partial: "layouts/messages", flash: flash %>
 <!-- BEGIN PAGE CONTAINER-->
 <div class="page-content">
+  <div class="animated-alert"><div class="message">
+    <p id="js-message" ></p>
+
+  </div></div>
   <div class="content">
     <%= yield %>
   </div>
