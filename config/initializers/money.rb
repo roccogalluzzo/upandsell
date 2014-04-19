@@ -12,9 +12,10 @@ MoneyRails.configure do |config|
   config.default_bank = EuCentralBank.new
   EU_CENTRAL_BANK_CACHE = cache = Rails.root.join('db', 'eu_bank_exchange_rates.xml')
   unless Rails.env == 'test'
-    Money.default_bank.save_rates(EU_CENTRAL_BANK_CACHE)
-    Money.default_bank.update_rates(EU_CENTRAL_BANK_CACHE)
-  end
+   Money.default_bank.save_rates(EU_CENTRAL_BANK_CACHE)
+   Money.default_bank.update_rates(EU_CENTRAL_BANK_CACHE)
+ end
+
   #if Rails.env == "production"
 
   #end

@@ -6,7 +6,8 @@ FactoryGirl.define do
     amount_cents 300
     amount_base_cents 150
     amount_currency 'USD'
-product
+    status 'completed'
+    product
   end
 
   factory :order_yankee, parent: :order do

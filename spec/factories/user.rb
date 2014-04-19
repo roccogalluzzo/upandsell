@@ -1,32 +1,35 @@
 FactoryGirl.define do
   factory :user do
-    name "Dummy user"
-    sequence(:email) { |n| "person#{n}@example.com" }
+    name "John"
+    sequence(:email) { |n| "person#{n}@byebye.com" }
     password '12345678'
     password_confirmation '12345678'
   end
 
-  factory :user_with_products, parent: :user do
 
+  factory :user_with_products, parent: :user do
     ignore do
-      products_count 5
-      type 'yankee'
+      products 2
     end
 
     after(:create) do |user, evaluator|
-     product = :"product_#{evaluator.type}"
-     create_list(product, evaluator.products_count, user: user)
-   end
- end
- factory :yankee_with_products, parent: :user_with_products do
-  currency 'USD'
-end
+      create_list(:product, evaluator.products, user: user)
+    end
+  end
+  factory :user_with_products_and_sales, parent: :user do
+    ignore do
+      products 2
+    end
 
-factory :french_with_products, parent: :user_with_products do
-  currency 'EUR'
-end
+    after(:create) do |user, evaluator|
+      create_list(:product_with_orders, evaluator.products, user: user)
+    end
+  end
 
-factory :english_with_products, parent: :user_with_products do
-  currency 'GBP'
-end
+  factory :user_yankee, parent: :user_with_products_and_sales do
+    currency 'USD'
+  end
+    factory :user_french, parent: :user_with_products_and_sales do
+    currency 'EUR'
+  end
 end
