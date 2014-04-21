@@ -68,6 +68,25 @@ serialize :settings
 serialize :credit_card_info
 serialize :paypal_info
 
+def unsubscribe_token(type)
+  verifier =  ActiveSupport::MessageVerifier.new(Upandsell::Application.config.secret_key_base)
+  token = verifier.generate("#{self.id}/#{type}")
+  {user: self.id, type: type, signature: token}
+end
+
+
+def self.is_valid_token?(id, type, signature)
+  verifier =  ActiveSupport::MessageVerifier.new(Upandsell::Application.config.secret_key_base)
+  verifier.generate("#{id}/#{type}") == signature
+end
+
+def self.unsubscribe(id, type, signature)
+  if self.is_valid_token?(id, type, signature)
+    user = self.find id
+    user.update_attribute :email_after_sale, false
+  end
+end
+
 def self.serialize_payment_info(type, *args)
   args.each do |method_name|
     eval "

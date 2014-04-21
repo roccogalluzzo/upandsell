@@ -1,14 +1,11 @@
 # encoding : utf-8
-
+require 'monetize/core_extensions'
 MoneyRails.configure do |config|
 
-  # To set the default currency
-  #
+  Money.silence_core_extensions_deprecations = true
   config.default_currency = :usd
 
-  # Set default bank object
-  #
-  # Example:
+
   config.default_bank = EuCentralBank.new
   EU_CENTRAL_BANK_CACHE = cache = Rails.root.join('db', 'eu_bank_exchange_rates.xml')
   unless Rails.env == 'test'

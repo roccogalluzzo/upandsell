@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415120053) do
+ActiveRecord::Schema.define(version: 20140419145944) do
 
   create_table "customers", force: true do |t|
     t.string   "name"
@@ -42,20 +42,21 @@ ActiveRecord::Schema.define(version: 20140415120053) do
   add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
 
   create_table "orders", force: true do |t|
-    t.integer  "product_id",                            null: false
+    t.integer  "product_id",                             null: false
     t.string   "email"
     t.string   "name"
     t.string   "payment_type"
     t.string   "payment_token"
-    t.integer  "amount_cents",      default: 0,         null: false
-    t.string   "amount_currency",   default: "USD",     null: false
-    t.string   "status",            default: "created"
-    t.string   "token",                                 null: false
-    t.integer  "n_downloads",       default: 0,         null: false
+    t.integer  "amount_cents",       default: 0,         null: false
+    t.string   "amount_currency",    default: "USD",     null: false
+    t.string   "status",             default: "created"
+    t.string   "token",                                  null: false
+    t.integer  "n_downloads",        default: 0,         null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "cc_type"
-    t.integer  "amount_base_cents", default: 0,         null: false
+    t.integer  "amount_base_cents",  default: 0,         null: false
+    t.boolean  "email_subscription"
   end
 
   create_table "product_files", force: true do |t|
@@ -108,6 +109,7 @@ ActiveRecord::Schema.define(version: 20140415120053) do
     t.boolean  "paypal",                 default: false
     t.text     "credit_card_info"
     t.text     "paypal_info"
+    t.boolean  "email_after_sale",       default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
