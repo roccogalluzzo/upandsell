@@ -2,7 +2,8 @@ daemonize true
 pidfile '/tmp/puma.pid'
 bind 'unix:///tmp/up-sell.sock'
 
-threads 0, 6
+threads 1, 6
+workers 2
 
 environment 'production'
 on_worker_boot do
