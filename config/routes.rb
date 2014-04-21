@@ -8,8 +8,10 @@ Upandsell::Application.routes.draw do
     root 'landing#index'
     get 'privacy' => 'site#privacy'
     get 'terms' => 'site#terms'
-    get 'unsubscribe/:user/:type/:signature' => 'emails#unsubscribe'
-     get 'unsubscribe/p/:order/:signature' => 'emails#unsubscribe_product_updates'
+    get 'unsubscribe/:user/:type/:signature' => 'emails#unsubscribe',
+     as: "unsubscribe"
+     get 'unsubscribe_order/p/:order/:signature' => 'emails#unsubscribe_product_updates',
+     as: "unsubscribe_product_updates"
   #product page
   get '/p/:slug' => 'products#show', :as => 'product_slug'
   get 'products/paypal' => 'products#paypal'

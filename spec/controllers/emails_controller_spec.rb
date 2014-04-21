@@ -31,7 +31,7 @@ describe EmailsController do
       @order.update_attribute :email_subscription, true
     end
     it "should unsubscribe buyer from user updates" do
-     get :unsubscribe_product_updates,  @order.unsubscribe_token('product')
+     get :unsubscribe_product_updates,  @order.unsubscribe_token
       (Order.find @order.id).email_subscription.should  equal false
    end
     it "should not unsubscribe buyer from user updates" do

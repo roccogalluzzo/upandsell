@@ -68,7 +68,9 @@ color:#181818; width:600px'>
   <td style='padding-top:30px; padding-bottom: 30px; text-align:center;
   font-family:Helvetica, Arial, sans-serif;
   font-size:11px; color: #999;'>
-  <b>UP</b>&amp;<b>SELL</b>.ME - <a href="<%# @Unsubscribe_url %>" style="color:#999">Unsubscribe</a>
+  <b>UP</b>&amp;<b>SELL</b>.ME - - <%= link_to "Unsubscribe",
+  unsubscribe_url(@user.unsubscribe_token('sales')),
+  style: "color:#999" %>
 </td>
 </tr>
 </table>
