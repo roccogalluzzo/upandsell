@@ -183,7 +183,8 @@ def auth_url
     end
 
     def user_params
-      params.require(:user).permit( :email, :name, :currency, :current_password, :password,
+      params.require(:user).permit( :email, :name, :email_after_sale, :ga_code,
+       :currency, :current_password, :password,
         :password_confirmation)
     end
  # TODO activate/deactivate newsletter weekly report

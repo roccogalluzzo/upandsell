@@ -1,10 +1,9 @@
 TODO
 
 * unsubscrive emails
-  - mancano solo i template html successo/errore
-  - gestire subscription nelle preferenze
+  - mancano i template html successo/errore
+  - conferma unsubscribe
 - setup db backup
-- aggiungere custom GA codice
 SI PARTE!
 
 - v 1.1

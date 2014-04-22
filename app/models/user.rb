@@ -3,7 +3,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,
   :confirmable, :async
-
+validates :ga_code,  :allow_blank => true,
+  length: { is: 13 }, format: {with:/[Uu][Aa]-\d{8}-\d/,
+  message: "Google Analitycs Code Not Valid." }
   has_many :products do
     def sales(period = nil)
      Order.where(product_id:

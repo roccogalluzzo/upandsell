@@ -69,6 +69,7 @@ def show
   @title = @product.name
   register_visit(@product)
   @paypal = @product.user.paypal
+  @ga_code = @product.user.ga_code
   @credit_card = @product.user.credit_card
   @published = true if (@paypal || @credit_card) && @product.published
   @action = @credit_card ? 'buy': 'buyPaypal'
