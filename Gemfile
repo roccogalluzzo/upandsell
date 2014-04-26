@@ -28,6 +28,7 @@ group :development, :test do
   gem 'byebug'
   gem 'guard-rspec', require: false
   gem 'jasmine'
+  gem 'fuubar'
 end
 group :test do
   gem 'faker'
