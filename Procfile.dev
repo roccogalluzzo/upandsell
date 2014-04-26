@@ -1,2 +1,4 @@
 web: bundle exec rails server
 redis:       redis-server
+sidekiq: bundle exec sidekiq
+mail: mailcatcher -f
