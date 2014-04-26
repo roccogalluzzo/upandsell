@@ -2,7 +2,7 @@ class Order < ActiveRecord::Base
 
  belongs_to :product
  monetize :amount_cents
- monetize :amount_base_cents
+ monetize :amount_base_cents, :with_currency => :eur
 
  before_create { self.token = SecureRandom.urlsafe_base64(16)}
  before_create {self.amount_base = self.amount.exchange_to('EUR')}
