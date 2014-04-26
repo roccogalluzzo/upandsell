@@ -1,22 +1,24 @@
 require 'spec_helper'
 
 describe EmailsController do
-  describe "GET #unsubscribe" do
+  describe "GET #confirm_unsubscribe_user" do
     before do
       @user = create(:user)
     end
     it "should unsubscribe user from sales notifications" do
       @user.unsubscribe_token('sales')
-      get :unsubscribe,  @user.unsubscribe_token('sales')
+      get :confirm_unsubscribe_user,  @user.unsubscribe_token('sales')
       (User.find @user.id).email_after_sale.should   equal false
     end
+
     it "don't unsubscribe user from sales notifications" do
-      get :unsubscribe,  {user: @user.id, type: 'sales', signature: "fake"}
+      get :confirm_unsubscribe_user,  {user: @user.id, type: 'sales', signature: "fake"}
       (User.find @user.id).email_after_sale.should  equal true
     end
   end
 
-  describe "GET #unsubscribe" do
+
+  describe "GET #confirm_unsubscribe_order" do
     before do
       stub_request(:head, /https:\/\/upandsell-test.s3.amazonaws.com\/.*/)
       .to_return(headers: {"Content-Length" => "33",
@@ -31,12 +33,12 @@ describe EmailsController do
       @order.update_attribute :email_subscription, true
     end
     it "should unsubscribe buyer from user updates" do
-     get :unsubscribe_product_updates,  @order.unsubscribe_token
-      (Order.find @order.id).email_subscription.should  equal false
+     get :confirm_unsubscribe_order,  @order.unsubscribe_token
+     (Order.find @order.id).email_subscription.should  equal false
    end
-    it "should not unsubscribe buyer from user updates" do
-     get :unsubscribe_product_updates,  {order: @order.id, signature: "fake"}
-      (Order.find @order.id).email_subscription.should equal true
+   it "should not unsubscribe buyer from user updates" do
+     get :confirm_unsubscribe_order,  {order: @order.id, signature: "fake"}
+     (Order.find @order.id).email_subscription.should equal true
    end
  end
 end
