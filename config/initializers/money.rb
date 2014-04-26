@@ -2,7 +2,6 @@
 require 'monetize/core_extensions'
 MoneyRails.configure do |config|
 
-  Money.silence_core_extensions_deprecations = true
   config.default_currency = :usd
 
 

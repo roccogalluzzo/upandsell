@@ -9,7 +9,7 @@ gem "devise-async"
 gem 'paypal-sdk-adaptivepayments'
 gem 'paypal-sdk-permissions'
 gem 'paymill'
-gem 'money-rails', "0.9.0"
+gem 'money-rails'
 gem 'monetize'
 gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'aws-sdk'
