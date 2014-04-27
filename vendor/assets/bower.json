@@ -2,14 +2,18 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "bootstrap": "3.1.0",
-    "font-awesome": "4.0.3",
-    "flat-ui-official": "latest",
     "jquery-file-upload": "latest",
     "jquery.validation": "latest",
-    "nvd3": "latest",
-    "fullpage.js": "latest",
     "jquery.payment": "latest",
     "slidr": "latest",
-    "slimScroll": "latest"
+    "slimScroll": "latest",
+    "animate.css": "latest",
+    "custombox": "latest",
+    "morris.js": "latest",
+    "bootstrap-switch": "latest",
+    "momentjs": "latest",
+    "infinite-scroll": "latest",
+    "zeroclipboard": "latest",
+    "jquery.transit": "latest"
   }
 }

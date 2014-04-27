@@ -4,7 +4,10 @@ defaults: &defaults
   s3_host_name: 's3-eu-west-1.amazonaws.com'
 development:
   <<: *defaults
-  bucket: "upandsell"
+  bucket: "upandsell-dev"
+test:
+  <<: *defaults
+  bucket: "upandsell-test"
 production:
   <<: *defaults
   bucket: "upandsell"

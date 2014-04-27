@@ -1,140 +1,159 @@
 class ProductsController < ApplicationController
   layout "product"
-  include PayPal::SDK::AdaptivePayments
   skip_before_filter :verify_authenticity_token, :only => [:ipn]
 
   def pay_info
-    @product = Product.find(params[:product_id])
-    render json: { price: @product.price.cents, currency: @product.price_currency.upcase }
+    product = Product.find(params[:product_id])
+    render json: { price: product.price.cents,
+     currency: product.price_currency.upcase
+   }
+ end
 
-  end
+ def pay
+  product = Product.find(params[:product_id])
+  user  = product.user
+  pay = product.pay('paymill', params[:token])
+  order = product.orders.build(
+    email: params[:email],
+    payment_type: 'paymill',
+    payment_token: pay.id,
+    status: 'completed',
+    amount: product.price,
+    cc_type: pay.payment["card_type"])
 
-  def pay
-    Paymill.api_key = Upandsell::Application.config.paymill[:private_key]
-    @product = Product.find(params[:product_id])
-    pay = Paymill::Transaction.create amount: @product.price.cents,
-    currency: @product.price_currency.upcase, token: params[:token]
-    token = ''
-    if pay.status == 'closed' && params[:email].present?
-      order = @product.orders.build(
-        email: params[:email],
-        payment_type: 'paymill',
-        payment_token: pay.id,
-        status: 'completed',
-        amount_cents: @product.price.cents,
-        amount_currency: @product.price.currency,
-        )
-      order.save
-      url = download_product_url(order.token)
-      update_user_products(order.product.id, order.token)
-      render json: { status: 'completed', url: url }
-      return
-    else
-      render json: { status: 'failed'}
-    end
+  if pay.status == 'closed' && params[:email].present? && order.save
+    url = download_product_url(order.token)
+    update_user_products(order.product.id, order.token)
+    render json: { url: url }, status: :ok
+  else
+    render json: {error: pay.response_code}, status: :unauthorized
   end
+end
 
-  def paypal
-    @product = Product.find(params[:product_id])
-    @customer  = Customer.find(@product.customer_id)
-   #Paypal logic
-   paypal = PayPal::SDK::AdaptivePayments.new
-   req = paypal.BuildPay(
-     :actionType => 'CREATE',
-     :receiverList => {'receiver' =>
-      [{'email' => @customer.email,
-       'amount' => @product.price
-       }]
-       },
-       :cancelUrl => product_url(id: @product.id, payment: 'failed'),
-       :returnUrl =>  products_check_payment_url(id: @product.id) +'&payKey=${payKey}',
-       :ipnNotificationUrl =>
-       if Rails.env.production?
-         products_ipn_url()
-       else
-         'http://upandsell.ngrok.com/products/ipn'
-       end,
-       :currencyCode => @product.price_currency.upcase
-       )
-   @response = paypal.pay(req)
-   if @response.success?
-    @order= @product.orders.build(
-      payment_type: 'paypal',
-      payment_token: @response.payKey,
-      status: 'created',
-      amount_cents: @product.price,
-      amount_currency: @product.price_currency.upcase
-      )
-    @order.product_id = @product.id
-    @order.save
-    status = 'ok'
-  end
+def paypal
   url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
-  render json: { status: status, url:  url + @response.payKey }
+  product = Product.find(params[:product_id])
+  user  = product.user
+  response = product.pay('paypal',
+    product_url(id: product.id, payment: 'failed'),
+    products_check_payment_url(id: product.id))
+
+  order = product.orders.build(
+    payment_type: 'paypal',
+    payment_token: response.payKey,
+    status: 'created',
+    cc_type: 'paypal',
+    amount_cents: product.price.cents,
+    amount_currency: product.price_currency.upcase)
+
+  if response.success? and order.save
+    render json: { url:  url + response.payKey }, status: :ok and return
+  end
+
+  render json: {}, status: :unprocessable_entity
 end
 
 def download
   @order = Order.find_by token: params[:token]
-  if @order.n_downloads < 5
+  if @order.n_downloads < 5 && @order.status == 'completed'
     redirect_to @order.product.expiring_url
     @order.increment!(:n_downloads)
     return
-    #head(:bad_request) and return unless File.exist?(path)
-   # send_file(path, :filename => @payment.product.file.instance.file_file_name)
- end
- render json: { status: "no more donwload permitted"}
+  end
+  head(:unauthorized)
 end
+
 def show
-  if params[:payKey]
-    @order = Order.find_by  payment_token: params[:payKey]
-    if @order.status = 'completed'
-      update_user_products(@order.product.id, @order.token)
-      @downloads =  @order.n_downloads
-    end
+  @product = Product.find_by! slug: params[:slug]
+  (render(status: :not_found) and return) if !@product.present?
+  @title = @product.name
+  register_visit(@product)
+  @paypal = @product.user.paypal
+  @ga_code = @product.user.ga_code
+  @credit_card = @product.user.credit_card
+  @published = true if (@paypal || @credit_card) && @product.published
+  @action = @credit_card ? 'buy': 'buyPaypal'
+  @downloadable = false
+ #registra pagamento paypal se presente
+ if params[:payKey]
+  order = Order.find_by  payment_token: params[:payKey]
+  if order.status == 'completed' && order.product.id == @product.id
+    update_user_products(order.product.id, order.token)
+    @downloads =  order.n_downloads
+    @action = 'afterPaypal'
+    @downloadable = true if (@downloads < 5)
+    @token = order.token
+    return
   end
-  @product = Product.find_by slug: params[:slug]
-  if !@downloads and is_user_product?(@product.id)
-    @order = Order.find_by token: session[:user_products][@product.id]
-    if @order.present?
-    @downloads =  @order.n_downloads
+
+end
+
+#check sessione se il prodotto risulta gia' acquistato
+if is_user_product?(@product.id)
+  order = Order.find_by token: session[:user_products][@product.id]
+  if order.present? && order.status == 'completed'
+    @downloads =  order.n_downloads
+    @action = 'download' if (@downloads < 5)
+    @downloadable = true if (@downloads < 5)
+    @token = order.token
   end
-  end
-  @paypal = @product.customer.paypal_status
-  @credit_card =  @product.customer.credit_card_status
-  if request.browser?
-Metric::Products.new(@product.id).incr_visits
-  end
+end
 end
 
 def ipn
   if PayPal::SDK::Core::API::IPN.valid?(request.raw_post)
     order = Order.find_by payment_token: params["pay_key"]
-    if params["status"] == "COMPLETED"
+    if order && order.status != 'refunded' && params["status"].downcase == "completed"
       order.status = 'completed'
+      order.email = params["sender_email"]
       order.save
     end
 
   end
-  render :nothing => true
+  render nothing: true
 
 end
 
 def check_paypal_payment
- @order = Order.find_by payment_token: params[:payKey]
- if @order.completed
-  status = 'ok'
-  url = product_slug_url(slug: @order.product.slug, payKey: params[:payKey])
+ tries ||= 5
+ if payment_completed?(params[:payKey])
+  redirect_to download_url(params[:payKey])
+  return
+else
+  5.times do
+    sleep(2)
+    if payment_completed?(params[:payKey])
+      redirect_to download_url(params[:payKey])
+      return
+    end
+  end
+  Rails.logger.error "Paypal Error after buy from #{request.remote_ip} - paykey: #{params[:payKey]}"
+  UserMailer.paypal_error_email(params[:payKey], request.remote_ip)
+  @title = "Paypal Error"
+  render 'paypal_error'
 end
-payKey = params[:payKey]
-respond_to do |format|
-  format.html {redirect_to url if status=='ok'}
-  format.json { render json: { status: status, url: url} }
 end
-end
+
 
 private
-def downadable?
+def register_visit(product)
+  ua = AgentOrange::UserAgent.new(request.env['HTTP_USER_AGENT'])
+  unless ua.is_bot?
+    Metric::Products.new(product.id).incr_visits
+  end
+end
 
+def download_url(pay_key)
+  order = Order.find_by payment_token: pay_key
+  return product_slug_url(slug: order.product.slug, payKey: pay_key)
+end
+
+def payment_completed?(pay_key)
+ order = Order.find_by payment_token: pay_key
+ if order and order.status == 'completed'
+   return true
+ end
+ return false
 end
 
 def update_user_products(product_id, token)
@@ -143,9 +162,8 @@ def update_user_products(product_id, token)
 end
 
 def is_user_product?(product_id)
-
   return true if session[:user_products] and
   session[:user_products].key? product_id
-
 end
+
 end

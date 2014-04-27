@@ -1,0 +1,166 @@
+.upload-box {
+  border: #eee dotted 3px;
+  margin: 10px;
+}
+
+
+.upload-box {
+  position: relative;
+  z-index: 9;
+  height: 200px;
+  background-color: rgba(236, 240, 241, 0.21);
+  border-radius: 6px;
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 9999;
+    p {
+
+     font-size: 24px;
+     line-height: 1.72222;
+     margin: 0 0 15px;
+     position: relative;
+     text-align: center;
+     top: 18%;
+     color: @silver;
+
+   }
+
+   .filename {
+    font-size: 18px;
+    color: rgb(88, 88, 88);
+    opacity: 0.9;
+    display: block;
+    text-align: center;
+    word-wrap: break-word;
+    text-decoration: underline;
+    margin: 0 4%;
+  }
+}
+.btn {
+  border-radius: 0 0 6px 6px;
+  position: relative;
+  bottom: 6px;
+}
+
+
+}
+.progress {
+  margin: 0px 23px 0px 23px !important;
+  margin-bottom: 10px !important;
+  height: 30px !important;
+}
+.upload-box:hover {
+
+  background-color: darken(@clouds, 3%);
+}
+.upload-box-inner {
+  position: relative;
+  border-radius: 6px;
+  color: transparent;
+  border-bottom: none;
+  height: 150px;
+  opacity: 0.6;
+  i {
+    color: @silver;
+    margin: 10% 0;
+    text-align: center;
+    display: block;
+  }
+
+}
+
+#currency {
+  cursor: pointer;
+  color: white !important;
+  background-color: @brand-secondary !important;
+}
+.fileInput {
+  cursor: pointer;
+  height: 100% !important;
+  position:absolute;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  /*This makes the button huge. If you want a bigger button, increase the font size*/
+  font-size:50px;
+  /*Opacity settings for all browsers*/
+  opacity: 0;
+  -moz-opacity: 0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
+
+.share-url {
+  h4 {
+    font-size: 23px;
+}
+
+  border: none;
+  margin-bottom: 15px;
+  padding: 11px;
+  border-radius: 6px;
+
+  .slug {
+  background-color: @clouds;
+  background-color: #ecf0f1;
+  border-radius: 6px;
+  }
+
+
+}
+.upload-box-preview {
+  padding-left: 0px !important;
+  padding-right:  0px;
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 9;
+  }
+
+
+
+  height: 265px;
+  border-radius: 6px;
+  border: #eee dotted 3px;
+  background-color: rgba(236, 240, 241, 0.21);
+  //margin-top: 24px;
+
+  .upload-box-preview-inner {
+    //padding-left: 15px;
+    position: relative;
+    border-radius: 6px;
+    color: transparent;
+    border-bottom: none;
+    opacity: 0.9;
+    overflow: hidden;
+    height: 100%;
+    p {
+
+     font-size: 25px;
+     line-height: 1.72222;
+     margin-top: 15px;
+     position: relative;
+     text-align: center;
+     top: 6%;
+     margin: 6px;
+     color: @silver;
+
+   }
+
+   i {
+    color: @silver;
+    margin: 13% 0;
+    text-align: center;
+    display: block;
+  }
+
+}
+}
+
+.upload-box-preview:hover {
+  background-color: darken(@clouds, 3%);
+}

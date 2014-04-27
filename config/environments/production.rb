@@ -1,6 +1,15 @@
 Upandsell::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  config.action_mailer.smtp_settings = {
+    :address   => "smtp.mandrillapp.com",
+    :port      => 587, # ports 587 and 2525 are also supported with STARTTLS
+    :enable_starttls_auto => true, # detects and uses STARTTLS
+    :user_name => "rocco@upandsell.me",
+    :password  => "EMUgctJsZOqYlv09MXZUkA", # SMTP password is any valid API key
+    :authentication => 'login', # Mandrill supports 'plain' or 'login'
+    :domain => 'upandsell.me', # your domain to identify your server when connecting
+  }
+   config.action_mailer.default_url_options = { :host => 'upandsell.me' }
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -21,7 +30,7 @@ Upandsell::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_assets = false
- config.assets.precompile += %w( product.js product.css customer_area.js customer_area.css )
+ config.assets.precompile += %w( product.js product.css frontend.js frontend.css )
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -41,10 +50,10 @@ Upandsell::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
-  config.log_level = :info
+  config.log_level = :warn
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]

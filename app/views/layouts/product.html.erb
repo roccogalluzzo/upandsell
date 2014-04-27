@@ -4,20 +4,39 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Up&amp;Sell.me</title>
+  <title>Up&amp;Sell.me - <%= @title %></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag    "product"%>
-  <%= javascript_include_tag "product"%>
   <%= csrf_meta_tags %>
-</head>
-<body class="product-page">
-  <div class="container">
-    <div class="row">
+  <script type="text/javascript">
+    WebFontConfig = {
+      google: { families: [ 'Lato:300,400,700:latin' ] }
+    };
+    (function() {
+      var wf = document.createElement('script');
+      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+    })(); </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', '<%= !@ga_code.blank? ? @ga_code: "UA-48766105-1" %>', 'upandsell.me');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body class="product-page">
+    <div class="container">
+      <div class="row">
         <%= yield %>
-
+      </div>
     </div>
-  </div>
-
-</body>
-</html>
+    <%= javascript_include_tag "product"%>
+  </body>
+  </html>

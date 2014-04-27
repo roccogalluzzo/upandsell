@@ -1,25 +1,11 @@
 test: &default
 
-  # Credentials for REST APIs
-  client_id: EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM
-  client_secret: EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM
-
-  # Mode can be 'live' or 'sandbox'
   mode: sandbox
-
-  # Credentials for Classic APIs
   app_id: APP-80W284485P519543T
-  username: cicio_api1.galluzzo.me
-  password: 1380265896
-  signature: ACXOynAE4-4hmGxsXPS1TQ2mkkDIAkkcSXkACzxwx9jAOOKTEmzGvEFw
-  # # With Certificate
-  # cert_path: "config/cert_key.pem"
-  sandbox_email_address: mail-facilitator@roccogalluzzo.com
-
-  # # IP Address
-  #ip_address: 127.0.0.1
-  # # HTTP Proxy
-  # http_proxy: http://proxy-ipaddress:3129/
+  username: paypal-facilitator_api1.upandsell.me
+  password: '1397145109'
+  signature: AFcWxV21C7fd0v3bYYYRCpSSRl31AgtEdy0k9Q0TW737D.pzUB2OP6Ot
+  sandbox_email_address: paypal-facilitator@upandsell.me
 
 development:
   <<: *default
@@ -27,3 +13,7 @@ development:
 production:
   <<: *default
   mode: live
+  app_id: APP-3V302379BY2834801
+  username: paypal_api1.upandsell.me
+  password: '4E5UCPB57PG6YNF9'
+  signature: AsPxQ1QE08pceY0JRUjrNP0wGOlZAXh73eD9RNsGgSmy-YtVDg06-AGx

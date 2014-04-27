@@ -1,5 +1,7 @@
-.stats-summary {
-  margin-top: 10px;
+.period-selector {
+  .nav;
+  .nav-pills;
+  .pull-right;
 }
 
 .stats-summary-col {
@@ -41,16 +43,18 @@ small {
 
 
 .list-item {
-  padding: 6px;
+  padding: 12px 4px;
   margin: 0px;
-  height: 70px;
+  height: 82px;
   cursor: pointer;
   /* border-radius: 5px;*/
-  border-bottom: 2px solid  @clouds;
-img {
-   height: 55px;
+  border-top: 1px solid  @clouds;
+.missing-img {
+  .img-circle;
+  background-color: @clouds;
+  height: 55px;
   width: 55px;
-  margin: 0 10px;
+   margin: 0 10px;
 }
 .ext {
   padding-top: 16px;
@@ -65,6 +69,10 @@ img {
    }
    i {   margin-right: 10px; }
 }
+}
+
+.order-list-item {
+  .list-item;
 }
 .list-item:hover {
  background-color: #F9F9F9;

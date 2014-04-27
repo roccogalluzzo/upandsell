@@ -18,9 +18,15 @@
 /tmp
 /public/system
 /config/database.yml
-
+coverage
 config/database.yml
 
 #ignore Bower assets
 
 vendor/assets/bower_components
+
+*.rdb
+
+db/exchange_rates.xml
+
+db/eu_bank_exchange_rates.xml

@@ -1,68 +1,50 @@
-<% content_for :header do %>
-<div class="col-lg-10">
-  <h1>PRODUCTS</h1>
-</div>
-<div class="col-lg-2">
- <%= link_to "Add Product",
- new_user_product_path, class: "pull-right btn btn-primary" %>
- </div>
- <% end %>
-
- <div class="row">
-  <div class="col-lg-12">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="list">
-
-             <% if @products.blank? %>
-             <p>No products Founds</p>
-             <% else %>
-             <% @products.each do |product| %>
-             <div class="list-item row"
-             data-url="<%= url_for edit_user_product_path(product) %>">
-               <div class="col-sm-1 list-img">
-                <%= image_tag product.thumb.url(:small), :class => "img-circle" %>
-              </div>
-              <div class="col-sm-8 details">
-                <strong>
-                 <%= product.name %>
-                </strong>
-                   <%= link_to  controller: '/products', action: 'show',
-                      slug: product.slug, only_path: false do %>
-                <i class="fa fa-link fa-lg hidden"></i>
-                <% end %>
-                <div clas="row">
-                  <div class="col-sm-12">
-
-                  </div>
-                </div>
-              </div>
-              <div  class="col-sm-2 ext">
-              <!--
-                <a href="  ">
-                -->
-
-                <%# link_to(user_product_path(product), remote: true, :method => :delete) do %>
-                <!--<i class="fa fa-lg fa-times text-danger"></i> -->
-                <%# end %>
-
-
-              </div>
-              <div class="col-sm-1 chevron">
-              <i class="fa fa-2x fa-chevron-right text-muted"></i>
-              </div>
-            </div>
-            <% end %>
-            <% end %>
-
-
-          </div>
-        </div>
-      </div>
+<%- title "Products" %>
+<div class="row tiles-container  m-b-20">
+  <div class="m-l-10 ">
+    <div class="tiles white ">
+     <% if @products.blank? %>
+     <div class="p-t-10 p-b-10 m-l-10 m-r-10">
+       <p class="text-center text-muted">No products Founds</p>
+       <p class="text-center">
+        <%= link_to "Add One Now",
+        new_user_product_path, class: "btn btn-lg btn-add btn-primary" %>
+      </p>
     </div>
+    <% else %>
+    <% @products.each do |product| %>
+    <div class="p-t-10 p-b-10 m-l-10 m-r-10 b-b b-gray">
+      <div class="post row">
+        <div class="col-md-1">
+         <img class="product-image img-rounded"
+         src="<%= product.thumb.url(:small) %>"
+         style="height: 60px; width: 60px;">
+       </div>
+
+       <div class="col-md-9">
+        <div class="info text-black ">
+          <p>
+           <strong> <%= product.name %></strong>
+         </p>
+       </div>
+     </div>
+     <div class="col-md-2 text-right action-links">
+
+      <%= link_to   product_slug_path(product.slug), class: 'btn-circle-b' do %>
+      <i class="fa icon-link"></i>
+      <% end %>
+      <%= link_to edit_user_product_path(product), class: 'btn-circle' do %>
+      <i class="fa  icon-wrench-fill"></i>
+      <% end %>
+    </div>
+
   </div>
+</div>
+<% end %>
+<% end %>
+</div>
+<div class="tiles white text-center p-t-5 p-b-5 ">
+ <%= paginate @products %>
+</div>
 </div>
 </div>
 

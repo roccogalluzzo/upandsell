@@ -12,7 +12,7 @@
               url: '/products/check_payment',
               type: 'GET',
               dataType: 'json',
-              data: {payKey: <%= payKey %>,
+              data: {payKey: '<%= @payKey %>',
               async: false,
               success: function(d) {
                 if(d.status == 'ok'){

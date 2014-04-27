@@ -1,0 +1,5 @@
+ 100 minuti di testing al giorno
+
+ - unit test per i models
+- controller tests
+- js test

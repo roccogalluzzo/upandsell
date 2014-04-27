@@ -6,7 +6,7 @@ set :stage, :production
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
 role :app, %w{byterussian@upandsell.me:4688}
-
+role :db, %w{byterussian@upandsell.me:4688}
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server

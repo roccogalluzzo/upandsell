@@ -1,21 +1,37 @@
 /* Manifest File for Product FrontEnd */
+/*
+ *= require font-awesome
+ *= require custombox/src/jquery.custombox.css
+ */
+ @import "bootstrap/less/bootstrap.less";
+ @import "flat-ui-pro/less/flat-ui.less";
+ @import "fonts/picto-foundry-general";
+ @import "fonts/picto-foundry-shopping-finance";
 
-@import "bootstrap/less/bootstrap.less";
-@import "font-awesome/less/font-awesome.less";
-@import "flat-ui-official/less/flat-ui.less";
-@import "fullpage.js/jquery.fullPage.css";
-@local-font-path: "/assets/lato/";
-
-// general
-.product-page {
-  background-color: @belize-hole;
+ .error_page {
+  color: #333;
+  .text-center;
+  font-family: "Lato", sans-serif;
+  h2 {
+    color: #34495e;
+  //  background-color: @clouds;
 }
+h4 {
+ //color: #fafafa;
+}
+}
+.product-page {
+  background-color: @concrete;
+  padding-top: 40px;
+}
+.reverse { unicode-bidi:bidi-override; direction:rtl; }
 .product {
   padding: 0px 15px;
   padding-bottom: 0px;
   border-radius: 6px;
   background-color: white;
 }
+
 .controlArrow {
   display: none;
 }
@@ -28,19 +44,66 @@
   margin-top: 15px;
 }
 }
+#paypal {
+  h2 {
+    margin-top: 56px;
+    color: @silver;
+    margin-bottom: 42px;
+  }
 
-// credit card form
+  h3 {
+    margin-top: 0px;
+    color: #444;
+    font-size: 28px;
+  }
+}
+#download {
+  h2 {
+    margin-top: 20px;
+    color: @emerald;
+    margin-bottom: 2px;
+  }
+  p {
+    margin-top: 8px;
+  }
+  h3 {
+    margin-top: 0px;
+    color: #444;
+  }
+}
+// Pay Form
+
+.buy-form {
+  background-color: white;
+  padding: 0px 2px;
+  padding-bottom: 0;
+}
+.credit-card {
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+
+}
+.download-form {
+  padding-bottom: 0px;
+  background-color: white;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+}
 .middleline {
  width: 100%;
  text-align: center;
  border-bottom: 1px solid @clouds;
  line-height: 0.1em;
- margin: 30px 0 0px;
+ margin: 8px 0 0px;
  span {
   background:#fff;
   padding:0 10px;
 }
 }
+
 .processing
 {
   background-color: #535353;
@@ -58,6 +121,7 @@
   border-radius: 6px;
   display: none;
 }
+
 .message {
  position: absolute;
  left: 1%;
@@ -72,44 +136,105 @@
   margin-bottom: 10px;
 }
 }
-.btn-pay {
+.btn-cc {
+  .btn;
+  .btn-lg;
+  .btn-block;
+  .btn-primary;
   margin-top: 5px;
+  font-size: 19px;
 }
+
+.btn-paypal {
+  .btn;
+  .btn-lg;
+  .btn-block;
+  .btn-info;
+  margin-top: 5px;
+  font-size: 19px;
+}
+
 .left-addon {
   position: relative;
 }
 .left-addon input {
-  padding-left: 40px;
+  padding-left: 44px;
 }
 .left-addon i {
   position: absolute;
   left: 0px;
-  padding: 13px 12px;
+  padding: 13px 8px;
   pointer-events: none;
+  color: @asbestos;
 }
-.credit-card {
-  padding: 20px;
-  padding-bottom: 0;
+.r-a {
+ // padding-right: 35px;
+}
+.i-offset {
+  padding-top: 9px !important;
+}
+.right-addon {
+
+  position: absolute;
+  left: 87% !important;
+  right: 0px;
+  padding: 13px 8px;
+  pointer-events: none;
+  color: @asbestos;
+}
+
+.form-group {
+  margin-bottom: 14px !important;
+}
+.pay-footer {
+ // border-top: @clouds 2px solid;
+ text-align: center;
+ // height: 387px;
+// border-radius: 6px 6px 0 0;
+padding: 0;
+position: relative;
+
+p {
+  margin: 0;
+  font-size: 14px;
+  padding: 10px 0;
+  border-radius: 0 0 6px 6px;
+  background-color: #fafafa;
+
+}
+}
+
+hr {
+  display: block;
+  height: 2px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-image: image-url('hr.png');
 }
 .pay-title {
-  background-color: @clouds;
+  background-color: #fafafa;
   text-align: center;
-  height: 387px;
-  border-radius: 6px;
-  padding-top: 22px;
+  border-radius: 6px 6px 0 0;
+  padding: 10px 0;
   position: relative;
-  h2 {
-    margin-top: 5px !important;
-    margin-bottom: 5px !important;
-  }
+
   h3 {
     margin-top: 5px !important;
     margin-bottom: 5px;
-    text-transform: uppercase;
     word-spacing: 4px;
     font-size: 18px;
     color: #888 !important;
   }
+
+  h4 {
+    margin-top: 5px !important;
+    margin-bottom: 5px;
+    word-spacing: 4px;
+    font-size: 25px;
+    color: #888 !important;
+  }
+
   p {
     font-size: 18px;
     font-weight: 600;
@@ -193,9 +318,13 @@ p {
   font-weight: 500;
 }
 .product-image {
+  padding: 0;
+  border-radius: 6px 6px 0 0;
   border-bottom: @clouds  solid 2px;
   /*background-color: @clouds;*/
   border-top: none;
+  height: 300px;
+  overflow: hidden;
 }
 .details {
  margin-top: 15px;
@@ -219,8 +348,8 @@ li {
   margin-right: auto;
 }
 #footer p {
- border-top: @clouds solid 2px;
- margin-bottom: 5px;
- padding: 10px;
- .text-center;
+// border-top: @clouds solid 2px;
+margin-bottom: 5px;
+padding: 10px;
+.text-center;
 }
