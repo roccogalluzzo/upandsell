@@ -4,15 +4,13 @@ gem 'rails', '4.0.2'
 gem 'puma'
 
 #custom gems
-gem 'devise'
+gem 'devise', '3.2.4'
 gem "devise-async"
 gem 'paypal-sdk-adaptivepayments'
 gem 'paypal-sdk-permissions'
 gem 'paymill'
 gem 'money-rails'
 gem 'monetize'
-gem 'paperclip', github: 'thoughtbot/paperclip'
-gem 'aws-sdk'
 gem 'simple_form'
 gem 'agent_orange'
 gem 'eu_central_bank'
@@ -21,6 +19,9 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'whenever', require: false
 gem 'remotipart', '~> 1.2'
+gem 'json'
+gem 'faraday'
+gem 'faraday_middleware'
 #test gems
 group :development, :test do
   gem 'rspec-rails'
@@ -36,6 +37,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'webmock'
+  gem 'vcr'
   gem 'sqlite3'
   gem 'simplecov', '~> 0.7.1', require: false
 end

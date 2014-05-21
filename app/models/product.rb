@@ -1,89 +1,86 @@
-class Product < ActiveRecord::Base
-  include Payable
+class Product
+  extend  ActiveModel::Naming
+  include ActiveModel::Validations
+  include ActiveModel::Conversion
+  include API
 
-  has_many :orders
-  belongs_to :user
-  validates_presence_of :name, :price, :uuid, :file_file_name
+  attr_accessor :id, :slug, :name, :price, :currency, :file, :file_key,
+  :description, :preview, :published, :user_id
 
-  before_create { self.slug = (Time.now.to_i + rand(1..100)).to_s(36)}
 
-  Paperclip.interpolates :user_id do |attachment, style|
-    attachment.instance.user_id.to_s
+
+  def initialize(params = {})
+    params.each { |key, value| send "#{key}=", value }
   end
 
-  before_save :set_upload_attributes
-  after_destroy :clean_files
-
-  has_attached_file :thumb, styles: { small: "72x60" },
-  convert_options: {
-    thumb: "-quality 75 -strip -thumbnail" },
-    storage: :s3,
-    s3_protocol: 'https',
-    s3_credentials: "#{Rails.root}/config/aws.yml",
-    path: 'uploads/products/images/:user_id/:id.:style.:extension',
-    s3_permissions: :public_read,
-    :default_url => ActionController::Base.helpers.asset_path('missing.png')
-
-    validates_attachment_content_type :thumb, :content_type => /\Aimage/
-
-    monetize :price_cents, with_model_currency: :price_currency
-    validates :price_cents, :numericality => {
-      :greater_than => 0.50
-    }
-
-    def clean_files
-      self.delete_file(self.uuid, self.file_file_name)
-    end
-
-    def extension
-     File.extname(self.file_file_name).delete('.')
-   end
-
-   def expiring_url(time = 3600)
-    s3 = AWS::S3.new
-    tries ||= 5
-    direct_upload_url_data = "uploads/products/#{self.uuid}/#{self.file_file_name}"
-    s3.buckets[Rails.configuration.aws["bucket"]]
-    .objects[direct_upload_url_data].url_for(:read, expires: time, secure: true).to_s
-  rescue AWS::S3::Errors::NoSuchKey => e
-    tries -= 1
-    if tries > 0
-      sleep(3)
-      retry
-    else
-      false
-    end
+  def find(id)
+    response = API.api.get("products/#{id}").body
+    update_attributes(response)
+    self
   end
 
-  def set_upload_attributes
-    tries ||= 5
-    if self.uuid_changed?
-      direct_upload_url_data = "uploads/products/#{self.uuid}/#{self.file_file_name}"
-      s3 = AWS::S3.new
-      direct_upload_head = s3.buckets[Rails.configuration.aws["bucket"]].objects[direct_upload_url_data].head
-      self.file_file_size     = direct_upload_head.content_length
-      self.file_content_type  = direct_upload_head.content_type
-      self.file_updated_at    = direct_upload_head.last_modified
-    end
-    if self.uuid_was != self.uuid
-   #delete old file
-   self.delete_file(self.uuid_was, self.file_file_name_was)
+  def find_by_slug(slug)
+    response = API.api.get('products', slug: slug).body[0].symbolize_keys
+    update_attributes(response)
+    self
+  end
+
+  def self.file(name)
+    API.api.post('products/file', name: name).body
+  end
+
+  def create
+   response = API.api.post('products', attributes).body.symbolize_keys
+   update_attributes(response)
+   true
  end
+
+ def update
+  response = API.api.put("products/#{@id}", attributes).body.symbolize_keys
+  update_attributes(response)
+  true
 end
 
-def delete_file(uuid, file_file_name)
-  direct_upload_url_data = "uploads/products/#{uuid}/#{file_file_name}"
-  s3 = AWS::S3.new
-  direct_upload_head = s3.buckets[Rails.configuration.aws["bucket"]].objects[direct_upload_url_data].delete
+def destroy
+ API.api.delete("products/#{@id}")
+end
 
-rescue AWS::S3::Errors::NoSuchKey => e
-  tries -= 1
-  if tries > 0
-    sleep(3)
-    retry
-  else
-    false
+def publish
+  API.api.put("products/#{@id}/published")
+end
+
+def unpublish
+ API.api.delete("products/#{@id}/published")
+end
+
+def update_attributes(attrs)
+ attrs.each { |key, value| send "#{key}=", value }
+end
+
+def self.user(user_id, page = 1, per_page = 5)
+  if page.blank?
+    page = 1
   end
-
+  response  = API.api.get("products/user/#{user_id}", page: page, per_page: per_page)
+  response.body.map { |x| x.symbolize_keys }
 end
+
+def extension
+ File.extname(self.file_file_name).delete('.')
+end
+
+def persisted?
+  true unless  @id.blank?
+end
+
+def attributes
+  if !@preview.blank? && @preview.instance_of?(ActionDispatch::Http::UploadedFile)
+    preview =  Faraday::UploadIO.new(@preview.path, @preview.content_type)
+  else
+    preview = nil
+  end
+  {name: @name, price: @price, currency: @currency, file_key: @file_key,
+    description: @description, preview: preview, published: @published,
+    user_id: @user_id}
+  end
 end

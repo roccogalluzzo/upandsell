@@ -1,8 +1,8 @@
 <div id="js-product" class="product col-md-12">
-<% if @product.thumb_file_name %>
+<% if @product.preview['full'] %>
 <div class="row">
   <div class="col-md-12 product-image">
-   <%= image_tag @product.thumb.url,  class:"img-responsive" %>
+   <%= image_tag @product.preview['full'],  class:"img-responsive" %>
  </div>
 </div>
 <% end %>
@@ -57,11 +57,11 @@
   <div class="details col-md-12">
     <ul>
       <li><span class="text-muted">Size:</span>
-        <b class=""><%= number_to_human_size @product.file_file_size %></b></li>
+        <b class=""><%# number_to_human_size @product[:file] %></b></li>
         <li> <span class="text-muted">Type:</span>
-          <b class=""><%= @product.extension.upcase %></b></li>
+          <b class=""><%= @product.file["ext"].upcase %></b></li>
           <li> <span class="text-muted">By:</span>
-            <b class=""><%= @product.user.name %></b></li>
+            <b class=""><%= @user.name %></b></li>
           </ul>
         </div>
       </div>

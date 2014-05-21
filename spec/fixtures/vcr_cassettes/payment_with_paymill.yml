@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:9292/api/v1/products/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '426'
+    body:
+      encoding: UTF-8
+      string: '{"id":2,"name":"ciao","file":{"key":"uploads/products/6aa79215-d52a-4b0b-be2f-a5f39604ba49/_katproxy.com_the.walking.dead.s04e14.hdtv.x264.2hd.ettv.torrent","name":"_katproxy.com_the.walking.dead.s04e14.hdtv.x264.2hd.ettv.torrent","ext":".torrent"},"price":50,"currency":"USD","user_id":1,"slug":"n5s0zz","published":true,"description":"","preview":{"full":"http://placehold.it/350x150","thumb":"http://placehold.it/350x150"}}'
+    http_version:
+  recorded_at: Tue, 20 May 2014 11:33:27 GMT
+- request:
+    method: post
+    uri: https://c22776f4745902e568b0532f73e5a723:@api.paymill.com/v2/payments
+    body:
+      encoding: US-ASCII
+      string: token=tok_792738b0cbb450fdf18e
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{
+        "data" : {
+        "id"           : "pay_3af44644dd6d25c820a8",
+        "type"         : "creditcard",
+        "card_type"    : "visa",
+        "expire_month" : "10",
+        "expire_year"  : "2013",
+        "card_holder"  : "",
+        "last4"        : "1111",
+        "created_at"   : 1349942085,
+        "updated_at"   : 1349942085,
+        "app_id"       : null}, "mode" : "test"}'
+    http_version:
+  recorded_at: Tue, 20 May 2014 11:33:30 GMT
+recorded_with: VCR 2.9.0
+

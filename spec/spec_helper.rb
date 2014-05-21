@@ -6,7 +6,13 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
 require 'webmock/rspec'
-WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.disable_net_connect!()
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  c.hook_into :webmock # or :fakeweb
+  #c.allow_http_connections_when_no_cassette = true
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

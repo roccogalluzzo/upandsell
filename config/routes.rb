@@ -15,14 +15,14 @@ Upandsell::Application.routes.draw do
 
     get 'unsubscribe/o/:order/:signature' => 'emails#unsubscribe_order',
     :as => 'unsubscribe_order'
-      get 'confirm_unsubscribe/o/:order/:signature' => 'emails#confirm_unsubscribe_order',
+    get 'confirm_unsubscribe/o/:order/:signature' => 'emails#confirm_unsubscribe_order',
     :as => 'confirm_unsubscribe_order'
     get 'unsubscribed' => 'emails#unsubscribed'
   #product page
   get '/p/:slug' => 'products#show', :as => 'product_slug'
   get 'products/paypal' => 'products#paypal'
-  get 'products/pay_info' => 'products#pay_info'
-  post 'products/pay' => 'products#pay'
+  get 'checkout/pay_info' => 'checkouts#pay_info'
+  post 'checkout/pay' => 'checkouts#pay'
   get 'products/check_payment' => 'products#check_paypal_payment'
   post 'products/ipn' => 'products#ipn'
   get 'download/p/:token' => 'products#download', :as => 'download_product'
@@ -51,7 +51,7 @@ Upandsell::Application.routes.draw do
     get 'settings/add_paypal' => 'settings#add_paypal'
     get 'settings/add_paypal_callback' => 'settings#add_paypal_callback'
     root 'products#summary'
-    get 'products/upload_request'  => 'products#upload_request'
+    post 'products/files'  => 'products#files'
     post 'products/file_changed'  => 'products#file_changed'
     get 'products/metrics'  => 'products#metrics'
     resources :products, except: [:show] do

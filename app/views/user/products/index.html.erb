@@ -16,23 +16,23 @@
       <div class="post row">
         <div class="col-md-1">
          <img class="product-image img-rounded"
-         src="<%= product.thumb.url(:small) %>"
+         src="<%= product[:preview]['thumb'] %>"
          style="height: 60px; width: 60px;">
        </div>
 
        <div class="col-md-9">
         <div class="info text-black ">
           <p>
-           <strong> <%= product.name %></strong>
+           <strong> <%= product[:name] %></strong>
          </p>
        </div>
      </div>
      <div class="col-md-2 text-right action-links">
 
-      <%= link_to   product_slug_path(product.slug), class: 'btn-circle-b' do %>
+      <%= link_to   product_slug_path(product[:slug]), class: 'btn-circle-b' do %>
       <i class="fa icon-link"></i>
       <% end %>
-      <%= link_to edit_user_product_path(product), class: 'btn-circle' do %>
+      <%= link_to edit_user_product_path(product[:id]), class: 'btn-circle' do %>
       <i class="fa  icon-wrench-fill"></i>
       <% end %>
     </div>
@@ -43,7 +43,7 @@
 <% end %>
 </div>
 <div class="tiles white text-center p-t-5 p-b-5 ">
- <%= paginate @products %>
+ <%# paginate @products %>
 </div>
 </div>
 </div>

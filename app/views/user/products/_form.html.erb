@@ -1,11 +1,8 @@
 <%
 file_error = false
 uploaded = false
-if @product.errors[:uuid].present?
-  file_row_error = 'file-row-error'
-  file_error = true
-end
-if @product.file_file_name && @product.uuid
+
+if !@new_record
   uploaded = true
 end
 %>
@@ -35,7 +32,7 @@ end
           <div class="uploading-box <% unless uploaded %>  hid <% end%>">
             <div class="row">
               <div class="col-md-5">
-                <p class="filename"><%= @product.file_file_name %></p>
+                <p class="filename"><%= @product.file['name'] %></p>
               </div>
               <div class="col-md-5">
                 <div class="progress <% if uploaded %>  hid <% end%>">
@@ -66,9 +63,9 @@ end
         <%= simple_form_for [:user,@product], :html=> { multipart: true, class: 'product' },
         remote: true, :data => { type: :json }  do |f| %>
 
-        <input class="upload_uuid" type="hidden" name="[product]upload_uuid" value="<%= @product.uuid %>" />
-        <input class="filename" type="hidden" name="[product]filename" value="<%= @product.file_file_name %>" />
-        <%= f.input_field :price_currency, as: :hidden %>
+        <input class="file_key" type="hidden" name="[product]file_key" value="<%= @product.file['key'] %>" />
+
+        <%= f.input_field :currency, as: :hidden %>
         <%= token_tag nil %>
 
         <div class="row">
@@ -78,14 +75,14 @@ end
 
             <div class="col-md-12 upload-box-preview">
               <div class="overlay">
-                <%= f.input_field :thumb, id: 'file-input', accept: "image/*",
+                <%= f.input_field :preview, as: :file, id: 'file-input', accept: "image/*",
                 class: 'btn-preview input-thumb fileInput' %>
 
               </div>
               <input type="hidden" id="local-preview-path" value="" />
 
               <div id="preview" class="upload-box-preview-inner"
-              data-preview-url="<%= @product.thumb.url if @product.id%>">
+              data-preview-url="<%= @product.preview[:full] if @product.id%>">
               <p>Click to set a preview image</p>
               <i class="fa fa-picture-o fa-5x"></i>
             </div>
@@ -114,7 +111,7 @@ end
       </div>
       <div class="form-group row">
         <div class="col-md-12">
-         <%= f.input_field :description,
+         <%= f.input_field :description, as: :text,
          class: 'form-control product-description',
           placeholder: "Product Description(optional)",
           rows: 10 %>
@@ -129,7 +126,7 @@ product_show <% unless uploaded %>  hid <% end%>">
 <div class="row">
  <div class="col-md-1 preview-product-image">
    <img class="product-image img-rounded"
-   src="<%= @product.thumb.url(:small) if @product.id%>"
+   src="<%= @product.preview['thumb'] if @product.id%>"
    style="height: 60px; width: 60px;">
  </div>
  <div class="col-md-5">
@@ -143,7 +140,7 @@ product_show <% unless uploaded %>  hid <% end%>">
 
 <div class="col-md-4 text-right">
   <% if uploaded == true %>
-  <%= link_to "Delete", user_product_path(@product),
+  <%= link_to "Delete", user_product_path(@product.id),
   method: :delete,
   class: "m-r-5 btn btn-danger", confirm: "Are you sure?" %>
 
@@ -156,7 +153,7 @@ product_show <% unless uploaded %>  hid <% end%>">
   btn_with = "Publishing..."
 end
 %>
-<%= link_to btn_text, toggle_published_user_product_path(@product),
+<%= link_to btn_text, toggle_published_user_product_path(@product.id),
 remote: true,
 data: {with: btn_with},
 class: "m-r-5 btn btn-warning toggle-published" %>
