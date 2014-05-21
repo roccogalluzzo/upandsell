@@ -1,0 +1,194 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.sandbox.paypal.com/cgi-bin/webscr
+    body:
+      encoding: UTF-8
+      string: cmd=_notify-validate&pay_key=AP-5N576627JY9522600&sender_email=mail%40roccogalluzzo&status=completed
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 21 May 2014 16:33:16 GMT
+      Server:
+      - Apache
+      X-Frame-Options:
+      - SAMEORIGIN
+      Set-Cookie:
+      - Apache=10.72.109.11.1400689996184116; path=/; expires=Fri, 13-May-44 16:33:16
+        GMT
+      - Apache=10.72.128.11.1400689996142686; path=/; expires=Fri, 13-May-44 16:33:16
+        GMT
+      - X-PP-SILOVER=; Expires=Thu, 01 Jan 1970 00:00:01 GMT
+      - X-PP-SILOVER=name%3DSANDBOX3.WEB.1%26silo_version%3D880%26app%3Dslingshot%26TIME%3D1289059411;
+        domain=.paypal.com; path=/; Secure; HttpOnly
+      - c9MWDuvPtT9GIMyPc3jwol1VSlO=fvUvBv_M0G62VtBVa9v73M88uQpO-kBdUOru4o13AFaWJEpQHaBrf3X4rzwruHLfZeo3FUMEZUZ4vIt9ZYCyJMr3OG2dLg1KYHyqukO9u_jREhYGGnic-JAc8HASANyE1yIgTWHZ5nRUDUmx1hbTVf8fE5ZdpDTyAMoZNwWGCZX6-WMkqD0kvaGYGAaEnAIaN-ntGEt0PyvXuYHf1ELUFGybucAPjkBCm0Dp82HbFDPTiqEQFPFwtRxA47pIprqlJVtIVi3KyGwZn4TkvO-CzYZvk_AwM5Zzp7y8hZjvw3AM-cns7xARPx3cnm10mx1iX584rHe4vHBpNhBDhFqdKVmzT-bHpP33Uh6bO6VHkzigudhu-H-fYF_kVkJnRfrjr8lnN_YQ-VuBu_Gq61wO822ZC9uv8_L47Q8bs7vAceLrRpFf0bdSJgYVVmu;
+        domain=.paypal.com; path=/; Secure; HttpOnly
+      - cookie_check=yes; expires=Sat, 18-May-2024 16:33:16 GMT; domain=.paypal.com;
+        path=/; Secure; HttpOnly
+      - navcmd=_notify-validate; domain=.paypal.com; path=/; Secure; HttpOnly
+      - navlns=0.0; expires=Fri, 20-May-2016 16:33:16 GMT; domain=.paypal.com; path=/;
+        Secure; HttpOnly
+      X-Cnection:
+      - close
+      Vary:
+      - Accept-Encoding
+      Strict-Transport-Security:
+      - max-age=14400
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/html; charset=UTF-8
+    body:
+      encoding: UTF-8
+      string: VERIFIED
+    http_version: 
+  recorded_at: Wed, 21 May 2014 16:33:15 GMT
+- request:
+    method: get
+    uri: http://localhost:9292/api/v1/orders?gateway_token=AP-5N576627JY9522600
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '310'
+    body:
+      encoding: UTF-8
+      string: '[{"id":28,"product_id":2,"token":"tSykHXrRXrwnKvPwbF8Dzg","user_id":1,"email":"placeholder@paypal.com","amount":50,"currency":"USD","status":"created","gateway":"paypal","gateway_token":"AP-5N576627JY9522600","payment_details":{"card":"paypal"},"n_downloads":0,"closed_at":null,"buyer_accepts_marketing":null}]'
+    http_version: 
+  recorded_at: Wed, 21 May 2014 16:34:57 GMT
+- request:
+    method: put
+    uri: http://localhost:9292/api/v1/orders/28
+    body:
+      encoding: UTF-8
+      string: amount=50&buyer_accepts_marketing=&currency=USD&email=mail%40roccogalluzzo&gateway=paypal&gateway_token=AP-5N576627JY9522600&ip=&n_downloads=0&payment_details%5Bcard%5D=paypal&product_id=2&status=closed&user_id=1
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '326'
+    body:
+      encoding: UTF-8
+      string: '{"id":28,"product_id":2,"token":"tSykHXrRXrwnKvPwbF8Dzg","user_id":1,"email":"mail@roccogalluzzo","amount":50,"currency":"USD","status":"closed","gateway":"paypal","gateway_token":"AP-5N576627JY9522600","payment_details":{"card":"paypal"},"n_downloads":0,"closed_at":"2014-05-21T18:35:08+02:00","buyer_accepts_marketing":null}'
+    http_version: 
+  recorded_at: Wed, 21 May 2014 16:35:08 GMT
+- request:
+    method: get
+    uri: http://localhost:9292/api/v1/orders?gateway_token=AP-5N576627JY9522600
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '323'
+    body:
+      encoding: UTF-8
+      string: '[{"id":28,"product_id":2,"token":"tSykHXrRXrwnKvPwbF8Dzg","user_id":1,"email":"mail@roccogalluzzo","amount":50,"currency":"USD","status":"closed","gateway":"paypal","gateway_token":"AP-5N576627JY9522600","payment_details":{"card":"paypal"},"n_downloads":0,"closed_at":"2014-05-21T16:35:08Z","buyer_accepts_marketing":null}]'
+    http_version: 
+  recorded_at: Wed, 21 May 2014 16:42:45 GMT
+- request:
+    method: get
+    uri: http://localhost:9292/api/v1/orders?gateway_token=AP-5N576627JY9522600
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '323'
+    body:
+      encoding: UTF-8
+      string: '[{"id":28,"product_id":2,"token":"tSykHXrRXrwnKvPwbF8Dzg","user_id":1,"email":"mail@roccogalluzzo","amount":50,"currency":"USD","status":"closed","gateway":"paypal","gateway_token":"AP-5N576627JY9522600","payment_details":{"card":"paypal"},"n_downloads":0,"closed_at":"2014-05-21T16:35:08Z","buyer_accepts_marketing":null}]'
+    http_version: 
+  recorded_at: Wed, 21 May 2014 16:42:45 GMT
+- request:
+    method: get
+    uri: http://localhost:9292/api/v1/products/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '426'
+    body:
+      encoding: UTF-8
+      string: '{"id":2,"name":"ciao","file":{"key":"uploads/products/6aa79215-d52a-4b0b-be2f-a5f39604ba49/_katproxy.com_the.walking.dead.s04e14.hdtv.x264.2hd.ettv.torrent","name":"_katproxy.com_the.walking.dead.s04e14.hdtv.x264.2hd.ettv.torrent","ext":".torrent"},"price":50,"currency":"USD","user_id":1,"slug":"n5s0zz","published":true,"description":"","preview":{"full":"http://placehold.it/350x150","thumb":"http://placehold.it/350x150"}}'
+    http_version: 
+  recorded_at: Wed, 21 May 2014 16:42:45 GMT
+recorded_with: VCR 2.9.0
