@@ -1,5 +1,5 @@
 class User::SettingsController < User::BaseController
-
+  include Subscriptions
   def setup
     @email = current_user.confirmed?
     @payments = true if current_user.paypal || current_user.credit_card
@@ -8,7 +8,17 @@ class User::SettingsController < User::BaseController
    end
  end
 
- def resend_email
+ def upgrade
+
+ end
+
+ def save_upgrade
+  Subscriptions.create(params[:token])
+
+
+end
+
+def resend_email
   current_user.send_confirmation_instructions
   render json: {status: 200}
 
@@ -185,7 +195,7 @@ def auth_url
     def user_params
       params.require(:user).permit( :email, :name, :email_after_sale, :ga_code,
        :currency, :current_password, :password,
-        :password_confirmation)
+       :password_confirmation)
     end
  # TODO activate/deactivate newsletter weekly report
 end

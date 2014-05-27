@@ -5,6 +5,10 @@ class SiteController < ApplicationController
 
   end
 
+  def pricing
+
+  end
+
   def terms
 
   end

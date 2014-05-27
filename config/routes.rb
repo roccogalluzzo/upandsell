@@ -6,6 +6,7 @@ Upandsell::Application.routes.draw do
     registrations: "registrations" }
 
     root 'landing#index'
+    get 'pricing' => 'site#pricing'
     get 'privacy' => 'site#privacy'
     get 'terms' => 'site#terms'
     get 'unsubscribe/u/:user/:type/:signature' => 'emails#unsubscribe_user',
@@ -45,6 +46,8 @@ Upandsell::Application.routes.draw do
     get 'settings/password' => 'settings#password'
     get 'settings/payments' => 'settings#payments'
     get 'settings/setup' => 'settings#setup'
+    get 'settings/upgrade' => 'settings#upgrade'
+    post 'settings/upgrade' => 'settings#save_upgrade'
     get 'settings/resend_email' => 'settings#resend_email'
     patch 'settings/update_email' => 'settings#update_email'
     patch 'settings/update_account' => 'settings#update_account'
