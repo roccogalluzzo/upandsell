@@ -212,6 +212,8 @@ GEM
     puma (2.7.1)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
+    rack-affiliates (0.2.0)
+      rack
     rack-protection (1.5.3)
       rack
     rack-test (0.6.2)
@@ -370,6 +372,7 @@ DEPENDENCIES
   paypal-sdk-adaptivepayments
   paypal-sdk-permissions
   puma
+  rack-affiliates
   rails (= 4.0.2)
   redis (~> 3.0.1)
   remotipart (~> 1.2)

@@ -21,6 +21,7 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'whenever', require: false
 gem 'remotipart', '~> 1.2'
+gem 'rack-affiliates'
 #test gems
 group :development, :test do
   gem 'rspec-rails'

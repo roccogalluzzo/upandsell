@@ -1,7 +1,8 @@
 class LandingController < ApplicationController
-layout "home"
-def index
 
+layout "home"
+
+def index
 end
 
 end

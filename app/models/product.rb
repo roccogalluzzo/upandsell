@@ -5,7 +5,9 @@ class Product < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :name, :price, :uuid, :file_file_name
 
-  before_create { self.slug = (Time.now.to_i + rand(1..100)).to_s(36)}
+  before_create {
+    self.slug = (Time.now.to_i + rand(1..100)).to_s(36)
+  }
 
   Paperclip.interpolates :user_id do |attachment, style|
     attachment.instance.user_id.to_s

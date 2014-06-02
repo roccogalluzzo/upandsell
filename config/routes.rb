@@ -15,7 +15,7 @@ Upandsell::Application.routes.draw do
 
     get 'unsubscribe/o/:order/:signature' => 'emails#unsubscribe_order',
     :as => 'unsubscribe_order'
-      get 'confirm_unsubscribe/o/:order/:signature' => 'emails#confirm_unsubscribe_order',
+    get 'confirm_unsubscribe/o/:order/:signature' => 'emails#confirm_unsubscribe_order',
     :as => 'confirm_unsubscribe_order'
     get 'unsubscribed' => 'emails#unsubscribed'
   #product page
@@ -40,6 +40,8 @@ Upandsell::Application.routes.draw do
     # Settings
     get 'settings/account' => 'settings#account'
     get 'settings/password' => 'settings#password'
+    get 'settings/upgrade' => 'settings#upgrade'
+    post 'settings/upgrade' => 'settings#save_upgrade'
     get 'settings/payments' => 'settings#payments'
     get 'settings/setup' => 'settings#setup'
     get 'settings/resend_email' => 'settings#resend_email'
@@ -61,5 +63,6 @@ Upandsell::Application.routes.draw do
     resources :orders, only: [:index, :show] do
      get 'refund', on: :member
    end
+   resources :affiliations
  end
 end

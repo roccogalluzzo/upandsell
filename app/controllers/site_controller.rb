@@ -1,12 +1,11 @@
 class SiteController < ApplicationController
+
   layout "site"
 
   def privacy
-
   end
 
   def terms
-
   end
 
   def unsubscribe
@@ -20,6 +19,5 @@ end
 
 def test
  @user = User.find 1
-
 end
 end

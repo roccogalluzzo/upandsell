@@ -1,14 +1,37 @@
 class User::SettingsController < User::BaseController
 
-  def setup
-    @email = current_user.confirmed?
-    @payments = true if current_user.paypal || current_user.credit_card
-    unless current_user.credit_card
-     @paymill_url = auth_url
-   end
- end
+  def upgrade
+  end
 
- def resend_email
+  def save_upgrade
+    Paymill.api_key = '6770e56d99744c81f414d04aa1c7a162'
+    client = Paymill::Client.create(email: current_user.email)
+    payment = Paymill::Payment.create(token: params[:token], client: client.id)
+    response = Paymill::Subscription.create(client: client.id,
+      offer: "offer_6f6badd18f9ebdc5fa58",
+      payment: payment.id)
+
+    if response.success?
+     current_user.update_attribute(account: 'pro')
+     if current_user.referer_id
+      Referral.new(referer_id: current_user.referer_id, user_id: current_user.id,
+        amount: 1500, status: 'pending')
+
+    end
+  end
+
+  render json: {response: response}
+end
+
+def setup
+  @email = current_user.confirmed?
+  @payments = true if current_user.paypal || current_user.credit_card
+  unless current_user.credit_card
+   @paymill_url = auth_url
+ end
+end
+
+def resend_email
   current_user.send_confirmation_instructions
   render json: {status: 200}
 
@@ -185,7 +208,7 @@ def auth_url
     def user_params
       params.require(:user).permit( :email, :name, :email_after_sale, :ga_code,
        :currency, :current_password, :password,
-        :password_confirmation)
+       :password_confirmation)
     end
  # TODO activate/deactivate newsletter weekly report
 end
