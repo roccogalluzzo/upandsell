@@ -1,14 +1,3 @@
-<%
-file_error = false
-uploaded = false
-if @product.errors[:uuid].present?
-  file_row_error = 'file-row-error'
-  file_error = true
-end
-if @product.file_file_name && @product.uuid
-  uploaded = true
-end
-%>
 <div class="row">
   <div class="col-md-12">
     <ul class="cbp_tmtimeline">
@@ -17,7 +6,7 @@ end
           <i class="fa fa-cloud-upload"></i> </div>
           <div class="cbp_tmlabel">
             <div class="p-t-10 p-l-10 p-r-10 ">
-             <div class="upload-box <% if uploaded %>  hid <% end%>">
+             <div class="upload-box <% if !@product.new_record? %>  hid <% end %>">
               <form action="https://<%= Rails.configuration.aws["bucket"] %>.s3.amazonaws.com" method="POST"
                 enctype="multipart/form-data" class="direct-upload">
                 <input type="hidden" name="success_action_status" value="201">
@@ -32,23 +21,19 @@ end
               </div>
             </form>
           </div>
-          <div class="uploading-box <% unless uploaded %>  hid <% end%>">
+          <div class="uploading-box <% if @product.new_record? %>  hid <% end%>">
             <div class="row">
               <div class="col-md-5">
-                <p class="filename"><%= @product.file_file_name %></p>
+                <p class="filename"><%= @product.file_name %></p>
               </div>
               <div class="col-md-5">
-                <div class="progress <% if uploaded %>  hid <% end%>">
+                <div class="progress hid">
                   <div class="progress-bar" style="width: 0%;">
                   </div>
                 </div>
               </div>
               <div class="col-md-2">
-                <% if uploaded %>
-                <a class="fileinput-button file-change btn btn-primary pull-right" data-text-type="cancel">Change</a>
-                <% else %>
-                <a class="fileinput-button btn btn-danger pull-right" data-text-type="cancel">Cancel</a>
-                <% end %>
+                <a class="fileinput-button file-change btn btn-primary pull-right" data-text-type="change">Change</a>
               </div>
             </div>
           </div>
@@ -62,12 +47,11 @@ end
 
       <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-pencil"></i> </div>
       <div class="cbp_tmlabel">
-       <div class="p-t-20 p-l-30 p-r-10 p-b-20 product_form <% if uploaded %>  hid <% end%>">
-        <%= simple_form_for [:user,@product], :html=> { multipart: true, class: 'product' },
-        remote: true, :data => { type: :json }  do |f| %>
+       <div class="p-t-20 p-l-30 p-r-10 p-b-20 product_form <% unless  @product.new_record?  %>  hid <% end%>">
+        <%= simple_form_for [:user, @product], html: { multipart: true, class: 'product' },
+        remote: true, data: { type: :json }  do |f| %>
 
-        <input class="upload_uuid" type="hidden" name="[product]upload_uuid" value="<%= @product.uuid %>" />
-        <input class="filename" type="hidden" name="[product]filename" value="<%= @product.file_file_name %>" />
+        <input id="file_key" class="filename" type="hidden" name="[product]file_key" value="<%= @product.file_key %>" />
         <%= f.input_field :price_currency, as: :hidden %>
         <%= token_tag nil %>
 
@@ -78,14 +62,14 @@ end
 
             <div class="col-md-12 upload-box-preview">
               <div class="overlay">
-                <%= f.input_field :thumb, id: 'file-input', accept: "image/*",
+                <%= f.input_field :preview, id: 'file-input', accept: "image/*",
                 class: 'btn-preview input-thumb fileInput' %>
 
               </div>
               <input type="hidden" id="local-preview-path" value="" />
 
               <div id="preview" class="upload-box-preview-inner"
-              data-preview-url="<%= @product.thumb.url if @product.id%>">
+              data-preview-url="<%= @product.preview.url if @product.id%>">
               <p>Click to set a preview image</p>
               <i class="fa fa-picture-o fa-5x"></i>
             </div>
@@ -125,24 +109,24 @@ end
 </div>
 <% end %>
 <div class="show-product-box p-t-10 p-l-10 p-r-10 p-b-10
-product_show <% unless uploaded %>  hid <% end%>">
+product_show <% if @product.new_record? %>  hid <% end%>">
 <div class="row">
  <div class="col-md-1 preview-product-image">
    <img class="product-image img-rounded"
-   src="<%= @product.thumb.url(:small) if @product.id%>"
+   src="<%= @product.preview.thumb.url if @product.id%>"
    style="height: 60px; width: 60px;">
  </div>
  <div class="col-md-5">
   <p class="product-name"><%= @product.name %></p>
 </div>
-<div class="col-md-2 text-center">
+<div class="col-md-1 text-center">
   <p><b class="product-price">
     <%= humanized_money_with_symbol @product.price %>
   </b></p>
 </div>
 
-<div class="col-md-4 text-right">
-  <% if uploaded == true %>
+<div class="col-md-5 text-right">
+  <% unless  @product.new_record?  %>
   <%= link_to "Delete", user_product_path(@product),
   method: :delete,
   class: "m-r-5 btn btn-danger", confirm: "Are you sure?" %>
@@ -178,16 +162,16 @@ class: "m-r-5 btn btn-warning toggle-published" %>
   <div class="cbp_tmlabel p-b-0">
     <div  class="share p-t-10 p-l-30 p-r-20 p-b-20 text-center">
      <h3> Share to your audience!</h3>
-     <div class="share <% unless uploaded %>  hid <% end%>">
+     <div class="share <% if  @product.new_record?  %>  hid <% end%>">
        <div class="row">
         <div class="col-md-6 col-md-offset-3 share-url">
 
-        <div class="col-md-10 slug">
-        <h4 id="js-slug"><%= @slug %></h4>
-        </div>
+          <div class="col-md-10 slug">
+            <h4 id="js-slug"><%= @slug %></h4>
+          </div>
           <div class="col-md-1"><a id="js-copy-to-clipboard"
-          data-clipboard-target="js-slug"
-           class="btn btn-info"
+            data-clipboard-target="js-slug"
+            class="btn btn-info"
             href="#"><i class="fa fa-clipboard"></i></a></div>
 
             <div class="col-md-1"><a id="js-ext-link" class="btn btn-info"

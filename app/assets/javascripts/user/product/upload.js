@@ -1,7 +1,7 @@
 (function ($, Upload, undefined) {
 
   var el = {};
-  var attrs = {uuid: null, filename: null};
+  var attrs = {file_key: null};
 
   Upload.init = function() {
    initElements();
@@ -43,7 +43,7 @@ function initFileUpload() {
 }
 
 function initForm() {
- if(!$("input[class=upload_uuid]" ).val()){
+ if(!$("#file_key" ).val()){
   el.form.find('input[type=submit]').attr('disabled', 'disabled');}
 
   el.form.on("ajax:success", productSave);
@@ -74,27 +74,27 @@ function initFilePreview() {
 function productSave(event, data, status, xhr) {
 
   if(data.product){
-    $('.product-image').attr('src',data.product.preview);
+
+    $('.product-image').attr('src',data.product.preview.thumb.url);
     $('.product-name').text(data.product.name);
-    $('.product-price').text(data.product.price_currency + ' ' +(data.product.price_cents/100));
-    if(data.status == 200){
-      el.form.attr('action', data.product.edit_url);
+    $('.product-price').text(data.symbol + ' ' +(data.product.price_cents/100));
+      el.form.attr('action', data.edit_url);
       $('<input>').attr({
         type: 'hidden',
         value: 'patch',
         name: '_method'
       }).appendTo(el.form);
 
-      $('#js-slug').text(data.product.slug);
-      $("#js-ext-link").attr('href', data.product.slug);
+      $('#js-slug').text(data.slug_url);
+      $("#js-ext-link").attr('href', data.slug_url);
       $('.btn-social-twitter').on('click', function(){
-        window.open(data.product.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
+        window.open(data.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
       });
       $('.btn-social-facebook').on('click', function(){
-        window.open(data.product.facebook_url, 'share','toolbar=0,status=0,width=600,height=305')
+        window.open(data.facebook_url, 'share','toolbar=0,status=0,width=600,height=305')
       });
-      $('.share').show(400);
-    }
+      $('.share').removeClass('hid');
+
     Upload.Animations.product_added();
   }
 }
@@ -118,18 +118,18 @@ function fileSignedRequest(filename) {
     url: '/user/products/upload_request',
     type: 'GET',
     dataType: 'json',
-    data: {name: filename, uuid:  el.form.find( "input[class=upload_uuid]" ).val()},
+    data: {name: filename, file_key:  $("#file_key").val()},
     async: false,
     success: function(d) { data = d; }
   });
   return data;
 }
-function fileChanged(id, filename, new_uuid) {
+function fileChanged(id, file_key) {
   $.ajax({
-    url: '/user/products/file_changed',
+    url: "/user/products/" + id,
     type: 'POST',
     dataType: 'json',
-    data: {id: id, new_uuid:  new_uuid, filename: filename}
+    data: { _method: 'patch', product: {file_key: file_key}}
   });
   return data;
 }
@@ -150,9 +150,8 @@ function fileAdd(e, data){
   Upload.Animations.progressBar(0);
   req = fileSignedRequest(data.files[0].name);
   // set data request to form
-  data.formData = req.fields;
-  attrs.uuid = req.id;
-  attrs.filename = req.filename;
+  data.formData = req;
+  attrs.file_key = req.key;
   var jqXHR = data.submit();
   bindCancel(true, jqXHR);
   Upload.Animations.actionBtn('cancel');
@@ -165,10 +164,11 @@ function fileChange() {
 
 function fileDone(e, data) {
   if($('.upload-section').data('product-id')){
-    fileChanged($('.upload-section').data('product-id'), attrs.filename, attrs.uuid);
+    fileChanged($('.upload-section').data('product-id'), attrs.file_key);
   }
-  el.form.find( "input[class=upload_uuid]" ).val(attrs.uuid);
-  el.form.find( "input[class=filename]" ).val(attrs.filename);
+  console.log(attrs)
+  $("#file_key").val(attrs.file_key);
+
   Upload.Animations.done();
   bindCancel(false);
   Upload.Animations.actionBtn('change');

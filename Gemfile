@@ -11,7 +11,6 @@ gem 'paypal-sdk-permissions'
 gem 'paymill'
 gem 'money-rails'
 gem 'monetize'
-gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'aws-sdk'
 gem 'simple_form'
 gem 'agent_orange'
@@ -22,6 +21,12 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'whenever', require: false
 gem 'remotipart', '~> 1.2'
 gem 'rack-affiliates'
+gem 'carrierwave'
+gem 'fog'
+gem 'carrierwave_direct', git: 'https://github.com/Rodeoclash/carrierwave_direct'
+gem 'mini_magick'
+gem 'carrierwave-processing'
+
 #test gems
 group :development, :test do
   gem 'rspec-rails'

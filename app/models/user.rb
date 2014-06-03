@@ -1,95 +1,82 @@
 class User < ActiveRecord::Base
+  include Unsubscribable
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,
   :confirmable, :async
-
+  validates_presence_of :name, :email
   validates :ga_code,  allow_blank: true,
   length: { is: 13 }, format: {with:/[Uu][Aa]-\d{8}-\d/,
   message: "Google Analitycs Code Not Valid." }
 
-  has_many :products do
-    def sales(period = nil)
-     Order.where(product_id:
-      self.ids, status: 'completed',
-      created_at: Date.today.at_beginning_of_month..Date.today.at_end_of_month).count
-   end
+  has_many :orders
+  has_many :products
 
-   def earnings(admin= false, period = nil)
-    if admin
-     earnings = Order.where(status: 'completed',
-      created_at: Date.today.at_beginning_of_month..Date.today.at_end_of_month)
-     .group('date(created_at)')
-     .group('amount_currency')
-     .sum('amount_cents')
-   else
-     earnings = Order.where(product_id: self.ids, status: 'completed',
-      created_at: Date.today.at_beginning_of_month..Date.today.at_end_of_month)
-     .group('date(created_at)')
-     .group('amount_currency')
-     .sum('amount_cents')
-   end
-   user = proxy_association.owner
-   earnings_map = {}
-   acc_earns = Money.new(0, user.currency)
-
-   earnings.each do |day|
-    earns = Money.new(day[1], day[0][1])
-    c_earns = check_currency(earns, user)
-    earnings_map[day[0][0].to_time.to_i] = c_earns.cents
-    acc_earns += c_earns
+  validates_confirmation_of :password
+  serialize :settings
+  serialize :credit_card_info
+  serialize :paypal_info
+  before_create do
+    self.currency = Upandsell::Application.config.default_currency
   end
-  days = {}
-  (Date.today.at_beginning_of_month..Date.today.at_end_of_month)
-  .map { |day| days[day.to_time.to_i] = 0 }
+  after_create :send_welcome_email
 
-  return [acc_earns,
-    days.merge(earnings_map){|key, oldval, newval| newval + oldval}]
-  end
+#   has_many :products do
+#     def sales(period = nil)
+#      Order.where(product_id:
+#       self.ids, status: 'completed',
+#       created_at: Date.today.at_beginning_of_month..Date.today.at_end_of_month).count
+#    end
 
-  private
-  def check_currency(money, user)
+#    def earnings(admin= false, period = nil)
+#     if admin
+#      earnings = Order.where(status: 'completed',
+#       created_at: Date.today.at_beginning_of_month..Date.today.at_end_of_month)
+#      .group('date(created_at)')
+#      .group('amount_currency')
+#      .sum('amount_cents')
+#    else
+#      earnings = Order.where(product_id: self.ids, status: 'completed',
+#       created_at: Date.today.at_beginning_of_month..Date.today.at_end_of_month)
+#      .group('date(created_at)')
+#      .group('amount_currency')
+#      .sum('amount_cents')
+#    end
+#    user = proxy_association.owner
+#    earnings_map = {}
+#    acc_earns = Money.new(0, user.currency)
 
-    if money.currency == user.currency
-      return money
-    # if multiple currencies but are equal to base currency
-  #elsif money.currency ==  'EUR'
-   #base_earns = Order.where(product_id: self.ids, status: 'completed')
-   #.sum('amount_base_cents')
-   #return Money.new(base_earns, user.currency )
-    # no tricks, convert all currencies to user currency
-  else
-    return money.exchange_to(user.currency)
-  end
+#    earnings.each do |day|
+#     earns = Money.new(day[1], day[0][1])
+#     c_earns = check_currency(earns, user)
+#     earnings_map[day[0][0].to_time.to_i] = c_earns.cents
+#     acc_earns += c_earns
+#   end
+#   days = {}
+#   (Date.today.at_beginning_of_month..Date.today.at_end_of_month)
+#   .map { |day| days[day.to_time.to_i] = 0 }
 
-end
-end
+#   return [acc_earns,
+#     days.merge(earnings_map){|key, oldval, newval| newval + oldval}]
+#   end
 
-has_many :orders
+#   private
+#   def check_currency(money, user)
 
-validates_confirmation_of :password
-serialize :settings
-serialize :credit_card_info
-serialize :paypal_info
+#     if money.currency == user.currency
+#       return money
+#     # if multiple currencies but are equal to base currency
+#   #elsif money.currency ==  'EUR'
+#    #base_earns = Order.where(product_id: self.ids, status: 'completed')
+#    #.sum('amount_base_cents')
+#    #return Money.new(base_earns, user.currency )
+#     # no tricks, convert all currencies to user currency
+#   else
+#     return money.exchange_to(user.currency)
+#   end
 
-def unsubscribe_token(type)
-  verifier =  ActiveSupport::MessageVerifier.new(
-    URI::escape(Upandsell::Application.config.secret_key_base))
-  token = verifier.generate("#{self.id}/#{type}")
-  {user: self.id, type: type, signature: token}
-end
-
-
-def self.is_valid_token?(id, type, signature)
-  User.find(id).unsubscribe_token(type)[:signature] == signature
-end
-
-def self.unsubscribe(id, type, signature)
-  if self.is_valid_token?(id, type, signature)
-    user = self.find id
-    user.update_attribute :email_after_sale, false
-  end
-end
+# end
+# end
 
 def self.serialize_payment_info(type, *args)
   args.each do |method_name|
@@ -108,7 +95,7 @@ end
 serialize_payment_info :paypal, :email, :token, :token_secret
 serialize_payment_info :credit_card, :token, :public_token, :response
 
-after_create :send_welcome_email
+
 
 def admin?
  true if self.email == 'rocco@galluzzo.me'

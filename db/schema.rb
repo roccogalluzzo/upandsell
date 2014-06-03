@@ -14,43 +14,45 @@
 ActiveRecord::Schema.define(version: 20140529143232) do
 
   create_table "orders", force: true do |t|
-    t.integer  "product_id",                             null: false
-    t.string   "email"
-    t.string   "name"
-    t.string   "payment_type"
-    t.string   "payment_token"
-    t.integer  "amount_cents",       default: 0,         null: false
-    t.string   "amount_currency",    default: "USD",     null: false
-    t.string   "status",             default: "created"
-    t.string   "token",                                  null: false
-    t.integer  "n_downloads",        default: 0,         null: false
+    t.integer  "product_id",                              null: false
+    t.string   "token",                                   null: false
+    t.integer  "user_id",                                 null: false
+    t.string   "email",                                   null: false
+    t.string   "gateway",                                 null: false
+    t.string   "gateway_token"
+    t.text     "payment_details"
+    t.integer  "amount_cents",            default: 0,     null: false
+    t.string   "amount_currency",         default: "USD", null: false
+    t.integer  "amount_base_cents",       default: 0,     null: false
+    t.string   "status"
+    t.integer  "n_downloads",             default: 0
+    t.string   "cancel_reason"
+    t.string   "ip"
+    t.boolean  "buyer_accepts_marketing"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "cc_type"
-    t.integer  "amount_base_cents",  default: 0,         null: false
-    t.boolean  "email_subscription", default: true
+    t.datetime "completed_at"
+    t.datetime "cancelled_at"
   end
 
   create_table "products", force: true do |t|
-    t.string   "name"
+    t.string   "name",                           null: false
     t.text     "description"
+    t.integer  "price_cents",    default: 0,     null: false
+    t.string   "price_currency", default: "USD", null: false
+    t.string   "file_key",                       null: false
+    t.text     "file_info"
+    t.string   "slug",                           null: false
+    t.integer  "user_id",                        null: false
+    t.boolean  "published",      default: true
+    t.string   "preview"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "thumb_file_name"
-    t.string   "thumb_content_type"
-    t.integer  "thumb_file_size"
-    t.datetime "thumb_updated_at"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.integer  "price_cents",        default: 0,     null: false
-    t.string   "price_currency",     default: "USD", null: false
-    t.string   "slug"
-    t.text     "uuid"
-    t.integer  "user_id"
-    t.boolean  "published",          default: false
   end
+
+  add_index "products", ["file_key"], name: "index_products_on_file_key", unique: true, using: :btree
+  add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
+  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "referrals", force: true do |t|
     t.integer  "referer_id"
@@ -76,11 +78,18 @@ ActiveRecord::Schema.define(version: 20140529143232) do
 
   create_table "users", force: true do |t|
     t.string   "name",                                   null: false
+    t.string   "email",                                  null: false
+    t.string   "encrypted_password",                     null: false
+    t.string   "currency",                               null: false
+    t.boolean  "credit_card",            default: false
+    t.boolean  "paypal",                 default: false
+    t.text     "credit_card_info"
+    t.text     "paypal_info"
+    t.boolean  "email_after_sale",       default: true
+    t.string   "ga_code"
     t.text     "settings"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -93,13 +102,6 @@ ActiveRecord::Schema.define(version: 20140529143232) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "currency",               default: "USD", null: false
-    t.boolean  "credit_card",            default: false
-    t.boolean  "paypal",                 default: false
-    t.text     "credit_card_info"
-    t.text     "paypal_info"
-    t.boolean  "email_after_sale",       default: true
-    t.string   "ga_code"
     t.integer  "referer_id"
   end
 
