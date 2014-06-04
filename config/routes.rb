@@ -6,6 +6,7 @@ Upandsell::Application.routes.draw do
     registrations: "registrations" }
 
     root 'landing#index'
+    get 'pricing' => 'site#pricing'
     get 'privacy' => 'site#privacy'
     get 'terms' => 'site#terms'
     get 'unsubscribe/u/:user/:type/:signature' => 'emails#unsubscribe_user',
@@ -18,13 +19,16 @@ Upandsell::Application.routes.draw do
     get 'confirm_unsubscribe/o/:order/:signature' => 'emails#confirm_unsubscribe_order',
     :as => 'confirm_unsubscribe_order'
     get 'unsubscribed' => 'emails#unsubscribed'
+
   #product page
   get '/p/:slug' => 'products#show', :as => 'product_slug'
-  get 'products/paypal' => 'products#paypal'
-  get 'products/pay_info' => 'products#pay_info'
-  post 'products/pay' => 'products#pay'
-  get 'products/check_payment' => 'products#check_paypal_payment'
-  post 'products/ipn' => 'products#ipn'
+
+  #checkout
+  post 'checkout/paypal' => 'checkouts#paypal'
+  get 'checkout/pay_info' => 'checkouts#pay_info'
+  post 'checkout/pay' => 'checkouts#pay'
+  get 'checkout/check_payment' => 'checkouts#check_paypal_payment'
+  post 'checkout/ipn' => 'checkouts#ipn'
   get 'download/p/:token' => 'products#download', :as => 'download_product'
 
   resources :products, only: [:show]  do
@@ -44,6 +48,8 @@ Upandsell::Application.routes.draw do
     post 'settings/upgrade' => 'settings#save_upgrade'
     get 'settings/payments' => 'settings#payments'
     get 'settings/setup' => 'settings#setup'
+    get 'settings/upgrade' => 'settings#upgrade'
+    post 'settings/upgrade' => 'settings#save_upgrade'
     get 'settings/resend_email' => 'settings#resend_email'
     patch 'settings/update_email' => 'settings#update_email'
     patch 'settings/update_account' => 'settings#update_account'
@@ -53,7 +59,7 @@ Upandsell::Application.routes.draw do
     get 'settings/add_paypal' => 'settings#add_paypal'
     get 'settings/add_paypal_callback' => 'settings#add_paypal_callback'
     root 'products#summary'
-    get 'products/upload_request'  => 'products#upload_request'
+    post 'products/files'  => 'products#files'
     post 'products/file_changed'  => 'products#file_changed'
     get 'products/metrics'  => 'products#metrics'
     resources :products, except: [:show] do

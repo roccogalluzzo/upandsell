@@ -5,6 +5,10 @@ class SiteController < ApplicationController
   def privacy
   end
 
+  def pricing
+
+  end
+
   def terms
   end
 

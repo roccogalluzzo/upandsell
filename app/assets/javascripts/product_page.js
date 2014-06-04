@@ -96,7 +96,7 @@ ProductPage.Form = {
   productInfo: function() {
    product = {};
    $.ajax({
-    url: '/products/pay_info',
+    url: '/checkout/pay_info',
     type: 'GET',
     dataType: 'json',
     data: {product_id: opts.productId},
@@ -118,7 +118,7 @@ ProductPage.Form = {
 },
 pay: function(error, result) {
   $.ajax({
-    url: '/products/pay',
+    url: '/checkout/pay',
     type: 'POST',
     dataType: 'json',
     data: {product_id: $('.buy-form').data('product-id'),
@@ -205,8 +205,8 @@ ProductPage.Paypal = {
   request: function() {
     ProductPage.Modal.set('paypal');
     $.ajax({
-      url: '/products/paypal',
-      type: 'GET',
+      url: '/checkout/paypal',
+      type: 'POST',
       dataType: 'json',
       data: {product_id:  opts.productId},
       async: true,

@@ -1,0 +1,149 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:9292/api/v1/products/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '426'
+    body:
+      encoding: UTF-8
+      string: '{"id":2,"name":"ciao","file":{"key":"uploads/products/6aa79215-d52a-4b0b-be2f-a5f39604ba49/_katproxy.com_the.walking.dead.s04e14.hdtv.x264.2hd.ettv.torrent","name":"_katproxy.com_the.walking.dead.s04e14.hdtv.x264.2hd.ettv.torrent","ext":".torrent"},"price":50,"currency":"USD","user_id":1,"slug":"n5s0zz","published":true,"description":"","preview":{"full":"http://placehold.it/350x150","thumb":"http://placehold.it/350x150"}}'
+    http_version: 
+  recorded_at: Wed, 21 May 2014 13:32:31 GMT
+- request:
+    method: post
+    uri: https://c22776f4745902e568b0532f73e5a723:@api.paymill.com/v2/payments
+    body:
+      encoding: US-ASCII
+      string: token=tok_a428697472ff0fd78f7a
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 21 May 2014 13:32:39 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - PHPSESSID=n63p7nru428fe4f89dtmicfko7; path=/
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=16070400
+    body:
+      encoding: UTF-8
+      string: "{\n\t\"data\":{\n\t\t\"id\":\"pay_a86903f6e3a5159851fe0282\",\n\t\t\"type\":\"creditcard\",\n\t\t\"client\":null,\n\t\t\"card_type\":\"visa\",\n\t\t\"country\":\"DE\",\n\t\t\"bin\":\"411111\",\n\t\t\"expire_month\":\"2\",\n\t\t\"expire_year\":\"2020\",\n\t\t\"card_holder\":\"\",\n\t\t\"last4\":\"1111\",\n\t\t\"updated_at\":1400679159,\n\t\t\"created_at\":1400679112,\n\t\t\"app_id\":\"app_ba7fc5a5200420ba6f1910c963adadc947fb03528\"\n\t},\n\t\"mode\":\"test\"\n}"
+    http_version: 
+  recorded_at: Wed, 21 May 2014 13:32:38 GMT
+- request:
+    method: post
+    uri: https://c22776f4745902e568b0532f73e5a723:@api.paymill.com/v2/transactions
+    body:
+      encoding: US-ASCII
+      string: amount=50&currency=USD&payment=pay_a86903f6e3a5159851fe0282&fee_amount=2&fee_payment=pay_a86903f6e3a5159851fe0282
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 21 May 2014 13:32:51 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - PHPSESSID=laq6597lbostgesr6lg4av63u0; path=/
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Cache-Control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=16070400
+    body:
+      encoding: UTF-8
+      string: "{\n\t\"data\":{\n\t\t\"id\":\"tran_8601b6e5fddeb7fed93035891c1c\",\n\t\t\"amount\":\"050\",\n\t\t\"origin_amount\":50,\n\t\t\"status\":\"closed\",\n\t\t\"description\":null,\n\t\t\"livemode\":false,\n\t\t\"refunds\":null,\n\t\t\"client\":{\n\t\t\t\"id\":\"client_6e1acd57701350478e38\",\n\t\t\t\"email\":null,\n\t\t\t\"description\":null,\n\t\t\t\"app_id\":\"app_ba7fc5a5200420ba6f1910c963adadc947fb03528\",\n\t\t\t\"updated_at\":1400679171,\n\t\t\t\"created_at\":1400679171,\n\t\t\t\"payment\":[\n\t\t\t\t\"pay_a86903f6e3a5159851fe0282\"\n\t\t\t],\n\t\t\t\"subscription\":null\n\t\t},\n\t\t\"currency\":\"USD\",\n\t\t\"created_at\":1400679171,\n\t\t\"updated_at\":1400679171,\n\t\t\"response_code\":20000,\n\t\t\"short_id\":\"7357.7357.7357\",\n\t\t\"is_fraud\":false,\n\t\t\"invoices\":[\n\n\t\t],\n\t\t\"app_id\":\"app_ba7fc5a5200420ba6f1910c963adadc947fb03528\",\n\t\t\"preauthorization\":null,\n\t\t\"fees\":[\n\t\t\t{\n\t\t\t\t\"type\":\"application\",\n\t\t\t\t\"application\":\"app_ba7fc5a5200420ba6f1910c963adadc947fb03528\",\n\t\t\t\t\"payment\":\"pay_a86903f6e3a5159851fe0282\",\n\t\t\t\t\"amount\":2,\n\t\t\t\t\"currency\":\"USD\",\n\t\t\t\t\"billed_at\":null\n\t\t\t}\n\t\t],\n\t\t\"payment\":{\n\t\t\t\"id\":\"pay_a86903f6e3a5159851fe0282\",\n\t\t\t\"type\":\"creditcard\",\n\t\t\t\"client\":\"client_6e1acd57701350478e38\",\n\t\t\t\"card_type\":\"visa\",\n\t\t\t\"country\":\"DE\",\n\t\t\t\"bin\":\"411111\",\n\t\t\t\"expire_month\":\"2\",\n\t\t\t\"expire_year\":\"2020\",\n\t\t\t\"card_holder\":\"\",\n\t\t\t\"last4\":\"1111\",\n\t\t\t\"updated_at\":1400679171,\n\t\t\t\"created_at\":1400679112,\n\t\t\t\"app_id\":\"app_ba7fc5a5200420ba6f1910c963adadc947fb03528\"\n\t\t},\n\t\t\"source\":null\n\t},\n\t\"mode\":\"test\"\n}"
+    http_version: 
+  recorded_at: Wed, 21 May 2014 13:32:50 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/api/v1/orders
+    body:
+      encoding: UTF-8
+      string: amount=50&buyer_accepts_marketing=&currency=USD&email=blabla%40fffff.com&gateway=paymill&gateway_token=tran_8601b6e5fddeb7fed93035891c1c&ip=&n_downloads=&payment_details%5Bcard%5D=visa&product_id=2&status=closed&user_id=1
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '308'
+    body:
+      encoding: UTF-8
+      string: '{"id":9,"product_id":2,"token":"RzdoXuPxMMytXRa9zioT-w","user_id":1,"email":"blabla@fffff.com","amount":50,"currency":"USD","status":"closed","gateway":{"name":"paymill","token":"tran_8601b6e5fddeb7fed93035891c1c","details":{"card":"visa"}},"n_downloads":null,"closed_at":null,"buyer_accepts_marketing":null}'
+    http_version: 
+  recorded_at: Wed, 21 May 2014 13:32:50 GMT
+recorded_with: VCR 2.9.0

@@ -1,0 +1,123 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:9292/api/v1/products/2
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '426'
+    body:
+      encoding: UTF-8
+      string: '{"id":2,"name":"ciao","file":{"key":"uploads/products/6aa79215-d52a-4b0b-be2f-a5f39604ba49/_katproxy.com_the.walking.dead.s04e14.hdtv.x264.2hd.ettv.torrent","name":"_katproxy.com_the.walking.dead.s04e14.hdtv.x264.2hd.ettv.torrent","ext":".torrent"},"price":50,"currency":"USD","user_id":1,"slug":"n5s0zz","published":true,"description":"","preview":{"full":"http://placehold.it/350x150","thumb":"http://placehold.it/350x150"}}'
+    http_version:
+  recorded_at: Wed, 21 May 2014 14:07:41 GMT
+- request:
+    method: post
+    uri: https://svcs.sandbox.paypal.com/AdaptivePayments/Pay
+    body:
+      encoding: UTF-8
+      string: '{"requestEnvelope":{"errorLanguage":"en_US"},"actionType":"CREATE","cancelUrl":"http://www.example.com/products/2?payment=failed","currencyCode":"USD","feesPayer":"PRIMARYRECEIVER","ipnNotificationUrl":"http://upandsell.ngrok.com/products/ipn","receiverList":{"receiver":[{"amount":50.0,"email":"mail@roccogalluzzo.com","primary":true},{"amount":2.0,"email":"paypal-facilitator@upandsell.me"}]},"returnUrl":"http://www.example.com/products/check_payment?id=2\u0026payKey=${payKey}"}'
+    headers:
+      X-Paypal-Security-Userid:
+      - paypal-facilitator_api1.upandsell.me
+      X-Paypal-Security-Password:
+      - '1397145109'
+      X-Paypal-Application-Id:
+      - APP-80W284485P519543T
+      X-Paypal-Sandbox-Email-Address:
+      - paypal-facilitator@upandsell.me
+      X-Paypal-Security-Signature:
+      - AFcWxV21C7fd0v3bYYYRCpSSRl31AgtEdy0k9Q0TW737D.pzUB2OP6Ot
+      X-Paypal-Request-Data-Format:
+      - JSON
+      X-Paypal-Response-Data-Format:
+      - JSON
+      User-Agent:
+      - PayPalSDK/sdk-core-ruby 0.2.7 (paypal-sdk-core 0.2.7; ruby 2.1.1p76-x86_64-darwin13.0)
+      X-Paypal-Request-Source:
+      - adaptivepayments-ruby-sdk-1.105.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 21 May 2014 14:07:47 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Ebay-Soa-Request-Id:
+      - 1461f1c0-1350-a486-d645-c821fff03f91!AdaptivePayments!10.72.109.100![]
+      X-Paypal-Service-Version:
+      - 1.0.0
+      X-Paypal-Service-Name:
+      - "{http://svcs.paypal.com/types/ap}AdaptivePayments"
+      X-Ebay-Soa-Response-Data-Format:
+      - JSON
+      X-Paypal-Operation-Name:
+      - Pay
+      X-Ebay-Soa-Message-Protocol:
+      - NONE
+      Content-Type:
+      - application/json;charset=UTF-8
+      Set-Cookie:
+      - Apache=10.72.109.11.1400681267496162; path=/; expires=Fri, 13-May-44 14:07:47
+        GMT
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '182'
+    body:
+      encoding: UTF-8
+      string: '{"responseEnvelope":{"timestamp":"2014-05-21T07:07:47.834-07:00","ack":"Success","correlationId":"365304b63c159","build":"10902368"},"payKey":"AP-5N576627JY9522600","paymentExecStatus":"CREATED"}'
+    http_version:
+  recorded_at: Wed, 21 May 2014 14:07:46 GMT
+- request:
+    method: post
+    uri: http://localhost:9292/api/v1/orders
+    body:
+      encoding: UTF-8
+      string: amount=50&buyer_accepts_marketing=&currency=USD&email=placeholder%40paypal.com&gateway=paypal&gateway_token=AP-5N576627JY9522600&ip=&n_downloads=&payment_details%5Bcard%5D=paypal&product_id=2&status=created&user_id=1
+    headers:
+      User-Agent:
+      - Faraday v0.9.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '304'
+    body:
+      encoding: UTF-8
+      string: '{"id":28,"product_id":2,"token":"tSykHXrRXrwnKvPwbF8Dzg","user_id":1,"email":"placeholder@paypal.com","amount":50,"currency":"USD","status":"created","gateway":{"name":"paypal","token":"AP-5N576627JY9522600","details":{"card":"paypal"}},"n_downloads":null,"closed_at":null,"buyer_accepts_marketing":null}'
+    http_version:
+  recorded_at: Wed, 21 May 2014 14:07:47 GMT
+recorded_with: VCR 2.9.0
