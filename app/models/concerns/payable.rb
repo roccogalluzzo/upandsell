@@ -17,6 +17,6 @@ end
 
 private
 def get_gateway(name)
- ("Payable::#{name.classify}").constantize
+ ("Gateways::#{name.classify}").constantize
 end
 end

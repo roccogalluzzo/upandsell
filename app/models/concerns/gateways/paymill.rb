@@ -1,4 +1,4 @@
-module Payable::Paymill
+module Gateways::Paymill
 
   def self.pay(product, *args)
     token = args
@@ -11,6 +11,11 @@ module Payable::Paymill
      fee_amount: ((product.price * 4) / 100).cents,
      fee_payment: payment.id
      )
-  end
+end
 
+def self.refund
+  Paymill.api_key =  current_user.credit_card_token
+  response =  Paymill::Refund.create id: @order.payment_token,
+  amount: @order.amount_cents
+end
 end

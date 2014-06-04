@@ -1,4 +1,4 @@
-module Payable::Paypal
+module Gateways::Paypal
   include PayPal::SDK::AdaptivePayments
 
   def self.pay(product, *args)
@@ -39,4 +39,8 @@ module Payable::Paypal
     paypal.pay(req)
   end
 
+  def self.refund
+    paypal = PayPal::SDK::AdaptivePayments.new
+    response = paypal.Refund( payKey: @order.payment_token)
+  end
 end
