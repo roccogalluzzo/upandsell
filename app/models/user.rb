@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   has_many :orders
   has_many :products
+  has_many :referrals
+  has_many :referrals_payments
 
   validates_confirmation_of :password
   serialize :settings
