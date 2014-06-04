@@ -26,13 +26,9 @@
   </head>
   <body>
 
-    <!-- BEGIN HEADER -->
     <div class="header navbar navbar-inverse">
-      <!-- BEGIN TOP NAVIGATION BAR -->
       <div class="navbar-inner">
-        <!-- BEGIN NAVIGATION HEADER -->
         <div class="header-seperation text-center">
-          <!-- BEGIN MOBILE HEADER -->
           <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">
             <li class="dropdown">
               <a id="main-menu-toggle" href="#main-menu" class="">
@@ -40,24 +36,15 @@
               </a>
             </li>
           </ul>
-          <!-- END MOBILE HEADER -->
-          <!-- BEGIN LOGO -->
           <%= link_to user_root_path, class:'brand' do %>
           <b>Up</b><span>&amp;<b>Sell</b>.Me</span>
           <% end %>
-          <!-- END LOGO -->
         </div>
-        <!-- END NAVIGATION HEADER -->
-        <!-- BEGIN CONTENT HEADER -->
+
         <div class="header-quick-nav">
-          <!-- BEGIN HEADER LEFT SIDE SECTION -->
           <div class="pull-left">
             <h3 class="head-title"><%= content_for :title %></h3>
           </div>
-          <!-- END HEADER LEFT SIDE SECTION -->
-          <!-- BEGIN HEADER RIGHT SIDE SECTION -->
-
-          <!-- BEGIN HEADER NAV BUTTONS -->
           <ul class="nav quick-section pull-right">
 
             <% if is_admin? %>
@@ -84,21 +71,13 @@
            </li>
          </ul>
        </div>
-       <!-- END HEADER RIGHT SIDE SECTION -->
      </div>
-     <!-- END CONTENT HEADER -->
    </div>
-   <!-- END TOP NAVIGATION BAR -->
  </div>
- <!-- END HEADER -->
- <!-- BEGIN CONTENT -->
- <div class="page-container row-fluid">
-  <!-- BEGIN SIDEBAR -->
-  <!-- BEGIN MENU -->
-  <div class="page-sidebar" id="main-menu">
 
+ <div class="page-container row-fluid">
+  <div class="page-sidebar" id="main-menu">
    <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-     <!-- BEGIN SIDEBAR MENU -->
      <ul>
       <li class="<%= 'active' if current_page?(user_root_path) %>">
         <%= link_to user_root_path do %>
@@ -118,20 +97,16 @@
       <span>Orders</span>
       <% end %>
     </li>
-      <li class="<%= 'active' if current_page?(user_affiliations_path) %>">
+    <li class="<%= 'active' if current_page?(user_affiliations_path) %>">
       <%= link_to user_affiliations_path do %>
       <i class="fa  fa-lg fa-w icon-connection"></i>
       <span>Affiliations</span>
       <% end %>
     </li>
   </ul>
-  <!-- END SIDEBAR MENU -->
 </div>
 </div>
-<!-- END MENU -->
-<!-- END SIDEBAR -->
 <%# render partial: "layouts/messages", flash: flash %>
-<!-- BEGIN PAGE CONTAINER-->
 <div class="page-content">
   <div class="animated-alert"><div class="message">
     <p id="js-message" ></p>
