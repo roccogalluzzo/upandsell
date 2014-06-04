@@ -33,7 +33,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'byebug'
   gem 'guard-rspec', require: false
-  gem 'jasmine'
   gem 'fuubar'
 end
 group :test do
