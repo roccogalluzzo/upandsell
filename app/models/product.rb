@@ -1,5 +1,4 @@
 class Product < ActiveRecord::Base
-  include Payable
   include S3File
 
   has_many :orders
