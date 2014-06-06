@@ -7,7 +7,7 @@ development:
   bucket: "upandsell-dev"
 test:
   <<: *defaults
-  bucket: "upandsell-test"
+  bucket: "upandsell-dev"
 production:
   <<: *defaults
   bucket: "upandsell"

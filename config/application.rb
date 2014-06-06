@@ -24,6 +24,8 @@ module Upandsell
     config.autoload_paths += %W(#{config.root}/lib)
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+     config.autoload_paths += %W( #{config.root}/app/services)
+    config.autoload_paths += Dir["#{config.root}/app/services/**/"]
     config.i18n.enforce_available_locales = true
     config.middleware.use Rack::Affiliates
     #config.action_dispatch.default_headers = {  'X-Frame-Options' => 'GOFORIT' }
