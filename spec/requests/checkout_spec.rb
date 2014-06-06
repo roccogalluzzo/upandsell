@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'uri'
 require 'cgi'
 
@@ -8,8 +8,10 @@ describe "Checkout Process" do
 
       it "process order" do
         create(:user)
+        product = create(:product)
         VCR.use_cassette('payment_with_paymill') do
-          order = {email: 'blabla@fffff.com', token: 'tok_a428697472ff0fd78f7a', product_id: 2}
+          order = {email: 'blabla@fffff.com', token: 'tok_a428697472ff0fd78f7a',
+            product_id: product.id }
           post 'checkout/pay', order
           expect(response.status).to eq(200)
         end

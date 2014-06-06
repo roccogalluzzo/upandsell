@@ -4,9 +4,8 @@ FactoryGirl.define do
   factory :product do
     name "Dummy product"
     price 300
-    file_file_name 'fsds'
+    file_key 'uploads/temp/products/1/test.exe'
     price_currency 'USD'
-    uuid {SecureRandom.uuid}
     user
   end
 

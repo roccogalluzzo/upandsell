@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://upandsell-dev.s3-eu-west-1.amazonaws.com/uploads/products/4f7f2330-ddfb-4177-a3dc-a885ae09b25c/test.exe
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - fog/1.22.1
+      X-Amz-Copy-Source:
+      - "/upandsell-dev/uploads%2Ftemp%2Fproducts%2F4f7f2330-ddfb-4177-a3dc-a885ae09b25c%2Ftest.exe"
+      Date:
+      - Thu, 05 Jun 2014 13:31:23 +0000
+      Authorization:
+      - AWS AKIAJ2QFMFDSUX4PY4GQ:tASX2UB9WPzbnnbjZt4WuLlCMuE=
+  response:
+    status:
+      code: 404
+      message: ''
+    headers:
+      X-Amz-Request-Id:
+      - 0C77E922A3B44C41
+      X-Amz-Id-2:
+      - SaZ6OWGTDCFkeGUJuDGIcrOUdG4Ro3r57Bj3WNX2B3aGIDpYFmYGlUPr8DxcBi4b
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - ''
+      Date:
+      - Thu, 05 Jun 2014 13:31:25 GMT
+      Connection:
+      - close
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: "<Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>uploads/temp/products/4f7f2330-ddfb-4177-a3dc-a885ae09b25c/test.exe</Key><RequestId>0C77E922A3B44C41</RequestId><HostId>SaZ6OWGTDCFkeGUJuDGIcrOUdG4Ro3r57Bj3WNX2B3aGIDpYFmYGlUPr8DxcBi4b</HostId></Error>"
+    http_version: 
+  recorded_at: Thu, 05 Jun 2014 13:31:25 GMT
+recorded_with: VCR 2.9.0
