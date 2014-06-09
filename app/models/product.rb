@@ -10,7 +10,7 @@ class Product < ActiveRecord::Base
   validates :price_cents, numericality: { greater_than: 49 }
 
   before_create do
-    self.slug = (Time.now.to_i + rand(1..100)).to_s(36)
+    self.slug = (Time.now.to_i + rand(1..1000)).to_s(36)
   end
 
   before_save do
