@@ -10,7 +10,7 @@ FactoryGirl.define do
 
   factory :user_with_products, parent: :user do
     ignore do
-      products 2
+      products 1
     end
 
     after(:create) do |user, evaluator|

@@ -1,12 +1,9 @@
 require 'rails_helper'
-require 'uri'
-require 'cgi'
 
 describe "Products" do
  before :all do
-   @user ||= FactoryGirl.create :user
    post 'users/sign_in',
-   'user[email]' => @user.email, 'user[password]' => @user.password
+   'user[email]' => USER.email, 'user[password]' => USER.password
  end
 
  describe "Add New Product" do
@@ -44,6 +41,32 @@ context "invalid data" do
   end
 
 end
-
 end
+
+describe "Edit a Product" do
+  let(:product) {USER.products[0]}
+
+  it "update product name" do
+    put "/user/products/#{product.id}", {product: {name: 'ciao'}}
+    expect(response.status).to eq(200)
+  end
+
+  it "update product file" do
+    post '/user/products/files', {name: 'test5.exe'}
+    file_key = JSON(response.body)['key']
+    FOG.put_object('upandsell-dev', file_key, 'test')
+    put "/user/products/#{product.id}", {product: {file_key: file_key}}
+    expect(response.status).to eq(200)
+  end
+end
+
+describe "Delete a Product" do
+
+  it "delete a product" do
+    product = create(:product)
+    delete "/user/products/#{product.id}"
+    expect(response.status).to eq(302)
+  end
+end
+
 end

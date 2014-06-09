@@ -14,7 +14,6 @@ gem 'monetize'
 gem 'aws-sdk'
 gem 'simple_form'
 gem 'agent_orange'
-gem 'eu_central_bank'
 gem 'kaminari'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
@@ -26,7 +25,10 @@ gem 'fog'
 gem 'carrierwave_direct', git: 'https://github.com/Rodeoclash/carrierwave_direct'
 gem 'mini_magick'
 gem 'carrierwave-processing'
+gem "exchange", "~> 1.2.0"
 
+gem 'tabs', git: 'https://github.com/byterussian/tabs.git',
+branch: 'customization'
 #test gems
 group :development, :test do
   gem 'rspec-rails'

@@ -29,19 +29,11 @@ FOG = ::Fog::Storage.new(
  )
 
 FOG.directories.create(key: @aws["bucket"])
-FOG.put_object( @aws["bucket"],
- "uploads/temp/products/1/test.exe", "test")
-FOG.put_object( @aws["bucket"],
-  "uploads/products/1/delete.exe", "test")
-FOG.put_object( @aws["bucket"],
- "uploads/products/1/edit_test.exe", "test")
-FOG.put_object( @aws["bucket"],
- "uploads/products/1/new_edit_test.exe", "test")
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   c.hook_into :webmock # or :fakeweb
-  #c.allow_http_connections_when_no_cassette = true
+  c.allow_http_connections_when_no_cassette = true
 end
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -59,9 +51,11 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    USER ||= FactoryGirl.create :user_with_products
   end
 
   config.around(:each) do |example|
+    Redis.new(Upandsell::Application.config.redis).flushdb
     DatabaseCleaner.cleaning do
       example.run
     end
