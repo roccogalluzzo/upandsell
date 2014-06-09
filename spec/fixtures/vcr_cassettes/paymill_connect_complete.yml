@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://connect.paymill.com/token
+    body:
+      encoding: US-ASCII
+      string: client_id=app_1dc8214bd1274c2dc6d08a003837a5deb2c224bb4&client_secret=8e2c409afdc917153fd4986a52f7ef16&code=6fdce604e4c7af00bf87925086c36a83d4f31b04&grant_type=authorization_code
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Fri, 06 Jun 2014 16:37:02 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - PHPSESSID=sjcrtbhbhapr6bvnf8megml4u1; path=/
+      Expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      Pragma:
+      - no-cache
+      Cache-Control:
+      - no-store
+    body:
+      encoding: UTF-8
+      string: '{"error":"invalid_grant","error_description":"Authorization code doesn''t
+        exist or is invalid for the client"}'
+    http_version: 
+  recorded_at: Fri, 06 Jun 2014 16:37:03 GMT
+recorded_with: VCR 2.9.0
