@@ -1,15 +1,12 @@
 class ProductsController < ApplicationController
   layout "product"
-  skip_before_filter :verify_authenticity_token, :only => [:ipn]
-
+  before_action :set_session
   def show
-    #@product = Product.get("products?slug=#{params[:slug]}")[0]
-    api = Product.new
-    @product = api.find_by_slug(params[:slug])
 
-    (render(status: :not_found) and return) if !@product.present?
+    @product = Product.find_by_slug!(params[:slug])
+
+    register_visit(@product)
     @title = @product.name
-   # register_visit(@product)
     @user = User.find(@product.user_id)
     @paypal = @user.paypal
     @ga_code = @user.ga_code
@@ -43,12 +40,23 @@ if is_user_product?(@product.id)
 end
 end
 
+private
+def set_session
+  unless session[:user]
+    session[:user] = {}
+    session[:user][:visits] = []
+    session[:user][:last_visit] = Time.now
+  end
+end
 
 private
 def register_visit(product)
   ua = AgentOrange::UserAgent.new(request.env['HTTP_USER_AGENT'])
-  unless ua.is_bot?
-    Metric::Products.new(product.id).incr_visits
+
+  if !ua.is_bot? && !session[:user][:visits].include?(product.id) && session[:user][:last_visit] >  30.minutes.ago
+    Metric::Product.new(product).record_visit
+    session[:user][:visits] << product.id
+    session[:user][:last_visit] = Time.now
   end
 end
 

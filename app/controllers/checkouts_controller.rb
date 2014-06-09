@@ -1,30 +1,31 @@
 class CheckoutsController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => [:ipn]
+
+  skip_before_filter :verify_authenticity_token, only: [:ipn]
 
   def pay_info
-    product = Product.new.find(params[:product_id])
+    product = Product.find(params[:product_id])
     render json: { price: product.price, currency: product.currency.upcase }
   end
 
   def pay
-    product = Product.new.find(params[:product_id])
+    product = Product.find(params[:product_id])
 
-    order = Gateways::pay(product, 'paymill',
-      { email: params[:email], token: params[:token]})
+    order = PaymentService.new('paymill')
+    .pay(product, { email: params[:email], token: params[:token]})
 
-    if order && order.status == 'closed'
+    if order && order.status == 'completed'
       url = download_product_url(order.token)
       #update_user_products(product.id, order.token)
       render json: { url: url }, status: :ok and return
     end
-    render json: {error: order[:error]}, status: :unauthorized and return
+    render json: {error: order}, status: :unauthorized and return
   end
 
   def paypal
     url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
-    product = Product.new.find(params[:product_id])
+    product = Product.find(params[:product_id])
 
-    order = Gateways::pay(product, 'paypal',
+    order = PaymentService.new('paypal').pay(product,
     {
       cancel_url: product_url(id: product.id, payment: 'failed'),
       return_url: checkout_check_payment_url(id: product.id)
@@ -49,11 +50,11 @@ class CheckoutsController < ApplicationController
 
   def ipn
     if PayPal::SDK::Core::API::IPN.valid?(request.raw_post)
-      order = Order.new.find_by(gateway_token: params["pay_key"])
+      order = Order.find_by_gateway_token(params["pay_key"])
       if order && order.status != 'refunded' && params["status"].downcase == "completed"
-        order.status = 'closed'
+        order.status = 'completed'
         order.email = params["sender_email"]
-        head(:ok) if order.update
+        head(:ok) if order.save
       end
     end
 
@@ -80,14 +81,14 @@ class CheckoutsController < ApplicationController
 end
 
 def download_url(pay_key)
-  order = Order.new.find_by(gateway_token: pay_key)
-  product = Product.new.find(order.product_id)
+  order = Order.find_by(gateway_token: pay_key)
+  product = Product.find(order.product_id)
   return product_slug_url(slug: product.slug, payKey: pay_key)
 end
 
 def payment_completed?(pay_key)
- order = Order.new.find_by( gateway_token: pay_key)
- if order and order.status == 'closed'
+ order = Order.find_by_gateway_token(pay_key)
+ if order and order.status == 'completed'
    return true
  end
  return false

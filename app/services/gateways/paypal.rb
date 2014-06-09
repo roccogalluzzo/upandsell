@@ -21,15 +21,15 @@
             end,
             amount: ((product.price * 4) / 100)
             }]},
-            cancelUrl: opts[:cancel_url],
-            returnUrl: opts[:return_url] +'&payKey=${payKey}',
+            cancelUrl: payer[:cancel_url],
+            returnUrl: payer[:return_url] +'&payKey=${payKey}',
             ipnNotificationUrl:
             if Rails.env.production?
              'https://upandsell.me/products/ipn'
            else
              'http://upandsell.ngrok.com/products/ipn'
            end,
-           currencyCode: product.currency.upcase,
+           currencyCode: product.price_currency.upcase,
            feesPayer: 'PRIMARYRECEIVER'
            )
 

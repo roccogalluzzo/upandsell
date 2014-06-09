@@ -6,25 +6,25 @@ describe "Checkout Process" do
   describe "buy product with Paymill" do
     context "valid cc info" do
 
-      xit "process order" do
+      it "process order" do
         create(:user)
         product = create(:product)
         VCR.use_cassette('payment_with_paymill') do
           order = {email: 'blabla@fffff.com', token: 'tok_a428697472ff0fd78f7a',
             product_id: product.id }
-          post 'checkout/pay', order
-          expect(response.status).to eq(200)
+            post 'checkout/pay', order
+            expect(response.status).to eq(200)
+          end
         end
       end
     end
-  end
 
-  describe "buy product with Paypal" do
-    context "valid" do
-      xit "process order" do
-        create(:user)
-        VCR.use_cassette('payment_with_paypal') do
-          order = {product_id: 2}
+    describe "buy product with Paypal" do
+      context "valid" do
+        it "process order" do
+         product = create(:product)
+         VCR.use_cassette('payment_with_paypal') do
+          order = {product_id: product.id}
           post 'checkout/paypal', order
         end
 

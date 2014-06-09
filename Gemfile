@@ -44,6 +44,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'database_cleaner'
   gem 'webmock'
+  gem 'timecop'
   gem 'sqlite3'
   gem 'simplecov', '~> 0.7.1', require: false
 end
