@@ -42,8 +42,9 @@ function updateSummaryChart(data) {
 
 function formatData(data) {
     var rval = [];
-    $.each(data, function(timestamp, value) {
-     rval.push({x: (timestamp * 1000), y: value/100});
+    console.log(data)
+    $.each(data, function(timestamp, d) {
+     rval.push({x: moment(timestamp).format('YYYY-MM-D'), y: d.earnings/100, z: d.sales});
    });
     return rval;
   }
@@ -68,7 +69,8 @@ function buildSummaryChart(element, data) {
   var row = options.data[index];
        date = moment(row.x).format('D MMMM YYYY');
 
-  return  "<b class='text-center'>" + date + "</b><br /> <b>" + row.y + '</b> ' + $('.graph').data('currency');
+  return  "<b class='text-center'>" + date + "</b><br /> <b>" + row.y + '</b> '
+  + $('.graph').data('currency')  + '<br /><b>' + row.z + ' </b>SALES';
 }
 });
 

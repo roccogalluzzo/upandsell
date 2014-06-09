@@ -84,7 +84,7 @@ def metrics
 
   visits = Metric::Product.new(products).visits(30.days.ago).get
   sales = Metric::Product.new(products).sales(30.days.ago).exchange_to(current_user.currency).get
-  earnings = get_earnings(sales)
+  earnings = get_earnings(sales, false)
   render json: {earnings: earnings, sales: sales[:sales],
     visits: visits[:visits], conversion_rate: conversion_rate(visits[:visits], sales[:sales])}
   end
@@ -100,12 +100,13 @@ def metrics
   end
 
   private
-  def get_earnings(sales)
+  def get_earnings(sales, convert = true)
     earnings = {}
     earnings[:month] =  sales[:earnings]
-    earnings[:summary_data] = sales[:data]
     earnings[:week] = split_week(sales[:data])
-    earnings[:today] = sales[:data][Time.zone.now.beginning_of_day][:earnings]
+    earnings[:today] =  sales[:data][Time.zone.now.beginning_of_day][:earnings]
+    earnings.each {|k,v| earnings[k] = Money.new(v, current_user.currency)} if convert
+    earnings[:summary_data] = sales[:data]
     earnings
   end
 
