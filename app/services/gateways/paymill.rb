@@ -20,7 +20,7 @@ module Gateways::Paymill
   def self.subscribe(token)
     Paymill.api_key = '6770e56d99744c81f414d04aa1c7a162'
     client = Paymill::Client.create(email: current_user.email)
-    payment = Paymill::Payment.create(token: token client: client.id)
+    payment = Paymill::Payment.create(token: token, client: client.id)
     Paymill::Subscription.create(client: client.id,
       offer: "offer_6f6badd18f9ebdc5fa58",
       payment: payment.id)
@@ -33,12 +33,12 @@ module Gateways::Paymill
         path: '/en-gb/authorize', query: query).to_s
     end
 
-    def self.connect
+    def self.connect(user, code)
       body = {
         client_id: @config[:client_id],
         client_secret: @config[:client_secret],
         grant_type: "authorization_code",
-        code: auth_code
+        code: code
         }.to_query
 
         uri = URI::HTTPS.build(host: 'connect.paymill.com',
@@ -49,7 +49,7 @@ module Gateways::Paymill
         request.body =  body
         response = ActiveSupport::JSON.decode(http.request(request).body)
 
-        current_user.connect_credit_card(response)
+        user.connect_credit_card(response)
       end
 
       def self.refresh_token(refresh_token)

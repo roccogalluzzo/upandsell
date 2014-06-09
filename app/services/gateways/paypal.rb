@@ -48,7 +48,7 @@
    api.grant_permission_url(response)
  end
 
- def self.connect(token, verification_code)
+ def self.connect(user, token, verification_code)
 
   api = PayPal::SDK::Permissions::API.new
   get_access_token = api.build_get_access_token(
@@ -64,7 +64,7 @@
       :attributeList => {
         :attribute => [ "https://www.paypal.com/webapps/auth/schema/payerID" ] } })
     payer_id = payer_id_call.response.personalData[0].personalDataValue.to_s
-    response = current_user.connect_paypal(payer_id, access.token, access.token_secret)
+    response = user.connect_paypal(payer_id, access.token, access.token_secret)
   end
 
 end

@@ -41,34 +41,34 @@ Upandsell::Application.routes.draw do
  end
 
  namespace :user do
-    # Settings
-    get 'settings/account' => 'settings#account'
-    get 'settings/password' => 'settings#password'
-    get 'settings/upgrade' => 'settings#upgrade'
-    post 'settings/upgrade' => 'settings#save_upgrade'
-    get 'settings/payments' => 'settings#payments'
-    get 'settings/setup' => 'settings#setup'
-    get 'settings/upgrade' => 'settings#upgrade'
-    post 'settings/upgrade' => 'settings#save_upgrade'
-    get 'settings/resend_email' => 'settings#resend_email'
-    patch 'settings/update_email' => 'settings#update_email'
-    patch 'settings/update_account' => 'settings#update_account'
-    patch 'settings/update_password' => 'settings#update_password'
-    post 'settings/update_payments' => 'settings#update_payments'
-    get 'settings/update_cc_token' => 'settings#paymill_refresh'
-    get 'settings/add_paypal' => 'settings#add_paypal'
-    get 'settings/add_paypal_callback' => 'settings#add_paypal_callback'
-    root 'products#summary'
-    post 'products/files'  => 'products#files'
-    post 'products/file_changed'  => 'products#file_changed'
-    get 'products/metrics'  => 'products#metrics'
-    resources :products, except: [:show] do
-      post 'upload'
-      get 'toggle_published',  on: :member
-    end
-    resources :orders, only: [:index, :show] do
-     get 'refund', on: :member
-   end
-   resources :affiliations
+  get 'setup',    to: 'setup#index'
+  get 'resend_email',to: 'setup#resend_email'
+  patch 'update_email', to: 'setup#update_email'
+  namespace :settings do
+    get 'account'
+    get 'password'
+    get 'upgrade'
+    get 'payments'
+    get 'connect'
+    get 'connect_callback'
+    get 'add_paypal_callback', to: 'settings#add_paypal_callback'
+
+    post 'upgrade', to: 'settings#save_upgrade'
+    post 'update_payments', to: 'settings#update_payments'
+    patch 'update_account', to: 'settings#update_account'
+    patch 'update_password', to: 'settings#update_password'
+  end
+  root 'products#summary'
+  post 'products/files'  => 'products#files'
+
+  get 'products/metrics'  => 'products#metrics'
+  resources :products, except: [:show] do
+    post 'upload'
+    get 'toggle_published',  on: :member
+  end
+  resources :orders, only: [:index, :show] do
+   get 'refund', on: :member
  end
+ resources :affiliations
+end
 end
