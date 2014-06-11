@@ -231,6 +231,8 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
     puma (2.8.2)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
@@ -400,6 +402,7 @@ DEPENDENCIES
   paymill
   paypal-sdk-adaptivepayments
   paypal-sdk-permissions
+  pry-rails
   puma
   rack-affiliates
   rails (= 4.0.2)

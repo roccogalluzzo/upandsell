@@ -1,0 +1,73 @@
+.settings-menu {
+  ul {
+   .nav;
+   .nav-tabs;
+   margin-bottom: 0px !important;
+ }
+}
+
+.settings-page {
+ border: none;
+ border-radius: 0px;
+ background-color: #fff;
+ padding: 40px 20px 20px;
+ .make-row();
+}
+
+.settings-payments {
+ .make-md-column(10);
+ .make-md-column-offset(1);
+ margin-bottom: 10px;
+ .row-payments {
+   .make-row();
+   border-bottom: 1px solid @clouds;
+   padding-bottom: 30px;
+   margin-bottom: 0px;
+   padding-top: 25px;
+   height: 90px;
+   padding-right: 5px;
+   .payment-switch {
+    .make-md-column(1);
+  }
+  .payment-logo {
+   .make-md-column(3);
+   .make-md-column-offset(1);
+ }
+ .payment-connect {
+   .make-md-column(2);
+   .make-md-column-offset(5);
+   .btn;
+   .btn-primary;
+ }
+}
+}
+.settings-form {
+ .make-md-column(10);
+ .make-md-column-offset(1);
+ form {
+  .form-horizontal;
+}
+
+.form-row {
+  .make-row();
+  .form-group;
+  .row-label {
+    .make-md-column(5);
+  }
+  .row-input {
+    .make-md-column(7);
+    .select .btn {
+      width: 88px;
+    }
+  }
+
+  .form-actions {
+    .make-md-column(12);
+    .text-center;
+    input {
+      .btn;
+      .btn-primary;
+    }
+  }
+}
+}

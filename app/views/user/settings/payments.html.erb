@@ -1,59 +1,26 @@
-  <%= render partial: "tabs" %>
-  <div class="row">
-    <div class=" col-md-8 col-md-offset-2">
+<%= render partial: "tabs" %>
+<div class="settings-payments">
+  <div class="row-payments">
+    <div class="payment-switch">
+      <%# f.check_box :paypal_status, as: :boolean, data: {toggle: 'switch'}, label: false %>
+      <input type="checkbox" <%= 'checked' if current_user.paypal %> data-toggle="switch" data-type="paypal" />
+    </div>
+    <%= image_tag "paypal_logo.gif", class: 'payment-logo' %>
+    <%= link_to ( current_user.paypal_email ? "Connected" : "Connect"),
+    user_settings_connect_path(gateway: 'paypal'),
+    class: 'payment-connect', disabled:( current_user.paypal_email ? true : false) %>
+  </div>
 
-      <div class="row payment">
-        <div class="col-md-1">
-  <%# f.check_box :paypal_status, as: :boolean, data: {toggle: 'switch'},
-  label: false
-
-  %>
-  <input type="checkbox"
-  <% if current_user.paypal %>
-  checked
-  <% end %>
-  data-toggle="switch" data-type="paypal" />
-</div>
-<div class="col-md-offset-1 col-md-3">
-  <%= image_tag "paypal_logo.gif" %>
-</div>
-
-<div class="col-md-7">
-  <% if current_user.paypal_email %>
-  <a href="#" class="btn btn-primary pull-right" disabled >Connected</a>
-  <% else %>
-  <%= link_to "Connect", user_settings_connect_path(gateway: 'paypal'),
-  class: 'btn btn-primary pull-right' %>
-  <% end %>
-</div>
+  <div class="row-payments">
+    <div class="payment-switch">
+      <%# f.check_box :credit_card_status, as: :boolean, data: {toggle: 'switch'}, label: false %>
+      <input type="checkbox" <%= 'checked' if current_user.credit_card %> data-toggle="switch" data-type="paymill" />
+    </div>
+    <%= image_tag "paymill.png", class: 'payment-logo' %>
+    <%= link_to ( current_user.credit_card_token ? "Connected" : "Connect"),
+    user_settings_connect_path(gateway: 'paypal'),
+    class: 'payment-connect', disabled:( current_user.credit_card_token ? true : false) %>
+    <%# link_to("Refresh Token", user_settings_update_cc_token_path, class: 'btn btn-primary') %>
+  </div>
 </div>
 
-<div class="row payment">
-  <div class="col-md-1">
-<%# f.check_box :credit_card_status, as: :boolean, data: {toggle: 'switch'},
-label: false %>
-<input type="checkbox"
-<% if current_user.credit_card %>
-checked
-<% end %>
-data-toggle="switch" data-type="paymill" />
-</div>
-<div class="col-md-3 col-md-offset-1">
-  <%= image_tag "paymill.png", style: "width: 200px;" %>
-</div>
-<div class="col-md-7">
- <%# if @user.credit_card_token %>
- <%# link_to("Refresh Token", user_settings_update_cc_token_path,
- class: 'btn btn-primary') %>
- <%# else %>
- <% if !current_user.credit_card_token %>
- <%= link_to "Connect", user_settings_connect_path(gateway: 'paymill'),
- class: 'btn btn-primary pull-right' %>
- <% else %>
- <a href="#" class="btn btn-primary pull-right" disabled >Connected</a>
- <% end %>
- <%# end %>
-</div>
-</div>
-</div>
-</div>

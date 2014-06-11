@@ -74,4 +74,5 @@ group :development do
   gem 'capistrano-sidekiq'
   gem 'capistrano-rvm'
   gem 'foreman'
+  gem 'pry-rails'
 end

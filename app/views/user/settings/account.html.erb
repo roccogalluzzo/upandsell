@@ -1,52 +1,54 @@
-    <%= render partial: "tabs" %>
+<%= render partial: "tabs" %>
 
-    <div class="row">
-      <div class="col-md-8 col-md-offset-2">
-        <%= simple_form_for current_user, url:  user_settings_update_account_path,
-        class: 'form-horizontal' do |f| %>
-
-        <div class="row form-group">
-          <%= f.input_field :email,  placeholder: "Email"  %>
-        </div>
-        <div class="row form-group">
-          <%= f.input_field :name,  placeholder: "Your Name"  %>
-        </div>
-        <div class="row form-group">
-         <div class=" col-md-7">
-           <%= f.input_field :currency, collection: ['USD', 'EUR', 'GBP']   %>
-         </div>
-         <div class=" col-md-5">
-           <p>Account Currency</p>
-         </div>
-       </div>
-       <div class="row form-group">
-         <div class=" col-md-7">
-           <%= f.check_box :email_after_sale, class: "switch", data:{toggle: "switch"} %>
-         </div>
-         <div class=" col-md-5">
-           <p>Emails after Sales</p>
-         </div>
-       </div>
-       <div class="row form-group">
-         <div class=" col-md-3">
-         <%= f.input_field :ga_code,
-          placeholder:"UA-xxxxxx-x" %>
-         </div>
-         <div class=" col-md-offset-4 col-md-5">
-           <p>Google Analitycs Code</p>
-         </div>
-       </div>
-     </div>
-
-     <div class="form-group">
-       <div class="col-md-12 text-center"><hr />
-        <%= f.button :submit, "Save Settings", class: 'btn btn-primary' %>
-
+  <div class="settings-form">
+    <%= simple_form_for current_user, url:  user_settings_update_account_path  do |f| %>
+    <div class="form-row">
+      <div class="row-label">
+        <p>Email</p>
+      </div>
+      <div class="row-input">
+        <%= f.input_field :email,  placeholder: "Your Email" %>
       </div>
     </div>
-
-    <% end %>
+    <div class="form-row">
+      <div class="row-label">
+       <p>Name</p>
+     </div>
+     <div class="row-input">
+      <%= f.input_field :name,  placeholder: "Your Name"  %>
+    </div>
   </div>
+  <div class="form-row">
+   <div class="row-label">
+     <p>Account Currency</p>
+   </div>
+   <div class="row-input">
+     <%= f.input_field :currency, collection: ['USD', 'EUR', 'GBP'] %>
+   </div>
+ </div>
+ <div class="form-row">
+  <div class="row-label">
+   <p>Emails after Sales</p>
+ </div>
+ <div class="row-input">
+   <%= f.check_box :email_after_sale, class: "switch", data:{toggle: "switch"} %>
+ </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+   <p>Google Analitycs Code</p>
+ </div>
+ <div class="col-md-3">
+   <%= f.input_field :ga_code,
+   placeholder:"UA-xxxxxx-x" %>
+ </div>
+</div>
+<div class="form-row">
+ <div class="form-actions"><hr />
+ <%= f.button :submit, "Save Settings" %>
+ </div>
+</div>
+<% end %>
 </div>
 </div>
 
