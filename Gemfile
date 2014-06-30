@@ -16,7 +16,7 @@ gem 'simple_form'
 gem 'agent_orange'
 gem 'kaminari'
 gem 'sidekiq'
-gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'sinatra', '>= 1.3.0', require: nil
 gem 'whenever', require: false
 gem 'remotipart', '~> 1.2'
 gem 'rack-affiliates'
@@ -26,9 +26,18 @@ gem 'carrierwave_direct', git: 'https://github.com/Rodeoclash/carrierwave_direct
 gem 'mini_magick'
 gem 'carrierwave-processing'
 gem "exchange", "~> 1.2.0"
+gem 'pagedown-bootstrap-rails'
+
+gem 'redcarpet'
+gem 'maildown'
+gem "mail_view", "~> 2.0.4"
 
 gem 'tabs', git: 'https://github.com/byterussian/tabs.git',
 branch: 'customization'
+
+gem 'gibbon'
+gem 'mandrill-api'
+
 #test gems
 group :development, :test do
   gem 'rspec-rails'
@@ -75,4 +84,6 @@ group :development do
   gem 'capistrano-rvm'
   gem 'foreman'
   gem 'pry-rails'
+  gem 'guard-livereload', require: false
+  gem 'rb-fsevent'
 end

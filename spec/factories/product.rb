@@ -8,12 +8,20 @@ FactoryGirl.define do
     price_currency 'USD'
     user_id 1
     before(:create) do |instance|
-      FOG.put_object( 'upandsell-dev',
+     Fog.mock!
+     @aws =  Rails.configuration.aws
+     fog = ::Fog::Storage.new(
+       provider: 'AWS',
+       aws_access_key_id: @aws["access_key_id"],
+       aws_secret_access_key: @aws["secret_access_key"],
+       region: 'eu-west-1'
+       )
+     fog.put_object( 'upandsell-dev',
       instance.file_key, "test")
-  end
-  end
+   end
+ end
 
-  factory :product_with_orders, parent: :product do
+ factory :product_with_orders, parent: :product do
 
    ignore do
     orders 1

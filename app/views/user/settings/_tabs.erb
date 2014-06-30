@@ -11,9 +11,14 @@
       Payments
       <% end %>
     </li>
-    <li class="<%= ap(user_settings_password_path)%>">
-      <%= link_to(user_settings_password_path) do %>
-      Change Password
+    <li class="<%= ap(user_settings_emails_path)%>">
+      <%= link_to(user_settings_emails_path) do %>
+      Emails
+      <% end %>
+    </li>
+    <li class="<%= ap(user_settings_integrations_path)%>">
+      <%= link_to(user_settings_integrations_path) do %>
+      Integrations
       <% end %>
     </li>
     <li class="<%= ap(user_settings_upgrade_path)%>">

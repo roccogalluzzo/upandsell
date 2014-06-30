@@ -2,7 +2,7 @@ include ActionDispatch::TestProcess
 
 FactoryGirl.define do
   factory :order do
-    email "dddd@cldlf.com"
+    email "ddd@cldlf.com"
     amount_cents 300
     amount_base_cents 150
     amount_currency 'USD'

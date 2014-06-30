@@ -27,5 +27,7 @@ Settings.Upgrade = function() {
   $.getScript('https://bridge.paymill.com/');
   UpgradePage.init();
 }
-
+Settings.Account = function() {
+  AccountPage.init();
+}
 }(jQuery, window.Settings = window.Settings || {}));

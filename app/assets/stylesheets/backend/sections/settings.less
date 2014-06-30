@@ -10,8 +10,43 @@
  border: none;
  border-radius: 0px;
  background-color: #fff;
- padding: 40px 20px 20px;
+ padding: 30px 20px 20px;
  .make-row();
+ border-radius: 3px;
+}
+
+.settings-emails {
+ .make-md-column(10);
+ .make-md-column-offset(1);
+ #wmd-button-group2, #wmd-button-group3, #wmd-button-group4 {
+  display: none;
+}
+#wmd-button-group1 {
+  .btn {
+    border-radius: 0px !important;
+    background-color: transparent !important;
+    color: @midnight-blue;
+  }
+    .btn:hover {
+    border-radius: 0px !important;
+    background-color: @clouds !important;
+    color: @midnight-blue;
+  }
+}
+#wmd-input {
+  margin-top: 35px !important;
+}
+
+#wmd-preview {
+  margin-top: 0px !important;
+}
+h5 {
+  .text-center;
+}
+p {
+  .text-center;
+  margin-bottom: 4px !important;
+}
 }
 
 .settings-payments {
@@ -44,6 +79,7 @@
 .settings-form {
  .make-md-column(10);
  .make-md-column-offset(1);
+ padding-top: 30px;
  form {
   .form-horizontal;
 }
@@ -55,7 +91,7 @@
     .make-md-column(5);
   }
   .row-input {
-    .make-md-column(7);
+    .make-md-column(5);
     .select .btn {
       width: 88px;
     }

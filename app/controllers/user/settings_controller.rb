@@ -9,18 +9,28 @@ class User::SettingsController < User::BaseController
   def payments
   end
 
-  def password
+  def emails
+  end
+  def integrations
   end
 
   def update_account
-    user = current_user.update_without_password(user_params)
-    if user
-     redirect_to user_settings_account_path, notice: 'Account Updated' and return
-   end
-   render 'account'
- end
+    par = user_params
+    if !user_params[:current_password].blank?
+      r = current_user.update_with_password(user_params)
+      if r
+       sign_in current_user, bypass: true
+       redirect_to user_settings_account_path, notice: 'Account Updated' and return
+     end
+   else
+    par.delete(:current_password)
+    current_user.update_without_password(par)
+    redirect_to user_settings_account_path, notice: 'Account Updated' and return
+  end
+  render 'account'
+end
 
- def connect
+def connect
   if params[:gateway] == 'paypal'
     redirect_to Gateways::Paypal.connect_url(
       user_settings_connect_callback_url(gateway: 'paypal')) and return
@@ -58,14 +68,13 @@ end
 render json: {response: response}
 end
 
-def update_password
-  user = current_user.update_with_password(user_params)
+def update_emails
+
   if user
-   sign_in current_user, bypass: true
-   redirect_to user_settings_account_path, notice: 'Password Updated'
- else
-  render 'password'
-end
+
+  else
+    render 'password'
+  end
 end
 
 def update_payments

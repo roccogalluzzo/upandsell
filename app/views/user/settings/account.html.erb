@@ -1,32 +1,61 @@
 <%= render partial: "tabs" %>
 
-  <div class="settings-form">
-    <%= simple_form_for current_user, url:  user_settings_update_account_path  do |f| %>
-    <div class="form-row">
-      <div class="row-label">
-        <p>Email</p>
-      </div>
-      <div class="row-input">
-        <%= f.input_field :email,  placeholder: "Your Email" %>
-      </div>
+<div class="settings-form">
+  <%= simple_form_for current_user, url:  user_settings_update_account_path  do |f| %>
+  <div class="form-row">
+    <div class="row-label">
+      <p>Email</p>
     </div>
-    <div class="form-row">
-      <div class="row-label">
-       <p>Name</p>
-     </div>
-     <div class="row-input">
-      <%= f.input_field :name,  placeholder: "Your Name"  %>
+    <div class="row-input">
+      <%= f.input_field :email,  placeholder: "Your Email" %>
     </div>
   </div>
   <div class="form-row">
-   <div class="row-label">
-     <p>Account Currency</p>
+    <div class="row-label">
+     <p>Name</p>
    </div>
    <div class="row-input">
-     <%= f.input_field :currency, collection: ['USD', 'EUR', 'GBP'] %>
-   </div>
+    <%= f.input_field :name,  placeholder: "Your Name"  %>
+  </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+    <p>Password</p>
+  </div>
+  <div class="row-input">
+    <%= f.input_field :password,  placeholder: "New Password"  %>
+    <div class="popover right">
+      <div class="arrow"></div>
+      <h3 class="popover-title">Smooth Title</h3>
+      <div class="popover-content">
+        Content goes here
+      </div>
+    </div>
+  </div>
+</div>
+<div id="password_confirmation" class="hid form-row">
+  <div class="row-label">
+  </div>
+  <div class="row-input">
+    <%= f.input_field :password_confirmation, placeholder: "Repeat New Password"  %>
+  </div>
+</div>
+<div id="current_password" class="hid form-row">
+  <div class="row-label">
+  </div>
+  <div class="row-input">
+    <%= f.input_field :current_password, placeholder: "Your Current Password"  %>
+  </div>
+</div>
+<div class="form-row">
+ <div class="row-label">
+   <p>Account Currency</p>
  </div>
- <div class="form-row">
+ <div class="row-input">
+   <%= f.input_field :currency, collection: ['USD', 'EUR', 'GBP'] %>
+ </div>
+</div>
+<div class="form-row">
   <div class="row-label">
    <p>Emails after Sales</p>
  </div>
@@ -45,7 +74,9 @@
 </div>
 <div class="form-row">
  <div class="form-actions"><hr />
- <%= f.button :submit, "Save Settings" %>
+   <%= button_tag(type: 'submit', class: "btn btn-primary btn-form") do %>
+   <i class='fa fa-lg fa-lock hidden'>&nbsp; </i> Save Settings
+   <% end %>
  </div>
 </div>
 <% end %>
