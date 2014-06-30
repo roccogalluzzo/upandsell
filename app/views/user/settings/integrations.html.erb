@@ -1,0 +1,19 @@
+<%= render partial: "tabs" %>
+<div class="settings-payments">
+  <div class="row-payments">
+    <%= image_tag "mailchimp-dark.png", class: 'payment-logo' %>
+    <%= link_to ( current_user.paypal_email ? "Connected" : "Connect"),
+    user_settings_connect_path(gateway: 'paypal'),
+    class: 'payment-connect', disabled:( current_user.paypal_email ? true : false) %>
+  </div>
+
+  <div class="row-payments">
+
+    <%= image_tag "adwords_logo.gif", class: 'payment-logo' %>
+    <%= link_to ( current_user.credit_card_token ? "Connected" : "Connect"),
+    user_settings_connect_path(gateway: 'paypal'),
+    class: 'payment-connect', disabled:( current_user.credit_card_token ? true : false) %>
+    <%# link_to("Refresh Token", user_settings_update_cc_token_path, class: 'btn btn-primary') %>
+  </div>
+</div>
+
