@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
   include S3File
-
+  has_many :mailing_lists, through: :mailing_lists_products
+  has_many :mailing_lists_products
   has_many :orders
   belongs_to :user
   validates_presence_of :name, :price, :file_key

@@ -1,7 +1,7 @@
 class User::ProductsController < User::BaseController
 
   def index
-    @products = current_user.products.page(params[:page]).per(7)
+    @products = current_user.products.page(params[:page]).per(5)
   end
 
   def new
@@ -104,7 +104,11 @@ def metrics
     earnings = {}
     earnings[:month] =  sales[:earnings]
     earnings[:week] = split_week(sales[:data])
-    earnings[:today] =  sales[:data][Time.zone.now.beginning_of_day][:earnings]
+    if  sales[:data][Time.zone.now.beginning_of_day]
+      earnings[:today] =  sales[:data][Time.zone.now.beginning_of_day][:earnings]
+    else
+      earnings[:today] = 0
+    end
     earnings.each {|k,v| earnings[k] = Money.new(v, current_user.currency)} if convert
     earnings[:summary_data] = sales[:data]
     earnings

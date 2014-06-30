@@ -4,7 +4,9 @@ require 'sidekiq/web'
 Upandsell::Application.routes.draw do
   devise_for :users, controllers: { confirmations: 'confirmations',
     registrations: "registrations" }
-
+    if Rails.env.development?
+      mount MailPreview => 'mail_view'
+    end
     root 'landing#index'
     get 'pricing' => 'site#pricing'
     get 'privacy' => 'site#privacy'
@@ -46,17 +48,18 @@ Upandsell::Application.routes.draw do
   patch 'update_email', to: 'setup#update_email'
   namespace :settings do
     get 'account'
-    get 'password'
+    get 'emails'
     get 'upgrade'
     get 'payments'
+    get 'integrations'
     get 'connect'
     get 'connect_callback'
     get 'add_paypal_callback', to: 'settings#add_paypal_callback'
 
     post 'upgrade', to: 'settings#save_upgrade'
     post 'update_payments', to: 'settings#update_payments'
-    patch 'update_account', to: 'settings#update_account'
-    patch 'update_password', to: 'settings#update_password'
+    patch 'update_account'
+    patch 'update_emails', to: 'settings#update_emails'
   end
   root 'products#summary'
   post 'products/files'  => 'products#files'
@@ -70,5 +73,12 @@ Upandsell::Application.routes.draw do
    get 'refund', on: :member
  end
  resources :affiliations
+ resources :tools
+ resources :mailing_lists, except: [:new] do
+  post 'sync', on: :member
+end
+resources :coupons, except: [:new]
+resources :webhooks, except: [:new]
+resources :serial_keys, except: [:new]
 end
 end

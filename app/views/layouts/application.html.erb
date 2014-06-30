@@ -9,8 +9,7 @@
   <%= csrf_meta_tag %>
   <script type="text/javascript">
     Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
-  </script>
-  <script type="text/javascript">
+    <% if Rails.env.production? %>
     WebFontConfig = {
       google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
     };
@@ -22,60 +21,47 @@
       wf.async = 'true';
       var s = document.getElementsByTagName('script')[0];
       s.parentNode.insertBefore(wf, s);
-    })(); </script>
-  </head>
-  <body>
+    })();
+    <% end %>
+  </script>
+</head>
+<body>
 
-    <div class="header navbar navbar-inverse">
-      <div class="navbar-inner">
-        <div class="header-seperation text-center">
-          <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">
-            <li class="dropdown">
-              <a id="main-menu-toggle" href="#main-menu" class="">
-                <div class="iconset top-menu-toggle-white"></div>
-              </a>
-            </li>
-          </ul>
-          <%= link_to user_root_path, class:'brand' do %>
-          <b>Up</b><span>&amp;<b>Sell</b>.Me</span>
-          <% end %>
-        </div>
+  <div id="top">
+    <div>
+      <div id="brand">
+        <%= link_to user_root_path do %>
+        <b>Up</b><span>&amp;<b>Sell</b>.Me</span>
+        <% end %>
+      </div>
 
-        <div class="header-quick-nav">
-          <div class="pull-left">
-            <h3 class="head-title"><%= content_for :title %></h3>
-          </div>
-          <ul class="nav quick-section pull-right">
-
-            <% if is_admin? %>
-            <li class="quicklinks"><%= link_to(admin_root_path) do %>
-             <i class="fa fa-user  icon-user-2"></i>
-             <% end %>
-           </li>
-           <li class="quicklinks"><span class="h-seperate"></span></li>
+      <div id="navbar">
+        <h3><%= content_for :title %></h3>
+        <ul>
+          <% if is_admin? %>
+          <li><%= link_to(admin_root_path) do %>
+           <i class="fa fa-user  icon-user-2"></i>
            <% end %>
-           <li class="quicklinks"><%= link_to(new_user_product_path) do %>
-             <i class="fa  icon-add-symbol"></i>
-             <% end %>
-           </li>
-           <li class="quicklinks"><span class="h-seperate"></span></li>
-           <li class="quicklinks"><%= link_to(user_settings_account_path) do %>
-             <i class="fa  icon-settings-wheel-fill"></i>
-             <% end %>
-           </li>
-
-           <li class="quicklinks"><span class="h-seperate"></span></li>
-           <li class="quicklinks"><%= link_to(destroy_user_session_path, :method => :delete) do %>
-             <i class="fa  fa-power-off"></i>
-             <% end %>
-           </li>
-         </ul>
-       </div>
+         </li>
+         <% end %>
+         <li><%= link_to(new_user_product_path) do %>
+           <i class="fa  icon-add-symbol"></i>
+           <% end %>
+         </li>
+         <li><%= link_to(user_settings_account_path) do %>
+           <i class="fa  icon-settings-wheel-fill"></i>
+           <% end %>
+         </li>
+         <li><%= link_to(destroy_user_session_path, method: :delete) do %>
+           <i class="fa  fa-power-off"></i>
+           <% end %>
+         </li>
+       </ul>
      </div>
    </div>
  </div>
 
- <div class="page-container row-fluid">
+ <div id="content">
   <div class="page-sidebar" id="main-menu">
    <div class="page-sidebar-wrapper" id="main-menu-wrapper">
      <ul>
@@ -97,10 +83,10 @@
       <span>Orders</span>
       <% end %>
     </li>
-    <li class="<%= ap(user_tools_path) %>">
-      <%= link_to user_tools_path do %>
+    <li class="<%= ap(user_mailing_lists_path) %>">
+      <%= link_to user_mailing_lists_path do %>
       <i class="fa  fa-lg fa-w icon-graph-up-2"></i>
-      <span>Marketing Tools</span>
+      <span>Tools</span>
       <% end %>
     </li>
     <li class="<%= ap(user_affiliations_path) %>">

@@ -29,8 +29,8 @@
               <td> <%= order.email %></td>
 
               <td>
-                <% if  order.cc_type %>
-                <%= image_tag "cc_icons/#{order.cc_type}.png" %>
+                <% if  order.gateway %>
+                <%= image_tag "cc_icons/#{order.gateway}.png" %>
                 <% end %>
               </td>
               <td> <%= order.product.name %> </td>

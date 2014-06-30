@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
 
   before_create do
-    self.currency = Upandsell::Application.config.default_currency
+    self.currency = Upandsell::Application.config.default_currency.upcase
   end
 
   after_create :send_welcome_email
