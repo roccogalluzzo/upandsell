@@ -1,13 +1,11 @@
 (function ($, Up, undefined) {
 
   Up.init = function() {
-
     if ($("#js-message").text().length > 20) { Up.alert.open();}
-    $("select").selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-inverse'});
+    $("select").selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-default'});
     $(".select").removeClass('form-control');
     $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
     var page = Utils.getPage();
-
     try {
      window[page.controller.capitalize()][page.action.capitalize()]();
    } catch(e) {

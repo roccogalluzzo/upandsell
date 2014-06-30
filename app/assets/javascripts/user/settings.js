@@ -19,7 +19,13 @@
    });
  };
 
- Settings.Setup = function() {
+ Settings.Emails = function() {
+  converter = new Markdown.Converter()
+  Markdown.Extra.init(converter)
+  editor = new Markdown.Editor(converter)
+  editor.run()
+}
+Settings.Setup = function() {
   Setup.init();
 }
 

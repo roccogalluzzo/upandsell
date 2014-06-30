@@ -20,7 +20,7 @@
 //= require raphael/raphael
 //= require morris.js/morris
 //= require zeroclipboard/ZeroClipboard.min.js
+//= require pagedown_bootstrap
 //= require_tree ./user
-
 
 $(document).ready(Up.init);
