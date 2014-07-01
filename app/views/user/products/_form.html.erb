@@ -1,115 +1,110 @@
-<div class="row">
-  <div class="col-md-12">
-    <ul class="cbp_tmtimeline">
-      <li class="upload-section" data-product-id="<%= @product.id %>">
-        <div class="cbp_tmicon info animated bounceIn">
-          <i class="fa fa-cloud-upload"></i> </div>
-          <div class="cbp_tmlabel">
-            <div class="p-t-10 p-l-10 p-r-10 ">
-             <div class="upload-box <% if !@product.new_record? %>  hid <% end %>">
-              <form action="https://<%= Rails.configuration.aws["bucket"] %>.s3.amazonaws.com" method="POST"
-                enctype="multipart/form-data" class="direct-upload">
-                <input type="hidden" name="success_action_status" value="201">
-                <div class="overlay">
-                 <p> Drop product file here or click to select from your computer.</p>
-                 <input data-url="https://upandsell.s3.amazonaws.com/"
-                 id="product-upload-btn"
-                 type="file" name="product[file_js]" multiple="" class="fileInput" >
-               </div>
-               <div class="upload-box-inner">
-                <i class="fa fa-file-o fa-5x"></i>
-              </div>
-            </form>
-          </div>
-          <div class="uploading-box <% if @product.new_record? %>  hid <% end%>">
-            <div class="row">
-              <div class="col-md-5">
-                <p class="filename"><%= @product.file_name %></p>
-              </div>
-              <div class="col-md-5">
-                <div class="progress hid">
-                  <div class="progress-bar" style="width: 0%;">
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <a class="fileinput-button file-change btn btn-primary pull-right" data-text-type="change">Change</a>
-              </div>
-            </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </div>
-
-    </li>
-
-    <li class="info-section">
-
-      <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-pencil"></i> </div>
-      <div class="cbp_tmlabel">
-       <div class="p-t-20 p-l-30 p-r-10 p-b-20 product_form <% unless  @product.new_record?  %>  hid <% end%>">
-        <%= simple_form_for [:user, @product], html: { multipart: true, class: 'product' },
-        remote: true, data: { type: :json }  do |f| %>
-
-        <input id="file_key" class="filename" type="hidden" name="[product]file_key" value="<%= @product.file_key %>" />
-        <%= f.input_field :price_currency, as: :hidden %>
-        <%= token_tag nil %>
-
-        <div class="row">
-
-          <div class="col-md-4">
-           <div class="form-group row">
-
-            <div class="col-md-12 upload-box-preview">
-              <div class="overlay">
-                <%= f.input_field :preview, id: 'file-input', accept: "image/*",
-                class: 'btn-preview input-thumb fileInput' %>
-
-              </div>
-              <input type="hidden" id="local-preview-path" value="" />
-
-              <div id="preview" class="upload-box-preview-inner"
-              data-preview-url="<%= @product.preview.url if @product.id%>">
-              <p>Click to set a preview image</p>
-              <i class="fa fa-picture-o fa-5x"></i>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <div class="col-md-8">
-        <div class="form-group row <%= error_class(@product, 'name') %>">
-          <div class="col-md-7 col-lg-7 ">
-            <%= f.input_field :name, class: 'form-control', placeholder: "Product Name" %>
-          </div>
-          <div class="col-md-3 col-lg-3">
-           <div class="input-group <%= error_class(@product, 'price_cents') %>">
-             <span id="currency"
-             data-currency-symbols="[&quot;$&quot;,&quot;\u00a3&quot;,&quot;\u20ac&quot;]"
-             data-currency-values="[&quot;usd&quot;,&quot;gbp&quot;,&quot;eur&quot;]"
-             class="input-group-addon btn-preview btn-primary"><%= @product.price.symbol %></span>
-             <%= f.input_field :price, class: 'form-control', placeholder: "2.00" %>
+<div class="timeline">
+  <ul>
+    <li class="upload-section" data-product-id="<%= @product.id %>">
+      <div class="cbp_tmicon info animated bounceIn">
+        <i class="fa fa-cloud-upload"></i> </div>
+        <div class="cbp_tmlabel">
+         <div class="upload-box <% if !@product.new_record? %>  hid <% end %>">
+          <form action="https://<%= Rails.configuration.aws["bucket"] %>.s3.amazonaws.com" method="POST"
+            enctype="multipart/form-data" class="direct-upload">
+            <input type="hidden" name="success_action_status" value="201">
+            <div class="overlay">
+             <p> Drop product file here or click to select from your computer.</p>
+             <input data-url="https://upandsell.s3.amazonaws.com/"
+             id="product-upload-btn"
+             type="file" name="product[file_js]" multiple="" class="fileInput" >
            </div>
-         </div>
-         <div class="col-md-2 col-lg-2">
-          <%= f.button :submit,  "Save",
-          data: {disable_with: 'Saving...'}, class: 'btn btn-block btn-primary text-center' %>
+           <div class="upload-box-inner">
+            <i class="fa fa-file-o fa-5x"></i>
+          </div>
+        </form>
+      </div>
+      <div class="uploading-box <% if @product.new_record? %>  hid <% end%>">
+        <div class="row">
+          <div class="col-md-5">
+            <p class="filename"><%= @product.file_name %></p>
+          </div>
+          <div class="col-md-5">
+            <div class="progress hid">
+              <div class="progress-bar" style="width: 0%;">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <a class="fileinput-button file-change btn btn-primary pull-right" data-text-type="change">Change</a>
+          </div>
         </div>
       </div>
-      <div class="form-group row">
-        <div class="col-md-12">
-         <%= f.input_field :description,
-         class: 'form-control product-description',
-          placeholder: "Product Description(optional)",
-          rows: 10 %>
+    </div>
+
+  </li>
+
+  <li class="info-section">
+
+    <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-pencil"></i> </div>
+    <div class="cbp_tmlabel">
+     <div class="product_form <% unless  @product.new_record?  %>  hid <% end%>">
+      <%= simple_form_for [:user, @product], html: { multipart: true, class: 'product' },
+      remote: true, data: { type: :json }  do |f| %>
+
+      <input id="file_key" class="filename" type="hidden" name="[product]file_key" value="<%= @product.file_key %>" />
+      <%= f.input_field :price_currency, as: :hidden %>
+      <%= token_tag nil %>
+
+      <div class="row">
+
+        <div class="col-md-4">
+         <div class="form-group row">
+
+          <div class="col-md-12 upload-box-preview">
+            <div class="overlay">
+              <%= f.input_field :preview, id: 'file-input', accept: "image/*",
+              class: 'btn-preview input-thumb fileInput' %>
+
+            </div>
+            <input type="hidden" id="local-preview-path" value="" />
+
+            <div id="preview" class="upload-box-preview-inner"
+            data-preview-url="<%= @product.preview.url if @product.id%>">
+            <p>Click to set a preview image</p>
+            <i class="fa fa-picture-o fa-5x"></i>
+          </div>
+
         </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="form-group row <%= error_class(@product, 'name') %>">
+        <div class="col-md-7 col-lg-7 ">
+          <%= f.input_field :name, class: 'form-control', placeholder: "Product Name" %>
+        </div>
+        <div class="col-md-3 col-lg-3">
+         <div class="input-group <%= error_class(@product, 'price_cents') %>">
+           <span id="currency"
+           data-currency-symbols="[&quot;$&quot;,&quot;\u00a3&quot;,&quot;\u20ac&quot;]"
+           data-currency-values="[&quot;usd&quot;,&quot;gbp&quot;,&quot;eur&quot;]"
+           class="input-group-addon btn-preview btn-primary"><%= @product.price.symbol %></span>
+           <%= f.input_field :price, class: 'form-control', placeholder: "2.00" %>
+         </div>
+       </div>
+       <div class="col-md-2 col-lg-2">
+        <%= f.button :submit,  "Save",
+        data: {disable_with: 'Saving...'}, class: 'btn btn-block btn-primary text-center' %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-md-12">
+       <%= f.input_field :description,
+       class: 'form-control product-description',
+        placeholder: "Product Description(optional)",
+        rows: 10 %>
       </div>
     </div>
   </div>
 </div>
+</div>
 <% end %>
-<div class="show-product-box p-t-10 p-l-10 p-r-10 p-b-10
-product_show <% if @product.new_record? %>  hid <% end%>">
+<div class="show-product-box product_show <% if @product.new_record? %>  hid <% end%>">
 <div class="row">
  <div class="col-md-1 preview-product-image">
    <img class="product-image img-rounded"
@@ -211,11 +206,7 @@ class: "m-r-5 btn btn-warning toggle-published" %>
 
 </ul>
 <div class="clearfix"></div>
-</div>
-</div>
-
 </ul>
-</div>
 </div>
 
 

@@ -4,14 +4,25 @@
  }
 }
 
-.cbp_tmtimeline > li .cbp_tmlabel {
-  margin: 0 0 15px 7% !important;
-}
-
-.cbp_tmtimeline > li .cbp_tmicon {
-
- left: 3%;
-}
-.cbp_tmtimeline {
-margin: 10px 0 0 0 !important;
+.timeline {
+  .make-row();
+  ul {
+    .make-md-column(12);
+    .cbp_tmtimeline;
+    margin-top: 10px !important;
+  }
+  .cbp_tmicon {
+    left: 3% !important;
+  }
+  .cbp_tmlabel {
+    margin: 0 0 15px 6% !important;
+    padding: 10px;
+    border-radius: 3px;
+  }
+  .product_form {
+    padding: 30px 30px 0px 30px;
+  }
+  .show-product-box {
+    padding: 10px;
+  }
 }
