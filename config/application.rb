@@ -20,11 +20,11 @@ module Upandsell
     # config.i18n.default_locale = :de
     config.currencies = [:usd, :eur, :gpb]
     config.default_currency = :eur
-
+    config.assets.raise_runtime_errors = false
     config.autoload_paths += %W(#{config.root}/lib)
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
-     config.autoload_paths += %W( #{config.root}/app/services)
+    config.autoload_paths += %W( #{config.root}/app/services)
     config.autoload_paths += Dir["#{config.root}/app/services/**/"]
     config.i18n.enforce_available_locales = true
     config.middleware.use Rack::Affiliates

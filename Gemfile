@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.1'
+gem 'spring', group: :development
 gem 'puma'
 
 #custom gems
@@ -17,7 +18,6 @@ gem 'agent_orange'
 gem 'kaminari'
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
-gem 'whenever', require: false
 gem 'remotipart', '~> 1.2'
 gem 'rack-affiliates'
 gem 'carrierwave'
@@ -27,11 +27,10 @@ gem 'mini_magick'
 gem 'carrierwave-processing'
 gem "exchange", "~> 1.2.0"
 gem 'pagedown-bootstrap-rails'
-
 gem 'redcarpet'
 gem 'maildown'
-gem "mail_view", "~> 2.0.4"
-
+gem 'omniauth-createsend'
+gem 'omniauth-mailchimp'
 gem 'tabs', git: 'https://github.com/byterussian/tabs.git',
 branch: 'customization'
 
@@ -71,7 +70,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 # Css gems
 gem "less-rails"
-gem 'sass-rails'
+gem 'sass-rails', github: 'rails/sass-rails'
 gem "bower-rails", "~> 0.7.0"
 gem "font-awesome-rails"
 

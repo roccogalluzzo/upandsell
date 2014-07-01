@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   belongs_to :product
   belongs_to :user
   monetize :amount_cents
-  scope :completed, where(status: 'completed')
+  scope :completed, -> { where status: 'completed' }
   validates :status, inclusion: { in: STATUS_NAMES }
   serialize :payment_details
 
