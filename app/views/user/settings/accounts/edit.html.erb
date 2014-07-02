@@ -1,7 +1,7 @@
-<%= render partial: "tabs" %>
+<%= render partial: "user/settings/tabs" %>
 
 <div class="settings-form">
-  <%= simple_form_for current_user, url:  user_settings_update_account_path  do |f| %>
+  <%= simple_form_for current_user, url:  user_settings_account_path  do |f| %>
   <div class="form-row">
     <div class="row-label">
       <p>Email</p>

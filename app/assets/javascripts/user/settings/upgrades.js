@@ -1,38 +1,38 @@
-(function ($, UpgradePage, undefined) {
+(function ($, Upgrades, undefined) {
 
 
 
-  UpgradePage.init = function() {
+  Upgrades.Edit = function() {
+   $.getScript('https://bridge.paymill.com/');
+   Upgrades.Form.init();
+   window.PAYMILL_PUBLIC_KEY = '343945165162996b25976bec79666013'
 
-    UpgradePage.Form.init();
-    window.PAYMILL_PUBLIC_KEY = '343945165162996b25976bec79666013'
-
-  }
+ }
 
 
-  UpgradePage.Form = {
-    init: function() {
-      $('input.cc-num').payment('formatCardNumber');
-      $('input.cc-exp').payment('formatCardExpiry');
-      $('input.cc-cvc').payment('formatCardCVC');
-      UpgradePage.Form.setValidation();
-    },
+ Upgrades.Form = {
+  init: function() {
+    $('input.cc-num').payment('formatCardNumber');
+    $('input.cc-exp').payment('formatCardExpiry');
+    $('input.cc-cvc').payment('formatCardCVC');
+    Upgrades.Form.setValidation();
+  },
 
-    submit: function(event){
-      $('.js-btn-pay').attr('disabled', 'disabled');
-      $('.processing').show();
-      $('.message').show();
-      cc_num = $('input.cc-num').val().replace(/\s+/g, '');
-      cc_exp = $('input.cc-exp').payment('cardExpiryVal')
-      cc_cvc = $('input.cc-cvc').val();
-      amount = $('#cc-form').data('amount');
-      currency = $('#cc-form').data('currency');
-      UpgradePage.Form.token(cc_num, cc_exp, cc_cvc, amount, currency,
-      UpgradePage.Form.pay)
-      return false;
-    },
+  submit: function(event){
+    $('.js-btn-pay').attr('disabled', 'disabled');
+    $('.processing').show();
+    $('.message').show();
+    cc_num = $('input.cc-num').val().replace(/\s+/g, '');
+    cc_exp = $('input.cc-exp').payment('cardExpiryVal')
+    cc_cvc = $('input.cc-cvc').val();
+    amount = $('#cc-form').data('amount');
+    currency = $('#cc-form').data('currency');
+    Upgrades.Form.token(cc_num, cc_exp, cc_cvc, amount, currency,
+      Upgrades.Form.pay)
+    return false;
+  },
 
-   token: function(cc_num, cc_exp, cc_cvc, amount, currency, response) {
+  token: function(cc_num, cc_exp, cc_cvc, amount, currency, response) {
 
     paymill.createToken({
       number:         cc_num,
@@ -51,8 +51,8 @@
       type: 'POST',
       dataType: 'json',
       data: {token: result.token},
-      success: UpgradePage.Form.success,
-      error: UpgradePage.Form.error
+      success: Upgrades.Form.success,
+      error: Upgrades.Form.error
     });
   },
   success: function(data) {
@@ -98,7 +98,7 @@
   }, " Credit Card Data is Invalid.");
 
   $('#cc-form').validate({
-    submitHandler: UpgradePage.Form.submit,
+    submitHandler: Upgrades.Form.submit,
     rules : {
       "cc-num" : { ccNumberValid : true,
         required: true
@@ -114,11 +114,11 @@
         maxlength: 4
       }
     },
-    showErrors: UpgradePage.Form.validationErrors
+    showErrors: Upgrades.Form.validationErrors
   });
 }
 }
 
 
 
-}(jQuery, window.UpgradePage = window.UpgradePage || {}));
+}(jQuery, window.Upgrades = window.Upgrades || {}));
