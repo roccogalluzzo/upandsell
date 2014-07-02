@@ -1,6 +1,6 @@
 <%= render partial: "user/tools/tabs" %>
 
-<%= simple_form_for [:user, @mailing_list],  html: { class: 'newsletter-form simple_form' } do |f|%>
+<%= simple_form_for [:user, :tools, @mailing_list],  html: { class: 'newsletter-form simple_form' } do |f|%>
 
 <div class="col-md-offset-2 col-md-2">
   <select name="mailing_list[products][]" data-width="100%"
@@ -40,14 +40,14 @@
         <td> <%= list.subscribers %> </td>
         <td> <i class="text-muted"><%= list.last_sent || 'Never' %></i></td>
         <td>
-         <%= link_to user_mailing_list_path(list), method: :delete, class: 'btn-circle' do %>
+         <%= link_to user_tools_mailing_list_path(list), method: :delete, class: 'btn-circle' do %>
          <i class="fa fa-trash-o"></i>
          <% end %>
 
-         <%= link_to sync_user_mailing_list_path(list), class: 'btn-circle' do %>
+         <%= link_to sync_user_tools_mailing_list_path(list), class: 'btn-circle' do %>
          <i class="fa fa-exchange"></i>
          <% end %>
-         <%= link_to user_mailing_list_path(list), class: 'btn-circle' do %>
+         <%= link_to user_tools_mailing_list_path(list), class: 'btn-send' do %>
          <i class="fa fa-send"></i>
          <% end %>
        </td>

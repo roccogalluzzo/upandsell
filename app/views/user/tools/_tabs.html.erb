@@ -1,24 +1,19 @@
 <%- title "Tools" %>
 <div class="tools-menu">
   <ul>
-    <li class="<%= ap(user_mailing_lists_path)%>">
-      <%= link_to(user_mailing_lists_path) do %>
+    <li class="<%= ap(user_tools_mailing_lists_path)%>">
+      <%= link_to(user_tools_mailing_lists_path) do %>
       Newsletters/Mailing Lists
       <% end %>
     </li>
-    <li class="<%= ap( user_coupons_path)%>">
-      <%= link_to( user_coupons_path) do %>
+    <li class="<%= ap( user_tools_coupons_path)%>">
+      <%= link_to( user_tools_coupons_path) do %>
       Coupons
       <% end %>
     </li>
-    <li class="<%= ap(user_serial_keys_path)%>">
-      <%= link_to(user_serial_keys_path) do %>
+    <li class="<%= ap(user_tools_serial_keys_path)%>">
+      <%= link_to(user_tools_serial_keys_path) do %>
       Serial Key Upload
-      <% end %>
-    </li>
-    <li class="<%= ap(user_webhooks_path)%>">
-      <%= link_to(user_webhooks_path) do %>
-      WebHooks
       <% end %>
     </li>
   </ul>
