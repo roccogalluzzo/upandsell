@@ -14,6 +14,7 @@
     "momentjs": "latest",
     "infinite-scroll": "latest",
     "zeroclipboard": "latest",
-    "jquery.transit": "latest"
+    "jquery.transit": "latest",
+    "quill": "latest"
   }
 }
