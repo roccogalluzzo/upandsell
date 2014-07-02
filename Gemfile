@@ -26,7 +26,6 @@ gem 'carrierwave_direct', git: 'https://github.com/Rodeoclash/carrierwave_direct
 gem 'mini_magick'
 gem 'carrierwave-processing'
 gem "exchange", "~> 1.2.0"
-gem 'pagedown-bootstrap-rails'
 gem 'redcarpet'
 gem 'maildown'
 gem 'omniauth-createsend'

@@ -3,11 +3,11 @@
 
 
   NewsletterPage.init = function() {
-
-    converter = new Markdown.Converter()
-    Markdown.Extra.init(converter)
-    editor = new Markdown.Editor(converter)
-    editor.run()
+    $('#edit').editable({inlineMode: false,
+      buttons: ['undo', 'redo' , 'sep', 'bold', 'italic', 'underline', 'fontSize'],
+      height: 400,
+      placeholder: "Message..."
+    })
   }
 
 

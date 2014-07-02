@@ -48,7 +48,7 @@
            <i class="fa  icon-add-symbol"></i>
            <% end %>
          </li>
-         <li><%= link_to(user_settings_account_path) do %>
+         <li><%= link_to(edit_user_settings_account_path) do %>
            <i class="fa  icon-settings-wheel-fill"></i>
            <% end %>
          </li>
@@ -83,8 +83,8 @@
       <span>Orders</span>
       <% end %>
     </li>
-    <li class="<%= ap(user_mailing_lists_path) %>">
-      <%= link_to user_mailing_lists_path do %>
+    <li class="<%= ap(user_tools_mailing_lists_path) %>">
+      <%= link_to  user_tools_mailing_lists_path do %>
       <i class="fa  fa-lg fa-w icon-graph-up-2"></i>
       <span>Tools</span>
       <% end %>

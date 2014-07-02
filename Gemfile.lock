@@ -277,8 +277,6 @@ GEM
       oauth2 (~> 0.9.3)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
-    pagedown-bootstrap-rails (2.1.0)
-      railties (> 3.1)
     paymill (0.4.0)
       json
     paypal-sdk-adaptivepayments (1.110.0)
@@ -465,7 +463,6 @@ DEPENDENCIES
   mysql2
   omniauth-createsend
   omniauth-mailchimp
-  pagedown-bootstrap-rails
   paymill
   paypal-sdk-adaptivepayments
   paypal-sdk-permissions

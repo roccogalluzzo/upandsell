@@ -11,11 +11,12 @@ Upandsell::Application.routes.draw do
  get 'pricing' => 'site#pricing'
  get 'privacy' => 'site#privacy'
  get 'terms' => 'site#terms'
+
+ # subscriptions emails
  get 'unsubscribe/u/:user/:type/:signature' => 'emails#unsubscribe_user',
  :as => 'unsubscribe_user'
  get 'confirm_unsubscribe/u/:user/:type/:signature' => 'emails#confirm_unsubscribe_user',
  :as => 'confirm_unsubscribe_user'
-
  get 'unsubscribe/o/:order/:signature' => 'emails#unsubscribe_order',
  :as => 'unsubscribe_order'
  get 'confirm_unsubscribe/o/:order/:signature' => 'emails#confirm_unsubscribe_order',
@@ -32,53 +33,54 @@ Upandsell::Application.routes.draw do
   get 'checkout/check_payment' => 'checkouts#check_paypal_payment'
   post 'checkout/ipn' => 'checkouts#ipn'
   get 'download/p/:token' => 'products#download', :as => 'download_product'
-
   resources :products, only: [:show]  do
-   #get 'paypal',  on: :member
- end
+  #get 'paypal',  on: :member
+end
 
- namespace :admin do
-   mount Sidekiq::Web => 'sidekiq'
-   root 'admin#summary'
- end
+namespace :admin do
+ mount Sidekiq::Web => 'sidekiq'
+ root 'admin#summary'
+end
 
- namespace :user do
-  get 'setup',    to: 'setup#index'
-  get 'resend_email',to: 'setup#resend_email'
-  patch 'update_email', to: 'setup#update_email'
-  namespace :settings do
-    get 'account'
-    get 'emails'
-    get 'upgrade'
-    get 'payments'
-    get 'integrations'
-    get 'connect'
-    get 'connect_callback'
-    get 'add_paypal_callback', to: 'settings#add_paypal_callback'
+namespace :user do
 
-    post 'upgrade', to: 'settings#save_upgrade'
-    post 'update_payments', to: 'settings#update_payments'
-    patch 'update_account'
-    patch 'update_emails', to: 'settings#update_emails'
-  end
-  root 'products#summary'
-  post 'products/files'  => 'products#files'
-
-  get 'products/metrics'  => 'products#metrics'
+  resources :affiliations
   resources :products, except: [:show] do
     post 'upload'
     get 'toggle_published',  on: :member
   end
-  resources :orders, only: [:index, :show] do
+
+  resources :orders, only: [:index] do
    get 'refund', on: :member
  end
- resources :affiliations
- resources :tools
- resources :mailing_lists, except: [:new] do
-  post 'sync', on: :member
+
+ namespace :tools do
+  resources :coupons, except: [:new]
+  resources :serial_keys, except: [:new]
+  resources :mailing_lists, except: [:new] do
+    post 'sync', on: :member
+  end
 end
-resources :coupons, except: [:new]
-resources :webhooks, except: [:new]
-resources :serial_keys, except: [:new]
+
+root 'products#summary'
+get 'setup',    to: 'setup#index'
+get 'resend_email',to: 'setup#resend_email'
+patch 'update_email', to: 'setup#update_email'
+
+post 'products/files'  => 'products#files'
+get 'products/metrics'  => 'products#metrics'
+
+namespace :settings do
+  resources :webhooks, except: [:new]
+  resource :account, only: [:edit, :update]
+  resource :payments, only: [:edit, :update] do
+    get 'connect'
+    get 'connect_callback'
+  end
+  resource :integrations, only: [:edit, :update]
+  resource :emails, only: [:edit, :update]
+  resource :upgrade, only: [:edit, :update]
+end
+
 end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613212710) do
+ActiveRecord::Schema.define(version: 20140630233804) do
 
   create_table "mailing_lists", force: true do |t|
     t.string   "name",         null: false
@@ -116,6 +116,9 @@ ActiveRecord::Schema.define(version: 20140613212710) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.integer  "referer_id"
+    t.string   "mailchimp_token"
+    t.string   "campaign_monitor_token"
+    t.text     "custom_email_message"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
