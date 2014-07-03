@@ -115,8 +115,8 @@ function filePreviewAdd(e, data){
 
 function fileSignedRequest(filename) {
   $.ajax({
-    url: '/user/products/upload_request',
-    type: 'GET',
+    url: '/user/products/files',
+    type: 'POST',
     dataType: 'json',
     data: {name: filename, file_key:  $("#file_key").val()},
     async: false,
