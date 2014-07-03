@@ -4,7 +4,10 @@ require 'sidekiq/web'
 Upandsell::Application.routes.draw do
   devise_for :users, controllers: { confirmations: 'confirmations', registrations: "registrations" }
 
-  get '/auth/:provider/callback' => 'integrations#create'
+  get '/auth/paypal' => 'user/settings/payments#paypal_connect', as: 'paypal_integration'
+  get '/auth/paymill/callback' => 'user/settings/payments#paymill_callback', as: 'paymill_integration_callback'
+  get '/auth/paypal/callback' => 'user/settings/payments#paypal_callback', as: 'paypal_integration_callback'
+  get '/auth/:provider/callback' => 'user/settings/integrations#create', as: 'integration_callback'
 
  # Front-end
  root 'landing#index'
@@ -63,11 +66,12 @@ namespace :user do
 end
 
 root 'products#summary'
-get 'setup',    to: 'setup#index'
-get 'resend_email',to: 'setup#resend_email'
+get 'setup', to: 'setup#index'
+get 'resend_email', to: 'setup#resend_email'
 patch 'update_email', to: 'setup#update_email'
 
 post 'products/files'  => 'products#files'
+
 get 'products/metrics'  => 'products#metrics'
 
 namespace :settings do
@@ -77,7 +81,7 @@ namespace :settings do
     get 'connect'
     get 'connect_callback'
   end
-  resource :integrations, only: [:edit, :update]
+  resource :integrations, only: [:edit, :create]
   resource :emails, only: [:edit, :update]
   resource :upgrade, only: [:edit, :update]
 end

@@ -6,8 +6,7 @@
       <input type="checkbox" <%= 'checked' if current_user.paypal %> data-toggle="switch" data-type="paypal" />
     </div>
     <%= image_tag "paypal_logo.gif", class: 'payment-logo' %>
-    <%= link_to ( current_user.paypal_email ? "Connected" : "Connect"),
-    connect_user_settings_payments_path(gateway: 'paypal'),
+    <%= link_to ( current_user.paypal_email ? "Connected" : "Connect"), paypal_integration_path,
     class: 'payment-connect', disabled:( current_user.paypal_email ? true : false) %>
   </div>
 
@@ -17,8 +16,7 @@
       <input type="checkbox" <%= 'checked' if current_user.credit_card %> data-toggle="switch" data-type="paymill" />
     </div>
     <%= image_tag "paymill.png", class: 'payment-logo' %>
-    <%= link_to ( current_user.credit_card_token ? "Connected" : "Connect"),
-    connect_user_settings_payments_path(gateway: 'paymill'),
+    <%= link_to ( current_user.credit_card_token ? "Connected" : "Connect"), '/auth/paymill',
     class: 'payment-connect', disabled:( current_user.credit_card_token ? true : false) %>
     <%# link_to("Refresh Token", user_settings_update_cc_token_path, class: 'btn btn-primary') %>
   </div>

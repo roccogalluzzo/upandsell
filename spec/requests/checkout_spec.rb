@@ -9,7 +9,7 @@ describe "Checkout Process" do
       it "process order" do
         create(:user)
         product = create(:product)
-        VCR.use_cassette('payment_with_paymill') do
+        VCR.use_cassette('payment_with_paymill', record: :new_episodes) do
           order = {email: 'blabla@fffff.com', token: 'tok_a428697472ff0fd78f7a',
             product_id: product.id }
             post 'checkout/pay', order

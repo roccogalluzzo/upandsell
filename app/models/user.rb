@@ -55,9 +55,9 @@ end
 
 def connect_credit_card(data)
   self.credit_card = true
-  self.credit_card_token = data['access_token']
-  self.credit_card_public_token = data['public_key']
-  self.credit_card_response = data
+  self.credit_card_token = data.credentials.token
+  self.credit_card_public_token = data.extra.raw_info.public_key
+  self.credit_card_response = data.extra.raw_info
   self.save
 end
 

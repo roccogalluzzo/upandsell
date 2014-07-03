@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.1'
+gem 'rails', '4.1.4'
 gem 'spring', group: :development
 gem 'puma'
 
@@ -33,6 +33,8 @@ gem 'omniauth-mailchimp'
 gem 'tabs', git: 'https://github.com/byterussian/tabs.git',
 branch: 'customization'
 
+gem 'omniauth-paymill'
+gem 'createsend'
 gem 'gibbon'
 gem 'mandrill-api'
 

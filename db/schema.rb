@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 20140630233804) do
     t.string   "unconfirmed_email"
     t.integer  "referer_id"
     t.string   "mailchimp_token"
-    t.string   "campaign_monitor_token"
+    t.string   "createsend_token"
     t.text     "custom_email_message"
   end
 

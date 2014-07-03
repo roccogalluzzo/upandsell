@@ -1,6 +1,6 @@
 module Gateways::Paymill
 
-  @config = Upandsell::Application.config.paymill
+  @config = Rails.application.secrets.paymill
 
   def self.pay(product, payer)
     Paymill.api_key = User.find(product.user_id).credit_card_token
@@ -27,7 +27,7 @@ module Gateways::Paymill
   end
 
   def self.connect_url
-    query = { client_id: @config[:client_id], scope: @config[:scope],
+    query = { client_id: @config['client_id'], scope: @config['scope'],
       response_type: 'code'}.to_query
       URI::HTTPS.build(host: 'connect.paymill.com',
         path: '/en-gb/authorize', query: query).to_s
@@ -35,33 +35,19 @@ module Gateways::Paymill
 
     def self.connect(user, code)
       body = {
-        client_id: @config[:client_id],
-        client_secret: @config[:client_secret],
+        client_id: @config['client_id'],
+        client_secret: @config['client_secret'],
         grant_type: "authorization_code",
         code: code
         }.to_query
-
-        uri = URI::HTTPS.build(host: 'connect.paymill.com',
-          path: '/token')
+byebug
+        uri = URI::HTTPS.build(host: 'connect.paymill.com',  path: '/token')
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         request = Net::HTTP::Post.new(uri.request_uri)
         request.body =  body
         response = ActiveSupport::JSON.decode(http.request(request).body)
-
         user.connect_credit_card(response)
       end
 
-      def self.refresh_token(refresh_token)
-
-       body = {
-        client_id: @config[:client_id],
-        client_secret: @config[:client_secret],
-        grant_type: "refresh_token",
-        refresh_token: refresh_token,
-        scope:  config[:scope]
-        }.to_query
-
-        # TODO complete
-      end
     end
