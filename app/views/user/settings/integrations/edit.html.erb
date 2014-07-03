@@ -2,17 +2,15 @@
 <div class="settings-payments">
   <div class="row-payments">
     <%= image_tag "mailchimp-dark.png", class: 'payment-logo' %>
-    <a href="/auth/mailchimp" class="payment-connect">
-      <%= current_user.credit_card_token ? "Connected" : "Connect" %>
-    </a>
+    <%= link_to ( current_user.mailchimp_token ? "Connected" : "Connect"), '/auth/mailchimp',
+    class: 'payment-connect', disabled:( current_user.mailchimp_token ? true : false) %>
   </div>
 
   <div class="row-payments">
 
     <%= image_tag "campaign_monitor.png", class: 'payment-logo' %>
-    <a href="/auth/createsend" class="payment-connect">
-      <%= current_user.credit_card_token ? "Connected" : "Connect" %>
-    </a>
+    <%= link_to ( current_user.createsend_token ? "Connected" : "Connect"), '/auth/createsend',
+    class: 'payment-connect', disabled:( current_user.createsend_token ? true : false) %>
   </div>
 </div>
 
