@@ -1,0 +1,16 @@
+var provider = "<%= escape_javascript(@provider) %>";
+var html = get_list_html();
+
+if($('.sync-search-message').is(":visible")){
+  Mailing_lists.animations.show_list(provider, html);
+  Mailing_lists.animations.hide_search_message(provider);
+}else{
+  Mailing_lists.animations.refresh_list(provider, html);
+}
+
+function get_list_html(){
+  if(<%= @lists.size %> > 0) {
+    return "<%= escape_javascript(render(partial: 'list', collection: @lists)) %>"
+  }
+  return "<tr class='not-found'><td colspan='2'><p>No lists with this name</p></td></tr>";
+}

@@ -2,7 +2,7 @@
 
 <div class="newsletter-send">
   <div class="newsletter-send-title">
-    <h6> Send Email to: <b>Mailing list name</b> <i><b>1024</b> subscribers</i></h6>
+    <h6> Send Email to: <b><%= @list.name %></b> <i><b><%= @list.subscribers %></b> subscribers</i></h6>
   </div>
   <div class="newsletter-send-content">
     <form>
@@ -11,7 +11,8 @@
           <input type="email" class="input-lg form-control" placeholder="Subject">
         </div>
         <div class="col-md-3">
-        <a class="btn btn-block btn-default">Send Test Email</a>
+        <%= link_to "Send Test Email", send_test_email_user_tools_mailing_list_path(@list),
+        class: 'btn btn-block btn-default' %>
        </div>
        <div class="col-md-2">
          <button type="submit" class="btn btn-block btn-primary">Send</button>

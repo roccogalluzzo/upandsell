@@ -19,7 +19,7 @@ Up.alert = {
   open: function(message) {
     $('#js-message').text(message);
     $('.animated-alert').animate({
-     top: 60
+     top: 55
    }, 500);
     setTimeout(Up.alert.close, 4500);
   },

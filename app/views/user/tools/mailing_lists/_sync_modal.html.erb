@@ -1,0 +1,126 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  <h4 class="modal-title">Sync Mailing List</h4>
+</div>
+<div class="sync-body">
+  <ul class="sync-select">
+    <li class='active'>
+      <a href="#mailchimp"  data-provider="mailchimp" class="sync-select-btn" data-toggle="tab">
+        <%= image_tag "mailchimp_logo.png", class: 'payment-logo' %> Mailchimp
+      </a>
+    </li>
+    <li>
+      <a href="#createsend" data-provider="createsend" class="sync-select-btn" data-toggle="tab">
+        <%= image_tag "campaign_monitor_logo.png", class: 'payment-logo' %> Campaign Monitor
+      </a>
+    </li>
+  </ul>
+
+  <div id="js-sync-search" class="sync-search">
+
+    <%= simple_form_for :provider_search, url: search_user_tools_mailing_lists_path,
+    remote: true, method: :get, html: { class: 'simple_form' } do |f|%>
+    <div class="search-input">
+     <%= f.input_field :q, placeholder: "Search list..." %>
+   </div>
+   <%= f.input_field :provider, as: :hidden, value: 'mailchimp', id: 'js-provider-search' %>
+   <%= f.button :submit,  "Search", id: 'js-unsync-btn',
+   class: 'search-btn btn btn-sm btn-primary' %>
+   <% end %>
+ </div>
+
+ <div class="tab-content">
+  <div class="tab-pane fade in active" id="mailchimp">
+   <div class="row">
+
+     <% if current_user.mailchimp_token %>
+
+     <div class="list-sync" id="js-mailchimp-list">
+       <table>
+       </table>
+     </div>
+
+     <div id="js-mailchimp-search-message" class="sync-search-message">
+      <h3><i class="fa fa-search fa-2x"></i> </h3>
+      <p> Search for <b>MailChimp</b> list that want to sync.</p>
+    </div>
+
+    <div id="js-sync-mailchimp-completed" class="sync-completed">
+      <h4><i class="fa fa-refresh fa-3x"></i> </h4>
+      <p>Mailing List synced with <b id="js-sync-mailchimp-list-name"></b></p>
+
+      <%= simple_form_for :provider_unsync, url: remove_sync_user_tools_mailing_list_path(@list),
+      remote: true, html: { class: 'simple_form' } do |f|%>
+      <%= f.input_field :provider, as: :hidden, value: 'mailchimp'%>
+      <%= f.input_field :list_id, as: :hidden, value: '' %>
+      <p> <%= f.button :submit,  "Remove Sync", class: ' btn btn-inverse' %></p>
+      <% end %>
+
+    </div>
+
+    <div id="js-sync-mailchimp-removed" class="sync-removed">
+      <h4><i class="fa fa-times fa-3x"></i> </h4>
+      <p>Mailing List unsynced</p>
+    </div>
+
+    <% else %>
+    <div class="sync-connect">
+      <p>Before sync Mailing List you need to connect with your <b>MailChimp</b> account</p>
+      <p><a id="js-connect-sync" href="/auth/mailchimp" class="btn btn-inverse">Connect Account</a></p>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="tab-pane fade" id="createsend">
+ <div class="row">
+
+   <% if current_user.createsend_token %>
+
+   <div id="js-createsend-list" class="list-sync">
+     <table>
+     </table>
+   </div>
+
+   <div id="js-createsend-search-message" class="sync-search-message">
+    <h3><i class="fa fa-search fa-2x"></i> </h3>
+    <p> Search for <b>Campaign Monitor</b> list that want to sync.</p>
+  </div>
+
+  <div id="js-sync-createsend-completed" class="sync-completed">
+    <h4><i class="fa fa-refresh fa-3x"></i> </h4>
+    <p>Mailing List synced with <b id="js-sync-createsend-list-name"></b></p>
+    <%= simple_form_for :provider_unsync, url: remove_sync_user_tools_mailing_list_path(@list),
+    remote: true, html: { class: 'simple_form' } do |f|%>
+    <%= f.input_field :provider, as: :hidden, value: 'createsend'%>
+    <%= f.input_field :list_id, as: :hidden, value: '' %>
+    <p> <%= f.button :submit,  "Remove Sync", class: ' btn btn-inverse' %></p>
+    <% end %>
+  </div>
+
+  <div id="js-sync-createsend-removed" class="sync-removed">
+    <h4><i class="fa fa-times fa-3x"></i> </h4>
+    <p>Mailing List unsynced</p>
+  </div>
+
+  <% else %>
+  <div class="sync-connect">
+    <p>Before sync Mailing List you need to connect with your <b>Campaign Monitor</b> account</p>
+    <p><a id="js-connect-sync" href="/auth/createsend" class="btn btn-inverse">Connect Account</a></p>
+  </div>
+  <% end %>
+</div>
+</div>
+
+</div>
+</div>
+<div class="modal-footer text-center">
+  <%= simple_form_for :provider_sync, url: create_sync_user_tools_mailing_list_path(@list),
+  remote: true, html: { class: 'simple_form' } do |f|%>
+  <%= f.input_field :provider, as: :hidden, value: 'mailchimp', id: 'js-provider-sync' %>
+  <%= f.input_field :provider_list_id, as: :hidden, value: '', id: 'js-provider-id-sync' %>
+  <%= f.button :submit,  "Confirm Sync", id: 'js-sync-btn',
+  class: 'disabled btn btn-primary' %>
+  <% end %>
+</div>
+

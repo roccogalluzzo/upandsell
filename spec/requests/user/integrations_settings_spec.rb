@@ -7,13 +7,17 @@ describe "Integrations Settings" do
  end
 
  describe "Mailchimp Connect" do
-
   it "should store api token" do
-
     expect(get integration_callback_url('mailchimp'))
     .to redirect_to( edit_user_settings_integrations_path)
   end
+end
 
+describe "CreateSend Connect" do
+  it "should store api token" do
+    expect(get integration_callback_url('createsend'))
+    .to redirect_to( edit_user_settings_integrations_path)
+  end
 end
 
 end

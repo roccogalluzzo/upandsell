@@ -21,6 +21,7 @@
 //= require morris.js/morris
 //= require zeroclipboard/ZeroClipboard.min.js
 //= require froala_editor.min.js
+//= require jquery-tags-input/jquery.tagsinput.js
 //= require_tree ./user
 
 $(document).ready(Up.init);

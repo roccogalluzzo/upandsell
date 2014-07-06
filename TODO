@@ -20,7 +20,8 @@ v spec front end
 
 per domani
 
-v finire integrazione mailchimp e co
+
+- convertire modal sync in ajax
 - scrivere sync emails su sideqik
 - model email da inviare
 - testare l'invio
@@ -31,5 +32,3 @@ anche no per domani
 - scrivere invio emails mandrill su sidekiq
 - testare il tutto
 - trovare un modo per fa visualizzare le ultime email inviate
-
-096458295

@@ -60,8 +60,13 @@ namespace :user do
  namespace :tools do
   resources :coupons, except: [:new]
   resources :serial_keys, except: [:new]
-  resources :mailing_lists, except: [:new] do
-    post 'sync', on: :member
+  resources :mailing_lists do
+    get 'sync', on: :member
+    post 'create_sync', on: :member
+    post 'remove_sync', on: :member
+    get 'search', on: :collection
+    post 'send_email', on: :member
+    post 'send_test_email', on: :member
   end
 end
 

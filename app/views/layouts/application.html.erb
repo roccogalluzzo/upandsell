@@ -34,9 +34,12 @@
         <b>Up</b><span>&amp;<b>Sell</b>.Me</span>
         <% end %>
       </div>
-
+      <h3><%= content_for :title %></h3>
+      <div class="setup">
+        TODO progresso setup
+        </div>
+      </div>
       <div id="navbar">
-        <h3><%= content_for :title %></h3>
         <ul>
           <% if is_admin? %>
           <li><%= link_to(admin_root_path) do %>

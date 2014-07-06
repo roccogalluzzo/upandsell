@@ -29,6 +29,14 @@ OmniAuth.config.mock_auth[:mailchimp] = {
     token: 'mock_token'
   }
 }
+OmniAuth.config.mock_auth[:paymill] = {
+  uid: 1337,
+  provider: 'mailchimp',
+  info: { name: 'Rocky' },
+  credentials: {
+    token: 'mock_token'
+  }
+}
 
 WebMock.disable_net_connect!(allow_localhost: true)
 
@@ -44,7 +52,8 @@ FOG.directories.create(key: @aws["bucket"])
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
-  c.hook_into :webmock # or :fakeweb
+  c.hook_into :webmock
+
   c.allow_http_connections_when_no_cassette = true
 end
 
