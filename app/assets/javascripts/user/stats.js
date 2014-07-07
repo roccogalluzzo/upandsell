@@ -12,7 +12,7 @@ Stats.init = function() {
 
   $('select').on('change', function() {
    $.ajax({
-    url: '/user/products/metrics',
+    url: '/user/dashboard/metrics',
     type: 'GET',
     dataType: 'json',
     data: {type: 'earnings', range: 30,

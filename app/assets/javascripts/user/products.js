@@ -5,10 +5,6 @@
   settings = { form: $(".product")};
 }
 
-Products.Summary = function() {
- Stats.init();
-};
-
 Products.New = function() {
   Products.init();
   Products.Form.init();
