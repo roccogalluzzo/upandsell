@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '4.1.4'
 gem 'spring', group: :development
 gem 'puma'
+gem 'foreman'
 gem 'sdoc', require: false
 
 #custom gems
@@ -79,7 +80,6 @@ gem "font-awesome-rails"
 # Deployment
 group :development do
   gem 'mina'
-  gem 'foreman'
   gem 'pry-rails'
   gem 'guard-livereload', require: false
   gem 'rb-fsevent'

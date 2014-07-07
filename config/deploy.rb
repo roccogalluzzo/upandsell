@@ -2,7 +2,6 @@ require 'mina/git'
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/rbenv'
-require 'mina/foreman'
 
 stage = ENV['to']
 case stage
@@ -17,7 +16,7 @@ else
   exit
 end
 
- set :rails_env, stage
+set :rails_env, stage
 
 set :user, 'deployer'
 set :port, 4688
@@ -37,6 +36,8 @@ end
 task :setup => :environment do
   queue! %[mkdir -p "#{deploy_to}/shared/log"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/log"]
+
+  queue! %[mkdir -p "#{deploy_to}/current"]
 
   queue! %[mkdir -p "#{deploy_to}/shared/config"]
   queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
@@ -63,4 +64,43 @@ task :deploy => :environment do
   end
 end
 
+set_default :foreman_app,  lambda { application }
+set_default :foreman_user, lambda { user }
+set_default :foreman_log,  lambda { "#{deploy_to!}/#{shared_path}/log" }
+
+namespace :foreman do
+  desc 'Export the Procfile to Ubuntu upstart scripts'
+  task :export do
+    export_cmd = "rbenv sudo bundle exec foreman export upstart /etc/init -a #{foreman_app} -u #{foreman_user} -l #{foreman_log}"
+
+    queue %{
+      echo "-----> Exporting foreman procfile for #{foreman_app}"
+      #{echo_cmd %[rbenv sudo cd #{deploy_to!}/#{current_path!} ; #{export_cmd}]}
+    }
+  end
+
+  desc "Start the application services"
+  task :start do
+    queue %{
+      echo "-----> Starting #{foreman_app} services"
+      #{echo_cmd %[rbenv sudo start #{foreman_app}]}
+    }
+  end
+
+  desc "Stop the application services"
+  task :stop do
+    queue %{
+      echo "-----> Stopping #{foreman_app} services"
+      #{echo_cmd %[rbenv sudo stop #{foreman_app}]}
+    }
+  end
+
+  desc "Restart the application services"
+  task :restart do
+    queue %{
+      echo "-----> Restarting #{foreman_app} services"
+      #{echo_cmd %[rbenv sudo start #{foreman_app} || sudo restart #{foreman_app}]}
+    }
+  end
+end
 
