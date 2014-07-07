@@ -35,36 +35,33 @@
         <% end %>
       </div>
       <h3><%= content_for :title %></h3>
-      <div class="setup">
-        TODO progresso setup
-        </div>
-      </div>
-      <div id="navbar">
-        <ul>
-          <% if is_admin? %>
-          <li><%= link_to(admin_root_path) do %>
-           <i class="fa fa-user  icon-user-2"></i>
-           <% end %>
-         </li>
+    </div>
+    <div id="navbar">
+      <ul>
+        <% if is_admin? %>
+        <li><%= link_to(admin_root_path) do %>
+         <i class="fa fa-user  icon-user-2"></i>
          <% end %>
-         <li><%= link_to(new_user_product_path) do %>
-           <i class="fa  icon-add-symbol"></i>
-           <% end %>
-         </li>
-         <li><%= link_to(edit_user_settings_account_path) do %>
-           <i class="fa  icon-settings-wheel-fill"></i>
-           <% end %>
-         </li>
-         <li><%= link_to(destroy_user_session_path, method: :delete) do %>
-           <i class="fa  fa-power-off"></i>
-           <% end %>
-         </li>
-       </ul>
-     </div>
+       </li>
+       <% end %>
+       <li><%= link_to(new_user_product_path) do %>
+         <i class="fa  icon-add-symbol"></i>
+         <% end %>
+       </li>
+       <li><%= link_to(edit_user_settings_account_path) do %>
+         <i class="fa  icon-settings-wheel-fill"></i>
+         <% end %>
+       </li>
+       <li><%= link_to(destroy_user_session_path, method: :delete) do %>
+         <i class="fa  fa-power-off"></i>
+         <% end %>
+       </li>
+     </ul>
    </div>
  </div>
+</div>
 
- <div id="content">
+<div id="content">
   <div class="page-sidebar" id="main-menu">
    <div class="page-sidebar-wrapper" id="main-menu-wrapper">
      <ul>
@@ -74,19 +71,19 @@
         <span> Summary </span>
         <% end %>
       </li>
-      <li class="<%= ap(user_products_path) %>">
+      <li class="<%= ac('products') %>">
        <%= link_to user_products_path do %>
        <i class="fa fa-lg fa-w icon-tag-2"></i>
        <span> Products </span>
        <% end %>
      </li>
-     <li class="<%= ap(user_orders_path) %>">
+     <li class="<%= ac('orders') %>">
       <%= link_to user_orders_path do %>
       <i class="fa  fa-lg fa-w icon-reciept-1"></i>
       <span>Orders</span>
       <% end %>
     </li>
-    <li class="<%= ap(user_tools_mailing_lists_path) %>">
+    <li class="<%= ac('mailing_lists') || ac('coupons') || ac('emails') %>">
       <%= link_to  user_tools_mailing_lists_path do %>
       <i class="fa  fa-lg fa-w icon-graph-up-2"></i>
       <span>Tools</span>

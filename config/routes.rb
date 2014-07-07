@@ -69,6 +69,7 @@ namespace :user do
     get 'search', on: :collection
     post 'send_email', on: :member
     post 'send_test_email', on: :member
+    resource :emails
   end
 end
 

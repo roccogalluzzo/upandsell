@@ -37,6 +37,9 @@ def ap(path)
   "active" if current_page?(path)
 end
 
+def ac(controller)
+  'active' if controller_name == controller
+end
 def step(icon, success = false)
   if success
     "<div class=\"cbp_tmicon success animated bounceIn\">

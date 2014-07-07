@@ -1,7 +1,7 @@
 <%- title "Tools" %>
 <div class="tools-menu">
   <ul>
-    <li class="<%= ap(user_tools_mailing_lists_path)%>">
+    <li class="<%= ac("mailing_lists") || ac('emails') %>">
       <%= link_to(user_tools_mailing_lists_path) do %>
       Newsletters/Mailing Lists
       <% end %>
