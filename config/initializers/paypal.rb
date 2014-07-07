@@ -1,2 +1,2 @@
-PayPal::SDK.load("config/paypal.yml", Rails.env)
+PayPal::SDK.configure(Rails.application.secrets.paypal)
 PayPal::SDK.logger = Rails.logger

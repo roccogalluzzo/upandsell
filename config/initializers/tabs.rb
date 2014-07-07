@@ -1,10 +1,7 @@
 Tabs.configure do |config|
 
   # set it to an existing connection
-  config.redis = Redis.current
-
-  # pass a config hash that will be passed to Redis.new
-  config.redis = { host: 'localhost', port: 6379, db: 2 }
+  config.redis = Rails.application.secrets.redis
 
   # pass a prefix that will be used in addition to the "tabs" prefix with Redis keys
   # Example: "tabs:my_app:metric_name"

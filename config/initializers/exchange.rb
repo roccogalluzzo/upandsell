@@ -1,9 +1,9 @@
-redis =  YAML.load_file(Rails.root.join("config/redis.yml")).symbolize_keys
+redis = Rails.application.secrets.redis
 config = Exchange::Configuration.new do |c|
   c.implicit_conversions = false
   c.cache = {
     subclass: :redis,
-    host:     redis[Rails.env.to_sym][:host],
+    host:     redis['host'],
     expire: :daily
   }
 

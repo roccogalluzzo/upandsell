@@ -1,4 +1,4 @@
-@aws =  Rails.configuration.aws
+@aws =  Rails.application.secrets.aws
 
 CarrierWave.configure do |config|
   config.fog_credentials = {
