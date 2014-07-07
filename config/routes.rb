@@ -46,6 +46,8 @@ namespace :admin do
 end
 
 namespace :user do
+  root 'dashboard#index'
+  get 'dashboard/metrics'  => 'dashboard#metrics'
 
   resources :affiliations
   resources :products, except: [:show] do
@@ -70,14 +72,12 @@ namespace :user do
   end
 end
 
-root 'products#summary'
+
 get 'setup', to: 'setup#index'
 get 'resend_email', to: 'setup#resend_email'
 patch 'update_email', to: 'setup#update_email'
 
 post 'products/files'  => 'products#files'
-
-get 'products/metrics'  => 'products#metrics'
 
 namespace :settings do
   resources :webhooks, except: [:new]
