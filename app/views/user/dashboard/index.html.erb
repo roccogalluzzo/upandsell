@@ -10,28 +10,28 @@
         <p>TODAY</p>
         <h4>
           <span class="earnings-today"> <%=  @earnings[:today] %></span>
-          <%= current_user.currency %>
+          <%= currency_symbol current_user.currency %>
         </h4>
       </div>
       <div class="box">
         <p>THIS WEEK</p>
         <h4>
           <span class="earnings-week"> <%=  @earnings[:week] %></span>
-          <%= current_user.currency %>
+          <%= currency_symbol current_user.currency %>
         </h4>
       </div>
       <div class="box">
         <p>THIS MONTH</p>
         <h4>
           <span class="earnings-month"> <%=  @earnings[:month] %></span>
-          <%= current_user.currency %>
+          <%= currency_symbol current_user.currency %>
         </h4>
       </div>
 
       <div class="overlay-graph">
         <div class="overlayer-wrapper">
           <%= content_tag "div", id: "chart", class: "graph",
-          data: { earnings: @earnings[:summary_data], currency: current_user.currency } do %>
+          data: { earnings: @earnings[:summary_data], currency: currency_symbol(current_user.currency) } do %>
           <div id="area-example"></div><% end %>
         </div>
       </div>

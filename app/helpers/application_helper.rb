@@ -40,6 +40,12 @@ end
 def ac(controller)
   'active' if controller_name == controller
 end
+
+def currency_symbol(currency)
+  cur = {eur: '€', usd: '$', gbp: '£'}
+   cur[currency.downcase.to_sym].html_safe
+end
+
 def step(icon, success = false)
   if success
     "<div class=\"cbp_tmicon success animated bounceIn\">
