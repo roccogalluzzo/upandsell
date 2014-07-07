@@ -78,11 +78,7 @@ gem "font-awesome-rails"
 
 # Deployment
 group :development do
-  gem 'capistrano'
-  gem 'capistrano-rails', '~> 1.1'
-  gem 'capistrano-bundler', '~> 1.1.2'
-  gem 'capistrano-sidekiq'
-  gem 'capistrano-rvm'
+  gem 'mina'
   gem 'foreman'
   gem 'pry-rails'
   gem 'guard-livereload', require: false

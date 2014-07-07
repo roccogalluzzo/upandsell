@@ -1,35 +1,66 @@
-set :application, 'up-sell'
-set :repo_url, 'git@bitbucket.org:angelbit/up-sell.git'
-set :user, "byterussian"
+require 'mina/git'
+require 'mina/bundler'
+require 'mina/rails'
+require 'mina/rbenv'
+require 'mina/foreman'
 
-set :branch, 'master'
-set :deploy_to, '/var/www/up-sell'
-set :scm, :git
-set :deploy_via, :remote_cache
-set :format, :pretty
-set :log_level, :info
-set :bundle_without, [:development, :test]
+stage = ENV['to']
+case stage
+when 'staging'
+  set :domain, "188.226.209.133"
+  set :branch, 'staging'
+when 'production'
+  set :domain, "upandsell.me"
+  set :branch, 'master'
+else
+  print_error "Please specify a stage. eg. mina deploy to=production"
+  exit
+end
 
-set :linked_files, %w{config/database.yml}
-set :linked_dirs, %w{log}
+ set :rails_env, stage
 
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :user, 'deployer'
+set :port, 4688
+
+set :deploy_to, '/var/www/upandsell'
 set :keep_releases, 2
+set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'log', 'tmp']
 
-namespace :deploy do
-  task :restart do
-   on roles(:app) do
-     execute "(kill -s SIGUSR1 $(ps -C ruby -F | grep '/puma' | awk {'print $2'}))"
-   end
- end
- task :currency_db do
-  on roles(:app) do
-   execute "cd #{deploy_to}/current", raise_on_non_zero_exit: false
-   execute "RAILS_ENV=production bundle exec rake money:update_rates", raise_on_non_zero_exit: false
- end
+set :repository, 'git@bitbucket.org:angelbit/up-sell.git'
+
+set :foreman_app, 'upandsell_app'
+
+task :environment do
+  invoke :'rbenv:load'
 end
 
-after :finishing, 'deploy:cleanup'
-after :finishing, 'deploy:restart'
-after :finishing, 'deploy:currency_db'
+task :setup => :environment do
+  queue! %[mkdir -p "#{deploy_to}/shared/log"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/log"]
+
+  queue! %[mkdir -p "#{deploy_to}/shared/config"]
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
+
+  queue! %[touch "#{deploy_to}/shared/config/database.yml"]
+  queue  %[echo "-----> Be sure to edit '#{deploy_to}/shared/config/database.yml'."]
+
+  queue! %[touch "#{deploy_to}/shared/config/secrets.yml"]
+  queue  %[echo "-----> Be sure to edit '#{deploy_to}/shared/config/secrets.yml'."]
 end
+
+desc "Deploys the current version to the server."
+task :deploy => :environment do
+  deploy do
+    invoke :'git:clone'
+    invoke :'deploy:link_shared_paths'
+    invoke :'bundle:install'
+    invoke 'foreman:export'
+    invoke :'rails:db_migrate'
+
+    to :launch do
+      invoke 'foreman:restart'
+    end
+  end
+end
+
+

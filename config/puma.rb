@@ -1,6 +1,6 @@
 daemonize true
 pidfile '/tmp/puma.pid'
-bind 'unix:///tmp/up-sell.sock'
+bind 'unix:///tmp/upandsell.sock'
 
 threads 1, 6
 workers 2

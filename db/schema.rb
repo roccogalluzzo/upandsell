@@ -11,14 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140630233804) do
+ActiveRecord::Schema.define(version: 20140706220745) do
+
+  create_table "coupons", force: true do |t|
+    t.integer  "product_id",             null: false
+    t.string   "code",                   null: false
+    t.integer  "discount"
+    t.integer  "avaiable"
+    t.integer  "used",       default: 0
+    t.datetime "expire"
+    t.string   "type"
+    t.string   "status"
+  end
+
+  create_table "mailing_list_emails", force: true do |t|
+    t.integer  "mailing_list_id"
+    t.string   "subject"
+    t.text     "content"
+    t.datetime "sent_at"
+  end
 
   create_table "mailing_lists", force: true do |t|
-    t.string   "name",         null: false
-    t.integer  "user_id",      null: false
+    t.string   "name",                 null: false
+    t.integer  "user_id",              null: false
     t.datetime "last_sent"
     t.datetime "segment_from"
     t.datetime "segment_to"
+    t.integer  "mailchimp_list_id"
+    t.string   "mailchimp_list_name"
+    t.integer  "createsend_list_id"
+    t.string   "createsend_list_name"
   end
 
   create_table "mailing_lists_products", force: true do |t|
