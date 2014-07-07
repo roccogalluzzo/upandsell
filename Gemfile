@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '4.1.4'
 gem 'spring', group: :development
 gem 'puma'
+gem 'sdoc', require: false
 
 #custom gems
 gem 'devise'
