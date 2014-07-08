@@ -79,7 +79,11 @@ gem "font-awesome-rails"
 
 # Deployment
 group :development do
-  gem 'mina'
+  gem 'capistrano', '~> 3.2.0'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-foreman'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.1'
   gem 'pry-rails'
   gem 'guard-livereload', require: false
   gem 'rb-fsevent'

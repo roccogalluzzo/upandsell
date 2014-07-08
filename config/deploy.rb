@@ -1,106 +1,62 @@
-require 'mina/git'
-require 'mina/bundler'
-require 'mina/rails'
-require 'mina/rbenv'
+# config valid only for Capistrano 3.1
+lock '3.2.1'
 
-stage = ENV['to']
-case stage
-when 'staging'
-  set :domain, "188.226.209.133"
-  set :branch, 'staging'
-when 'production'
-  set :domain, "upandsell.me"
-  set :branch, 'master'
-else
-  print_error "Please specify a stage. eg. mina deploy to=production"
-  exit
-end
+set :application, 'upandsell'
+set :repo_url, 'git@bitbucket.org:angelbit/up-sell.git'
 
-set :rails_env, stage
+# Default branch is :master
+ask :branch, :staging #proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-set :user, 'deployer'
-set :port, 4688
-
+# Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/upandsell'
+
+# Default value for :linked_files is []
+set :linked_files, %w{config/database.yml config/secrets.yml}
+
+# Default value for linked_dirs is []
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle}
+
+# Rbenv settings
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '2.1.1'
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_roles, :all
+
+# Foreman Settings
+set :foreman_sudo, 'rbenv sudo'
+set :foreman_upstart_path, '/etc/init/'
+set :foreman_options, {
+  app: application,
+  log: "#{shared_path}/log",
+  user: user
+}
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
 set :keep_releases, 2
-set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'log', 'tmp']
 
-set :repository, 'git@bitbucket.org:angelbit/up-sell.git'
+namespace :deploy do
 
-set :foreman_app, 'upandsell'
-
-task :environment do
-  invoke :'rbenv:load'
-end
-
-task :setup => :environment do
-  queue! %[mkdir -p "#{deploy_to}/shared/log"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/log"]
-
-  queue! %[mkdir -p "#{deploy_to}/current"]
-
-  queue! %[mkdir -p "#{deploy_to}/shared/config"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
-
-  queue! %[touch "#{deploy_to}/shared/config/database.yml"]
-  queue  %[echo "-----> Be sure to edit '#{deploy_to}/shared/config/database.yml'."]
-
-  queue! %[touch "#{deploy_to}/shared/config/secrets.yml"]
-  queue  %[echo "-----> Be sure to edit '#{deploy_to}/shared/config/secrets.yml'."]
-end
-
-desc "Deploys the current version to the server."
-task :deploy => :environment do
-  deploy do
-    invoke :'git:clone'
-    invoke :'deploy:link_shared_paths'
-    invoke :'bundle:install'
-    invoke :'rails:db_migrate'
-
-    to :launch do
-     invoke 'foreman:export'
-     invoke 'foreman:restart'
-   end
- end
-end
-
-set_default :foreman_app,  lambda { application }
-set_default :foreman_user, lambda { user }
-set_default :foreman_log,  lambda { "#{deploy_to!}/#{shared_path}/log" }
-
-namespace :foreman do
-  desc 'Export the Procfile to Ubuntu upstart scripts'
-  task :export do
-    export_cmd = "rbenv sudo bundle exec foreman export upstart /etc/init -a #{foreman_app} -u #{foreman_user} -l #{foreman_log}"
-
-    queue %{
-      echo "-----> Exporting foreman procfile for #{foreman_app}"
-      #{echo_cmd %[rbenv sudo sh -c 'cd #{deploy_to!}/#{current_path!}' ; #{export_cmd}]}
-    }
-  end
-
-  desc "Start the application services"
-  task :start do
-    queue %{
-      echo "-----> Starting #{foreman_app} services"
-      #{echo_cmd %[rbenv sudo start #{foreman_app}]}
-    }
-  end
-
-  desc "Stop the application services"
-  task :stop do
-    queue %{
-      echo "-----> Stopping #{foreman_app} services"
-      #{echo_cmd %[rbenv sudo stop #{foreman_app}]}
-    }
-  end
-
-  desc "Restart the application services"
+  desc 'Restart application'
   task :restart do
-    queue %{
-      echo "-----> Restarting #{foreman_app} services"
-      #{echo_cmd %[rbenv sudo restart #{foreman_app}]}
-    }
-  end
-end
+    on roles(:app), in: :sequence, wait: 5 do
 
+      # Your restart mechanism here, for example:
+      # execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
+
+  after :publishing, :restart
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
+  end
+
+end
