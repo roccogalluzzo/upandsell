@@ -27,7 +27,7 @@ set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'log', 'tmp']
 
 set :repository, 'git@bitbucket.org:angelbit/up-sell.git'
 
-set :foreman_app, 'upandsell_app'
+set :foreman_app, 'upandsell'
 
 task :environment do
   invoke :'rbenv:load'
@@ -75,7 +75,7 @@ namespace :foreman do
 
     queue %{
       echo "-----> Exporting foreman procfile for #{foreman_app}"
-      #{echo_cmd %[rbenv sudo cd #{deploy_to!}/#{current_path!} ; #{export_cmd}]}
+      #{echo_cmd %[rbenv sudo sh -c 'cd #{deploy_to!}/#{current_path!}' ; #{export_cmd}]}
     }
   end
 
@@ -99,7 +99,7 @@ namespace :foreman do
   task :restart do
     queue %{
       echo "-----> Restarting #{foreman_app} services"
-      #{echo_cmd %[rbenv sudo start #{foreman_app} || sudo restart #{foreman_app}]}
+      #{echo_cmd %[rbenv sudo restart #{foreman_app}]}
     }
   end
 end
