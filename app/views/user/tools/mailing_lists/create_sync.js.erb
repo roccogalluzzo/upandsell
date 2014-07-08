@@ -1,4 +1,4 @@
   var provider = "<%= escape_javascript(@provider) %>";
   Mailing_lists.animations.hide_list(provider);
   Mailing_lists.animations.show_completed(provider);
-  $("#js-sync-" + provider + "-list-name").text("<%= escape_javascript(@list_name) %>");
+  $("#js-sync-" + provider + "-list-name").text("<%= escape_javascript(@list.name) %>");

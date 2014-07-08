@@ -6,18 +6,20 @@ class MailingListsService
     @token = token
   end
 
-  def get_lists
+  def search(query)
+    @provider.search(@token, query)
   end
 
-  def batch_subscribe(provider_list_id, emails)
-   @provider.batch_subscribe(@token, provider_list_id, emails)
- end
+  def batch_subscribe(list_id)
+    list = MailingList.find(list_id)
+    @provider.batch_subscribe(@token, list.provider_list_id, list.emails)
+  end
 
- def subscribe(list_id, email)
-  @provider.subscribe(list_id, email)
-end
+  def subscribe(list_id, email)
+    @provider.subscribe(list_id, email)
+  end
 
-def unsubscribe(list_id, email)
-  @provider.unsubscribe(list_id, email)
-end
+  def unsubscribe(list_id, email)
+    @provider.unsubscribe(list_id, email)
+  end
 end

@@ -1,9 +1,9 @@
 module MLProvider
-  module Mailchimp
+  module Createsend
 
     def self.search_lists(token, query)
-      gb = Gibbon::API.new(token)
-      gb.lists.list({
+      cs = CreateSend::CreateSend.new(api_key: token)
+      cs.lists.list({
         filters: {:ist_name: query},
         limit: 5
         })

@@ -16,42 +16,26 @@ class Order < ActiveRecord::Base
 
   after_save do
     if self.status == 'completed' && self.status_was != 'completed'
-     user = User.find(self.product.user_id)
-     UserMailer.delay.bought_email(user, self)
-     Metric::Product.new(self.product).record_sale(self.amount_base_cents)
+      user = User.find(self.product.user_id)
+      UserMailer.delay.bought_email(user, self)
+      Metric::Product.new(self.product).record_sale(self.amount_base_cents)
 
-     if user.email_after_sale
-       UserMailer.delay.sold_email(user, self)
-     end
-   end
+      if user.email_after_sale
+        UserMailer.delay.sold_email(user, self)
+      end
 
-   if self.status == 'refunded' && self.status_was == 'completed'
-    UserMailer.delay.refund_email(user, self)
-    Metric::Product.new(self.product).delete_sale(self.amount_base_cents, self.created_at)
+      if self.buyer_accepts_marketing
+        MailingListAddSyncWorker.perform(self.id)
+      end
+    end
+
+    if self.status == 'refunded' && self.status_was == 'completed'
+      UserMailer.delay.refund_email(user, self)
+      Metric::Product.new(self.product).delete_sale(self.amount_base_cents, self.created_at)
+    end
   end
-end
 
-def refund
-
-end
-
-  # def unsubscribe_token
-  #   verifier =  ActiveSupport::MessageVerifier.new(
-  #     URI::escape(Upandsell::Application.config.secret_key_base))
-  #   token = verifier.generate("#{self.id}")
-  #   {order: self.id, signature: token}
-  # end
-
-
-  # def self.is_valid_token?(id, signature)
-  #   Order.find(id).unsubscribe_token[:signature] == signature
-  # end
-
-  # def self.unsubscribe(order_id, signature)
-  #   if self.is_valid_token?(order_id, signature)
-  #     user = self.find order_id
-  #     user.update_attribute :email_subscription, false
-  #   end
-  # end
+  def refund
+  end
 
 end
