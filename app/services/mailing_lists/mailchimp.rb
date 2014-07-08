@@ -4,7 +4,7 @@ module MLProvider
     def self.search_lists(token, query)
       gb = Gibbon::API.new(token)
       gb.lists.list({
-        filters: {:ist_name: query},
+        filters: {list_name: query},
         limit: 5
         })
     end
