@@ -55,13 +55,13 @@ task :deploy => :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    invoke 'foreman:export'
     invoke :'rails:db_migrate'
 
     to :launch do
-      invoke 'foreman:restart'
-    end
-  end
+     invoke 'foreman:export'
+     invoke 'foreman:restart'
+   end
+ end
 end
 
 set_default :foreman_app,  lambda { application }
