@@ -3,7 +3,7 @@ pidfile '/tmp/puma.pid'
 bind 'unix:///tmp/upandsell.sock'
 
 threads 1, 6
-workers 2
+workers 1
 
 port        ENV['PORT']     || 3000
 environment ENV['RACK_ENV'] || 'staging'

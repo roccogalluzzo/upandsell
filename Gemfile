@@ -38,7 +38,7 @@ gem 'omniauth-paymill'
 gem 'createsend'
 gem 'gibbon'
 gem 'mandrill-api'
-gem 'oauth2'
+
 
 #test gems
 group :development, :test do
