@@ -469,7 +469,6 @@ DEPENDENCIES
   monetize
   money-rails
   mysql2
-  oauth2
   omniauth-createsend
   omniauth-mailchimp
   omniauth-paymill
