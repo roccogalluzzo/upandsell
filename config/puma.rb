@@ -7,7 +7,6 @@ workers 1
 stdout_redirect 'log/puma.log', 'log/puma_error.log', true
 port        ENV['PORT']     || 3000
 environment 'staging'
-
 stdout_redirect "/var/www/upandsell/current/log/puma-.stdout.log", "/var/www/upandsell/current/log/puma-.stderr.log"
 
 
