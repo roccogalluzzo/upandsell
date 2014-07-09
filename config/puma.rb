@@ -8,12 +8,9 @@ stdout_redirect 'log/puma.log', 'log/puma_error.log', true
 port        ENV['PORT']     || 3000
 environment 'staging'
 
-application_path = '/var/www/upandsell/current'
-directory application_path
-stdout_redirect "#{application_path}/log/puma-.stdout.log", "#{application_path}/log/puma-.stderr.log"
+stdout_redirect "/var/www/upandsell/current/log/puma-.stdout.log", "/var/www/upandsell/current/log/puma-.stderr.log"
 
-threads 0, 16
-bind "unix://#{application_path}/tmp/sockets/#{railsenv}.socket"
+
 on_worker_boot do
 require "active_record"
 cwd = File.dirname(__FILE__)+"/.."
