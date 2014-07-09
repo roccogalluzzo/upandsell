@@ -10,10 +10,10 @@ class User::Settings::IntegrationsController < User::BaseController
     if provider == 'createsend'
       access_token = auth_hash.credentials.token
     else
-      access_token = request_token(provider, params[:code])
+    #  access_token = request_token(provider, params[:code])
     end
-
-    if current_user.update_attribute("#{provider}_token", access_token)
+      apikey = "#{auth_hash.credentials.token}-#{auth_hash.extra.metadata.dc}"
+    if current_user.update_attribute("#{provider}_token", apikey)
       redirect_to edit_user_settings_integrations_path
     end
   end

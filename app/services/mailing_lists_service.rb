@@ -1,13 +1,13 @@
 class MailingListsService
 
   def initialize(provider, token)
-    @provider = ("MLProvider::#{provider.classify}").constantize
+    @provider = ("Providers::#{provider.classify}").constantize
     @provider_name = provider
     @token = token
   end
 
   def search(query)
-    @provider.search(@token, query)
+    @provider.search_lists(@token, query)
   end
 
   def batch_subscribe(list_id)
@@ -22,4 +22,8 @@ class MailingListsService
   def unsubscribe(list_id, email)
     @provider.unsubscribe(list_id, email)
   end
+end
+
+module  MLProvider
+
 end

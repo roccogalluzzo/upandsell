@@ -1,9 +1,11 @@
-module MLProvider
-  module Createsend
+module Providers::Mailchimp
 
     def self.search_lists(token, query)
-      cs = CreateSend::CreateSend.new(api_key: token)
-      cs.lists.list({
+      #token = '2fc4fc2792180636394574e660871f57-us4'
+      #byebug
+      gb = Gibbon::API.new(token)
+      puts token
+      gb.lists.list({
         filters: {list_name: query},
         limit: 5
         })
@@ -38,4 +40,4 @@ module MLProvider
     end
 
   end
-end
+

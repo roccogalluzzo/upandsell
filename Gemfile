@@ -32,13 +32,13 @@ gem 'redcarpet'
 gem 'maildown'
 gem 'omniauth-createsend'
 gem 'omniauth-mailchimp'
-gem 'tabs', git: 'https://github.com/byterussian/tabs.git',
-branch: 'customization'
+gem 'tabs', git: 'https://github.com/byterussian/tabs.git', branch: 'customization'
 
 gem 'omniauth-paymill'
 gem 'createsend'
 gem 'gibbon'
 gem 'mandrill-api'
+gem 'oauth2'
 
 #test gems
 group :development, :test do
@@ -81,7 +81,6 @@ gem "font-awesome-rails"
 group :development do
   gem 'capistrano', '~> 3.2.0'
   gem 'capistrano-rbenv', '~> 2.0'
-  gem 'capistrano-foreman'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'pry-rails'

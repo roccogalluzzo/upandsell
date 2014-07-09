@@ -39,14 +39,13 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
 
-      # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
+      execute "cd /var/www/upandsell && rbenv sudo bundle exec foreman export upstart /etc/init -a app -u deploye
+      -l /var/www/upandsell/shared/log"
+      execute "sudo start app || sudo restart app"
     end
   end
 
   after :publishing, :restart
-  after "deploy:update", "foreman:export"
-  after "deploy:update", "foreman:restart"
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -56,27 +55,7 @@ namespace :deploy do
     end
   end
 
-  end
-  namespace :foreman do
-    desc "Export the Procfile to Ubuntu's upstart scripts"
-    task :export, :roles => :app do
-      run "cd /var/www/upandsell && rbenv sudo bundle exec foreman export upstart /etc/init -a app -u deploye
-      -l /var/www/upandsell/shared/log"
-    end
+end
 
-    desc "Start the application services"
-    task :start, :roles => :app do
-      sudo "sudo start app"
-    end
 
-    desc "Stop the application services"
-    task :stop, :roles => :app do
-      sudo "sudo stop app"
-    end
-
-    desc "Restart the application services"
-    task :restart, :roles => :app do
-      run "sudo start app || sudo restart app"
-    end
-  end
 

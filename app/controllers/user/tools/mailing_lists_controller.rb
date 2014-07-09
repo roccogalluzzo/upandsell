@@ -42,7 +42,7 @@ class User::Tools::MailingListsController < User::BaseController
   def search
     @provider = params[:provider_search][:provider]
     # api search call
-    ml_service = MailingListsService.new(@provider, current_user.provider_token)
+    ml_service = MailingListsService.new(@provider, current_user.send("#{@provider}_token"))
     @lists = ml_service.search(params[:provider_search][:q])
     # format response
     #@provider = params[:provider_search][:provider]
