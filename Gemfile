@@ -83,6 +83,7 @@ group :development do
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-foreman'
   gem 'pry-rails'
   gem 'guard-livereload', require: false
   gem 'rb-fsevent'

@@ -53,7 +53,12 @@ Upandsell::Application.configure do
   config.force_ssl = false
 
   # Set to :debug to see everything in the log.
-  config.log_level = :warn
+  config.log_level = :debug
+  config.assets.debug = true
+  config.assets.logger = nil
+
+  config.logger = Logger.new(STDOUT)
+  config.logger.level = Logger.const_get('DEBUG')
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
