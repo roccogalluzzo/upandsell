@@ -6,7 +6,7 @@ threads 1, 6
 workers 1
 
 port        ENV['PORT']     || 3000
-environment ENV['RACK_ENV'] || 'staging'
+environment 'staging'
 
 on_worker_boot do
 require "active_record"
