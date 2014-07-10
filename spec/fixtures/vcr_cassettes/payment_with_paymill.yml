@@ -542,4 +542,57 @@ http_interactions:
         \   </fx>\r\n  </exchange_rates>\r\n</xavierresponse>\r\n\t"
     http_version: 
   recorded_at: Wed, 09 Jul 2014 12:54:15 GMT
+- request:
+    method: get
+    uri: http://api.finance.xaviermedia.com/api/2014/07/10.xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      X-Amz-Request-Id:
+      - 8DC2A4AF9C60D13C
+      X-Amz-Id-2:
+      - 6FzPg0G8lvDjsSYo/fNSxZjO7ZdBG9uDXJ9+nEHV9ux50HrqCtw0oqA8n6nApK0x
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '442'
+      Date:
+      - Thu, 10 Jul 2014 09:20:05 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |
+        <html>
+        <head><title>403 Forbidden</title></head>
+        <body>
+        <h1>403 Forbidden</h1>
+        <ul>
+        <li>Code: AccessDenied</li>
+        <li>Message: Access Denied</li>
+        <li>RequestId: 8DC2A4AF9C60D13C</li>
+        <li>HostId: 6FzPg0G8lvDjsSYo/fNSxZjO7ZdBG9uDXJ9+nEHV9ux50HrqCtw0oqA8n6nApK0x</li>
+        </ul>
+        <h3>An Error Occurred While Attempting to Retrieve a Custom Error Document</h3>
+        <ul>
+        <li>Code: AccessDenied</li>
+        <li>Message: Access Denied</li>
+        </ul>
+        <hr/>
+        </body>
+        </html>
+    http_version: 
+  recorded_at: Thu, 10 Jul 2014 09:20:06 GMT
 recorded_with: VCR 2.9.2

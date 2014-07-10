@@ -6,17 +6,19 @@ describe "Integrations Settings" do
    'user[email]' => USER.email, 'user[password]' => USER.password
  end
 
- describe "Mailchimp Connect" do
-  it "should store api token" do
-    expect(get integration_callback_url('mailchimp'))
-    .to redirect_to( edit_user_settings_integrations_path)
+ describe "Mailchimp" do
+  it "store api token on db" do
+    get integration_callback_url('mailchimp')
+    user = User.find USER.id
+    expect(user.mailchimp_token).to eq('mock_token-us1')
   end
 end
 
 describe "CreateSend Connect" do
   it "should store api token" do
-    expect(get integration_callback_url('createsend'))
-    .to redirect_to( edit_user_settings_integrations_path)
+    get integration_callback_url('createsend')
+    user = User.find USER.id
+    expect(user.createsend_token).to eq('mock_token')
   end
 end
 

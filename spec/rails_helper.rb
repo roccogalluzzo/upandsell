@@ -19,36 +19,8 @@ require 'webmock/rspec'
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-# omniauth mock
-OmniAuth.config.test_mode = true
-OmniAuth.config.mock_auth[:mailchimp] = {
-  uid: 1337,
-  provider: 'mailchimp',
-  info: { name: 'Rocky' },
-  credentials: {
-    token: 'mock_token'
-  }
-}
-OmniAuth.config.mock_auth[:paymill] = {
-  uid: 1337,
-  provider: 'mailchimp',
-  info: { name: 'Rocky' },
-  credentials: {
-    token: 'mock_token'
-  }
-}
 
 WebMock.disable_net_connect!(allow_localhost: true)
-
-Fog.mock!
-@aws =  Rails.configuration.aws
-FOG = ::Fog::Storage.new(
- provider: 'AWS',
- aws_access_key_id: @aws["access_key_id"],
- aws_secret_access_key: @aws["secret_access_key"],
- region: 'eu-west-1'
- )
-FOG.directories.create(key: @aws["bucket"])
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
