@@ -43,7 +43,7 @@
 
     <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-pencil"></i> </div>
     <div class="cbp_tmlabel">
-     <div class="product_form <% unless  @product.new_record?  %>  hid <% end%>">
+     <div class="product-form <% unless  @product.new_record?  %>  hid <% end%>">
       <%= simple_form_for [:user, @product], html: { multipart: true, class: 'product' },
       remote: true, data: { type: :json }  do |f| %>
 
@@ -51,34 +51,15 @@
       <%= f.input_field :price_currency, as: :hidden %>
       <%= token_tag nil %>
 
-      <div class="row">
-
-        <div class="col-md-4">
-         <div class="form-group row">
-
-          <div class="col-md-12 upload-box-preview">
-            <div class="overlay">
-              <%= f.input_field :preview, id: 'file-input', accept: "image/*",
-              class: 'btn-preview input-thumb fileInput' %>
-
-            </div>
-            <input type="hidden" id="local-preview-path" value="" />
-
-            <div id="preview" class="upload-box-preview-inner"
-            data-preview-url="<%= @product.preview.url if @product.id%>">
-            <p>Click to set a preview image</p>
-            <i class="fa fa-picture-o fa-5x"></i>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <div class="col-md-8">
       <div class="form-group row <%= error_class(@product, 'name') %>">
-        <div class="col-md-7 col-lg-7 ">
+       <div class="col-md-1">
+          <input class="form-control input-lg text-center" placeholder="∞" />
+        </div>
+
+        <div class="col-md-8">
           <%= f.input_field :name, class: 'form-control', placeholder: "Product Name" %>
         </div>
-        <div class="col-md-3 col-lg-3">
+        <div class="col-md-2">
          <div class="input-group <%= error_class(@product, 'price_cents') %>">
            <span id="currency"
            data-currency-symbols="[&quot;$&quot;,&quot;\u00a3&quot;,&quot;\u20ac&quot;]"
@@ -87,66 +68,80 @@
            <%= f.input_field :price, class: 'form-control', placeholder: "2.00" %>
          </div>
        </div>
-       <div class="col-md-2 col-lg-2">
+       <div class="col-md-1">
         <%= f.button :submit,  "Save",
         data: {disable_with: 'Saving...'}, class: 'btn btn-block btn-primary text-center' %>
       </div>
     </div>
+<hr></hr>
     <div class="form-group row">
-      <div class="col-md-12">
-       <%= f.input_field :description,
-       class: 'form-control product-description',
-        placeholder: "Product Description(optional)",
-        rows: 10 %>
+
+      <div class="col-md-4">
+
+        <div class="upload-box-preview">
+          <div class="overlay">
+            <%= f.input_field :preview, id: 'file-input', accept: "image/*",
+            class: 'btn-preview input-thumb fileInput' %>
+          </div>
+          <input type="hidden" id="local-preview-path" value="" />
+
+          <div id="preview" class="upload-box-preview-inner"
+          data-preview-url="<%= @product.preview.url if @product.id%>">
+          <p>Click to set a preview image</p>
+          <i class="fa fa-picture-o fa-5x"></i>
+        </div>
       </div>
     </div>
+    <div class="col-md-8">
+     <%= f.input_field :description,
+     class: 'form-control product-description',
+      placeholder: "Product Description(optional)" %>
+    </div>
   </div>
+  <% end %>
 </div>
-</div>
-<% end %>
+
 <div class="show-product-box product_show <% if @product.new_record? %>  hid <% end%>">
-<div class="row">
- <div class="col-md-1 preview-product-image">
-   <img class="product-image img-rounded"
-   src="<%= @product.preview.thumb.url if @product.id%>"
-   style="height: 60px; width: 60px;">
- </div>
- <div class="col-md-5">
-  <p class="product-name"><%= @product.name %></p>
-</div>
-<div class="col-md-1 text-center">
-  <p><b class="product-price">
-    <%= humanized_money_with_symbol @product.price %>
-  </b></p>
-</div>
+  <div class="row">
+   <div class="col-md-1 preview-product-image">
+     <img class="product-image img-rounded"
+     src="<%= @product.preview.thumb.url if @product.id%>"
+     style="height: 60px; width: 60px;">
+   </div>
+   <div class="col-md-5">
+    <p class="product-name"><%= @product.name %></p>
+  </div>
+  <div class="col-md-1 text-center">
+    <p><b class="product-price">
+      <%= humanized_money_with_symbol @product.price %>
+    </b></p>
+  </div>
 
-<div class="col-md-5 text-right">
-  <% unless  @product.new_record?  %>
-  <%= link_to "Delete", user_product_path(@product),
-  method: :delete,
-  class: "m-r-5 btn btn-danger", confirm: "Are you sure?" %>
+  <div class="col-md-5 text-right">
+    <% unless  @product.new_record?  %>
+    <%= link_to "Delete", user_product_path(@product),
+    method: :delete,
+    class: "m-r-5 btn btn-danger", confirm: "Are you sure?" %>
 
-  <%
-  if @product.published
-   btn_text = "Unpublish"
-   btn_with = "Unpublishing..."
- else
-  btn_text = "Publish"
-  btn_with = "Publishing..."
-end
-%>
-<%= link_to btn_text, toggle_published_user_product_path(@product),
-remote: true,
-data: {with: btn_with},
-class: "m-r-5 btn btn-warning toggle-published" %>
+    <%
+    if @product.published
+     btn_text = "Unpublish"
+     btn_with = "Unpublishing..."
+   else
+    btn_text = "Publish"
+    btn_with = "Publishing..."
+  end
+  %>
+  <%= link_to btn_text, toggle_published_user_product_path(@product),
+  remote: true,
+  data: {with: btn_with},
+  class: "m-r-5 btn btn-warning toggle-published" %>
 
-<% end %>
-<a class="edit-product btn btn-primary">Edit</a>
+  <% end %>
+  <a class="edit-product btn btn-primary">Edit</a>
 </div>
 </div>
 </div>
-<div class="clearfix"></div>
-
 
 
 </div>
