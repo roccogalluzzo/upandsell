@@ -12,7 +12,7 @@ class User::ProductsController < User::BaseController
 
   def create
     product = current_user.products.build(product_params)
-
+#byebug
     if product.save
       response = {product: product}
       response["twitter_url"] = twitter_url(product.name, product.slug)
@@ -22,7 +22,7 @@ class User::ProductsController < User::BaseController
       response["slug_url"] = product_slug_url(product.slug)
       render json: response and return
     end
-    render json: {}, status: :unprocessable_entity
+    render json: {errors: product.errors}, status: :unprocessable_entity
   end
 
   def edit

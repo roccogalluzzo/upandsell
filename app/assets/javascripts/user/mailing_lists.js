@@ -9,7 +9,9 @@
     $("select").selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-default'});
     $(".select").removeClass('form-control');
   });
-
+$('body').on('hidden.bs.modal', '.modal', function () {
+    $(this).removeData('bs.modal');
+});
   $('#sync-modal').on('loaded.bs.modal', function (e) {
     $('.sync-select').on('shown.bs.tab', function (e) {
       var provider = $(e.target).data('provider')
@@ -40,7 +42,7 @@
       $("#js-" + provider + "-list").slideUp(500);
     },
     show_completed: function(provider) {
-      $("#js-sync-" + provider + "-completed").slideDown(600);
+      $("#js-sync-" + provider + "-completed").removeClass('hid').slideDown(600);
       $("#js-sync-search").slideUp(600);
       $(".modal-footer").slideUp(600);
     },
@@ -69,6 +71,7 @@
     .parent().parent().css('opacity', '0.4');
     $('#js-sync-btn').removeClass('disabled');
     $("#js-provider-id-sync").val($(el).data('list-id'));
+     $("#js-provider-name-sync").val($(el).data('list-name'));
   },
   deselect: function(el){
     $(".btn-select-list").not(el).removeClass('disabled')
