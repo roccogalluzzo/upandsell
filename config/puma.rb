@@ -2,8 +2,8 @@ daemonize true
 pidfile '/tmp/puma.pid'
 bind 'unix:///tmp/upandsell.sock'
 
-threads 1, 6
-workers 1
+threads 0, 6
+
 stdout_redirect 'log/puma.log', 'log/puma_error.log', true
 port        ENV['PORT']     || 3000
 environment 'staging'

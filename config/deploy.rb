@@ -38,9 +38,8 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-
-     execute "cd /var/www/upandsell/current && ~/.rbenv/bin/rbenv sudo bundle exec foreman export upstart /etc/init -a app -u deployer -l /var/www/upandsell/shared/log"
-      execute "sudo restart app || sudo start app"
+      execute "cd /var/www/upandsell/current && ~/.rbenv/bin/rbenv sudo bundle exec foreman export upstart /etc/init -a app -u deployer -l /var/www/upandsell/shared/log"
+      execute "sudo service app start || sudo service app restart"
     end
   end
 
