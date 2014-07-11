@@ -51,7 +51,7 @@
        <h5>Product Details</h5>
      </div>
      <div class="timeline-body">
-       <div class="product-form <% unless  @product.new_record?  %>  hid <% end%>">
+       <div id="js-product-form" class="product-form <% unless  @product.new_record?  %>  hid <% end%>">
         <%= simple_form_for [:user, @product], html: { multipart: true,
           class: 'form-horizontal product' },
             remote: true, data: { type: :json }  do |f| %>
@@ -120,7 +120,7 @@
       <% end %>
     </div>
 
-    <div class="show-product-box product_show <% if @product.new_record? %>  hid <% end%>">
+    <div id="js-product-show" class="show-product-box product_show <% if @product.new_record? %>  hid <% end%>">
       <div class="row">
        <div class="col-md-1 preview-product-image">
          <img class="product-image img-rounded"

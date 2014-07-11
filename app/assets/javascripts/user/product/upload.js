@@ -78,22 +78,22 @@ function productSave(event, data, status, xhr) {
     $('.product-image').attr('src',data.product.preview.thumb.url);
     $('.product-name').text(data.product.name);
     $('.product-price').text(data.symbol + ' ' +(data.product.price_cents/100));
-      el.form.attr('action', data.edit_url);
-      $('<input>').attr({
-        type: 'hidden',
-        value: 'patch',
-        name: '_method'
-      }).appendTo(el.form);
+    el.form.attr('action', data.edit_url);
+    $('<input>').attr({
+      type: 'hidden',
+      value: 'patch',
+      name: '_method'
+    }).appendTo(el.form);
 
-      $('#js-slug').text(data.slug_url);
-      $("#js-ext-link").attr('href', data.slug_url);
-      $('.btn-social-twitter').on('click', function(){
-        window.open(data.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
-      });
-      $('.btn-social-facebook').on('click', function(){
-        window.open(data.facebook_url, 'share','toolbar=0,status=0,width=600,height=305')
-      });
-      $('.share').removeClass('hid');
+    $('#js-slug').text(data.slug_url);
+    $("#js-ext-link").attr('href', data.slug_url);
+    $('.btn-social-twitter').on('click', function(){
+      window.open(data.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
+    });
+    $('.btn-social-facebook').on('click', function(){
+      window.open(data.facebook_url, 'share','toolbar=0,status=0,width=600,height=305')
+    });
+    $('.share').removeClass('hid');
 
     Upload.Animations.product_added();
   }
@@ -188,30 +188,30 @@ function fileProgress(e, data) {
 // Animations
 Upload.Animations = {
   product_added: function() {
-    $('.product_form').slideUp(500);
-    $('.product_show').show(400);
+    $('#js-product-form').slideUp(500);
+    $('#js-product-show').show(400);
   },
   product_edit: function() {
-    $('.product_form').show(500);
-    $('.product_show').slideUp(400);
-  },
-  start: function() {
-    $('.upload-box').slideUp(500);
-    $('.uploading-box').show(400);
-    el.form.find('input[type=submit]').attr('disabled', 'disabled');
-  },
-  change: function() {
-    $('.upload-box').show(400);
-    $('.uploading-box').slideDown(500);
-    el.form.find('input[type=submit]').attr('disabled', 'disabled');
-  },
-  done: function() {
-   el.uploading_box.find('.progress').animate({ opacity: '0'}, 1000, '', function(){
-     el.form.find('input[type=submit]').removeAttr('disabled', 'disabled');
-     el.uploading_box.find('.progress .progress-bar').css({width: '0%'});
-   });
+   $('#js-product-form').show(500);
+   $('#js-product-show').slideUp(400);
  },
- progressBar: function(percent) {
+ start: function() {
+  $('.upload-box').slideUp(500);
+  $('.uploading-box').show(400);
+  el.form.find('input[type=submit]').attr('disabled', 'disabled');
+},
+change: function() {
+  $('.upload-box').show(400);
+  $('.uploading-box').slideDown(500);
+  el.form.find('input[type=submit]').attr('disabled', 'disabled');
+},
+done: function() {
+ el.uploading_box.find('.progress').animate({ opacity: '0'}, 1000, '', function(){
+   el.form.find('input[type=submit]').removeAttr('disabled', 'disabled');
+   el.uploading_box.find('.progress .progress-bar').css({width: '0%'});
+ });
+},
+progressBar: function(percent) {
   el.uploading_box.find('.progress').show().animate({ opacity: '1'}, 100)
   el.uploading_box.find('.progress .progress-bar').css({width: percent +'%'});
 },
