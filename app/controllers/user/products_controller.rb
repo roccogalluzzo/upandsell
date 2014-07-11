@@ -78,7 +78,7 @@ class User::ProductsController < User::BaseController
   private
   def product_params
     params.require(:product).permit(:name, :file_key, :price, :price_currency,
-     :description, :preview)
+     :description, :preview, :sales_limit)
   end
 
   private
