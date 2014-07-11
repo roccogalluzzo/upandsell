@@ -1,17 +1,14 @@
 module Providers::Mailchimp
 
-    def self.search_lists(token, query)
-      #token = '2fc4fc2792180636394574e660871f57-us4'
-      #byebug
-      gb = Gibbon::API.new(token)
-      puts token
-      gb.lists.list({
-        filters: {list_name: query},
-        limit: 5
-        })
-    end
+  def self.search_lists(token, query)
+    gb = Gibbon::API.new(token)
+    gb.lists.list({
+      filters: {list_name: query},
+      limit: 5
+      })['data']
+  end
 
-    def self.batch_subscribe(token, mailchimp_list_id, emails)
+  def self.batch_subscribe(token, mailchimp_list_id, emails)
       # TODO transform emails
       gb = Gibbon::API.new(token)
       gb.timeout = 300

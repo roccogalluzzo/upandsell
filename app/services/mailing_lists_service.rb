@@ -10,9 +10,8 @@ class MailingListsService
     @provider.search_lists(@token, query)
   end
 
-  def batch_subscribe(list_id)
-    list = MailingList.find(list_id)
-    @provider.batch_subscribe(@token, list.provider_list_id, list.emails)
+  def batch_subscribe(provider_list_id, emails)
+    @provider.batch_subscribe(@token, provider_list_id, emails)
   end
 
   def subscribe(list_id, email)

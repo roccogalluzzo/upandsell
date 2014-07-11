@@ -25,7 +25,7 @@
    </div>
    <%= f.input_field :provider, as: :hidden, value: 'mailchimp', id: 'js-provider-search' %>
    <%= f.button :submit,  "Search", id: 'js-unsync-btn',
-   class: 'search-btn btn btn-sm btn-primary' %>
+   class: 'search-btn btn btn-sm btn-primary', data:{disable_with: 'Searching...'} %>
    <% end %>
  </div>
 
@@ -40,14 +40,16 @@
        </table>
      </div>
 
-     <div id="js-mailchimp-search-message" class="sync-search-message">
+     <div id="js-mailchimp-search-message" class="sync-search-message  <%= 'hid' if @list.mailchimp_list_id %>">
       <h3><i class="fa fa-search fa-2x"></i> </h3>
       <p> Search for <b>MailChimp</b> list that want to sync.</p>
     </div>
 
-    <div id="js-sync-mailchimp-completed" class="sync-completed">
+    <div id="js-sync-mailchimp-completed" class="<%= 'hid' unless @list.mailchimp_list_id %> sync-completed">
       <h4><i class="fa fa-refresh fa-3x"></i> </h4>
-      <p>Mailing List synced with <b id="js-sync-mailchimp-list-name"></b></p>
+      <p>Mailing List synced with <b id="js-sync-mailchimp-list-name">
+       <%= @list.mailchimp_list_name %>
+      </b></p>
 
       <%= simple_form_for :provider_unsync, url: remove_sync_user_tools_mailing_list_path(@list),
       remote: true, html: { class: 'simple_form' } do |f|%>
@@ -119,8 +121,9 @@
   remote: true, html: { class: 'simple_form' } do |f|%>
   <%= f.input_field :provider, as: :hidden, value: 'mailchimp', id: 'js-provider-sync' %>
   <%= f.input_field :provider_list_id, as: :hidden, value: '', id: 'js-provider-id-sync' %>
+  <%= f.input_field :provider_list_name, as: :hidden, value: '', id: 'js-provider-name-sync' %>
   <%= f.button :submit,  "Confirm Sync", id: 'js-sync-btn',
-  class: 'disabled btn btn-primary' %>
+  class: 'disabled btn btn-primary',  data:{disable_with: 'Syncing...'} %>
   <% end %>
 </div>
 
