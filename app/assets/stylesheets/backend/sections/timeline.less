@@ -17,20 +17,69 @@
   }
   .cbp_tmlabel {
     margin: 0 0 15px 6.2% !important;
-    padding: 10px;
-    border-radius: 3px;
+    padding: 0px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: #bdc3c7;
     &:after {
       top: 20px !important;
+      border-right-color:  #ecf0f1 !important;
+    }
+    .timeline-header {
+      width: 100%;
+      background-color: #F0F4F5;
+      border-radius: 6px 6px 0 0;
+      h5 {
+        color: @wet-asphalt;
+        font-size: 20px;
+        text-align: center;
+        padding: 20px;
+      //font-weight: 600;
+      margin: 0;
+      text-transform: uppercase;
     }
   }
-  .product_form {
-    padding: 30px 30px 0px 30px;
+        .timeline-footer {
+      width: 100%;
+     // background-color: #F0F4F5;
+      border-radius: 6px 6px 0 0;
+      border-top: 2px solid @clouds;
+      padding-top: 20px;
+      margin-bottom: 0 !important;
+      text-align: center;
+      h5 {
+        color: @wet-asphalt;
+        font-size: 20px;
+        text-align: center;
+        padding: 20px;
+      //font-weight: 600;
+      margin: 0;
+      text-transform: uppercase;
+    }
   }
-  .show-product-box {
+  .timeline-body {
     padding: 10px;
   }
 }
+.product-form {
+  padding: 10px !important;
+}
+.show-product-box {
+  padding: 10px;
+}
+}
 
+.border-right {
+  border-right: 2px solid  @clouds;
+}
+
+.border-bottom {
+  border-bottom: 2px solid  @clouds;
+}
+
+.limit {
+  margin: 0 !important;
+}
 .setup-timeline {
   .timeline;
   .text-center;
@@ -41,22 +90,22 @@
   }
   .email-section {
     padding: 15px;
-   .form-inline {
-    margin-bottom: 14px;
+    .form-inline {
+      margin-bottom: 14px;
+    }
   }
-}
 
-.gateways-section {
-  padding: 15px;
-  .gateways-row {
-    .make-row();
+  .gateways-section {
+    padding: 15px;
+    .gateways-row {
+      .make-row();
+    }
   }
-}
 
-.add-section {
-  padding: 30px 30px 20px 30px;
-  .gateways-row {
-    .make-row();
+  .add-section {
+    padding: 30px 30px 20px 30px;
+    .gateways-row {
+      .make-row();
+    }
   }
-}
 }
