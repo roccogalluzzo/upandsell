@@ -25,7 +25,7 @@ describe "Products" do
     file_key = JSON(response.body)['key']
     FOG.put_object('upandsell-dev', file_key, 'test')
     product[:product][:file_key] = file_key
-    product[:product][:preview] = Rack::Test::UploadedFile.new("spec/fixtures/files/test.png",
+    product[:product][:preview] = Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/files/test.png",
      "image/png")
     post '/user/products', product
     expect(response.status).to eq(200)

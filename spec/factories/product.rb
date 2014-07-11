@@ -9,15 +9,15 @@ FactoryGirl.define do
     user_id 1
     before(:create) do |instance|
      Fog.mock!
-     @aws =  Rails.configuration.aws
+     aws =  Rails.application.secrets.aws
      fog = ::Fog::Storage.new(
        provider: 'AWS',
-       aws_access_key_id: @aws["access_key_id"],
-       aws_secret_access_key: @aws["secret_access_key"],
-       region: 'eu-west-1'
+       aws_access_key_id: aws["access_key_id"],
+       aws_secret_access_key: aws["secret_access_key"],
+       region: aws["region"]
        )
-     fog.put_object( 'upandsell-dev',
-      instance.file_key, "test")
+     fog.put_object(
+      aws["bucket"], instance.file_key, "test")
    end
  end
 

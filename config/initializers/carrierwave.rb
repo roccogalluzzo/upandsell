@@ -5,7 +5,7 @@ CarrierWave.configure do |config|
     provider: 'AWS',
     aws_access_key_id: @aws["access_key_id"],
     aws_secret_access_key: @aws["secret_access_key"],
-    region: 'eu-west-1'
+    region: @aws["region"]
   }
   config.fog_public     = true
   config.fog_directory  = @aws["bucket"]

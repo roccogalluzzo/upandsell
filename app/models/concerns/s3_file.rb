@@ -1,13 +1,13 @@
 module S3File
   extend ActiveSupport::Concern
 
-  @c =  Rails.configuration.aws
+  @c =  Rails.application.secrets.aws
 
   @s3 = Fog::Storage.new({
    provider: 'AWS',
    aws_access_key_id: @c["access_key_id"],
    aws_secret_access_key: @c["secret_access_key"],
-   region: 'eu-west-1'})
+   region: @c['region']})
 
   def self.confirm(key)
     new_key = key.sub(/temp\//, '')
