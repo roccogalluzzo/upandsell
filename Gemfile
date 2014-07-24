@@ -38,6 +38,7 @@ gem 'omniauth-paymill'
 gem 'createsend'
 gem 'gibbon'
 gem 'mandrill-api'
+gem 'premailer'
 
 
 #test gems

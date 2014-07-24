@@ -61,7 +61,7 @@ class User::Tools::MailingListsController < User::BaseController
         @list_name = params[:provider_sync][:provider_list_name]
       end
       if @list.save
-        MailingListSyncWorker.perform_async(@list.id, @provider)
+        MailingListSync.perform_async(@list.id, @provider)
       end
 
       respond_to do |format|

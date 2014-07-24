@@ -46,27 +46,27 @@ class User < ActiveRecord::Base
 
 
   def admin?
-   true if self.email == 'rocco@galluzzo.me'
- end
+    !Rails.application.secrets.admins.include?(self.email)
+  end
 
- def send_welcome_email
-  UserMailer.delay.welcome_email(self)
-end
+  def send_welcome_email
+    UserMailer.delay.welcome_email(self)
+  end
 
-def connect_credit_card(data)
-  self.credit_card = true
-  self.credit_card_token = data.credentials.token
-  self.credit_card_public_token = data.extra.raw_info.public_key
-  self.credit_card_response = data.extra.raw_info
-  self.save
-end
+  def connect_credit_card(data)
+    self.credit_card = true
+    self.credit_card_token = data.credentials.token
+    self.credit_card_public_token = data.extra.raw_info.public_key
+    self.credit_card_response = data.extra.raw_info
+    self.save
+  end
 
-def connect_paypal(email, token, token_secret)
-  self.paypal = true
-  self.paypal_email = email
-  self.paypal_token = token
-  self.paypal_token_secret = token_secret
-  self.save
-end
+  def connect_paypal(email, token, token_secret)
+    self.paypal = true
+    self.paypal_email = email
+    self.paypal_token = token
+    self.paypal_token_secret = token_secret
+    self.save
+  end
 
 end

@@ -86,9 +86,9 @@ ActiveRecord::Schema.define(version: 20140711195803) do
     t.integer  "sales_limit"
   end
 
-  add_index "products", ["file_key"], name: "index_products_on_file_key", unique: true, using: :btree
-  add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
-  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
+  add_index "products", ["file_key"], name: "index_products_on_file_key", unique: true
+  add_index "products", ["slug"], name: "index_products_on_slug", unique: true
+  add_index "products", ["user_id"], name: "index_products_on_user_id"
 
   create_table "referrals", force: true do |t|
     t.integer  "referer_id"
@@ -144,8 +144,8 @@ ActiveRecord::Schema.define(version: 20140711195803) do
     t.text     "custom_email_message"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

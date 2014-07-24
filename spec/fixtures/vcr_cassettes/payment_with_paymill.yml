@@ -595,4 +595,215 @@ http_interactions:
         </html>
     http_version: 
   recorded_at: Thu, 10 Jul 2014 09:20:06 GMT
+- request:
+    method: get
+    uri: http://api.finance.xaviermedia.com/api/2014/07/11.xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - "/5EHlRsTqhBkzDVHdM4AAhxA28Ngxx0Re0spynnOeYfetPBOqjzsMBi0hA2hD/10"
+      X-Amz-Request-Id:
+      - D124E2AE197944C0
+      Date:
+      - Fri, 11 Jul 2014 21:31:51 GMT
+      Last-Modified:
+      - Fri, 11 Jul 2014 15:16:02 GMT
+      Etag:
+      - '"fbebe77e4776e9191488032342909e1f"'
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '4103'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<?xml-stylesheet href=\"http://api.finance.xaviermedia.com/style/daily_rates.xsl\"
+        type=\"text/xsl\"?>\r\n<xavierresponse responsecode=\"200\">\r\n  <fx_date>2014-07-11</fx_date>\r\n
+        \ <title>Xavier Finance - Exchange rates for 2014-07-11</title>\r\n  <link>http://finance.xaviermedia.com/</link>\r\n
+        \ <exchange_rates>\r\n    <basecurrency>EUR</basecurrency>\r\n    <fx_date>2014-07-11</fx_date>\r\n
+        \   <fx basecurrency=\"EUR\">\r\n\t<currency_code>EUR</currency_code>\r\n\t<rate>1.0</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>USD</currency_code>\r\n\t<rate>1.359500</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>JPY</currency_code>\r\n\t<rate>137.750000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>GBP</currency_code>\r\n\t<rate>0.794100</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CYP</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CZK</currency_code>\r\n\t<rate>27.440001</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>DKK</currency_code>\r\n\t<rate>7.455700</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>EEK</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>HUF</currency_code>\r\n\t<rate>310.149994</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>LTL</currency_code>\r\n\t<rate>3.452800</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>MTL</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>PLN</currency_code>\r\n\t<rate>4.142700</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>SEK</currency_code>\r\n\t<rate>9.217600</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>SIT</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>SKK</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CHF</currency_code>\r\n\t<rate>1.214300</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>ISK</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>NOK</currency_code>\r\n\t<rate>8.377000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>BGN</currency_code>\r\n\t<rate>1.955800</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>HRK</currency_code>\r\n\t<rate>7.615500</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>ROL</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>RON</currency_code>\r\n\t<rate>4.416500</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>RUB</currency_code>\r\n\t<rate>46.423698</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>TRL</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>AUD</currency_code>\r\n\t<rate>1.446300</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CAD</currency_code>\r\n\t<rate>1.446600</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CNY</currency_code>\r\n\t<rate>8.435300</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>HKD</currency_code>\r\n\t<rate>10.536300</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>IDR</currency_code>\r\n\t<rate>15756.320</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>KRW</currency_code>\r\n\t<rate>1385.869995</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>MYR</currency_code>\r\n\t<rate>4.331900</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>NZD</currency_code>\r\n\t<rate>1.541700</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>PHP</currency_code>\r\n\t<rate>59.160999</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>SGD</currency_code>\r\n\t<rate>1.686500</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>THB</currency_code>\r\n\t<rate>43.715000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>ZAR</currency_code>\r\n\t<rate>14.580600</rate>\r\n
+        \   </fx>\r\n  </exchange_rates>\r\n</xavierresponse>\r\n\t"
+    http_version: 
+  recorded_at: Fri, 11 Jul 2014 21:31:50 GMT
+- request:
+    method: get
+    uri: http://api.finance.xaviermedia.com/api/2014/07/15.xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      X-Amz-Request-Id:
+      - 34FEB07DCB0D4B0D
+      X-Amz-Id-2:
+      - XlymSn47S3fCkTEYF+prkcMlAOP8dYE0CB/+a2QAYinQXXUbIhQR7F7rmJCzfK8x
+      Content-Type:
+      - text/html; charset=utf-8
+      Content-Length:
+      - '442'
+      Date:
+      - Tue, 15 Jul 2014 09:41:00 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |
+        <html>
+        <head><title>403 Forbidden</title></head>
+        <body>
+        <h1>403 Forbidden</h1>
+        <ul>
+        <li>Code: AccessDenied</li>
+        <li>Message: Access Denied</li>
+        <li>RequestId: 34FEB07DCB0D4B0D</li>
+        <li>HostId: XlymSn47S3fCkTEYF+prkcMlAOP8dYE0CB/+a2QAYinQXXUbIhQR7F7rmJCzfK8x</li>
+        </ul>
+        <h3>An Error Occurred While Attempting to Retrieve a Custom Error Document</h3>
+        <ul>
+        <li>Code: AccessDenied</li>
+        <li>Message: Access Denied</li>
+        </ul>
+        <hr/>
+        </body>
+        </html>
+    http_version: 
+  recorded_at: Tue, 15 Jul 2014 09:41:01 GMT
+- request:
+    method: get
+    uri: http://api.finance.xaviermedia.com/api/2014/07/14.xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - UNPa58f5prqyuqSdeZQdmnH4bSo9fuwako8ulvZknSJZ+DBwr5GCYKs7XAjbSVqc
+      X-Amz-Request-Id:
+      - A14A1B0F309004F4
+      Date:
+      - Tue, 15 Jul 2014 09:41:02 GMT
+      Last-Modified:
+      - Mon, 14 Jul 2014 15:16:02 GMT
+      Etag:
+      - '"b8eab2595d2534d367ab580592443ec6"'
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '4103'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<?xml-stylesheet href=\"http://api.finance.xaviermedia.com/style/daily_rates.xsl\"
+        type=\"text/xsl\"?>\r\n<xavierresponse responsecode=\"200\">\r\n  <fx_date>2014-07-14</fx_date>\r\n
+        \ <title>Xavier Finance - Exchange rates for 2014-07-14</title>\r\n  <link>http://finance.xaviermedia.com/</link>\r\n
+        \ <exchange_rates>\r\n    <basecurrency>EUR</basecurrency>\r\n    <fx_date>2014-07-14</fx_date>\r\n
+        \   <fx basecurrency=\"EUR\">\r\n\t<currency_code>EUR</currency_code>\r\n\t<rate>1.0</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>USD</currency_code>\r\n\t<rate>1.362700</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>JPY</currency_code>\r\n\t<rate>138.289993</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>GBP</currency_code>\r\n\t<rate>0.796600</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CYP</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CZK</currency_code>\r\n\t<rate>27.438999</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>DKK</currency_code>\r\n\t<rate>7.456800</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>EEK</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>HUF</currency_code>\r\n\t<rate>309.679993</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>LTL</currency_code>\r\n\t<rate>3.452800</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>MTL</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>PLN</currency_code>\r\n\t<rate>4.138800</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>SEK</currency_code>\r\n\t<rate>9.248200</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>SIT</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>SKK</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CHF</currency_code>\r\n\t<rate>1.213900</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>ISK</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>NOK</currency_code>\r\n\t<rate>8.410000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>BGN</currency_code>\r\n\t<rate>1.955800</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>HRK</currency_code>\r\n\t<rate>7.613000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>ROL</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>RON</currency_code>\r\n\t<rate>4.418000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>RUB</currency_code>\r\n\t<rate>46.790501</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>TRL</currency_code>\r\n\t<rate>0.000000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>AUD</currency_code>\r\n\t<rate>1.450000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CAD</currency_code>\r\n\t<rate>1.461900</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>CNY</currency_code>\r\n\t<rate>8.456600</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>HKD</currency_code>\r\n\t<rate>10.561100</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>IDR</currency_code>\r\n\t<rate>15903.490</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>KRW</currency_code>\r\n\t<rate>1388.459961</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>MYR</currency_code>\r\n\t<rate>4.336000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>NZD</currency_code>\r\n\t<rate>1.545700</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>PHP</currency_code>\r\n\t<rate>59.215000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>SGD</currency_code>\r\n\t<rate>1.689700</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>THB</currency_code>\r\n\t<rate>43.784000</rate>\r\n
+        \   </fx>\r\n    <fx basecurrency=\"EUR\">\r\n\t<currency_code>ZAR</currency_code>\r\n\t<rate>14.580600</rate>\r\n
+        \   </fx>\r\n  </exchange_rates>\r\n</xavierresponse>\r\n\t"
+    http_version: 
+  recorded_at: Tue, 15 Jul 2014 09:41:03 GMT
 recorded_with: VCR 2.9.2
