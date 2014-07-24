@@ -33,11 +33,15 @@ class Product < ActiveRecord::Base
     File.extname(self.file_key).delete('.')
   end
 
-  def file_name
-    File.basename(self.file_key) if self.file_key
-  end
+  def url
+    S3File.url(self.file_key)
+ end
 
-  def self.request(name)
-    S3File.request(name)
-  end
+ def file_name
+  File.basename(self.file_key) if self.file_key
+end
+
+def self.request(name)
+  S3File.request(name)
+end
 end
