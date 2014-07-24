@@ -3,7 +3,7 @@ class User::DashboardController < User::BaseController
   def index
     @products = current_user.products
     visits = Metric::Product.new(@products).visits(30.days.ago).get
-    sales = Metric::Product.new(@products).sales(30.days.ago).exchange_to(current_user.currency).get
+    sales = Metric::Product.new(@products).sales(30.days.ago).exchange_to(current_user.currency.to_sym).get
     @visits = visits[:visits]
     @sales = sales[:sales]
     @conversion_rate = conversion_rate(@visits, @sales)
@@ -17,7 +17,7 @@ class User::DashboardController < User::BaseController
       products = current_user.products
     end
     visits = Metric::Product.new(products).visits(30.days.ago).get
-    sales = Metric::Product.new(products).sales(30.days.ago).exchange_to(current_user.currency).get
+    sales = Metric::Product.new(products).sales(30.days.ago).exchange_to(current_user.currency.to_sym).get
     earnings = get_earnings(sales, false)
     render json: {earnings: earnings, sales: sales[:sales],
       visits: visits[:visits], conversion_rate: conversion_rate(visits[:visits], sales[:sales])}
