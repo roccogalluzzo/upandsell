@@ -1,4 +1,9 @@
-<%- title "Orders" %>
+<% content_for(:page_title)  { "Orders" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg icon-reciept-1"></i>
+Orders
+<% end %>
+
 <div class="row-fluid">
   <div class="span12">
     <div class="grid simple ">
@@ -9,6 +14,7 @@
         <table class="table table-condensed ">
         <thead>
           <tr role="row">
+          <th></th>
            <th style="width:18%"
            class="sorting_asc" rowspan="1" colspan="1">
            Customer Email</th>
@@ -24,8 +30,10 @@
              <% if @orders.blank? %>
              <tr><td colspan="5"><p class="text-center text-muted">No orders</p></td></tr>
              <% else %>
-             <tr>
+
               <% @orders.each do |order| %>
+              <tr>
+              <td> <b>#1</b> </td>
               <td> <%= order.email %></td>
 
               <td>

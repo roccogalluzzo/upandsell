@@ -25,8 +25,15 @@
   h3 {
     text-transform: uppercase;
     margin-left: 15px;
-    font-size: 30px;
-    margin-top: 12px;
+    font-size: 29px;
+    margin-top: 10px;
+    span {
+      color: @silver;
+    }
+    i {
+      margin-right: 5px;
+      color: @peter-river;
+    }
     .pull-left;
     width: 340px;
   }
@@ -40,17 +47,16 @@
     .pull-right;
     li {
       a {
-        color: @midnight-blue;
-        padding: 16px;
-        border-right: 1px solid #ddd !important;
+        color: @concrete;
+        padding: 13px;
+       // border-right: 1px solid #ddd !important;
       }
       &:hover {
         a
         {
-         background-color: @peter-river;
-         i
-         {color: #fafafa !important;}}}
-         i { font-size: 20px !important;}
+        color: @peter-river;
+ }}
+         i { font-size: 21px !important;}
          span {
           top: -5px !important;
           display: block !important;
@@ -85,6 +91,10 @@
 
 #content {
   .page-container;
+  //padding-top: 70px !important;
+}
+.content {
+  padding-top: 70px !important;
 }
 
 .grid-body {
@@ -154,7 +164,7 @@ ul > li {
  float: right;
  margin-right: 10px;
  &:hover{
-  background-color: @clouds;
+  //background-color: @clouds;
   color: @peter-river;
 }
 display: table-cell;
@@ -181,9 +191,16 @@ i {
 .btn {
   border-radius: 20px !important;
 }
+.btn-primary {
+color: #3498db ;
+background-color: #FFFFFF;
+border: 2px solid #3498db;
+padding: 9px 15px;
+}
 
-
-
-
+.select .caret {
+border-bottom-color: #3498db;
+border-top-color: #3498db;
+}
 
 

@@ -1,4 +1,16 @@
-<%- title "Products" %>
+<% content_for(:page_title)  { "Products" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg icon-tag-2"></i>
+Products
+<% end %>
+<div class="row m-b-15">
+  <div class="col-md-offset-10 col-md-2">
+    <%= link_to(new_user_product_path, class: 'btn btn-primary') do %>
+    <i class="fa fa-lg fa-plus"></i>
+    New Product
+    <% end %>
+  </div>
+</div>
 <div class="row tiles-container  m-b-20">
   <div class="m-l-10 ">
     <div class="tiles white ">
@@ -41,10 +53,11 @@
 </div>
 <% end %>
 <% end %>
+<div class="row">
+  <div class="col-md-offset-5 col-md-2 text-center">
+   <%= paginate @products %>
+ </div>
 </div>
-<div class="tiles white text-center p-t-5 p-b-5 ">
- <%= paginate @products %>
 </div>
 </div>
 </div>
-

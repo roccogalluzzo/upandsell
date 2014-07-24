@@ -1,2 +1,6 @@
-<%- title "Edit Product" %>
+<% content_for(:page_title)  { "Edit #{@product.name}" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg icon-tag-2"></i>
+Products / <span>Edit</span>
+<% end %>
 <%= render partial: "form" %>

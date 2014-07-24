@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Up&amp;Sell.me - <%= content_for :title %></title>
+  <title><%= content_for :page_title %></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag "application" %>
@@ -34,7 +34,8 @@
         <b>Up</b><span>&amp;<b>Sell</b>.Me</span>
         <% end %>
       </div>
-      <h3><%= content_for :title %></h3>
+      <h3>
+      <%= content_for :title %></h3>
     </div>
     <div id="navbar">
       <ul>
@@ -67,7 +68,7 @@
      <ul>
       <li class="<%= ap(user_root_path) %>">
         <%= link_to user_root_path do %>
-        <i class="fa fa-lg fa-w icon-graph-up-1"></i>
+        <i class="fa fa-lg fa-w icon-graph-up-2"></i>
         <span> Summary </span>
         <% end %>
       </li>
@@ -85,8 +86,8 @@
     </li>
     <li class="<%= ac('mailing_lists') || ac('coupons') || ac('emails') %>">
       <%= link_to  user_tools_mailing_lists_path do %>
-      <i class="fa  fa-lg fa-w icon-graph-up-2"></i>
-      <span>Tools</span>
+      <i class="fa  fa-lg fa-w fa-bullhorn"></i>
+      <span>Marketing</span>
       <% end %>
     </li>
     <li class="<%= ap(user_affiliations_path) %>">

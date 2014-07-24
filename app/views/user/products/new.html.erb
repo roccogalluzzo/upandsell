@@ -1,2 +1,6 @@
-<%- title "Add Product" %>
+<% content_for(:page_title)  { "Add New Product" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg icon-tag-2"></i>
+Products / <span>New</span>
+<% end %>
 <%= render partial: "form" %>
