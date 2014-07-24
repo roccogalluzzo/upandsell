@@ -6,8 +6,15 @@ FactoryGirl.define do
     amount_cents 300
     amount_base_cents 150
     amount_currency 'USD'
-    status 'completed'
+    status 'created'
+    token 'tok_a428697472ff0fd78f7a'
+    gateway 'paypal'
+    user
     product
+  end
+
+  factory :order_completed, parent: :order do
+    status 'completed'
   end
 
   factory :order_yankee, parent: :order do

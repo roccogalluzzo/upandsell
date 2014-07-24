@@ -4,10 +4,16 @@
     if ($("#js-message").text().length > 20) { Up.alert.open();}
     $("select").selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-default'});
     $(".select").removeClass('form-control');
-    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
-    var page = Utils.getPage();
-    console.log(page.controller.capitalize(), page.action.capitalize())
-    try {
+
+    if($("select").data('selected')){
+     $('.selectpicker').selectpicker('val', $("select").data('selected'));
+   }
+
+
+   $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+   var page = Utils.getPage();
+   console.log(page.controller.capitalize(), page.action.capitalize())
+   try {
      window[page.controller.capitalize()][page.action.capitalize()]();
    } catch(e) {
   // fail silently

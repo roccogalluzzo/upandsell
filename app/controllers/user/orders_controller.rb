@@ -1,8 +1,17 @@
 class User::OrdersController < User::BaseController
 
   def index
-    @orders = current_user.orders.completed.page(params[:page]).per(8)
+    if params[:products] && params[:products] != '0'
+      @orders = current_user.orders.where(product_id: params[:products])
+    else
+      @orders = current_user.orders
+    end
 
+    if params[:q] && !params[:q].blank?
+      @orders = @orders.email_starts_with(params[:q])
+    end
+
+    @orders = @orders.completed.page(params[:page]).per(8)
   end
 
   def refund

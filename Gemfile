@@ -39,7 +39,7 @@ gem 'createsend'
 gem 'gibbon'
 gem 'mandrill-api'
 gem 'premailer'
-
+gem 'quiet_assets', group: :development
 
 #test gems
 group :development, :test do
