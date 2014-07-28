@@ -22,6 +22,7 @@
 //= require zeroclipboard/ZeroClipboard.min.js
 //= require froala_editor.min.js
 //= require jquery-tags-input/jquery.tagsinput.js
+//= require typehead.js/dist/typeahead.bundle.min.js
 //= require_tree ./user
 
 $(document).ready(Up.init);

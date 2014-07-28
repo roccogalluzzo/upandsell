@@ -17,7 +17,11 @@ class User::Tools::MailingListsController < User::BaseController
     @list = MailingList.new
     @list.user_id = current_user.id
     @list.name = params[:mailing_list][:name]
-    @list.products = current_user.products.where(id: params[:mailing_list][:products]) || current_user.products
+    if params[:mailing_list][:products].blank?
+      @list.products = current_user.products
+    else
+      @list.products = current_user.products.where(id: params[:mailing_list][:products])
+    end
     @list.save
     respond_to do |format|
       format.js {}
@@ -40,14 +44,13 @@ class User::Tools::MailingListsController < User::BaseController
   end
 
   def search
-    @provider = params[:provider_search][:provider]
+    @provider = 'mailchimp'
     # api search call
     ml_service = MailingListsService.new(@provider, current_user.send("#{@provider}_token"))
-    @lists = ml_service.search(params[:provider_search][:q])
-
-    respond_to do |format|
-      format.js {}
-    end
+    @lists = ml_service.search(params[:q])
+    lists = @lists.map {|l| l.slice 'name'}
+    #lists = @lists.map {|l| l['name']}
+    render json: lists
   end
 
 

@@ -40,7 +40,7 @@ module Gateways::Paymill
         grant_type: "authorization_code",
         code: code
         }.to_query
-byebug
+
         uri = URI::HTTPS.build(host: 'connect.paymill.com',  path: '/token')
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
@@ -50,4 +50,8 @@ byebug
         user.connect_credit_card(response)
       end
 
+      def self.refund
+        Paymill::Refund.create id: "tran_f5bc741dc3809ad3c62fd255e60c",
+        amount: 4200
+      end
     end

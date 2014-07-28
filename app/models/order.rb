@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
   monetize :amount_cents
   scope :completed, -> { where status: 'completed' }
-   scope :email_starts_with, -> (query) { where("email like ?", "%#{query}%")}
+  scope :email_starts_with, -> (query) { where("email like ?", "%#{query}%")}
   validates :status, inclusion: { in: STATUS_NAMES }
   serialize :payment_details
 
@@ -19,10 +19,17 @@ class Order < ActiveRecord::Base
   before_save :increment_order_number
 
   def refund
-  end
+    if self.gateway != 'paypal'
+     service = PaymentService.new('paymill')
+   else
+      service = PaymentService.new('paypal')
+   end
 
-  private
-  def increment_order_number
+   service.refund(self.gateway_token)
+   end
+
+   private
+   def increment_order_number
     if self.status == 'completed' && self.status_was != 'completed'
      user = User.find(self.product.user_id)
      prev_order = user.orders

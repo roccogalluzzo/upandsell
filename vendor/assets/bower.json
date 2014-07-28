@@ -15,6 +15,7 @@
     "infinite-scroll": "latest",
     "zeroclipboard": "latest",
     "jquery.transit": "latest",
-    "jquery-tags-input": "latest"
+    "jquery-tags-input": "latest",
+    "typehead.js": "latest"
   }
 }
