@@ -1,27 +1,11 @@
 <% content_for(:page_title)  { "Summary" } %>
 
 <%- content_for :title  do %>
-  <i class="fa fa-lg icon-graph-up-2"></i>
+<i class="fa fa-lg icon-graph-up-2"></i>
 Summary
 <% end %>
 
 <div class="summary">
-  <div class="row m-b-20">
-   <div class="support-widget">
-     <h4>
-       <i class="fa fa-3x fa-bullhorn pull-left"></i>
-     </h4>
-     <p>
-       Hi! <b>Up&amp;Sell.Me</b> is currently in beta.
-       If you have suggestions, requests o need support please
-       visit our <a href="#"> forum</a>. We also have a list of features we are working on,
-       <a href="#">take a look</a> and vote to prioritize the release.
-     </p>
-
-
-   </div>
- </div>
-
  <div class="summary-widget">
   <div class="earnings">
     <div class="title">
@@ -53,7 +37,7 @@ Summary
       <div class="overlayer-wrapper">
         <%= content_tag "div", id: "chart", class: "graph",
         data: { earnings: @earnings[:summary_data], currency: currency_symbol(current_user.currency) } do %>
-        <div id="area-example"></div><% end %>
+        <div id="js-earnings"></div><% end %>
       </div>
     </div>
   </div>
@@ -93,7 +77,21 @@ Summary
     </div>
   </div>
 </div>
+<div class="row m-t-20">
+ <div class="support-widget">
+   <h4>
+     <i class="fa fa-3x fa-bullhorn pull-left"></i>
+   </h4>
+   <p>
+     Hi! <b>Up&amp;Sell.Me</b> is currently in beta.
+     If you have suggestions, requests o need support please
+     visit our <a href="#"> forum</a>. We also have a list of features we are working on,
+     <a href="#">take a look</a> and vote to prioritize the release.
+   </p>
 
+
+ </div>
+</div>
 
 
 

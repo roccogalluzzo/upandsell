@@ -4,6 +4,8 @@
   <title><%= content_for :page_title %></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
@@ -31,38 +33,40 @@
     <div>
       <div id="brand">
         <%= link_to user_root_path do %>
-        <b>Up</b><span>&amp;<b>Sell</b>.Me</span>
+        <%= image_tag "logo.png", class: 'payment-logo' %>
         <% end %>
       </div>
       <h3>
-      <%= content_for :title %></h3>
-    </div>
-    <div id="navbar">
-      <ul>
-        <% if is_admin? %>
-        <li><%= link_to(admin_root_path) do %>
-         <i class="fa fa-user  icon-user-2"></i>
+        <%= content_for :title %></h3>
+      </div>
+      <div id="navbar">
+        <ul>
+          <% if is_admin? %>
+          <li><%= link_to(admin_root_path) do %>
+           <i class="fa fa-user  icon-user-2"></i>
+           <% end %>
+         </li>
          <% end %>
-       </li>
-       <% end %>
-       <li><%= link_to(new_user_product_path) do %>
-         <i class="fa  icon-add-symbol"></i>
-         <% end %>
-       </li>
-       <li><%= link_to(edit_user_settings_account_path) do %>
-         <i class="fa  icon-settings-wheel-fill"></i>
-         <% end %>
-       </li>
-       <li><%= link_to(destroy_user_session_path, method: :delete) do %>
-         <i class="fa  fa-power-off"></i>
-         <% end %>
-       </li>
-     </ul>
+         <li class="<%= ap(new_user_product_path) %>">
+         <%= link_to(new_user_product_path) do %>
+           <i class="fa  icon-add-symbol"></i>
+           <% end %>
+         </li>
+         <li class="<%= ac('accounts') || ac('payments') || ac('emails') %>">
+           <%= link_to(edit_user_settings_account_path) do %>
+           <i class="fa  icon-settings-wheel-fill"></i>
+           <% end %>
+         </li>
+         <li><%= link_to(destroy_user_session_path, method: :delete) do %>
+           <i class="fa  fa-power-off"></i>
+           <% end %>
+         </li>
+       </ul>
+     </div>
    </div>
  </div>
-</div>
 
-<div id="content">
+ <div id="content">
   <div class="page-sidebar" id="main-menu">
    <div class="page-sidebar-wrapper" id="main-menu-wrapper">
      <ul>

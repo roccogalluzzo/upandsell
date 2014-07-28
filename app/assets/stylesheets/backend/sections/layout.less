@@ -32,7 +32,7 @@
     }
     i {
       margin-right: 5px;
-      color: @peter-river;
+      color: darken(@secondary, 20%);
     }
     .pull-left;
     width: 340px;
@@ -40,24 +40,31 @@
   #navbar {
     ul {
       .nav;
-    //  background-color: @clouds;
-    margin: 0 !important;
-    padding-top: 16px;
-    height: 55px;
-    .pull-right;
-    li {
-      a {
-        color: @concrete;
-        padding: 13px;
-       // border-right: 1px solid #ddd !important;
+      background-color: @secondary;
+      margin: 0 !important;
+      padding-top: 16px;
+      padding-left: 0;
+      height: 55px;
+      .pull-right;
+      .active {
+        a {
+          color: white;
+        }
       }
-      &:hover {
-        a
-        {
-        color: @peter-river;
- }}
-         i { font-size: 21px !important;}
-         span {
+      li {
+        a {
+          color: @primary;
+          padding: 13px;
+       // border-right: 1px solid #ddd !important;
+     }
+
+     &:hover {
+      a
+      {
+        color: white;
+        }}
+        i { font-size: 21px !important;}
+        span {
           top: -5px !important;
           display: block !important;
           margin: 0px 14px 0px 14px !important;
@@ -105,40 +112,46 @@ h6 {
   font-size: 17px;
 }
 
-#area-example {
-  background-color: @clouds;
-}
-
 .page-content {
   margin-left: @sidebar-width;
 }
 .page-sidebar {
   width: @sidebar-width;
-  background-color: @midnight-blue !important;
+  background-color: @primary !important;
 }
 
 .page-sidebar-wrapper {
   ul {
     width: @sidebar-width;
     .active {
-      background-color: @belize-hole !important;
+      background-color: @secondary !important;
      // border-left: #3498db 4px solid !important;
-   }
-   li {
+     a {
+      color: @primary !important;
+      i {
+        color: @primary !important;
+      }
+    }
+  }
+  li {
     //  border-left: transparent 4px solid !important;
     &:hover {
      a {
-      background-color: @belize-hole !important;
-    }
-  }
-  a {
-    padding: 13.5px 23px 13.5px 20px !important;
-    font-size: 15px !important;
-    color: @peter-river;
-    text-transform: uppercase;
+      background-color: @secondary !important;
+      color: @primary !important;
+      i {
+       color: @primary !important;
+     }
+   }
+ }
+ a {
+  padding: 13.5px 23px 13.5px 20px !important;
+  font-size: 15px !important;
+  color: @peter-river;
+  text-transform: uppercase;
 
-    i { font-size: 25px !important; color: white !important;}
-  }
+  i { font-size: 25px !important; color: #dadada !important;}
+}
 }
 }
 }
@@ -192,15 +205,15 @@ i {
   border-radius: 20px !important;
 }
 .btn-primary {
-color: #3498db ;
-background-color: #FFFFFF;
-border: 2px solid #3498db;
-padding: 9px 15px;
+  color: white ;
+  background-color: darken(@secondary, 15%);
+  border: 2px solid darken(@secondary, 15%);
+  padding: 9px 15px;
 }
 
 .select .caret {
-border-bottom-color: #3498db;
-border-top-color: #3498db;
+  border-bottom-color: white;
+  border-top-color: white;
 }
 
 

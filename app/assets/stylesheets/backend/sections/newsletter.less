@@ -5,6 +5,9 @@
     .nav-tabs;
   }
 }
+.unfocused {
+  opacity: 0.2;
+}
 .tools-page {
   border: none;
   border-radius: 6px;
@@ -15,9 +18,45 @@
     width: 100% !important;
   }
 }
+.has-switch {
+  vertical-align: middle;
+  .pull-right;
+}
 
+.integration-form-div {
+   .input-icon {
+    position: absolute;
+    top: 2px;
+    right: 20px;
+    line-height: 37px;
+    vertical-align: middle;
+    font-size: 27px;
+    color: #b2bcc5;
+    background-color: transparent !important;
+    padding: 0 !important;
+    border-radius: 6px;
+  }
+  .make-row();
+  margin-top: 15px;
+  .mailchimp {
+    border-right: @clouds solid 2px;
+  }
+  .integration-box {
+   .make-md-column(6);
+   margin-top: 15px;
+
+   .integration-header {
+    height: 50px;
+  }
+  .integration-content {
+    padding: 8px;
+    text-align: center;
+  }
+}
+}
 .newsletter-list {
-  margin-top: 20px;
+
+  margin-top: 40px;
   .btn-send {
     .btn-circle;
     i {
