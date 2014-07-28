@@ -1,3 +1,8 @@
+<% content_for(:page_title)  { "Account Settings" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg fa-cogs"></i>
+Settings / <span>Account</span>
+<% end %>
 <%= render partial: "user/settings/tabs" %>
 
 <div class="settings-form">
