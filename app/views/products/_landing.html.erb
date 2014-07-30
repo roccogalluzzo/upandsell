@@ -1,32 +1,56 @@
-<div id="js-product" class="product">
+<div id="js-product" class="product-page">
+  <div class="product-page-body">
+    <div class="share-box">
+     <a href="#" class="email-btn">
+      <span class="logo"><i class="fa fa-envelope"></i></span>
+      <span class="text">Email</span>
+    </a>
+    <a href="#" class="twitter-btn">
+      <span class="logo"><i class="fa fa-twitter"></i></span>
+      <span class="text">Tweet</span>
+      <span class="counter">13</span>
+    </a>
+    <a href="#" class="fb-btn">
+      <span class="logo"><i class="fa fa-facebook"></i></span>
+      <span class="text">Share</span>
+      <span class="counter">123</span>
+    </a>
+  </div>
   <% if @product.preview %>
-  <div class="landing-preview">
-    <div class="product-image">
-      <%= image_tag @product.preview %>
-    </div>
+  <div class="preview-image">
+    <%= image_tag @product.preview %>
   </div>
   <% end %>
+  <div class="hidden-xs landing-description">
+   <h1><%= @product.name %> </h1>
+   <h6>by <span class="product-author"><%= @user.name %></span></h6>
+   <p><%= @product.description %></p>
+ </div>
 
-  <div class="landing-body">
-   <div class="landing-description">
-     <h3><%= @product.name %> </h3>
-     <p><%= @product.description %></p>
+ <div class="product-actions-box">
+   <div class="product-price-box">
+     <div class="hid coupon-label">
+       <span class="vertical-text">Coupon</span>
+     </div>
+     <%
+     symbol = @product.price.symbol
+     price = @product.price.format(no_cents: true ,symbol: false)
+     cents =  @product.price.format(symbol: false).last(2)
+     %>
+     <div class="product-price">
+       <span>
+       <%= "#{symbol} #{price}" %><span class='cents'>.<%= cents %></span>
+       </span>
+     </div>
    </div>
 
-   <div class="landing-info">
-     <div class="landing-info-section">
-       <div>
-        <h2> <%=  humanized_money_with_symbol  @product.price %></h2>
-      </div>
-    </div>
 
-    <div class="landing-info-section">
-      <div>
-        <% if @downloadable %>
-        <%= link_to 'Download', download_product_path(@token), class: "btn-link-download" %>
-        <p> You can download the product further
-          <b id="js-download-counts"><%= 5 - @downloads  %></b> times </p>
-          <%# elsif @downloads and @downloads <= 5 %>
+   <div class="product-actions">
+    <% if @downloadable %>
+    <%= link_to 'Download', download_product_path(@token), class: "btn-link-download" %>
+    <p> You can download the product further
+      <b id="js-download-counts"><%= 5 - @downloads  %></b> times </p>
+      <%# elsif @downloads and @downloads <= 5 %>
 <!--           <a href="#"
           class="disabled btn btn-large btn-block btn-success">
           Download
@@ -39,31 +63,35 @@
         <a href="#paypal"  data-product-id="<%= @product.id %>"
           class="paypal btn-buy">Buy Now!</a>
           <% else %>
-          <a id="js-btn-buy" href="#cc-form" class="btn-buy"> Buy Now!</a>
+          <a id="js-buy-btn" href="#" class="buy-btn"> Buy Now!</a>
+          <p class="middleline"><span>or</span></p>
+          <a id="js-coupon-btn" href="#coupon-form" class="coupon-btn">Apply Coupon</a>
+          <div id="js-coupon-form" class="coupon-form hid">
+            <form>
+              <input type="text" placeholder="COUPON" name="coupon_code">
+              <button id="js-coupon-apply" type="submit">Apply</button>
+            </form>
+          </div>
           <% end %>
 
           <a href="#download" class="btn-download hidden"> Download</a>
           <% end %>
         </div>
-      </div>
-
-      <div class="landing-info-section">
-        <div class="details">
-          <ul>
-            <li><span>Size:</span>
-              <b class=""><%# number_to_human_size @product[:file] %></b></li>
-              <li> <span>Type:</span>
-                <b class=""><%= @product.extension.upcase %></b></li>
-                <li> <span>By:</span>
-                  <b><%= @user.name %></b></li>
-                </ul>
-              </div>
+        <div class="visible-xs landing-description">
+         <h1><%= @product.name %> </h1>
+         <h6>by <span class="product-author"><%= @user.name %></span></h6>
+         <p><%= @product.description %></p>
+       </div>
+       <div class="product-info">
+        <ul>
+          <li><b>Size</b>
+            <span><%# number_to_human_size @product[:file] %></span></li>
+            <li> <b>Type</b>
+              <span><%= @product.extension.upcase %></span></li>
+              <li> <b>Avaiable</b>
+                <span>4 Items</span>
+              </ul>
             </div>
           </div>
-        </div>
-
-        <div id="footer">
-          <hr></hr>
-          <p>POWERED BY <b>UP</b>&amp;<b>SELL</b>.ME </p>
         </div>
       </div>

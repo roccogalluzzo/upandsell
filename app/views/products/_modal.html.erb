@@ -3,104 +3,106 @@
 </script>
 <div id="js-modal" class="buy-form" data-product-id="<%= @product.id %>"
  data-action="<%= @action %>" data-paypal="<%= @paypal %>">
- <div class="pay-title">
-  <div>
-    <h3> <i class="fa icon-tag-2 fa-lg"></i>  <%= @product.name %></h3>
+ <div class="top">
+   <div id="js-close-buy" class="close"><i class="fa fa-times"></i></div>
+   <%= image_tag "payform_logo.png", class: 'hidden-xs payform-logo' %>
+   <img class="hidden-xs product-image" src="<%= @product.preview.thumb.url %>"/>
+   <div>
+    <h1> <%= @product.name %></h1>
+    <h2>by <span class="author"><%= @user.name %></span>
+    </div>
   </div>
-</div>
 
-<hr></hr>
-<div id="js-modal-body" class="row buy-form">
-  <div  id="cc" class="credit-card col-md-12 c-form" style="height: 348px !important; min-height: 0">
-  <form id="cc-form" class="cc-form">
-     <div class="processing"></div>
-     <div class="message">  <p> <i class="fa fa-lg fa-refresh fa-spin"></i></p>
-       <p>Processing Payment...</p></div>
-       <div class="form-group">
-        <div class="left-addon ">
-          <i class="fa fa-fw icon-envelope-1 fa-lg"></i>
-          <input type="email" name="cc-email" class="cc-email form-control"  placeholder="Your Email">
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="left-addon r-a">
-          <i class="fa fa-fw icon-credit-card-back fa-lg"></i>
+  <div id="js-modal-body" class="pay-form">
+    <div id="cc" class="credit-card col-md-12 c-form" style="padding: 0; !important; min-height: 0">
+      <form id="cc-form" class="cc-form">
+       <div class="processing"></div>
+       <div class="message">  <p> <i class="fa fa-lg fa-refresh fa-spin"></i></p>
+         <p>Processing Payment...</p></div>
+         <div class="form-group">
+          <div class="envelope-icon email-field">
+          <%= image_tag "envelope_icon.png", class: '' %>
+           <input type="email" name="cc-email" class="cc-email form-control"  placeholder="Your Email">
+         </div>
+       </div>
+       <div class="cc-field">
+        <p>Payment details</p>
+        <div class="form-group">
+          <div class="cc-icon r-a">
+           <%= image_tag "cc_icon.png", class: '' %>
 
-          <input type="text" name="cc-num" class="cc-num form-control"  placeholder="Credit Card Number">
+           <input type="text" name="cc-num" class="cc-num form-control"  placeholder="Credit Card Number">
 
-        </div>
-      </div>
-      <div class=" row form-group">
-       <div class="col-md-6">
-         <div class="left-addon ">
-          <i class="fa fa-fw icon-calendar-2 fa-lg i-offset"></i>
-          <input type="text" name="cc-exp" class="cc-exp form-control"
-          placeholder="MM/YYYY">
-        </div>
-      </div>
-      <div class="col-xs-offset-1 col-xs-5">
-        <div class="left-addon ">
-          <i class="fa fa-fw icon-lock fa-lg i-offset"></i>
-          <input type="text" name="cc-cvc" class="cc-cvc form-control"  placeholder="CVC">
+         </div>
+       </div>
+       <div class=" row form-group">
+         <div class="exp-input col-xs-5 col-sm-6 col-md-5">
+           <div class="exp-icon">
+             <%= image_tag "exp_icon.png", class: '' %>
+             <input type="text" name="cc-exp" class="cc-exp form-control"
+             placeholder="MM/YY">
+           </div>
+         </div>
+         <div class="cvc-input col-xs-offset-2 col-xs-5 col-sm-5 col-sm-offset-1  col-md-4  col-md-offset-3">
+          <div class="cvc-icon">
+            <%= image_tag "lock_icon.png", class: '' %>
+            <input type="text" name="cc-cvc" class="cc-cvc form-control"  placeholder="CVC">
+          </div>
         </div>
       </div>
     </div>
-    <div class="row form-group">
+    <div class="actions-field">
+      <div class="row">
+        <div class="col-md-12">
+          <p style="display: none;" class="cc-error text-center text-danger">Error: Check credit card info and try again.</p>
+          <button type="submit" class="pay-btn">Pay
+            <%=  humanized_money_with_symbol  @product.price %>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <% if @paypal=true %>
+    <div class="row">
       <div class="col-md-12">
-        <p style="display: none;" class="cc-error text-center text-danger">Error: Check credit card info and try again.</p>
-        <button type="submit" class="btn-cc js-btn-pay">Pay
-          <span class="btn-tip"><%=  humanized_money_with_symbol  @product.price %></span>
-        </button>
+        <p class="modal-middleline"><span>or pay with</span></p>
       </div>
     </div>
-  </form>
-  <% if @paypal %>
-  <div class="row form-group">
-    <div class="col-md-offset-1 col-md-10">
-     <p class="middleline"><span>OR</span></p>
-   </div>
- </div>
- <div class="row form-group">
-  <div class="col-md-offset-1 col-md-10">
-   <a  id="js-btn-paypal" data-product-id="<%= @product.id %>" href="#"
-     class="js-btn-pay btn-paypal">Checkout with Paypal</a>
-   </div>
- </div>
- <% end %>
-</div>
-<div id="download" class="col-md-12 download-form" style="height: 0px;">
- <div class="row product">
-   <div class="col-md-12 text-center">
-     <h2><i class="fa  icon-checkmark-thick"></i></h2>
-     <h3>Thank you!</h3>
-     <% if @downloadable %>
-     <%= link_to 'Download',
-     download_product_path(@token),
-     class: "btn btn-pay btn-lg btn-download btn-success" %>
-     <% else %>
-     <a href="#" class="btn btn-pay btn-lg btn-download btn-success">Download</a>
+    <div class="row">
+      <div class="col-md-12">
+       <a  id="js-btn-paypal" data-product-id="<%= @product.id %>" href="#"
+         class="paypal-btn"> <%= image_tag 'paypal_btn_logo.png' %></a>
+       </div>
+     </div>
      <% end %>
-     <p>We've also emailed you the download link and order details.
-      You can download the product up to 5 times.</p>
+   </div>
+ </div>
+ <div id="download" class="col-md-12 download-form" style="height: 0px;">
+   <div class="row product">
+     <div class="col-md-12 text-center">
+       <h2><i class="fa  icon-checkmark-thick"></i></h2>
+       <h3>Thank you!</h3>
+       <% if @downloadable %>
+       <%= link_to 'Download',
+       download_product_path(@token),
+       class: "btn btn-pay btn-lg btn-download btn-success" %>
+       <% else %>
+       <a href="#" class="btn btn-pay btn-lg btn-download btn-success">Download</a>
+       <% end %>
+       <p>We've also emailed you the download link and order details.
+        You can download the product up to 5 times.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="paypal" class="col-md-12 download-form" style="height: 0px;">
+   <div class="row product">
+     <div class="col-md-12 text-center">
+      <h2> <i class="fa fa-lg fa-refresh fa-spin fa-2x"></i></h2>
+      <h3>Contacting Paypal...</h3>
     </div>
   </div>
 </div>
-
-
-<div id="paypal" class="col-md-12 download-form" style="height: 0px;">
- <div class="row product">
-   <div class="col-md-12 text-center">
-    <h2> <i class="fa fa-lg fa-refresh fa-spin fa-2x"></i></h2>
-    <h3>Contacting Paypal...</h3>
-  </div>
 </div>
-</div>
-</div>
-
-<div class="row">
- <div class="col-md-12 pay-footer">
-   <hr></hr>
-   <p>POWERED BY <b>UP</b>&amp;<b>SELL</b>.ME
-   </div>
- </div>
 </div>

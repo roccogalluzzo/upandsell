@@ -1,9 +1,20 @@
  <div class="row">
   <div id="page">
-    <%= render partial: "products/landing" %>
-  </div>
-  <div id="buy">
-   <%= render partial: "products/modal" %>
+    <div class="product-modal">
+      <%= render partial: "products/landing" %>
+      <div id="footer">
+        <span>powered by</span> <%= image_tag "footer_logo.png" %>
+        <p>    <%= link_to "privacy", privacy_path %> |   <%= link_to "terms of service", terms_path %></p>
+      </div>
+      </div>
+      <div class="product-page-buy">
+        <%= render partial: "products/modal" %>
+      </div>
+    </div>
+
+    <div id="buy">
+     <%# render partial: "products/modal" %>
+   </div>
  </div>
-</div>
+
 

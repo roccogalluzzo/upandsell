@@ -16,6 +16,7 @@
     "zeroclipboard": "latest",
     "jquery.transit": "latest",
     "jquery-tags-input": "latest",
-    "typehead.js": "latest"
+    "typehead.js": "latest",
+    "animateCSS": "latest"
   }
 }
