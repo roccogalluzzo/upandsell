@@ -7,7 +7,7 @@ class PreviewUploader < CarrierWave::Uploader::Base
  process :strip
 
  version :thumb do
-  process resize_to_fill: [72, 60]
+  process resize_to_fill: [120, 80]
 end
 
 storage :fog

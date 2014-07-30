@@ -19,7 +19,24 @@
     opts.productId = $('#js-modal').data('product-id');
     opts.paypal = $('#js-modal').data('paypal');
    // opts.paypal = false;
-   ProductPage[opts.action]();
+   //ProductPage[opts.action]();
+   $("#js-coupon-btn").on('click', function(){
+    $("#js-coupon-form").slideDown(300);
+    $("#js-coupon-btn").slideUp(300);
+  });
+   $("#js-coupon-apply").on('click', function(){
+    $("#js-coupon-form").slideUp(300);
+    $("#js-coupon-btn").slideDown(300);
+  });
+   $("#js-buy-btn").on('click', function(){
+    $(".product-modal").slideUp(400, 'swing');
+    $(".product-page-buy").slideDown(400, 'swing');
+  });
+   $("#js-close-buy").on('click', function(){
+    $(".product-modal").slideDown(400, 'swing');
+    $(".product-page-buy").slideUp(400, 'swing');
+  });
+
  }
 
  ProductPage.buy = function() {
