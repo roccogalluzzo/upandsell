@@ -36,7 +36,10 @@
     $(".product-modal").slideDown(400, 'swing');
     $(".product-page-buy").slideUp(400, 'swing');
   });
-
+   $('input.cc-num').payment('formatCardNumber');
+   $('input.cc-exp').payment('formatCardExpiry');
+   $('input.cc-cvc').payment('formatCardCVC');
+   ProductPage.Form.setValidation();
  }
 
  ProductPage.buy = function() {
