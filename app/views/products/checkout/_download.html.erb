@@ -1,0 +1,20 @@
+<div class="message-box">
+  <h3>Thank you!</h3>
+  <p>Your purchase was successful.</p>
+  <p>Click the button below to download the product</p>
+</div>
+<div class="download-box">
+  <% if @downloadable %>
+  <%= link_to 'Download',
+  download_product_path(@token),
+  class: "pay-download-btn" %>
+  <% else %>
+  <a href="#" class="pay-download-btn">Download</a>
+  <% end %>
+  <div class="download-middleline">
+    <p><span><span class="dw-counter">5</span> download remain</span></p>
+  </div>
+</div>
+<div class="unsubscribe-box">
+<a href="#">unsubscribe from product updates</a>
+</div>

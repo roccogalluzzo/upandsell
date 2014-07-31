@@ -15,56 +15,110 @@
 
     ProductPage.init = function() {
     // buy, buyPaypal, download, afterPaypal
-    opts.action = $('#js-modal').data('action');
-    opts.productId = $('#js-modal').data('product-id');
-    opts.paypal = $('#js-modal').data('paypal');
+    //opts.action = $('#js-modal').data('action');
+    //opts.productId = $('#js-modal').data('product-id');
+   // opts.paypal = $('#js-modal').data('paypal');
    // opts.paypal = false;
    //ProductPage[opts.action]();
-   $("#js-coupon-btn").on('click', function(){
-    $("#js-coupon-form").slideDown(300);
-    $("#js-coupon-btn").slideUp(300);
+   $("#js-coupon-btn").on('click', ProductPage.Animations.show_coupon_form);
+   $("#js-coupon-apply").on('click', ProductPage.Animations.show_coupon_form_success);
+   $("#js-buy-btn").on('click', ProductPage.Animations.show_buy_page);
+   $("#js-close-buy").on('click', ProductPage.Animations.show_product_page);
+   $('#js-checkout-form').on('submit', function(){
+    ProductPage.Animations.show_form_processing();
+    if( $(".cc-num").val() ) {
+      window.setTimeout(  ProductPage.Animations.show_form_error, 3000 );
+    }else{
+      window.setTimeout(  ProductPage.Animations.show_form_success, 3000 );
+    }
+    return false;
   });
-   $("#js-coupon-apply").on('click', function(){
-    $("#js-coupon-form").slideUp(300);
-    $("#js-coupon-btn").slideDown(300);
-  });
-   $("#js-buy-btn").on('click', function(){
-    $(".product-modal").slideUp(400, 'swing');
-    $(".product-page-buy").slideDown(400, 'swing');
-  });
-   $("#js-close-buy").on('click', function(){
-    $(".product-modal").slideDown(400, 'swing');
-    $(".product-page-buy").slideUp(400, 'swing');
-  });
+
    $('input.cc-num').payment('formatCardNumber');
    $('input.cc-exp').payment('formatCardExpiry');
    $('input.cc-cvc').payment('formatCardCVC');
-   ProductPage.Form.setValidation();
- }
+ //  ProductPage.Form.setValidation();
+}
 
- ProductPage.buy = function() {
-   ProductPage.Modal.set('cc');
-   $('#js-btn-buy').on('click', ProductPage.Form.open);
- }
- ProductPage.buyPaypal = function() {
-   ProductPage.Modal.set('paypal');
-   $('#js-btn-buy').on('click', ProductPage.Paypal.open);
- }
- ProductPage.afterPaypal = function() {
-   ProductPage.Modal.open();
-   ProductPage.Modal.set('download', true);
-   $('#js-btn-buy').on('click', ProductPage.Modal.open);
- }
- ProductPage.download = function() {
-   ProductPage.Modal.set('download');
-   $('.btn-link-download').on('click', function(){
-     rd =  parseInt($('#js-download-counts').text());
-     $('#js-download-counts').text(rd > 0 ? rd - 1: rd )
-   });
-   $('#js-btn-buy').on('click', ProductPage.Modal.open);
- }
+ProductPage.Animations = {
+  show_buy_page: function() {
+    $(".product-modal").slideUp(400, 'swing');
+    $(".product-page-buy").slideDown(400, 'swing');
+  },
+  show_product_page: function() {
+    $(".product-modal").slideDown(400, 'swing');
+    $(".product-page-buy").slideUp(400, 'swing');
+  },
+  show_download_tab: function() {
+    $("#js-product-download-tab").slideDown(400, 'swing');
+    $("#js-product-pay-tab").slideUp(400, 'swing');
+  },
+  show_form_processing: function() {
+    $("#js-pay-btn .pay-btn-text").fadeOut(function() {
+      $(this).html($('.processing-text').html());
+      img = $(".pay-btn-text img");
+      img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
+    }).fadeIn(400);
+    $("#js-pay-btn").prop('disabled', true);
+  },
+  show_form_success: function() {
+   $("#js-pay-btn .pay-btn-text").fadeOut(function() {
+    $(this).html($('.pay-success-text').html());
+    img = $(".pay-btn-text img");
+    img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
 
- ProductPage.Modal = {
+  }).fadeIn(400);
+   $("#js-pay-btn").addClass('pay-success-btn');
+   window.setTimeout(  ProductPage.Animations.show_download_tab, 1400 );
+ },
+ show_form_error: function() {
+   $("#js-pay-btn .pay-btn-text").fadeOut(function() {
+    $(this).html($('.pay-error-text').html());
+  }).fadeIn(400);
+   $("#js-pay-btn").addClass('pay-error-btn');
+   window.setTimeout(function(){
+     $("#js-pay-btn .pay-btn-text").fadeOut(function() {
+      $(this).html($('.pay-text').html());
+       $("#js-pay-btn").prop('disabled', false);
+    }).fadeIn(400);
+     $("#js-pay-btn").removeClass('pay-error-btn');
+   }, 3500 );
+ },
+ show_coupon_form: function() {
+  $("#js-coupon-form").slideDown(300);
+  $("#js-coupon-btn").slideUp(300);
+},
+show_coupon_form_success: function() {
+  $("#js-coupon-form").slideUp(300);
+  $("#js-coupon-btn").slideDown(300);
+}
+};
+
+
+
+ProductPage.buy = function() {
+ ProductPage.Modal.set('cc');
+ $('#js-btn-buy').on('click', ProductPage.Form.open);
+}
+ProductPage.buyPaypal = function() {
+ ProductPage.Modal.set('paypal');
+ $('#js-btn-buy').on('click', ProductPage.Paypal.open);
+}
+ProductPage.afterPaypal = function() {
+ ProductPage.Modal.open();
+ ProductPage.Modal.set('download', true);
+ $('#js-btn-buy').on('click', ProductPage.Modal.open);
+}
+ProductPage.download = function() {
+ ProductPage.Modal.set('download');
+ $('.btn-link-download').on('click', function(){
+   rd =  parseInt($('#js-download-counts').text());
+   $('#js-download-counts').text(rd > 0 ? rd - 1: rd )
+ });
+ $('#js-btn-buy').on('click', ProductPage.Modal.open);
+}
+
+ProductPage.Modal = {
   set: function(page, noAnimation) {
     for (i = 0; i < opts.modal.pages.length; ++i) {
      var height = ((opts.modal.pages[i] == page) ? opts.height : 0);
@@ -102,9 +156,7 @@ ProductPage.Form = {
   },
   submit: function(event){
 
-    $('.js-btn-pay').attr('disabled', 'disabled');
-    $('.processing').show();
-    $('.message').show();
+    return false
     cc_num = $('input.cc-num').val().replace(/\s+/g, '');
     cc_exp = $('input.cc-exp').payment('cardExpiryVal')
     cc_cvc = $('input.cc-cvc').val();
@@ -150,8 +202,6 @@ pay: function(error, result) {
 },
 success: function(data) {
  $('.js-btn-pay').each(function(){ this.disabled = false; });
- $('.processing').hide();
- $('.message').hide();
  $('.btn-buy').hide();
  $('.cc-error').hide();
  $('.btn-download').removeClass('hidden');

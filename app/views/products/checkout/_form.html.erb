@@ -1,0 +1,53 @@
+<form id="js-checkout-form">
+ <div class="form-group">
+   <div class="envelope-icon email-row">
+    <%= image_tag "envelope_icon.png" %>
+    <input type="email" name="cc-email" class="cc-email"  placeholder="Your Email">
+  </div>
+</div>
+<div class="cc-row">
+  <p>Payment details</p>
+  <div class="form-group">
+    <div class="cc-icon r-a">
+     <%= image_tag "cc_icon.png" %>
+     <input type="text" name="cc-num" class="cc-num"  placeholder="Credit Card Number">
+   </div>
+ </div>
+ <div class="row form-group">
+   <div class="exp-input">
+     <div class="exp-icon">
+       <%= image_tag "exp_icon.png", class: '' %>
+       <input type="text" name="cc-exp" class="cc-exp" placeholder="MM/YY">
+     </div>
+   </div>
+   <div class="cvc-input">
+    <div class="cvc-icon">
+      <%= image_tag "lock_icon.png", class: '' %>
+      <input type="text" name="cc-cvc" class="cc-cvc"  placeholder="CVC">
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="actions-section">
+  <div class="action">
+    <button id="js-pay-btn" type="submit" class="pay-btn">
+      <span class="pay-btn-text">Pay <%=  humanized_money_with_symbol  @product.price %></span>
+    </button>
+    <span class="processing-text"><%= image_tag 'btn_loading.gif' %></span>
+    <span class="pay-text">Pay <%=  humanized_money_with_symbol  @product.price %></span>
+    <span class="pay-success-text"><%= image_tag 'success.gif' %></span>
+    <span class="pay-error-text">Payment Not Accepted</span>
+  </div>
+
+  <% if @paypal=true %>
+  <div class="action-middleline">
+    <p><span>or pay with</span></p>
+  </div>
+  <div class="action">
+    <a id="js-btn-paypal" data-product-id="<%= @product.id %>" href="#"
+     class="paypal-btn"> <%= image_tag 'paypal_btn_logo.png' %></a>
+   </div>
+   <% end %>
+ </div>
+</form>

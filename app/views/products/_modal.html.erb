@@ -1,10 +1,11 @@
 <script type="text/javascript">
   var PAYMILL_PUBLIC_KEY = '<%= @product.user.credit_card_public_token %>';
 </script>
-<div id="js-modal" class="buy-form" data-product-id="<%= @product.id %>"
+<div id="js-checkout-tab" class="checkout-tab" data-product-id="<%= @product.id %>"
  data-action="<%= @action %>" data-paypal="<%= @paypal %>">
+
  <div class="top">
-   <div id="js-close-buy" class="close"><i class="fa fa-times"></i></div>
+   <div id="js-close-buy" class="close-btn"></div>
    <%= image_tag "payform_logo.png", class: 'hidden-xs payform-logo' %>
    <img class="hidden-xs product-image" src="<%= @product.preview.thumb.url %>"/>
    <div>
@@ -13,96 +14,16 @@
     </div>
   </div>
 
-  <div id="js-modal-body" class="pay-form">
-    <div id="cc" class="credit-card col-md-12 c-form" style="padding: 0; !important; min-height: 0">
-      <form id="cc-form" class="cc-form">
-       <div class="processing"></div>
-       <div class="message">  <p> <i class="fa fa-lg fa-refresh fa-spin"></i></p>
-         <p>Processing Payment...</p></div>
-         <div class="form-group">
-          <div class="envelope-icon email-field">
-          <%= image_tag "envelope_icon.png", class: '' %>
-           <input type="email" name="cc-email" class="cc-email form-control"  placeholder="Your Email">
-         </div>
-       </div>
-       <div class="cc-field">
-        <p>Payment details</p>
-        <div class="form-group">
-          <div class="cc-icon r-a">
-           <%= image_tag "cc_icon.png", class: '' %>
-
-           <input type="text" name="cc-num" class="cc-num form-control"  placeholder="Credit Card Number">
-
-         </div>
-       </div>
-       <div class=" row form-group">
-         <div class="exp-input col-xs-5 col-sm-6 col-md-5">
-           <div class="exp-icon">
-             <%= image_tag "exp_icon.png", class: '' %>
-             <input type="text" name="cc-exp" class="cc-exp form-control"
-             placeholder="MM/YY">
-           </div>
-         </div>
-         <div class="cvc-input col-xs-offset-2 col-xs-5 col-sm-5 col-sm-offset-1  col-md-4  col-md-offset-3">
-          <div class="cvc-icon">
-            <%= image_tag "lock_icon.png", class: '' %>
-            <input type="text" name="cc-cvc" class="cc-cvc form-control"  placeholder="CVC">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="actions-field">
-      <div class="row">
-        <div class="col-md-12">
-          <p style="display: none;" class="cc-error text-center text-danger">Error: Check credit card info and try again.</p>
-          <button type="submit" class="pay-btn">Pay
-            <%=  humanized_money_with_symbol  @product.price %>
-          </button>
-        </div>
-      </div>
-    </form>
-
-    <% if @paypal=true %>
-    <div class="row">
-      <div class="col-md-12">
-        <p class="modal-middleline"><span>or pay with</span></p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-       <a  id="js-btn-paypal" data-product-id="<%= @product.id %>" href="#"
-         class="paypal-btn"> <%= image_tag 'paypal_btn_logo.png' %></a>
-       </div>
-     </div>
-     <% end %>
-   </div>
+  <div id="js-product-pay-tab" class="product-pay-tab">
+   <%= render partial: "products/checkout/form" %>
  </div>
- <div id="download" class="col-md-12 download-form" style="height: 0px;">
-   <div class="row product">
-     <div class="col-md-12 text-center">
-       <h2><i class="fa  icon-checkmark-thick"></i></h2>
-       <h3>Thank you!</h3>
-       <% if @downloadable %>
-       <%= link_to 'Download',
-       download_product_path(@token),
-       class: "btn btn-pay btn-lg btn-download btn-success" %>
-       <% else %>
-       <a href="#" class="btn btn-pay btn-lg btn-download btn-success">Download</a>
-       <% end %>
-       <p>We've also emailed you the download link and order details.
-        You can download the product up to 5 times.</p>
-      </div>
-    </div>
-  </div>
 
+ <div id="js-product-download-tab" class="product-download-tab">
+   <%= render partial: "products/checkout/download" %>
+ </div>
 
-  <div id="paypal" class="col-md-12 download-form" style="height: 0px;">
-   <div class="row product">
-     <div class="col-md-12 text-center">
-      <h2> <i class="fa fa-lg fa-refresh fa-spin fa-2x"></i></h2>
-      <h3>Contacting Paypal...</h3>
-    </div>
-  </div>
-</div>
-</div>
+ <div id="js-product-paypal-tab"  class="product-paypal-tab col-md-12 download-form">
+   <%= render partial: "products/checkout/paypal" %>
+ </div>
+
 </div>
