@@ -54,24 +54,23 @@ ProductPage.Animations = {
     $("#js-product-pay-tab").slideUp(400, 'swing');
   },
   show_form_processing: function() {
+    img = $(".processing-text img");
+    img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
     $("#js-pay-btn .pay-btn-text").fadeOut(function() {
       $(this).html($('.processing-text').html());
-      img = $(".pay-btn-text img");
-      img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
     }).fadeIn(400);
     $("#js-pay-btn").prop('disabled', true);
   },
   show_form_success: function() {
-   $("#js-pay-btn .pay-btn-text").fadeOut(function() {
-    $(this).html($('.pay-success-text').html());
-    img = $(".pay-btn-text img");
+    img = $(".pay-success-text img");
     img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
-
-  }).fadeIn(400);
-   $("#js-pay-btn").addClass('pay-success-btn');
-   window.setTimeout(  ProductPage.Animations.show_download_tab, 1400 );
- },
- show_form_error: function() {
+    $("#js-pay-btn .pay-btn-text").fadeOut(function() {
+      $(this).html($('.pay-success-text').html());
+    }).fadeIn(400);
+    $("#js-pay-btn").addClass('pay-success-btn');
+    window.setTimeout(  ProductPage.Animations.show_download_tab, 1400 );
+  },
+  show_form_error: function() {
    $("#js-pay-btn .pay-btn-text").fadeOut(function() {
     $(this).html($('.pay-error-text').html());
   }).fadeIn(400);
@@ -79,7 +78,7 @@ ProductPage.Animations = {
    window.setTimeout(function(){
      $("#js-pay-btn .pay-btn-text").fadeOut(function() {
       $(this).html($('.pay-text').html());
-       $("#js-pay-btn").prop('disabled', false);
+      $("#js-pay-btn").prop('disabled', false);
     }).fadeIn(400);
      $("#js-pay-btn").removeClass('pay-error-btn');
    }, 3500 );
