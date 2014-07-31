@@ -58,7 +58,7 @@ ProductPage.Animations = {
     img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
     $("#js-pay-btn .pay-btn-text").fadeOut(function() {
       $(this).html($('.processing-text').html());
-    }).fadeIn(400);
+    }).fadeIn(500);
     $("#js-pay-btn").prop('disabled', true);
   },
   show_form_success: function() {
@@ -66,21 +66,21 @@ ProductPage.Animations = {
     img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
     $("#js-pay-btn .pay-btn-text").fadeOut(function() {
       $(this).html($('.pay-success-text').html());
-    }).fadeIn(400);
-    $("#js-pay-btn").addClass('pay-success-btn');
-    window.setTimeout(  ProductPage.Animations.show_download_tab, 1400 );
+      $("#js-pay-btn").addClass('pay-success-btn');
+    }).fadeIn(500);
+    window.setTimeout(  ProductPage.Animations.show_download_tab, 1900 );
   },
   show_form_error: function() {
    $("#js-pay-btn .pay-btn-text").fadeOut(function() {
     $(this).html($('.pay-error-text').html());
-  }).fadeIn(400);
-   $("#js-pay-btn").addClass('pay-error-btn');
+    $("#js-pay-btn").addClass('pay-error-btn');
+  }).fadeIn(500);
    window.setTimeout(function(){
      $("#js-pay-btn .pay-btn-text").fadeOut(function() {
       $(this).html($('.pay-text').html());
       $("#js-pay-btn").prop('disabled', false);
-    }).fadeIn(400);
-     $("#js-pay-btn").removeClass('pay-error-btn');
+      $("#js-pay-btn").removeClass('pay-error-btn');
+    }).fadeIn(500);
    }, 3500 );
  },
  show_coupon_form: function() {
