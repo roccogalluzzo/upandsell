@@ -77,7 +77,7 @@ gem "less-rails"
 gem 'sass-rails', github: 'rails/sass-rails'
 gem "bower-rails", "~> 0.7.0"
 gem "font-awesome-rails"
-gem "net-ssh", "~> 2.7.0"
+
 # Deployment
 group :development do
   gem 'capistrano', '~> 3.2.0'

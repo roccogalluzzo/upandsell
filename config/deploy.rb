@@ -6,7 +6,9 @@ set :repo_url, 'git@bitbucket.org:angelbit/up-sell.git'
 
 # Default branch is :master
 ask :branch, :staging #proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-
+set :ssh_options, {
+   config: false
+}
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/upandsell'
 

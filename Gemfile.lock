@@ -485,7 +485,6 @@ DEPENDENCIES
   monetize
   money-rails
   mysql2
-  net-ssh (~> 2.7.0)
   omniauth-createsend
   omniauth-mailchimp
   omniauth-paymill
