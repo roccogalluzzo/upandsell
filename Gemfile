@@ -72,6 +72,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
+gem 'jquery-ui-rails'
+
 # Css gems
 gem "less-rails"
 gem 'sass-rails', github: 'rails/sass-rails'

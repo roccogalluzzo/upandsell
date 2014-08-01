@@ -20,13 +20,41 @@
    // opts.paypal = $('#js-modal').data('paypal');
    // opts.paypal = false;
    //ProductPage[opts.action]();
-   $("#js-coupon-btn").on('click', ProductPage.Animations.show_coupon_form);
-   $("#js-coupon-apply").on('click', ProductPage.Animations.show_coupon_form_success);
-   $("#js-buy-btn").on('click', ProductPage.Animations.show_buy_page);
-   $("#js-close-buy").on('click', ProductPage.Animations.show_product_page);
-   $('#js-checkout-form').on('submit', function(){
+   window.setTimeout(function(){
+     window.setTimeout(function(){
+       $('input.cc-email').simulate("key-sequence",
+        {sequence: 'kingslayer@upadnsell.me', delay: 100});
+     }, 2600);
+     window.setTimeout(function(){
+
+       $('input.cc-num').simulate("key-sequence",
+        {sequence: '4111111111111111', delay: 150});
+     }, 5400);
+
+     window.setTimeout(function(){
+
+       $('input.cc-exp').simulate("key-sequence",
+        {sequence: '120', delay: 200});
+     }, 8400);
+
+     window.setTimeout(function(){
+
+       $('input.cc-cvc').simulate("key-sequence",
+        {sequence: '123', delay: 200});
+     }, 9400);
+   }, 10000);
+
+   $(document).on("preview_draw", function() {
+    $('.payform-loading').fadeOut(1000);
+    $('.product-image').fadeIn(1000);
+  });
+  $("#js-coupon-btn").on('click', ProductPage.Animations.show_coupon_form);
+  $("#js-coupon-apply").on('click', ProductPage.Animations.show_coupon_form_success);
+  $("#js-buy-btn").on('click', ProductPage.Animations.show_buy_page);
+  $("#js-close-buy").on('click', ProductPage.Animations.show_product_page);
+  $('#js-checkout-form').on('submit', function(){
     ProductPage.Animations.show_form_processing();
-    if( $(".cc-num").val() ) {
+    if( !$(".cc-num").val() ) {
       window.setTimeout(  ProductPage.Animations.show_form_error, 3000 );
     }else{
       window.setTimeout(  ProductPage.Animations.show_form_success, 3000 );
@@ -34,9 +62,9 @@
     return false;
   });
 
-   $('input.cc-num').payment('formatCardNumber');
-   $('input.cc-exp').payment('formatCardExpiry');
-   $('input.cc-cvc').payment('formatCardCVC');
+  $('input.cc-num').payment('formatCardNumber');
+  $('input.cc-exp').payment('formatCardExpiry');
+  $('input.cc-cvc').payment('formatCardCVC');
  //  ProductPage.Form.setValidation();
 }
 

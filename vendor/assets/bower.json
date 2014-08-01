@@ -17,6 +17,7 @@
     "jquery.transit": "latest",
     "jquery-tags-input": "latest",
     "typehead.js": "latest",
-    "animateCSS": "latest"
+    "animateCSS": "latest",
+    "jquery-simulate-ext": "latest"
   }
 }
