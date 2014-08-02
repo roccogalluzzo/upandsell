@@ -1021,8 +1021,3 @@ me.translate = function(tx, ty){
 // attribute selectors, add a class of polyClip to the images you are clipping.
 document.write('<style type="text/css">img[data-polyclip], img.polyClip { visibility: hidden; } </style>')
 
-if (polyClip.isOldIE) {
-	jQuery(window).bind('load', polyClip.init);
-} else {
-	jQuery(document).ready(polyClip.init);
-}

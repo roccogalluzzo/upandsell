@@ -1,58 +1,26 @@
 (function ($, ProductPage, undefined) {
 
-  var opts = {
-    height: 348,
-    modal: {
-      options: {
-        url: '#js-modal',
-        width: 315,
-        effect: 'slide',
-        position: 'bottom',
-        speed:          600
-      },
-      pages: ['cc', 'paypal', 'download']
-    }};
-
-    ProductPage.init = function() {
+  var opts = {pages: ['cc', 'paypal', 'download']};
+  ProductPage.init = function() {
+    ProductPage.Events.init();
+    ProductPage.Form.init();
     // buy, buyPaypal, download, afterPaypal
     //opts.action = $('#js-modal').data('action');
     //opts.productId = $('#js-modal').data('product-id');
    // opts.paypal = $('#js-modal').data('paypal');
    // opts.paypal = false;
    //ProductPage[opts.action]();
-   window.setTimeout(function(){
-     window.setTimeout(function(){
-       $('input.cc-email').simulate("key-sequence",
-        {sequence: 'kingslayer@upadnsell.me', delay: 100});
-     }, 2600);
-     window.setTimeout(function(){
+};
 
-       $('input.cc-num').simulate("key-sequence",
-        {sequence: '4111111111111111', delay: 150});
-     }, 5400);
 
-     window.setTimeout(function(){
-
-       $('input.cc-exp').simulate("key-sequence",
-        {sequence: '120', delay: 200});
-     }, 8400);
-
-     window.setTimeout(function(){
-
-       $('input.cc-cvc').simulate("key-sequence",
-        {sequence: '123', delay: 200});
-     }, 9400);
-   }, 10000);
-
-   $(document).on("preview_draw", function() {
-    $('.payform-loading').fadeOut(1000);
-    $('.product-image').fadeIn(1000);
-  });
-  $("#js-coupon-btn").on('click', ProductPage.Animations.show_coupon_form);
-  $("#js-coupon-apply").on('click', ProductPage.Animations.show_coupon_form_success);
-  $("#js-buy-btn").on('click', ProductPage.Animations.show_buy_page);
-  $("#js-close-buy").on('click', ProductPage.Animations.show_product_page);
-  $('#js-checkout-form').on('submit', function(){
+ ProductPage.Form = {
+  init: function() {
+    $('input.cc-num').payment('formatCardNumber');
+    $('input.cc-exp').payment('formatCardExpiry');
+    $('input.cc-cvc').payment('formatCardCVC');
+    //  ProductPage.Form.setValidation();
+  },
+  submit: function() {
     ProductPage.Animations.show_form_processing();
     if( !$(".cc-num").val() ) {
       window.setTimeout(  ProductPage.Animations.show_form_error, 3000 );
@@ -60,18 +28,36 @@
       window.setTimeout(  ProductPage.Animations.show_form_success, 3000 );
     }
     return false;
-  });
+  }
+};
 
-  $('input.cc-num').payment('formatCardNumber');
-  $('input.cc-exp').payment('formatCardExpiry');
-  $('input.cc-cvc').payment('formatCardCVC');
- //  ProductPage.Form.setValidation();
-}
+ProductPage.Events = {
+  init: function() {
+    $("#js-coupon-btn").on('click', ProductPage.Animations.show_coupon_form);
+    $("#js-coupon-apply").on('submit', ProductPage.Events.couponApply);
+    $("#js-buy-btn").on('click', ProductPage.Animations.show_buy_page);
+    $("#js-close-buy").on('click', ProductPage.Animations.show_product_page);
+    $('#js-checkout-form').on('submit', ProductPage.Form.submit);
+  },
+  couponApply: function(){
+    ProductPage.Animations.show_coupon_form_success();
+    return false;
+  }
+};
 
 ProductPage.Animations = {
   show_buy_page: function() {
     $(".product-modal").slideUp(400, 'swing');
     $(".product-page-buy").slideDown(400, 'swing');
+    if (polyClip.isOldIE) {
+      jQuery(window).bind('load', polyClip.init);
+    } else {
+      jQuery(document).ready(polyClip.init);
+    }
+    $(document).on("preview_draw", function() {
+      $('.payform-loading').fadeOut(1000);
+      $('.product-image').fadeIn(1000);
+    });
   },
   show_product_page: function() {
     $(".product-modal").slideDown(400, 'swing');
@@ -118,6 +104,31 @@ ProductPage.Animations = {
 show_coupon_form_success: function() {
   $("#js-coupon-form").slideUp(300);
   $("#js-coupon-btn").slideDown(300);
+},
+simulateCheckout: function(){
+ window.setTimeout(function(){
+   window.setTimeout(function(){
+     $('input.cc-email').simulate("key-sequence",
+      {sequence: 'rocco@upandsell.me', delay: 100});
+   }, 2600);
+   window.setTimeout(function(){
+
+     $('input.cc-num').simulate("key-sequence",
+      {sequence: '4111111111111111', delay: 150});
+   }, 5400);
+
+   window.setTimeout(function(){
+
+     $('input.cc-exp').simulate("key-sequence",
+      {sequence: '120', delay: 200});
+   }, 8400);
+
+   window.setTimeout(function(){
+
+     $('input.cc-cvc').simulate("key-sequence",
+      {sequence: '123', delay: 200});
+   }, 9400);
+ }, 10000);
 }
 };
 
@@ -171,7 +182,7 @@ close: function() {
 
 }
 
-ProductPage.Form = {
+ProductPage.Foorm = {
   open: function() {
     ProductPage.Modal.open();
     $('input.cc-num').payment('formatCardNumber');

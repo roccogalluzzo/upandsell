@@ -11,15 +11,15 @@
   padding: 16px;
   line-height: 1;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-  &:hover {
-  //  background-color: #16c493;
-   // box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.3) inset;
- }
- &:disabled {
-  background-color:  #19dea6;
-  color: white;
-  opacity: 1;
-}
+  &:active {
+    background-color: #16c493;
+    box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.3) inset;
+  }
+  &:disabled {
+    background-color:  #19dea6;
+    color: white;
+    opacity: 1;
+  }
 }
 
 .pay-success-btn {
@@ -53,9 +53,9 @@
   padding: 22px;
   line-height: 1;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-  &:hover {
-   // background-color: #16c493;
-   // box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.3) inset;
+  &:active {
+   background-color: #16c493;
+   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.3) inset;
  }
 }
 .coupon-btn {
@@ -71,10 +71,12 @@
   padding: 22px;
   line-height: 1;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-
-  &:hover {
+  &:active {
     background-color: #f6fbfd;
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+    color: #49b3e5;
+  }
+  &:hover {
     color: #49b3e5;
   }
 }
@@ -93,7 +95,7 @@
   line-height: 1;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
 
-  &:hover {
+  &:active {
     background-color: #f6fbfd;
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
     color: #49b3e5;
