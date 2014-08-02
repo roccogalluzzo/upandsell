@@ -1,6 +1,9 @@
-.product-page-buy {
- display: none;
- background-color: #faf8f2;
+ @import "checkout/form.css.less";
+ @import "checkout/download.css.less";
+
+ .product-page-buy {
+  display: none;
+  background-color: #faf8f2;
 }
 
 .checkout-tab {
@@ -39,29 +42,29 @@
     z-index: 1000;
   }
 
-.payform-border {
-  position: absolute;
-  top: -28px;
-  left: 0%;
-  z-index: 1002;
-  width: 100%;
+  .payform-border {
+    position: absolute;
+    top: -28px;
+    left: 0%;
+    z-index: 1002;
+    width: 100%;
 
-}
-.payform-loading {
-  position: absolute;
-  top: -24px;
-  left: 0%;
-  z-index: 1001;
-  width: 100%;
+  }
+  .payform-loading {
+    position: absolute;
+    top: -24px;
+    left: 0%;
+    z-index: 1001;
+    width: 100%;
 
-}
-.checkout-preview {
- width: 100%;
- position: absolute;
- height: 72px;
- .hidden-xs;
-}
-.product-image {
+  }
+  .checkout-preview {
+   width: 100%;
+   position: absolute;
+   height: 72px;
+   .hidden-xs;
+ }
+ .product-image {
   position: relative;
   z-index: 998;
   left: 0%;

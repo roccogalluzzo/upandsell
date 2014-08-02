@@ -10,7 +10,7 @@
    // opts.paypal = $('#js-modal').data('paypal');
    // opts.paypal = false;
    //ProductPage[opts.action]();
-};
+ };
 
 
  ProductPage.Form = {
@@ -34,13 +34,19 @@
 ProductPage.Events = {
   init: function() {
     $("#js-coupon-btn").on('click', ProductPage.Animations.show_coupon_form);
-    $("#js-coupon-apply").on('submit', ProductPage.Events.couponApply);
     $("#js-buy-btn").on('click', ProductPage.Animations.show_buy_page);
     $("#js-close-buy").on('click', ProductPage.Animations.show_product_page);
     $('#js-checkout-form').on('submit', ProductPage.Form.submit);
+    $("#js-coupon-apply").on('submit', ProductPage.Events.couponApply);
   },
   couponApply: function(){
-    ProductPage.Animations.show_coupon_form_success();
+
+    if($('input.coupon-code').val()){
+      ProductPage.Animations.show_coupon_form_success();
+    }else
+    {
+      ProductPage.Animations.show_coupon_form_error();
+    }
     return false;
   }
 };
@@ -102,8 +108,17 @@ ProductPage.Animations = {
   $("#js-coupon-btn").slideUp(300);
 },
 show_coupon_form_success: function() {
-  $("#js-coupon-form").slideUp(300);
-  $("#js-coupon-btn").slideDown(300);
+  $(".coupon-accepted").slideDown(400);
+  $(".coupon-label").fadeIn(400);
+  $("#js-coupon-btn").slideUp(400);
+},
+show_coupon_form_error: function() {
+  $(".coupon-invalid").slideDown(400);
+  $("#js-coupon-btn").slideUp(400);
+  window.setTimeout(function(){
+    $(".coupon-invalid").slideUp(400);
+    $("#js-coupon-btn").slideDown(400);
+  }, 1500);
 },
 simulateCheckout: function(){
  window.setTimeout(function(){

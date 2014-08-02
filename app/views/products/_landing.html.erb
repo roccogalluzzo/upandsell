@@ -39,7 +39,7 @@
      %>
      <div class="product-price">
        <span>
-       <%= "#{symbol} #{price}" %><span class='cents'>.<%= cents %></span>
+         <%= "#{symbol} #{price}" %><span class='cents'>.<%= cents %></span>
        </span>
      </div>
    </div>
@@ -63,14 +63,18 @@
         <a href="#paypal"  data-product-id="<%= @product.id %>"
           class="paypal btn-buy">Buy Now!</a>
           <% else %>
-          <a id="js-buy-btn" href="#" class="buy-btn"> Buy Now!</a>
+          <a id="js-buy-btn" href="#" class="buy-btn">Buy Now</a>
           <p class="middleline"><span>or</span></p>
-          <a id="js-coupon-btn" href="#coupon-form" class="coupon-btn">Apply Coupon</a>
-          <div id="js-coupon-form" class="coupon-form hid">
-            <form>
-              <input type="text" placeholder="COUPON" name="coupon_code">
-              <button id="js-coupon-apply" type="submit">Apply</button>
-            </form>
+          <div class="coupons-box">
+            <div id="js-coupon-form" class="coupon-form hid">
+              <form id="js-coupon-apply">
+                <input class="coupon-code" type="text" placeholder="COUPON" name="coupon_code">
+                <button id="js-coupon-apply" type="submit">Apply</button>
+              </form>
+               <div class="coupon-accepted">Coupon Accepted</div>
+               <div class="coupon-invalid">Coupon Invalid</div>
+              </div>
+              <a id="js-coupon-btn" href="#coupon-form" class="coupon-btn hidden">Apply Coupon</a>
           </div>
           <% end %>
 
