@@ -117,7 +117,7 @@ show_coupon_form_error: function() {
   $("#js-coupon-btn").slideUp(400);
   window.setTimeout(function(){
     $(".coupon-invalid").slideUp(400);
-    $("#js-coupon-btn").slideDown(400);
+    $("#js-coupon-form").slideDown(400);
   }, 1500);
 },
 simulateCheckout: function(){

@@ -46,56 +46,67 @@
 
 
    <div class="product-actions">
-    <% if @downloadable %>
-    <%= link_to 'Download', download_product_path(@token), class: "btn-link-download" %>
-    <p> You can download the product further
-      <b id="js-download-counts"><%= 5 - @downloads  %></b> times </p>
+     <% if @published %>
+     <div class="downloads-box <%= 'hidden' if !@downloadable %>">
+      <%# link_to 'Download', download_product_path(@token), class: "btn-link-download" %>
+      <a id="js-download-btn" href="<%= @download_url %>" class="download-btn">Download</a>
+      <div class="download-middleline">
+        <p><span><span id="js-download-counts" class="dw-counter">5</span> download remain</span></p>
+      </div>
       <%# elsif @downloads and @downloads <= 5 %>
 <!--           <a href="#"
           class="disabled btn btn-large btn-block btn-success">
           Download
         </a>
         <p>Reached limit downloads, <a href="#buy">buy again</a> </p> -->
-        <% elsif !@published %>
-        <p class="text-danger text-center">This product is not currently for sale.</p>
-        <% else %>
+      </div>
+      <div class="buy-box <%= 'hidden' if @downloadable %>">
         <% if @paypal and !@credit_card %>
-        <a href="#paypal"  data-product-id="<%= @product.id %>"
-          class="paypal btn-buy">Buy Now!</a>
-          <% else %>
-          <a id="js-buy-btn" href="#" class="buy-btn">Buy Now</a>
-          <p class="middleline"><span>or</span></p>
-          <div class="coupons-box">
-            <div id="js-coupon-form" class="coupon-form hid">
-              <form id="js-coupon-apply">
-                <input class="coupon-code" type="text" placeholder="COUPON" name="coupon_code">
-                <button id="js-coupon-apply" type="submit">Apply</button>
-              </form>
-               <div class="coupon-accepted">Coupon Accepted</div>
-               <div class="coupon-invalid">Coupon Invalid</div>
-              </div>
-              <a id="js-coupon-btn" href="#coupon-form" class="coupon-btn hidden">Apply Coupon</a>
-          </div>
-          <% end %>
-
-          <a href="#download" class="btn-download hidden"> Download</a>
-          <% end %>
+        <a id="js-buy-paypal-btn" data-product-id="<%= @product.id %>" href="#paypal" class="buy-btn">Buy Now</a>
+        <% else %>
+        <a id="js-buy-btn" href="#" class="buy-btn">Buy Now</a>
+        <% end %>
+      </div>
+      <% if @coupons %>
+      <p class="middleline <%= 'hidden' if @downloadable %>"><span>or</span></p>
+      <div class="coupons-box <%= 'hidden' if @downloadable %>">
+        <div id="js-coupon-form" class="coupon-form hid">
+          <form id="js-coupon-apply">
+            <input class="coupon-code" type="text" placeholder="COUPON" name="coupon_code">
+            <button id="js-coupon-apply" type="submit">Apply</button>
+          </form>
+          <div class="coupon-accepted">Coupon Accepted</div>
+          <div class="coupon-invalid">Coupon Invalid</div>
         </div>
-        <div class="visible-xs landing-description">
-         <h1><%= @product.name %> </h1>
-         <h6>by <span class="product-author"><%= @user.name %></span></h6>
-         <p><%= @product.description %></p>
-       </div>
-       <div class="product-info">
-        <ul>
-          <li><b>Size</b>
-            <span><%# number_to_human_size @product[:file] %></span></li>
-            <li> <b>Type</b>
-              <span><%= @product.extension.upcase %></span></li>
-              <li> <b>Avaiable</b>
-                <span>4 Items</span>
-              </ul>
-            </div>
-          </div>
+        <a id="js-coupon-btn" href="#coupon-form" class="coupon-btn">Apply Coupon</a>
+      </div>
+      <% end %>
+
+      <% else %>
+      <div class="message-box">
+        <p>
+          This product is  no longer for sale
+        </p>
+      </div>
+      <% end %>
+    </div>
+
+    <div class="visible-xs landing-description">
+     <h1><%= @product.name %> </h1>
+     <h6>by <span class="product-author"><%= @user.name %></span></h6>
+     <p><%= @product.description %></p>
+   </div>
+   <div class="product-info">
+    <ul>
+    <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe"><a href="#">unsubscribe from product updates</a></li>
+      <li><b>Size</b>
+        <span><%# number_to_human_size @product[:file] %></span></li>
+        <li> <b>Type</b>
+          <span><%= @product.extension.upcase %></span></li>
+          <li> <b>Avaiable</b>
+            <span>4 Items</span>
+          </ul>
         </div>
       </div>
+    </div>
+  </div>

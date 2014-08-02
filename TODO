@@ -1,5 +1,17 @@
 TODO
 
+design:
+- ombra input per errore e focus
+- modifica tato paypal per connessione in corso
+- mostare dimensioni file nella pagina
+- pagina demo
+- connettere il tutto con ajax ect
+- testare il tutto
+
+- rebrading pagine errore
+- rebrading emails
+
+
 v refactoring settings
 v spec settings
 - refactoring orders
