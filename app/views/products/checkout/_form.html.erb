@@ -16,13 +16,13 @@
  <div class="row form-group">
    <div class="exp-input">
      <div class="exp-icon">
-       <%= image_tag "exp_icon.png", class: '' %>
+       <%= image_tag "exp_icon.png" %>
        <input type="text" name="cc-exp" class="cc-exp" placeholder="MM/YY">
      </div>
    </div>
    <div class="cvc-input">
     <div class="cvc-icon">
-      <%= image_tag "lock_icon.png", class: '' %>
+      <%= image_tag "lock_icon.png" %>
       <input type="text" name="cc-cvc" class="cc-cvc"  placeholder="CVC">
     </div>
   </div>
@@ -45,9 +45,13 @@
     <p><span>or pay with</span></p>
   </div>
   <div class="action">
-    <a id="js-btn-paypal" data-product-id="<%= @product.id %>" href="#"
-     class="paypal-btn"> <%= image_tag 'paypal_btn_logo.png' %></a>
-   </div>
-   <% end %>
+    <button id="js-paypal-btn" data-product-id="<%= @product.id %>"
+     class="paypal-btn">
+     <span class="paypal-btn-text"><%= image_tag 'paypal_btn_logo.png' %></span>
+     <span class="paypal-processing-text">Contacting Paypal<span>.</span><span>.</span><span>.</span></span>
+   </button>
+
  </div>
+ <% end %>
+</div>
 </form>

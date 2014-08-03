@@ -29,7 +29,7 @@
     }
     return false;
   },
-    open: function() {
+  open: function() {
     ProductPage.Modal.open();
     $('input.cc-num').payment('formatCardNumber');
     $('input.cc-exp').payment('formatCardExpiry');
@@ -155,6 +155,7 @@ ProductPage.Events = {
   init: function() {
     $("#js-coupon-btn").on('click', ProductPage.Animations.show_coupon_form);
     $("#js-buy-btn").on('click', ProductPage.Animations.show_buy_page);
+    $("#js-paypal-btn").on('click', ProductPage.Animations.show_paypal_processing);
     $("#js-close-buy").on('click', ProductPage.Animations.show_product_page);
     $('#js-checkout-form').on('submit', ProductPage.Form.submit);
     $("#js-coupon-apply").on('submit', ProductPage.Events.couponApply);
@@ -200,6 +201,12 @@ ProductPage.Animations = {
       $(this).html($('.processing-text').html());
     }).fadeIn(500);
     $("#js-pay-btn").prop('disabled', true);
+  },
+  show_paypal_processing: function() {
+    $("#js-paypal-btn .paypal-btn-text").fadeOut(function() {
+      $('.paypal-processing-text').fadeIn(500);
+    });
+    $("#js-paypal-btn").prop('disabled', true);
   },
   show_form_success: function() {
     img = $(".pay-success-text img");

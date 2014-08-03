@@ -15,86 +15,121 @@
      border-color:  #a9d6ee !important;
      box-shadow: none;
 
-    }
-  }
-  .has-error {
-    border-color: #f56472;
-  }
-  i { color: #a9d6ee;}
-
-  .form-group { margin-bottom: 10px !important;}
-  .email-row { margin: 20px 15px; }
-  .cc-row {
-    background-color: #f2fdfe;
-    padding: 20px 15px;
-    border-top: 1px solid #e3e3e3;
-    border-bottom: 1px solid #e3e3e3;
-    p {
-      text-align: center;
-      color: #212121;
-      font-weight: bold;
-      font-size: 15px;
-      line-height: 10px;
-      margin-bottom: 15px;
-    }
-    .exp-input {
-      .make-md-column(5);
-      .make-sm-column(6);
-      .make-xs-column(5);
-    }
-    .cvc-input {
-      .make-md-column(4);
-      .make-sm-column(5);
-      .make-xs-column(5);
-      .make-md-column-offset(3);
-      .make-sm-column-offset(1);
-      .make-xs-column-offset(2);
-    }
-  }
-  @media (min-width: @screen-md-min) {
-    .cvc-input {
-      margin-left: 27% !important;
-      width: 32.333333% !important;
-    }
-    .exp-input {
-      width: 40.666667% !important;
-    }
-  }
-  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max)  {
-    .cvc-input {
-      margin-left:  19.333333% !important;
-      width:  36.333333% !important;
-    }
-    .exp-input {
-      width: 44% !important;
-    }
-  }
-  .actions-section {
-    margin: 20px 15px;
-    .action {
-      width: 100%;
-    }
-    .action-middleline p{
-      width: 100%;
-      text-align: center;
-      border-bottom: 1px solid #cee9ed;
-      line-height: 0.1em;
-      margin: 8px 0 0px;
-      margin-top: 19px;
-      margin-bottom: 19px;
-      span {
-       background-color: white;
-       padding:0 10px;
-       color: #3e5a68;
-       font-size: 13px;
-     }
    }
  }
+ .has-error {
+  border-color: #f56472;
+}
+i { color: #a9d6ee;}
+
+.form-group { margin-bottom: 10px !important;}
+.email-row { margin: 20px 15px; }
+.cc-row {
+  background-color: #f2fdfe;
+  padding: 20px 15px;
+  border-top: 1px solid #e3e3e3;
+  border-bottom: 1px solid #e3e3e3;
+  p {
+    text-align: center;
+    color: #212121;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 10px;
+    margin-bottom: 15px;
+  }
+  .exp-input {
+    .make-md-column(5);
+    .make-sm-column(6);
+    .make-xs-column(5);
+  }
+  .cvc-input {
+    .make-md-column(4);
+    .make-sm-column(5);
+    .make-xs-column(5);
+    .make-md-column-offset(3);
+    .make-sm-column-offset(1);
+    .make-xs-column-offset(2);
+  }
+}
+@media (min-width: @screen-md-min) {
+  .cvc-input {
+    margin-left: 27% !important;
+    width: 32.333333% !important;
+  }
+  .exp-input {
+    width: 40.666667% !important;
+  }
+}
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max)  {
+  .cvc-input {
+    margin-left:  19.333333% !important;
+    width:  36.333333% !important;
+  }
+  .exp-input {
+    width: 44% !important;
+  }
+}
+.actions-section {
+  margin: 20px 15px;
+  .action {
+    width: 100%;
+  }
+  .action-middleline p{
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #cee9ed;
+    line-height: 0.1em;
+    margin: 8px 0 0px;
+    margin-top: 19px;
+    margin-bottom: 19px;
+    span {
+     background-color: white;
+     padding:0 10px;
+     color: #3e5a68;
+     font-size: 13px;
+   }
+ }
+}
 
 
- .processing-text, .pay-success-text, .pay-error-text, .pay-text{
+.paypal-processing-text, .processing-text, .pay-success-text, .pay-error-text, .pay-text{
   display: none;
 }
+@-webkit-keyframes opacity {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@-moz-keyframes opacity {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.paypal-processing-text {
+  text-align: center;
+  margin: 100px 0 0 0;
+}
+
+.paypal-processing-text span {
+  -webkit-animation-name: opacity;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: opacity;
+  -moz-animation-duration: 1s;
+  -moz-animation-iteration-count: infinite;
+}
+
+.paypal-processing-text span:nth-child(2) {
+  -webkit-animation-delay: 100ms;
+  -moz-animation-delay: 100ms;
+}
+
+.paypal-processing-text span:nth-child(3) {
+  -webkit-animation-delay: 300ms;
+  -moz-animation-delay: 300ms;
+}
+
+
 .pay-btn-text {
   height: 9px;
   display: inline-block;

@@ -84,7 +84,7 @@
  }
  &:hover {
   color: white;
-    background-color: #4ca0cc;
+  background-color: #4ca0cc;
 }
 }
 .coupon-btn {
@@ -114,20 +114,29 @@
   .btn;
   .btn-lg;
   .btn-block;
-  color: #49b3e5;
+  color: #049ddf;
   font-size: 15px;
   font-weight: bold;
   border: 1px solid #eaeefd;
   text-transform: uppercase;
   background-color: #f4faff;
   padding: 13px;
-  line-height: 1;
+  height: 50px;
+  line-height: 20px;
   text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
-
+  img {
+    margin-top: -3px;
+  }
   &:active {
     background-color: #f6fbfd;
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
     color: #49b3e5;
+  }
+  &:hover{
+    color: #049ddf;
+  }
+  &:disabled {
+    cursor: wait;
   }
 }
 
