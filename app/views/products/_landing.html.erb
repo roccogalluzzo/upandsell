@@ -100,7 +100,7 @@
     <ul>
     <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe"><a href="#">unsubscribe from product updates</a></li>
       <li><b>Size</b>
-        <span><%# number_to_human_size @product[:file] %></span></li>
+        <span><%= number_to_human_size @product.file_size %></span></li>
         <li> <b>Type</b>
           <span><%= @product.extension.upcase %></span></li>
           <li> <b>Avaiable</b>
