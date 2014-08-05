@@ -14,6 +14,7 @@ Upandsell::Application.routes.draw do
  get 'pricing' => 'site#pricing'
  get 'privacy' => 'site#privacy'
  get 'terms' => 'site#terms'
+ get 'demo' => 'site#demo'
 
  # subscriptions emails
  get 'unsubscribe/u/:user/:type/:signature' => 'emails#unsubscribe_user',

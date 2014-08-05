@@ -157,7 +157,6 @@ ProductPage.Events = {
     $("#js-buy-btn").on('click', ProductPage.Animations.show_buy_page);
     $("#js-paypal-btn").on('click', ProductPage.Animations.show_paypal_processing);
     $("#js-close-buy").on('click', ProductPage.Animations.show_product_page);
-    $('#js-checkout-form').on('submit', ProductPage.Form.submit);
     $("#js-coupon-apply").on('submit', ProductPage.Events.couponApply);
   },
   couponApply: function(){
@@ -182,8 +181,12 @@ ProductPage.Animations = {
       jQuery(document).ready(polyClip.init);
     }
     $(document).on("preview_draw", function() {
-      $('.payform-loading').fadeOut(1000);
-      $('.product-image').fadeIn(1000);
+       $('.product-image').fadeIn(500);
+      $('.payform-loading').fadeOut(1500);
+      $('.checkout-preview').animate({top: 0}, 1000, function(){
+        $('.checkout-title h1').fadeIn(400);
+       $('.checkout-title h2').fadeIn(400);
+     });
     });
   },
   show_product_page: function() {

@@ -394,7 +394,7 @@
 			//dataset = $element.dataset(),
 			svgString;
 			sb = [];
-			$.event.trigger( "preview_draw");
+
 
 
 			if (coordsToUse.indexOf('path:') == 0) {
@@ -637,7 +637,7 @@ ctx.drawSvg(svgString, 0, 0, imageWidth, imageHeight)
 		   			pointerEventCSS: pointerEventCSS?pointerEventCSS.toLowerCase():null
 		   		}
 		   	}
-
+		$.event.trigger( "preview_draw");
 		   	return r;
 
 		   }
