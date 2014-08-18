@@ -79,6 +79,7 @@ body {
 
   .preview-image {
     margin-top: -50px;
+    min-height: 150px !important;
     .make-sm-column(12);
     padding: 0;
     border-radius: 6px 6px 0 0;
@@ -94,9 +95,17 @@ body {
 .product-page-body {
   .make-row();
   margin: 0px;
+  .landing-mobile-social {
+    .make-sm-column(8);
+    text-align: center;
+    padding: 8px;
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+  }
   .landing-description {
     padding-bottom: 30px;
     border-right: 1px solid #e3e3e3;
+    min-height: 260px !important;
     h1 {
       margin-top: 30px;
       font-size: 30px;
@@ -289,7 +298,7 @@ body {
     border-radius: 0;
   }
   .checkout-tab {
-    margin-top: 0 !important;
+    margin-top: 0px !important;
     border-radius: 0px !important;
   }
   #page {

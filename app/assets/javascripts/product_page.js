@@ -150,9 +150,11 @@ ProductPage.Animations = {
     $('#product-page-wrapper').scrollTo('#js-product-modal', 800);
     ProductPage.Animations.show_checkout_preview();
     $('#js-product').fadeTo(500, 0);
+     $('#js-product').css('height',1);
     $('#js-product-modal').fadeTo(500, 1);
   },
   show_product_page: function() {
+      $('#js-product').css('height','100%');
     $('#product-page-wrapper').scrollTo('#js-product', 800);
     $('#js-product').fadeTo(500, 1);
     $('#js-product-modal').fadeTo(500, 0);
@@ -163,10 +165,14 @@ ProductPage.Animations = {
     } else {
       jQuery(document).ready(polyClip.init);
     }
+    var top_animations = 0;
+    if ($(".top").css("padding-top") == "20px" ){
+      top_animations = 28;
+    }
     $(document).on("preview_draw", function() {
      $('.product-image').fadeIn(500);
      $('.payform-loading').fadeOut(1500);
-     $('.checkout-preview').animate({top: 0}, 1000, function(){
+     $('.checkout-preview').animate({top: top_animations}, 1000, function(){
       $('.checkout-title h1').fadeIn(400);
       $('.checkout-title h2').fadeIn(400);
     });

@@ -1,58 +1,58 @@
 <div class="product-page-body">
-    <div class="share-box">
-     <a href="#" class="email-btn">
-      <span class="logo"><i class="fa fa-envelope"></i></span>
-      <span class="text">Email</span>
-    </a>
-    <a href="#" class="twitter-btn">
-      <span class="logo"><i class="fa fa-twitter"></i></span>
-      <span class="text">Tweet</span>
-      <span class="counter">13</span>
-    </a>
-    <a href="#" class="fb-btn">
-      <span class="logo"><i class="fa fa-facebook"></i></span>
-      <span class="text">Share</span>
-      <span class="counter">123</span>
-    </a>
-  </div>
-  <% if @product.preview %>
-  <div class="preview-image">
-    <%= image_tag @product.preview %>
-  </div>
-  <% end %>
-  <div class="hidden-xs landing-description">
-   <h1><%= @product.name %> </h1>
-   <h6>by <span class="product-author"><%= @user.name %></span></h6>
-   <p><%= @product.description %></p>
+  <div class="share-box">
+   <a href="#" class="email-btn">
+    <span class="logo"><i class="fa fa-envelope"></i></span>
+    <span class="text">Email</span>
+  </a>
+  <a href="#" class="twitter-btn">
+    <span class="logo"><i class="fa fa-twitter"></i></span>
+    <span class="text">Tweet</span>
+    <span class="counter">13</span>
+  </a>
+  <a href="#" class="fb-btn">
+    <span class="logo"><i class="fa fa-facebook"></i></span>
+    <span class="text">Share</span>
+    <span class="counter">123</span>
+  </a>
+</div>
+<% if @product.preview %>
+<div class="preview-image">
+  <%= image_tag @product.preview %>
+</div>
+<% end %>
+<div class="hidden-xs landing-description">
+ <h1><%= @product.name %> </h1>
+ <h6>by <span class="product-author"><%= @user.name %></span></h6>
+ <p><%= @product.description %></p>
+</div>
+
+<div class="product-actions-box">
+ <div class="product-price-box">
+   <div class="hid coupon-label">
+     <span class="vertical-text">Coupon</span>
+   </div>
+   <%
+   symbol = @product.price.symbol
+   price = @product.price.format(no_cents: true ,symbol: false)
+   cents =  @product.price.format(symbol: false).last(2)
+   %>
+   <div class="product-price">
+     <span>
+       <%= "#{symbol} #{price}" %><span class='cents'>.<%= cents %></span>
+     </span>
+   </div>
  </div>
 
- <div class="product-actions-box">
-   <div class="product-price-box">
-     <div class="hid coupon-label">
-       <span class="vertical-text">Coupon</span>
-     </div>
-     <%
-     symbol = @product.price.symbol
-     price = @product.price.format(no_cents: true ,symbol: false)
-     cents =  @product.price.format(symbol: false).last(2)
-     %>
-     <div class="product-price">
-       <span>
-         <%= "#{symbol} #{price}" %><span class='cents'>.<%= cents %></span>
-       </span>
-     </div>
-   </div>
 
-
-   <div class="product-actions">
-     <% if @published %>
-     <div class="downloads-box <%= 'hidden' if !@downloadable %>">
-      <%# link_to 'Download', download_product_path(@token), class: "btn-link-download" %>
-      <a id="js-download-btn" href="<%= @download_url %>" class="download-btn">Download</a>
-      <div class="download-middleline">
-        <p><span><span id="js-download-counts" class="dw-counter">5</span> download remain</span></p>
-      </div>
-      <%# elsif @downloads and @downloads <= 5 %>
+ <div class="product-actions">
+   <% if @published %>
+   <div class="downloads-box <%= 'hidden' if !@downloadable %>">
+    <%# link_to 'Download', download_product_path(@token), class: "btn-link-download" %>
+    <a id="js-download-btn" href="<%= @download_url %>" class="download-btn">Download</a>
+    <div class="download-middleline">
+      <p><span><span id="js-download-counts" class="dw-counter">5</span> download remain</span></p>
+    </div>
+    <%# elsif @downloads and @downloads <= 5 %>
 <!--           <a href="#"
           class="disabled btn btn-large btn-block btn-success">
           Download
@@ -89,15 +89,28 @@
       </div>
       <% end %>
     </div>
+    <div class="visible-xs landing-mobile-social">
+     <a href="#" class="email-btn">
+      <span class="logo"><i class="fa fa-envelope"></i></span>
+    </a>
+    <a href="#" class="twitter-btn">
+      <span class="logo"><i class="fa fa-twitter"></i></span>
+      <span class="counter">13</span>
+    </a>
+    <a href="#" class="fb-btn">
+      <span class="logo"><i class="fa fa-facebook"></i></span>
 
-    <div class="visible-xs landing-description">
-     <h1><%= @product.name %> </h1>
-     <h6>by <span class="product-author"><%= @user.name %></span></h6>
-     <p><%= @product.description %></p>
-   </div>
-   <div class="product-info">
+      <span class="counter">123</span>
+    </a>
+  </div>
+  <div class="visible-xs landing-description">
+    <h1><%= @product.name %> </h1>
+    <h6>by <span class="product-author"><%= @user.name %></span></h6>
+    <p><%= @product.description %></p>
+  </div>
+  <div class="product-info">
     <ul>
-    <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe"><a href="#">unsubscribe from product updates</a></li>
+      <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe"><a href="#">unsubscribe from product updates</a></li>
       <li><b>Size</b>
         <span><%= number_to_human_size @product.file_size %></span></li>
         <li> <b>Type</b>
