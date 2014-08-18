@@ -1,5 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top">
-	<hr></hr>
+<div class="navbar-top">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -9,7 +8,7 @@
 			</button>
 			<%= link_to(root_path,
 			class: "navbar-brand") do %>
-			<%= image_tag "logo.png", class: 'payment-logo' %>
+			<%= image_tag "logo_beta.png" %>
 			<% end %>
 		</div>
 
@@ -20,9 +19,9 @@
 		<% end %>
 		<% else %>
 		<%= link_to("Sign Up", new_user_registration_path,
-		class: "btn navbar-btn btn-primary pull-right") %>
+		class: "navbar-btn") %>
 		<%= link_to("Sign In", new_user_session_path,
-		class: "btn navbar-btn btn-inverse pull-right") %>
+		class: "navbar-text-btn") %>
 		<% end %>
 	</div>
 </div>

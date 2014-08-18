@@ -1,14 +1,12 @@
-<div class="product-modal">
+<div id="product-page-wrapper">
+<div id="product-page-container">
+<div id="js-product" class="product-page-landing">
   <%= render partial: "products/landing" %>
-  <div id="footer">
-    <span>powered by</span> <%= image_tag "footer_logo.png" %>
-    <p>    <%= link_to "privacy", privacy_path %> |   <%= link_to "terms of service", terms_path %></p>
-  </div>
 </div>
-<div class="product-page-buy">
+<div id="js-product-modal" class="product-page-buy">
   <%= render partial: "products/modal" %>
 </div>
-
+</div>
 
 
 

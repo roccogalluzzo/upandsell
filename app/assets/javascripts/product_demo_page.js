@@ -9,8 +9,7 @@
 
   ProductDemoPage.Form = {
     init: function() {
-      $('input.cc-num').payment('formatCardNumber');
-      $('input.cc-exp').payment('formatCardExpiry');
+  $('input.cc-exp').payment('formatCardExpiry');
       $('input.cc-cvc').payment('formatCardCVC');
       ProductDemoPage.Animations.simulateCheckout();
       ProductDemoPage.Form.setValidation();
@@ -171,22 +170,20 @@ simulateCheckout: function(){
  window.setTimeout(function(){
 
    window.setTimeout(function(){
-
      $('input.cc-num').simulate("key-sequence",
-      {sequence: '5105105105105100', delay: 200});
-   }, 2000);
+      {sequence: '4111 1111 1111 1111', delay: 200});
+   }, 1300);
 
    window.setTimeout(function(){
-
      $('input.cc-exp').simulate("key-sequence",
       {sequence: '120', delay: 200});
-   }, 8400);
+   }, 5200);
 
    window.setTimeout(function(){
 
      $('input.cc-cvc').simulate("key-sequence",
       {sequence: '123', delay: 200});
-   }, 9400);
+   }, 6400);
  }, 1000);
 }
 };

@@ -80,6 +80,7 @@ gem 'sass-rails', github: 'rails/sass-rails'
 gem "bower-rails", "~> 0.7.0"
 gem "font-awesome-rails"
 
+
 # Deployment
 group :development do
   gem 'capistrano', '~> 3.2.0'
