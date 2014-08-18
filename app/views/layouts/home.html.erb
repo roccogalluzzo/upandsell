@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell downloads and digital products easily - Up&amp;Sell.me</title>
+  <meta name="description" content="Sell your music, videos, ebooks, software
+  and other any downloadable products. Only 4% fee every sale. No fixed costs." />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    "frontend", media: "all" %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="home">
+ <div id="wrap">
+   <%= render partial: 'layouts/site/header' %>
+   <div id="wrap-header">
+    <div id="header">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-offset-1 text-center col-lg-10">
+            <h1>Sell your  digital products, easily.</h1>
+            <h2>Fastest way to sell music, ebooks, software
+              or any other downloadable product</h2>
+              <a class="btn-more" href="#checkout">Learn More</a>
+              <%= link_to "Get Started!", new_user_registration_path,
+              class: "btn-get-started" %>
+            </div>
+          </div>
+          <div class="browser-preview-wrap">
+            <div class="browser-preview">
+              <div class="shadow-1"></div>
+              <div class="shadow-2"></div>
+              <%= image_tag 'browser_bar.png', class: 'browser-bar' %>
+              <%= image_tag 'dashboard.png', class: 'browser-tab' %>
+            </div>
+          </div>
+        </div>
+        <%= image_tag 'bg_clouds_left.png', class: 'bg-clouds-left' %>
+        <%= image_tag 'bg_clouds_right.png', class: 'bg-clouds-right' %>
+      </div>
+
+    </div>
+    <div id="checkout" class="checkout-section">
+     <div class="container">
+      <div class="section-text">
+       <h3>Optimized Product Page</h3>
+       <p>
+        Product landing page along with a checkout process simple and straightforward
+        is of the <b>utmost important</b> to sell effectively goods online.
+      </p>
+      <p>
+       We know this and have done a lot to offer a service that satisfies those requirements.
+     </p>
+   </div>
+   <div class="section-illustration">
+   <%= image_tag 'mock_iphone.png', class: 'mock_iphone' %>
+  </div>
+</div>
+</div>
+
+    <div class="payments-section">
+     <div class="container">
+        <div class="section-illustration">
+   <%= image_tag 'payments_section.png', class: 'mock_iphone' %>
+  </div>
+      <div class="section-text">
+       <h3>Optimized Product Page</h3>
+       <p>
+        Product landing page along with a checkout process simple and straightforward
+        is of the <b>utmost important</b> to sell effectively goods online.
+      </p>
+      <p>
+       We know this and have done a lot to offer a service that satisfies those requirements.
+     </p>
+   </div>
+
+</div>
+</div>
+
+
+</div>
+<%# render :partial => 'layouts/site/footer' %>
+<%= javascript_include_tag "frontend"%>
+</body>
+</html>
