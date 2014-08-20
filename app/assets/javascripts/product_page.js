@@ -6,7 +6,7 @@
     ProductPage.Form.init();
     // buy, buyPaypal, download, afterPaypal
     //opts.action = $('#js-modal').data('action');
-    //opts.productId = $('#js-modal').data('product-id');
+    opts.productId = $('#js-checkout-tab').data('product-id');
    // opts.paypal = $('#js-modal').data('paypal');
    // opts.paypal = false;
    //ProductPage[opts.action]();
@@ -58,7 +58,7 @@ pay: function(error, result) {
     url: '/checkout/pay',
     type: 'POST',
     dataType: 'json',
-    data: {product_id: $('.buy-form').data('product-id'),
+    data: {product_id: opts.productId,
     token: result.token,
     email: $('input.cc-email').val()},
     success: ProductPage.Form.success,
@@ -250,7 +250,7 @@ ProductPage.download = function() {
 
 ProductPage.Paypal = {
   request: function() {
-    ProductPage.Animations.show_paypal_processing
+    ProductPage.Animations.show_paypal_processing();
     $.ajax({
       url: '/checkout/paypal',
       type: 'POST',

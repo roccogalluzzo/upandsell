@@ -4,7 +4,7 @@ class CheckoutsController < ApplicationController
 
   def pay_info
     product = Product.find(params[:product_id])
-    render json: { price: product.price, currency: product.currency.upcase }
+    render json: { price: product.price_cents, currency: product.price_currency.upcase }
   end
 
   def pay

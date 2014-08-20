@@ -7,7 +7,7 @@ module Gateways::Paymill
     payment = Paymill::Payment.create(token: payer[:token])
 
     pay = Paymill::Transaction.create(
-      amount: product.price,
+      amount: product.price_cents,
       currency: product.price_currency.upcase,
       payment: payment.id
           # fee_amount: ((product.price * 4) / 100),

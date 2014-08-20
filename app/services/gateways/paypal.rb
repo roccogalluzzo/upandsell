@@ -10,7 +10,7 @@
        receiverList: {
         receiver: [{
           email: 'mail@roccogalluzzo.com', #user.email,
-          amount:    product.price,
+          amount:    product.price_cents,
           primary:   true },
 
           { email:
@@ -19,7 +19,7 @@
             else
               'paypal-facilitator@upandsell.me'
             end,
-            amount: ((product.price * 4) / 100)
+            amount: ((product.price_cents * 4) / 100)
             }]},
             cancelUrl: payer[:cancel_url],
             returnUrl: payer[:return_url] +'&payKey=${payKey}',
