@@ -14,80 +14,117 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script>
-      <![endif]-->
-  <%= csrf_meta_tags %>
-</head>
-<body class="home">
- <div id="wrap">
-   <%= render partial: 'layouts/site/header' %>
-   <div id="wrap-header">
-    <div id="header">
+        <![endif]-->
+        <%= csrf_meta_tags %>
+      </head>
+      <body class="home">
+       <div id="wrap">
+         <%= render partial: 'layouts/site/header' %>
+         <div id="wrap-header">
+          <div id="header">
 
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-offset-1 text-center col-lg-10">
-            <h1>Sell your  digital products, easily.</h1>
-            <h2>Fastest way to sell music, ebooks, software
-              or any other downloadable product</h2>
-              <a class="btn-more" href="#checkout">Learn More</a>
-              <%= link_to "Get Started!", new_user_registration_path,
-              class: "btn-get-started" %>
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-offset-1 text-center col-lg-10">
+                  <h1>Sell your  digital products, easily.</h1>
+                  <h2>Fastest way to sell music, ebooks, software
+                    or any other downloadable product</h2>
+                    <a class="btn-more" href="#checkout">Learn More</a>
+                    <%= link_to "Get Started!", new_user_registration_path,
+                    class: "btn-get-started" %>
+                  </div>
+                </div>
+                <div class="browser-preview-wrap">
+                  <div class="browser-preview">
+                    <div class="shadow-1"></div>
+                    <div class="shadow-2"></div>
+                    <%= image_tag 'browser_bar.png', class: 'browser-bar' %>
+                    <%= image_tag 'dashboard.png', class: 'browser-tab' %>
+                  </div>
+                </div>
+              </div>
+              <%= image_tag 'bg_clouds_left.png', class: 'bg-clouds-left' %>
+              <%= image_tag 'bg_clouds_right.png', class: 'bg-clouds-right' %>
             </div>
+
           </div>
-          <div class="browser-preview-wrap">
-            <div class="browser-preview">
-              <div class="shadow-1"></div>
-              <div class="shadow-2"></div>
-              <%= image_tag 'browser_bar.png', class: 'browser-bar' %>
-              <%= image_tag 'dashboard.png', class: 'browser-tab' %>
+          <div id="checkout" class="checkout-section">
+           <div class="container">
+            <div class="section-text">
+             <h3>Optimized Product Page</h3>
+             <p>
+              Product landing page along with a checkout process simple and straightforward
+              is of the <b>utmost important</b> to sell effectively goods online.
+            </p>
+            <p>
+             We know this and have done a lot to offer a service that satisfies those requirements.
+           </p>
+         </div>
+         <div class="section-illustration">
+           <%= image_tag 'mock_iphone.png', class: 'mock_iphone' %>
+         </div>
+       </div>
+     </div>
+
+     <div class="payments-section">
+       <div class="container">
+        <div class="section-illustration">
+         <%= image_tag 'payments_section.png', class: 'mock_iphone' %>
+       </div>
+       <div class="section-text">
+         <h3>Optimized Product Page</h3>
+         <p>
+          Product landing page along with a checkout process simple and straightforward
+          is of the <b>utmost important</b> to sell effectively goods online.
+        </p>
+        <p>
+         We know this and have done a lot to offer a service that satisfies those requirements.
+       </p>
+     </div>
+
+   </div>
+ </div>
+ <div class="pay-separator"></div>
+
+ <div class="features-section">
+   <div class="container">
+     <h4>Manage your business has never been this simple</h4>
+
+     <div class="feature-box">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+       quis nostrud exercitation ullamco laboris nisi ut aliquip </div>
+       <div class="feature-box">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+         quis nostrud exercitation ullamco laboris nisi ut aliquip </div>
+         <div class="feature-box">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+           quis nostrud exercitation ullamco laboris nisi ut aliquip </div>
+
+         </div>
+       </div>
+       <div class="teaser-section">
+         <div class="container">
+           <div class="head">
+             <h5>Next Features</h5>
+             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua.</p>
             </div>
           </div>
         </div>
-        <%= image_tag 'bg_clouds_left.png', class: 'bg-clouds-left' %>
-        <%= image_tag 'bg_clouds_right.png', class: 'bg-clouds-right' %>
+
+        <div class="pricing-section">
+         <div class="container">
+           <div class="head">
+           <h6>Pricing</h6>
+             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+          </div>
+        </div>
+
+
       </div>
-
-    </div>
-    <div id="checkout" class="checkout-section">
-     <div class="container">
-      <div class="section-text">
-       <h3>Optimized Product Page</h3>
-       <p>
-        Product landing page along with a checkout process simple and straightforward
-        is of the <b>utmost important</b> to sell effectively goods online.
-      </p>
-      <p>
-       We know this and have done a lot to offer a service that satisfies those requirements.
-     </p>
-   </div>
-   <div class="section-illustration">
-   <%= image_tag 'mock_iphone.png', class: 'mock_iphone' %>
-  </div>
-</div>
-</div>
-
-    <div class="payments-section">
-     <div class="container">
-        <div class="section-illustration">
-   <%= image_tag 'payments_section.png', class: 'mock_iphone' %>
-  </div>
-      <div class="section-text">
-       <h3>Optimized Product Page</h3>
-       <p>
-        Product landing page along with a checkout process simple and straightforward
-        is of the <b>utmost important</b> to sell effectively goods online.
-      </p>
-      <p>
-       We know this and have done a lot to offer a service that satisfies those requirements.
-     </p>
-   </div>
-
-</div>
-</div>
-
-
-</div>
-<%# render :partial => 'layouts/site/footer' %>
-<%= javascript_include_tag "frontend"%>
-</body>
-</html>
+      <%= render :partial => 'layouts/site/footer' %>
+      <%= javascript_include_tag "frontend"%>
+    </body>
+    </html>

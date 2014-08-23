@@ -43,9 +43,149 @@ body {
   }
 }
 .payments-section {
+  padding-bottom: 50px;
   .section;
   .section-illustration {
     .make-md-column(5);
     text-align: center;
   }
+  .section-text {
+    .make-md-column-offset(2);
+    .make-md-column(4);
+  }
 }
+.pay-separator {
+  background: image-url("pay_section_separator.png") no-repeat center;
+  height: 50px;
+  width: 100%;
+}
+
+.features-section {
+  padding-bottom: 50px;
+  .section;
+  h4 {
+    font-weight: 300;
+    font-size: 40px;
+    text-align: center;
+    color: #595d64;
+    width: 45%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+  }
+  .feature-box {
+    .make-md-column(3);
+    .make-md-column-offset(1);
+  }
+}
+
+.teaser-section {
+  padding-bottom: 50px;
+  background-color: #f5f7f9;
+  border-bottom: 1px solid #e3e3e3;
+  .section;
+  .head {
+    .make-md-column(6);
+    .make-md-column-offset(3);
+    h5 {
+      margin-top: 0px;
+      font-weight: 100;
+      font-size: 40px;
+      text-align: center;
+      color: #595d64;
+      margin-bottom: 50px;
+    }
+    p {
+      color: #888;
+      font-size: 15px;
+      text-align: center;
+    }
+  }
+
+}
+.pricing-section {
+  padding-bottom: 50px;
+  .section;
+  .head {
+    .make-md-column(6);
+    .make-md-column-offset(3);
+    h6 {
+      margin-top: 0px;
+      font-weight: 100;
+      font-size: 40px;
+      text-align: center;
+      color: #212121;
+      margin-bottom: 50px;
+    }
+    p {
+      color: #888;
+      font-size: 15px;
+      text-align: center;
+    }
+  }
+}
+
+#footer {
+  .container;
+  border-top: 1px solid #e3e3e3;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  .line-1 {
+    .make-row();
+    .footer-brand {
+      .make-md-column(2);
+      padding-bottom: 15px;
+    }
+    .social-icons {
+     .make-md-column(10);
+     text-align: right;
+     span {
+      color: #939290;
+      font-size: 13px;
+      padding-right: 5px;
+    }
+    a {
+      background-color: #f3f3f3;
+      border-radius: 3px;
+      color: #797979;
+      width: 28px;
+      height: 28px;
+      text-align: center;
+      padding-top: 8px;
+    }
+  }
+}
+
+.line-2 {
+  .make-row();
+  .site-info {
+    .make-md-column(4);
+    p {
+      text-align: left;
+      font-size: 13px;
+      color: #939290;
+      margin: 0;
+      a {
+        color: #53aede;
+      }
+    }
+  }
+  .site-links {
+   .make-md-column(8);
+   ul {
+    .pull-right;
+    list-style: none;
+    float: left;
+    display: inline-block;
+
+    li {
+      display: inline;
+    }
+    a {
+      color: #939290;
+      font-size: 13px;
+    }
+  }
+}
+}
+}
+
