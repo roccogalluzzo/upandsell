@@ -51,6 +51,12 @@
   background-color: #f4feff;
   border-bottom: 1px solid #e3e3e3;
   padding-top: 189px;
+  .inner-header {
+    min-height: 249px !important;
+    text-align: center;
+    .make-md-column(10);
+    .make-md-column-offset(1);
+  }
   h1 {
     color: #595d64;
     font-weight: 300;
@@ -114,9 +120,18 @@
   }
   .browser-preview-wrap {
     .make-row();
+      min-height: 341px;
     .browser-preview {
+      position: absolute !important;
+      bottom: 0;
+      max-width: 720px;
+      margin-right: auto;
+      margin-left: auto;
+      right: 0;
+      left: 0;
       .make-md-column(8);
-      .make-md-column-offset(2);
+
+
       .shadow-1 {
         margin: 0 auto;
         margin-left: 40px;
