@@ -22,10 +22,6 @@ set :rbenv_ruby, '2.1.2'
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all
 
-# Foreman Settings
-set :foreman_sudo, 'rbenv sudo'
-set :foreman_upstart_path, '/etc/init/'
-set :foreman_options, {log: "#{shared_path}/log"}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -38,8 +34,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "cd /var/www/upandsell/current && ~/.rbenv/bin/rbenv sudo bundle exec foreman export upstart /etc/init -a app -u deployer -l /var/www/upandsell/shared/log"
-      execute "sudo service app restart"
+      execute "sudo service puma start || sudo service puma restart"
     end
   end
 
