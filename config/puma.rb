@@ -1,4 +1,3 @@
-daemonize true
 pidfile '/tmp/puma.pid'
 bind 'unix:///tmp/upandsell.sock'
 
