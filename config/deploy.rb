@@ -9,7 +9,7 @@ ask :branch, :staging #proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/upandsell'
-
+set :deploy_via, :remote_cache
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml config/secrets.yml}
 
