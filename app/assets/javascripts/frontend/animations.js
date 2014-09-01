@@ -5,7 +5,7 @@
  var controller = new ScrollMagic();
 Animations.Scenes.onLoading();
 // assign handler "scene" and add it to Controller
-var scene = new ScrollScene({duration: 100, triggerElement: '#checkout', offset: -310}).addTo(controller)
+var scene = new ScrollScene({duration: 100, triggerElement: '#checkout', offset: -315}).addTo(controller)
 .on("start", Animations.Scenes.onCheckout);
 scene.addIndicators();
 };
