@@ -19,6 +19,6 @@
     "typehead.js": "latest",
     "animateCSS": "latest",
     "jquery-simulate-ext": "latest",
-    "fullpage.js": "latest"
+    "ScrollMagic": "latest"
   }
 }

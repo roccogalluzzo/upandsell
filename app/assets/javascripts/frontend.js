@@ -2,6 +2,8 @@
 //= require jquery_ujs
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validation/jquery.validate.js
+//= require ScrollMagic/js/jquery.scrollmagic
+//= require ScrollMagic/js/jquery.scrollmagic.debug.js
 //= require frontend/animations
 $(document).ready(function() {
  $(".simple_form").validate({ showErrors: function(errorMap, errorList) {
@@ -22,4 +24,5 @@ $(document).ready(function() {
   });
  }});
  Animations.init();
+
 });
