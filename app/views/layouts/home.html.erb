@@ -20,170 +20,170 @@
       <body class="home">
        <div id="wrap">
          <%= render partial: 'layouts/site/header' %>
-          <div id="header">
-            <div class="container">
-              <div class="row">
-                <div class="inner-header">
-                  <h1>Sell your  digital products, easily.</h1>
-                  <h2>Fastest way to sell music, ebooks, software
-                    or any other downloadable product</h2>
-                    <a class="btn-more" href="#checkout">Learn More</a>
-                    <%= link_to "Get Started!", new_user_registration_path,
-                    class: "btn-get-started" %>
-                  </div>
-                </div>
-                <div class="browser-preview-wrap">
-                  <div class="browser-preview">
-                    <div class="shadow-1"></div>
-                    <div class="shadow-2"></div>
-                    <%= image_tag 'browser_bar.png', class: 'browser-bar' %>
-                    <%= image_tag 'dashboard.png', class: 'browser-tab' %>
-                    <%= image_tag 'small_cloud_left_t.png', class: 'small-cloud-left-t animated pulse' %>
-                    <%= image_tag 'small-cloud-left_b.png', class: 'small-cloud-left-b animated pulse' %>
-                    <%= image_tag 'small_cloud_right.png', class: 'small-cloud-right animated pulse' %>
-                  </div>
-
-                </div>
+         <div id="header">
+          <div class="container">
+            <div class="row">
+              <div class="inner-header">
+                <h1 class="animated fadeInUp">Sell your  digital products, easily.</h1>
+                <h2 class="animated fadeInUp">Fastest way to sell music, ebooks, software
+                  or any other downloadable product</h2>
+                  <a class="btn-more hidden-md hidden-lg" href="#checkout">Learn More</a>
+                  <%= link_to "Get Started!", new_user_registration_path,
+                  class: "btn-get-started hidden-md hidden-lg" %>
+                 </div>
+             </div>
+             <div class="browser-preview-wrap">
+              <div class="browser-preview">
+                <div class="shadow-1"></div>
+                <div class="shadow-2"></div>
+                <%= image_tag 'browser_bar.png', class: 'browser-bar' %>
+                <%= image_tag 'dashboard.png', class: 'browser-tab' %>
+                <%= image_tag 'small_cloud_left_t.png', class: 'small-cloud-left-t animated pulse' %>
+                <%= image_tag 'small-cloud-left_b.png', class: 'small-cloud-left-b animated pulse' %>
+                <%= image_tag 'small_cloud_right.png', class: 'small-cloud-right animated pulse' %>
               </div>
-              <%= image_tag 'bg_clouds_left.png', class: 'bg-clouds-left' %>
-              <%= image_tag 'bg_clouds_right.png', class: 'bg-clouds-right' %>
+
             </div>
-          <div id="checkout" class="checkout-section">
-           <div class="container">
-            <div class="section-text">
-             <h3>Optimized Product Page</h3>
-             <p>
-              Product landing page along with a checkout process simple and straightforward
-              is of the <b>utmost important</b> to sell effectively goods online.
-            </p>
-            <p>
-             We know this and have done a lot to offer a service that satisfies those requirements.
-           </p>
-         </div>
-         <div class="section-illustration">
-           <%= image_tag 'mock_iphone.png', class: 'mock_iphone' %>
-           <%= image_tag 'checkout_mock.png', class: 'mock-checkout' %>
+          </div>
+          <%= image_tag 'bg_clouds_left.png', class: 'bg-clouds-left' %>
+          <%= image_tag 'bg_clouds_right.png', class: 'bg-clouds-right' %>
+        </div>
+        <div id="checkout" class="checkout-section">
+         <div class="container">
+          <div class="section-text">
+           <h3>Optimized Product Page</h3>
+           <p>
+            Product landing page along with a checkout process simple and straightforward
+            is of the <b>utmost important</b> to sell effectively goods online.
+          </p>
+          <p>
+           We know this and have done a lot to offer a service that satisfies those requirements.
+         </p>
+       </div>
+       <div class="section-illustration">
+         <%= image_tag 'mock_iphone.png', class: 'mock_iphone' %>
+         <%= image_tag 'checkout_mock.png', class: 'mock-checkout' %>
 
-         </div>
        </div>
      </div>
-
-     <div class="payments-section">
-       <div class="container">
-        <div class="section-illustration">
-         <%= image_tag 'payments_section.png', class: 'mock_iphone' %>
-       </div>
-       <div class="section-text">
-         <h3>Payment Gateways</h3>
-         <p>
-          Product landing page along with a checkout process simple and straightforward
-          is of the <b>utmost important</b> to sell effectively goods online.
-        </p>
-        <p>
-         We know this and have done a lot to offer a service that satisfies those requirements.
-       </p>
-     </div>
-
    </div>
- </div>
- <div class="features-section">
-   <div class="container">
-     <h4>Marketing Tools</h4>
 
-     <div class="feature-box">
-      <%= image_tag 'ml_integration_feature.png' %>
-      <h5>Mailchimp &amp; Campaign Monitor Sync</h5>
+   <div class="payments-section">
+     <div class="container">
+      <div class="section-illustration">
+       <%= image_tag 'payments_section.png', class: 'mock_iphone' %>
+     </div>
+     <div class="section-text">
+       <h3>Payment Gateways</h3>
+       <p>
+        Product landing page along with a checkout process simple and straightforward
+        is of the <b>utmost important</b> to sell effectively goods online.
+      </p>
+      <p>
+       We know this and have done a lot to offer a service that satisfies those requirements.
+     </p>
+   </div>
+
+ </div>
+</div>
+<div class="features-section">
+ <div class="container">
+   <h4>Marketing Tools</h4>
+
+   <div class="feature-box">
+    <%= image_tag 'ml_integration_feature.png' %>
+    <h5>Mailchimp &amp; Campaign Monitor Sync</h5>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip
+    </p> </div>
+    <div class="feature-box">
+      <%= image_tag 'send_ml_feature.png' %>
+      <h5>Send Newsletter to your buyers</h5>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
         quis nostrud exercitation ullamco laboris nisi ut aliquip
-      </p> </div>
-      <div class="feature-box">
-        <%= image_tag 'send_ml_feature.png' %>
-        <h5>Send Newsletter to your buyers</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip
-        </p>
-      </div>
-      <div class="feature-box">
-        <%= image_tag 'coupons_feature.png' %>
-        <h5>Create Coupons</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip
-        </p>
-      </div>
+      </p>
+    </div>
+    <div class="feature-box">
+      <%= image_tag 'coupons_feature.png' %>
+      <h5>Create Coupons</h5>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip
+      </p>
+    </div>
 
+  </div>
+</div>
+<div class="teaser-section">
+ <div class="container">
+   <div class="head">
+     <h5>Coming Soon</h5>
+     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div class="ads-logos">
+      <%= image_tag 'fb_ads.png', class: 'ad-logo' %>
+      <%= image_tag 'adwords_ads.png', class: 'ad-logo' %>
+      <%= image_tag 'twitter_ads.png', class: 'ad-logo' %>
     </div>
   </div>
-  <div class="teaser-section">
-   <div class="container">
-     <div class="head">
-       <h5>Coming Soon</h5>
-       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.</p>
-      </div>
-      <div class="ads-logos">
-        <%= image_tag 'fb_ads.png', class: 'ad-logo' %>
-        <%= image_tag 'adwords_ads.png', class: 'ad-logo' %>
-        <%= image_tag 'twitter_ads.png', class: 'ad-logo' %>
-      </div>
-    </div>
-  </div>
+</div>
 
-  <div class="pricing-section">
-   <div class="container">
-     <div class="head">
-       <h6>Pricing</h6>
-       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.</p>
-      </div>
-      <div class="pricing-plans">
-        <div class="plan-green">
-          <div class="plan-tag-green">
-            <%= image_tag 'price_tag_green.png' %>
-            <h6 class="tag-head">Trial</h6>
-            <span class="tag-currency">€</span><span class="tag-price">0</span>
-            <div class="bottom-tag">
-              <p class="f-p">Free Trial</p>
-              <p class="s-p">30 days</p>
-            </div>
-          </div>
-          <div class="plan-text">
-            <ul>
-              <li><span>lorem cieoe</span></li>
-              <li><span>lorem cieoe</span></li>
-              <li><span>lorem cieoe</span></li>
-              <li><span>lorem cieoe</span></li>
-            </ul>
-            <a href="#" class="btn-tag">Sign up for trial</a>
-          </div>
-        </div>
-        <div class="plan-blue">
-         <div class="plan-tag-blue">
-          <%= image_tag 'price_tag_blue.png' %>
-          <h6 class="tag-head">Pro</h6>
-          <span class="tag-currency">€</span><span class="tag-price">15</span>
+<div class="pricing-section">
+ <div class="container">
+   <div class="head">
+     <h6>Pricing</h6>
+     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div class="pricing-plans">
+      <div class="plan-green">
+        <div class="plan-tag-green">
+          <%= image_tag 'price_tag_green.png' %>
+          <h6 class="tag-head">Trial</h6>
+          <span class="tag-currency">€</span><span class="tag-price">0</span>
           <div class="bottom-tag">
             <p class="f-p">Free Trial</p>
             <p class="s-p">30 days</p>
           </div>
         </div>
-        <div class="plan-text-blue">
+        <div class="plan-text">
           <ul>
             <li><span>lorem cieoe</span></li>
             <li><span>lorem cieoe</span></li>
             <li><span>lorem cieoe</span></li>
             <li><span>lorem cieoe</span></li>
           </ul>
-          <a href="#" class="btn-tag-blue">Buy Now PRO</a>
+          <a href="#" class="btn-tag">Sign up for trial</a>
         </div>
+      </div>
+      <div class="plan-blue">
+       <div class="plan-tag-blue">
+        <%= image_tag 'price_tag_blue.png' %>
+        <h6 class="tag-head">Pro</h6>
+        <span class="tag-currency">€</span><span class="tag-price">15</span>
+        <div class="bottom-tag">
+          <p class="f-p">Free Trial</p>
+          <p class="s-p">30 days</p>
+        </div>
+      </div>
+      <div class="plan-text-blue">
+        <ul>
+          <li><span>lorem cieoe</span></li>
+          <li><span>lorem cieoe</span></li>
+          <li><span>lorem cieoe</span></li>
+          <li><span>lorem cieoe</span></li>
+        </ul>
+        <a href="#" class="btn-tag-blue">Buy Now PRO</a>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 
