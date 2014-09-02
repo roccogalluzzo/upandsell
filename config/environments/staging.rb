@@ -10,6 +10,8 @@ Upandsell::Application.configure do
     domain: 'upandsell.me', # your domain to identify your server when connecting
   }
   config.action_mailer.default_url_options = { host: 'upandsell.me' }
+  config.action_controller.asset_host = "dqivr59fnsgbe.cloudfront.net"
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
