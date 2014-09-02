@@ -15,7 +15,9 @@ html, body {
   min-height: 100%;
   height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
   height: 100%;
-  margin: 0 auto -125px; /* the bottom margin is the negative value of the footer's height */
+  margin-bottom: -110px; /* the bottom margin is the negative value of the footer's height */
+ .container-fluid;
+  padding-bottom:  110px;
 }
 #footer {
   height: 110px; /* .push must be the same height as .footer */
@@ -33,6 +35,12 @@ h3 {
 .site-page {
   .make-row();
 }
+.page-grid {
+  .make-md-column-offset(2);
+  .make-md-column(8);
+  padding-bottom: 50px;
+}
+
 .section {
   .make-row();
   padding-top: 100px;
@@ -66,9 +74,9 @@ h3 {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f9fb',GradientType=0 );
   .mock-checkout {
     position:  absolute;
-    top: 103px;
-right: 149px;
-width: 275px;
+    top: 87px;
+    right: 149px;
+    width: 275px;
   }
   .section-illustration {
     .make-md-column-offset(1);
@@ -352,7 +360,7 @@ width: 275px;
   .wrap-footer {
     background: image-url("footer-shadow.png") no-repeat center top;
     border-top: 1px solid #e3e3e3;
-    padding-bottom: 25px;
+    //padding-bottom: 25px;
     .container;
     .line-1 {
      padding-top: 25px;
