@@ -47,6 +47,9 @@ Animations.Scenes = {
      $('.shadow-'+ n).show().addClass('animated fadeIn');
    };
    animate_btns();
+     setTimeout(function(){
+   $('.browser-preview').removeClass('hidden').addClass('animated fadeInUp');
+}, 250);
    setTimeout(function(){animate_shadows(2)}, 1100);
    setTimeout(function(){animate_shadows(1)}, 1600);
 

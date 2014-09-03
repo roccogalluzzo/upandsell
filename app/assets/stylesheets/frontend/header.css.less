@@ -139,9 +139,11 @@
   .browser-preview-wrap {
     .make-row();
     min-height: 341px;
+    z-index: 1000;
     .browser-preview {
       position: absolute !important;
       bottom: 0;
+      z-index: 1000;
       max-width: 720px;
       margin-right: auto;
       margin-left: auto;
@@ -169,7 +171,7 @@
       }
       .shadow-2 {
         .shadow-1;
-        opacity: 1;
+       // opacity: 1;
         margin-top: -26px;
         margin-left: 20px;
         margin-right: 20px;
