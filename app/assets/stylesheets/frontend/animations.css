@@ -1,0 +1,53 @@
+@keyframes cloud-animation-1
+{
+  from {transform:translate(0px,0);}
+  to{transform:translate(1000px,0);}
+}
+
+@-moz-keyframes cloud-animation-1
+{
+  from {transform:translate(10px,0);}
+  to{transform:translate(1000px,0);}
+}
+
+@-webkit-keyframes cloud-animation-1
+{
+  from { -webkit-transform:translate(0px,0);}
+  to{ -webkit-transform:translate(1000px,0);}
+}​
+
+@keyframes cloud-animation-2
+{
+  from {transform:translate(10px,0);}
+  to{transform:translate(1000px,0);}
+}
+
+@-moz-keyframes cloud-animation-2
+{
+  from {transform:translate(0px,0);}
+  to{transform:translate(1000px,0);}
+}
+
+@-webkit-keyframes cloud-animation-2
+{
+  from { -webkit-transform:translate(0px,0);}
+  to{ -webkit-transform:translate(1000px,0);}
+}​
+
+@keyframes cloud-animation-3
+{
+  from {transform:translate(0px,0);}
+  to{transform:translate(-1000px,0);}
+}
+
+@-moz-keyframes cloud-animation-3
+{
+  from {transform:translate(0px,0);}
+  to{transform:translate(-1000px,0);}
+}
+
+@-webkit-keyframes cloud-animation-3
+{
+  from { -webkit-transform:translate(0px,0);}
+  to{ -webkit-transform:translate(-1000px,0);}
+}​

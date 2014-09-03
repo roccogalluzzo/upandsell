@@ -14,6 +14,7 @@ $('.mock-checkout').hide();
 $('.payments-section .section-illustration').hide();
 $('.payments-section .section-text').hide();
 
+
 $(document).ready(function() {
  $(".simple_form").validate({ showErrors: function(errorMap, errorList) {
   $.each(this.validElements(), function (index, element) {
