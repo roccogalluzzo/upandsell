@@ -10,7 +10,6 @@ class CreateInvite < ActiveRecord::Migration
     end
 
     add_index :invites, :invitation_token, :unique => true
-    add_index :invites, :invitation_token
     add_index :invites, :email, :unique => true
   end
 end
