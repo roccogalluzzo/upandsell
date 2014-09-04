@@ -30,20 +30,30 @@
     &:hover {
       background-color: #4b9fca
     }
-  }
-  .navbar-text-btn {
-    .navbar-btn;
+    &:active {
+     background-color: #53aede;
+     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
+   }
+ }
+ .navbar-text-btn {
+  .navbar-btn;
+  background-color: white;
+  box-shadow: none;
+  padding: 14px;
+  color: #555;
+  margin-right: 5px;
+  &:hover {
     background-color: white;
-    box-shadow: none;
-    padding: 14px;
     color: #555;
-    margin-right: 5px;
-    &:hover {
-      background-color: white;
-      color: #555;
 
-    }
   }
+    &:active {
+    background-color: white;
+    color: #555;
+    box-shadow: none;
+
+  }
+}
 }
 
 @animation_time: 230s;

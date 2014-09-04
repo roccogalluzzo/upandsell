@@ -1,17 +1,13 @@
 <div class="navbar-top">
 	<div class="container">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
 			<%= link_to(root_path,
 			class: "navbar-brand") do %>
-			<%= image_tag "logo_beta.png" %>
+			<%= image_tag "logo_beta.png",
+			alt: 'Up&Sell.Me Logo',
+			title: 'Web app to sell your digital downloads' %>
 			<% end %>
 		</div>
-
 		<% if user_signed_in? %>
 		<%= link_to(user_root_path,
 		class: "btn navbar-btn btn-inverse pull-right") do %>

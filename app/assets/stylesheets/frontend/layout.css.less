@@ -99,7 +99,7 @@ a {
   }
   .mock-checkout {
    position: absolute;
-   top: 103px;
+   top: 96px;
    width: 280px;
    margin: 0 auto;
    left: 0;
@@ -107,7 +107,7 @@ a {
  }
  .section-illustration {
   .make-md-column-offset(1);
-  .make-md-column(5);
+  .make-md-column(4);
   //  text-align: center;
 }
 .section-text {
@@ -120,14 +120,17 @@ a {
   background: image-url("pay_section_separator.png") no-repeat center bottom;
   .section;
   .section-illustration {
+    .make-md-column-offset(1);
     .make-md-column(5);
     text-align: center;
-  margin-left: 45px;
-  }
-  .section-text {
-    .make-md-column-offset(2);
-    .make-md-column(4);
-  }
+ // margin-left: 45px;
+}
+.section-text {
+  .make-md-column-offset(1);
+  .make-md-column(5);
+  padding-left: 52px;
+
+}
 }
 
 .features-section {
