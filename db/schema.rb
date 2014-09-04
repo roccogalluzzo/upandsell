@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140724090527) do
+ActiveRecord::Schema.define(version: 20140904173700) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",             null: false
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(version: 20140724090527) do
     t.string   "type"
     t.string   "status"
   end
+
+  create_table "invites", force: true do |t|
+    t.string   "email"
+    t.string   "invitation_token"
+    t.string   "status"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+  end
+
+  add_index "invites", ["invitation_token"], name: "index_invites_on_invitation_token", unique: true, using: :btree
 
   create_table "mailing_list_emails", force: true do |t|
     t.integer  "mailing_list_id"

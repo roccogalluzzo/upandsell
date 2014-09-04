@@ -1,15 +1,6 @@
-class Admin::AdminController < ApplicationController
-  before_filter :authenticate_user!, :is_admin?
-  layout 'admin'
+class Admin::DashboardController < Admin::BaseController
 
-  def is_admin?
-    unless current_user.admin?
-     redirect_to user_root_path
-   end
- end
-
- def summary
-
+ def index
 
   @users = User.count
   @users_today = User.where(
@@ -20,10 +11,6 @@ class Admin::AdminController < ApplicationController
 
  sales = Metric::Product.new(Product.all).sales(30.days.ago).get
  @earnings = get_earnings(sales)
-end
-
-def users
-  @users = User.find_all
 end
 
 def products

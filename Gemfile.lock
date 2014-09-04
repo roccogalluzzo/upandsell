@@ -139,6 +139,8 @@ GEM
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
+    email_validator (1.4.0)
+      activemodel
     erubis (2.7.0)
     eventmachine (1.0.3)
     exchange (1.2.2)
@@ -469,6 +471,7 @@ DEPENDENCIES
   database_cleaner
   devise
   devise-async
+  email_validator
   exchange (~> 1.2.0)
   factory_girl_rails
   faker

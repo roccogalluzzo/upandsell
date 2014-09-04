@@ -41,11 +41,6 @@ Upandsell::Application.routes.draw do
   #get 'paypal',  on: :member
 end
 
-namespace :admin do
- mount Sidekiq::Web => 'sidekiq'
- root 'admin#summary'
-end
-
 namespace :user do
   root 'dashboard#index'
   get 'dashboard/metrics'  => 'dashboard#metrics'
@@ -94,4 +89,15 @@ namespace :settings do
 end
 
 end
+
+namespace :admin do
+ mount Sidekiq::Web => 'sidekiq'
+ root 'dashboard#index'
+ resources :users, only: [:index,:show]
+ resources :products, only: [:index,:show, :destroy]
+ resources :orders, only: [:index,:show]
+ resources :invites, only: [:index, :create, :update,:show, :destroy]
+ resources :affiliations, only: [:index]
+end
+
 end

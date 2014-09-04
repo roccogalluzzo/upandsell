@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Up&amp;Sell.me - <%= content_for :title %></title>
+  <title>Up&amp;Sell.me - <%= content_for :page_title %></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag "application" %>
-  <%# javascript_include_tag "application" %>
+  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tag %>
-
+  <script type="text/javascript">
+    Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
+    </script>
   <script type="text/javascript">
     WebFontConfig = {
       google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
@@ -23,129 +25,90 @@
     })(); </script>
   </head>
   <body>
-    <!-- BEGIN HEADER -->
-    <div class="header navbar navbar-inverse">
-      <!-- BEGIN TOP NAVIGATION BAR -->
-      <div class="navbar-inner">
-        <!-- BEGIN NAVIGATION HEADER -->
-        <div class="header-seperation text-center">
-          <!-- BEGIN MOBILE HEADER -->
-          <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">
-            <li class="dropdown">
-              <a id="main-menu-toggle" href="#main-menu" class="">
-                <div class="iconset top-menu-toggle-white"></div>
-              </a>
-            </li>
-          </ul>
-          <!-- END MOBILE HEADER -->
-          <!-- BEGIN LOGO -->
-          <%= link_to user_root_path, class:'brand' do %>
-          <b>Up</b>&amp;<b>Sell</b>.Me
+    <div id="top">
+      <div>
+        <div id="brand">
+          <%= link_to user_root_path do %>
+          <%= image_tag "logo.png", class: 'payment-logo' %>
           <% end %>
-          <!-- END LOGO -->
         </div>
-        <!-- END NAVIGATION HEADER -->
-        <!-- BEGIN CONTENT HEADER -->
-        <div class="header-quick-nav">
-          <!-- BEGIN HEADER LEFT SIDE SECTION -->
-          <div class="pull-left">
-            <h3 class="head-title"><%= content_for :title %></h3>
-          </div>
-          <!-- END HEADER LEFT SIDE SECTION -->
-          <!-- BEGIN HEADER RIGHT SIDE SECTION -->
-          <div class="pull-right">
-            <div class="chat-toggler">
-              <!-- BEGIN NOTIFICATION CENTER -->
-              <a href="#" class="dropdown-toggle" id="my-task-list" data-placement="bottom" data-content="" data-toggle="dropdown" data-original-title="Notifications">
-                <div class="user-details">
-                  <div class="username">
-                    <span class="bold">&nbsp;<%= current_user.name %>&nbsp;&nbsp;</span>
-                  </div>
-                </div>
-              </a>
-              <!-- END NOTIFICATION CENTER -->
-              <!-- BEGIN PROFILE PICTURE -->
-              <div class="profile-pic">
+        <h3>
+          <%= content_for :title %></h3>
+        </div>
+        <div id="navbar">
+          <ul>
+            <% if is_admin? %>
+            <li><%= link_to(user_root_path) do %>
+             <i class="fa fa-user  fa-users"></i>
+             <% end %>
+           </li>
+           <% end %>
 
-                <%= gravatar_for current_user.email, :size => 35, :class => 'img-class', :alt => 'me' %>
-              </div>
-              <!-- END PROFILE PICTURE -->
-            </div>
-            <!-- BEGIN HEADER NAV BUTTONS -->
-            <ul class="nav quick-section">
-            <li class="quicklinks"><%= link_to(user_root_path) do %>
-               <i class="fa fa-users"></i>
-               <% end %>
-             </li>
-              <li class="quicklinks"><span class="h-seperate"></span></li>
-             <li class="quicklinks"><%= link_to(user_settings_account_path) do %>
-               <i class="fa fa-gear"></i>
-               <% end %>
-             </li>
-
-             <li class="quicklinks"><span class="h-seperate"></span></li>
-             <li class="quicklinks"><%= link_to(destroy_user_session_path, :method => :delete) do %>
-               <i class="fa fa-power-off"></i>
-               <% end %>
-             </li>
-
-
-           </ul>
-           <!-- END HEADER NAV BUTTONS -->
-         </div>
-         <!-- END HEADER RIGHT SIDE SECTION -->
+           <li class="<%= ac('accounts') || ac('payments') || ac('emails') %>">
+             <%= link_to(edit_user_settings_account_path) do %>
+             <i class="fa  icon-settings-wheel-fill"></i>
+             <% end %>
+           </li>
+           <li><%= link_to(destroy_user_session_path, method: :delete) do %>
+             <i class="fa  fa-power-off"></i>
+             <% end %>
+           </li>
+         </ul>
        </div>
-       <!-- END CONTENT HEADER -->
      </div>
-     <!-- END TOP NAVIGATION BAR -->
-   </div>
-   <!-- END HEADER -->
-   <!-- BEGIN CONTENT -->
-   <div class="page-container row-fluid">
-    <!-- BEGIN SIDEBAR -->
-    <!-- BEGIN MENU -->
-    <div class="page-sidebar" id="main-menu">
 
-     <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-       <!-- BEGIN SIDEBAR MENU -->
-       <ul>
-        <li class="<%= 'active' if current_page?(admin_root_path) %>">
-          <%= link_to admin_root_path do %>
-          <i class="fa fa-lg fa-dashboard"></i>
-          <span> Summary </span>
+     <div id="content">
+      <div class="page-sidebar" id="main-menu">
+       <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+         <ul>
+          <li class="<%= ap(admin_root_path) %>">
+            <%= link_to admin_root_path do %>
+            <i class="fa fa-lg fa-w fa-cubes"></i>
+            <span> Dashboard </span>
+            <% end %>
+          </li>
+          <li class="<%= ap(admin_users_path) %>">
+            <%= link_to admin_users_path do %>
+            <i class="fa fa-lg fa-w fa-users"></i>
+            <span> Users</span>
+            <% end %>
+          </li>
+
+          <li class="<%= ac('products') %>">
+           <%= link_to admin_products_path do %>
+           <i class="fa fa-lg fa-w icon-tag-2"></i>
+           <span> Products </span>
+           <% end %>
+         </li>
+         <li class="<%= ac('orders') %>">
+          <%= link_to admin_orders_path do %>
+          <i class="fa  fa-lg fa-w icon-reciept-1"></i>
+          <span>Orders</span>
           <% end %>
         </li>
-        <li class="<%= 'active' if current_page?(user_products_path) %>">
-         <%= link_to admin_sidekiq_web_path do %>
-         <i class="fa fa-file"></i>
-         <span> Sidekiq </span>
-         <% end %>
-       </li>
-       <li class="<%= 'active' if current_page?(user_orders_path) %>">
-        <%= link_to user_orders_path do %>
-        <i class="fa fa-shopping-cart"></i>
-        <span>Orders</span>
-        <% end %>
-      </li>
-    </ul>
-    <!-- END SIDEBAR MENU -->
+        <li class="<%= ac('invites') %>">
+          <%= link_to  admin_invites_path do %>
+          <i class="fa  fa-lg fa-w fa-send"></i>
+          <span>Invites</span>
+          <% end %>
+        </li>
+        <li class="<%= ap(user_affiliations_path) %>">
+          <%= link_to admin_affiliations_path do %>
+          <i class="fa  fa-lg fa-w icon-connection"></i>
+          <span>Affiliations</span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
-<!-- BEGIN SCROLL UP HOVER -->
-<a href="#" class="scrollup">Scroll</a>
-<!-- END SCROLL UP HOVER -->
-<!-- END MENU -->
-<!-- END SIDEBAR -->
-<%# render partial: "layouts/messages", flash: flash %>
-<!-- BEGIN PAGE CONTAINER-->
-<div class="page-content">
-  <div class="content">
-    <%= yield %>
+  <%= render partial: "layouts/messages", flash: flash %>
+  <div class="page-content">
+    <div class="content">
+      <%= yield %>
+    </div>
   </div>
-</div>
-<!-- END PAGE CONTAINER -->
+  <!-- END PAGE CONTAINER -->
 </div>
 <!-- END CONTENT -->
-</div>
 </body>
 </html>
