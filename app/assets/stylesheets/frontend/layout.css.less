@@ -95,13 +95,15 @@ a {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f9fb',GradientType=0 );
   .checkout-demo-box {
     width: 349px;
+    margin: 0 auto;
   }
   .mock-checkout {
    position: absolute;
    top: 103px;
    width: 280px;
    margin: 0 auto;
-   left: 48px;
+   left: 0;
+   right: 0;
  }
  .section-illustration {
   .make-md-column-offset(1);
@@ -120,10 +122,11 @@ a {
   .section-illustration {
     .make-md-column(5);
     text-align: center;
+  margin-left: 45px;
   }
   .section-text {
     .make-md-column-offset(2);
-    .make-md-column(5);
+    .make-md-column(4);
   }
 }
 
@@ -226,7 +229,7 @@ a {
   }
   .pricing-plans {
     .make-row();
-      min-height: 377px;
+    min-height: 377px;
     margin-bottom: 105px;
     .plan-green {
       .plan;
