@@ -30,6 +30,38 @@ a {
   }
 }
 
+.btn-tag {
+  .btn;
+  background-color: #fff;
+  border: 1px solid #99cc00;
+  color: #99cc00;
+  font-size: 15px;
+  font-weight: bold;
+  height: 50px;
+  margin-bottom: 50px;
+  line-height: 8px;
+  padding: 20px 30px;
+  border-radius: 6px;
+  &:hover {
+    color: #99CC00;
+    background-color: #F9FFE8
+  }
+}
+.btn-tag-blue {
+  .btn-tag;
+  border: 1px solid #53aede;
+  color: #53aede;
+  &:hover {
+    border: 1px solid #4b9fca;
+    color: #4b9fca !important;
+    background-color: #e5f5fa;
+  }
+}
+
+.btn-trydemo {
+  .btn-tag-blue;
+  margin-top: 30px;
+}
 .hidden-animation {
   .hidden-md;
   .hidden-lg;
@@ -78,6 +110,7 @@ a {
     p {
       color: #888;
       font-size: 15px;
+      margin-top: 30px;
     }
   }
 
@@ -106,13 +139,24 @@ a {
    right: 0;
  }
  .section-illustration {
+  .make-lg-column-offset(1);
+  .make-lg-column(4);
   .make-md-column-offset(1);
-  .make-md-column(4);
+  .make-md-column(5);
   //  text-align: center;
 }
 .section-text {
   .make-md-column-offset(2);
   .make-md-column(4);
+  p {
+    margin-top: 30px;
+  }
+
+  h3 {
+    //margin-bottom: 20px;
+    white-space: pre-line;
+    line-height: 44px;
+  }
 }
 }
 .payments-section {
@@ -252,33 +296,7 @@ a {
 
     }
     .plan {
-      .btn-tag {
-        .btn;
-        background-color: #fff;
-        border: 1px solid #99cc00;
-        color: #99cc00;
-        font-size: 15px;
-        font-weight: bold;
-        height: 50px;
-        margin-bottom: 50px;
-        line-height: 8px;
-        padding: 20px 30px;
-        border-radius: 6px;
-        &:hover {
-          color: #99CC00;
-          background-color: #F9FFE8
-        }
-      }
-      .btn-tag-blue {
-        .btn-tag;
-        border: 1px solid #53aede;
-        color: #53aede;
-        &:hover {
-          border: 1px solid #4b9fca;
-          color: #4b9fca !important;
-          background-color: #e5f5fa;
-        }
-      }
+
       .plan-text {
         float: left;
         margin-left: 30px;
