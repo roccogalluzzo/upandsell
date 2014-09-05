@@ -3,11 +3,17 @@ class User::DashboardController < User::BaseController
   def index
     @products = current_user.products
     visits = Metric::Product.new(@products).visits(30.days.ago).get
-    sales = Metric::Product.new(@products).sales(30.days.ago).exchange_to(current_user.currency.to_sym).get
+    #sales = Metric::Product.new(@products).sales(30.days.ago).exchange_to(current_user.currency.to_sym).get
+
+    sales = {:data => {},  :sales=>120, :earnings=>10000}
+    (Date.new(2014, 8, 1)..Date.new(2014, 8, 31)).each do |date|
+      sales[:data][date] =  {:sales=>rand(1...32), :earnings=>rand(10...99999)}
+    end
     @visits = visits[:visits]
     @sales = sales[:sales]
-    @conversion_rate = conversion_rate(@visits, @sales)
+    @conversion_rate = 10000 #conversion_rate(@visits, @sales)
     @earnings = get_earnings(sales)
+
   end
 
   def metrics
@@ -19,6 +25,7 @@ class User::DashboardController < User::BaseController
     visits = Metric::Product.new(products).visits(30.days.ago).get
     sales = Metric::Product.new(products).sales(30.days.ago).exchange_to(current_user.currency.to_sym).get
     earnings = get_earnings(sales, false)
+
     render json: {earnings: earnings, sales: sales[:sales],
       visits: visits[:visits], conversion_rate: conversion_rate(visits[:visits], sales[:sales])}
     end
