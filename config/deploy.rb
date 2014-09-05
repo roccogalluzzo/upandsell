@@ -35,6 +35,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       execute "sudo service puma restart || sudo service puma start"
+      execute "sudo service sidekiq restart || sudo service sidekiq start"
     end
   end
 
