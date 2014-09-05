@@ -52,12 +52,12 @@
     .addTo(controller)
     .on("start", Animations.Scenes.pricing);
 
-    pricing_section.addIndicators();
-    checkout_text.addIndicators();
-    stats_section.addIndicators();
-    features_section.addIndicators();
-    payments_section.addIndicators();
-    checkout_image.addIndicators();
+   // pricing_section.addIndicators();
+   // checkout_text.addIndicators();
+  //  stats_section.addIndicators();
+  //  features_section.addIndicators();
+  //  payments_section.addIndicators();
+  //  checkout_image.addIndicators();
 
   };
 
