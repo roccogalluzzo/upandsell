@@ -1,6 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def new
+    if params[:beta_token]
+      # check if is present on db
+    end
+    # if param not present show beta error message
     if params[:ref]
      @ref = params[:ref]
    else

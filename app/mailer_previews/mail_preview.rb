@@ -17,4 +17,15 @@ class MailPreview < ActionMailer::Preview
       mail = UserMailer.welcome_email(user)
       mail
     end
+     def confirmation_instructions
+UserMailer.confirmation_instructions(User.first, {})
+end
+
+def reset_password_instructions
+  UserMailer.reset_password_instructions(User.first, {})
+end
+
+def unlock_instructions
+  UserMailer.unlock_instructions(User.first, {})
+end
   end
