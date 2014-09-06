@@ -86,6 +86,7 @@
 
    $('.btn-more').removeClass('hidden-animation').addClass('animated fadeInUp');
    $('.btn-get-started').removeClass('hidden-animation').addClass('animated fadeInUp');
+      $('.beta-input').removeClass('hidden-animation').addClass('animated fadeInUp');
    setTimeout(function(){
      $('.browser-preview').removeClass('hidden').addClass('animated fadeInUp');
    },250);
