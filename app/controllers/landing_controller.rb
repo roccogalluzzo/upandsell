@@ -1,8 +1,12 @@
 class LandingController < ApplicationController
 
-layout "home"
+ layout "home"
 
-def index
-end
 
+ def index
+ end
+
+ def beta
+render :layout => 'home_beta'
+ end
 end
