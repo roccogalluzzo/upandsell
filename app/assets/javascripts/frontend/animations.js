@@ -126,11 +126,11 @@ features: function(){
 
 
   $('.feature-box').each(function(i, el){
-    setTimeout(function(){show_box_icon(el);}, 400*(i));
+    setTimeout(function(){show_box_icon(el);}, 200*(i));
   });
   setTimeout(function(){
     $('.feature-box').each(function(i, el){
-      setTimeout(function(){show_box_text(el);}, 400*(i));
+      setTimeout(function(){show_box_text(el);}, 200*(i));
     });
   }, 1600);
 

@@ -1,12 +1,11 @@
 class LandingController < ApplicationController
 
-  layout "home"
+  layout false
 
   def index
   end
 
   def beta
-    render layout: 'home_beta'
   end
 
   def beta_request
