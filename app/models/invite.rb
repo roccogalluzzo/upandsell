@@ -3,10 +3,12 @@ class Invite < ActiveRecord::Base
   before_create :generate_token
   before_create :set_attributes
   validates :email, email: true
+  validates :email, uniqueness: true
+  validates :email, presence: true
   private
   def set_attributes
     self.invitation_created_at = Time.now
-    self.status = 'created' if self.status == nil
+    self.status = 'waiting' if self.status == nil
   end
 
   def generate_token

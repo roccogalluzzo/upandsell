@@ -3,7 +3,7 @@
       <h3>Sign in</h3>
     </div>
 <div class="body">
-    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), class: 'sign-form') do |f| %>
     <input name="user[referer_id]" value="<%= @ref %>" type="hidden">
     <div class="form-group">
       <%= f.input_field :email, required: true, autofocus: true,
