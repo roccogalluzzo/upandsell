@@ -5,7 +5,7 @@ Upandsell::Application.configure do
     port:     587, # ports 587 and 2525 are also supported with STARTTLS
     enable_starttls_auto: true, # detects and uses STARTTLS
     user_name: 'admin@upandsell.me',
-    password: Rails.application.secrets.mandrill['api_key'], # SMTP password is any valid API key
+    password: 'dKYyD-MAJGBK3CFRa-IEKA', # SMTP password is any valid API key
     authentication: 'login', # Mandrill supports 'plain' or 'login'
     domain: 'upandsell.me', # your domain to identify your server when connecting
   }
