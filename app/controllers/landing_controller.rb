@@ -3,8 +3,9 @@ class LandingController < ApplicationController
   layout false
 
   def index
+     @beta = true
     if !params[:nobeta].blank?
-      Upandsell::Application.config.beta = false
+     @beta = false
     end
   end
 
