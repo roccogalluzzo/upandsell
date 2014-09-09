@@ -42,7 +42,6 @@ gem 'mandrill-api'
 gem 'premailer'
 gem 'quiet_assets', group: :development
 
-#test gems
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
