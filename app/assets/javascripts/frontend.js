@@ -9,43 +9,24 @@
 
 $(document).ready(function() {
 
- $(".invite").on("ajax:success", function(e, data, status, xhr){
+  if($('body').hasClass('home')){
+   $(".invite").on("ajax:success", function(e, data, status, xhr){
     $(".invite-form").slideUp();
-  $("#js-beta-invite-sent").show().slideDown();
+    $("#js-beta-invite-sent").show().slideDown();
 
-});
- $(".invite").on("ajax:error", function(e, data, status, xhr){
- $(".form-error p").text(data.responseJSON.msg);
- $(".form-error").addClass('animated SlideUp').css('visibility', 'visible');
- setTimeout(function(){  $('.form-error').addClass('hidden-animation');},4000);
-});
-
-
-
- $(".sign-form").validate({ showErrors: function(errorMap, errorList) {
-  $.each(this.validElements(), function (index, element) {
-    var $element = $(element);
-    $element.data("title", "")
-    .tooltip("destroy");
-    $element.removeClass("has-error");
   });
-   // Create new tooltips for invalid elements
-   $.each(errorList, function (index, error) {
-    var $element = $(error.element);
-    $element.tooltip("destroy")
-    .data("title", error.message)
-    .data("placement", "bottom")
-    .tooltip();
-    $element.addClass("has-error");
-  });
- }});
- $(".invite").validate({ showErrors: function(errorMap, errorList) {
-  $.each(this.validElements(), function (index, element) {
-    var $element = $(element);
-    $element.data("title", "")
-    .tooltip("destroy");
+   $(".invite").on("ajax:error", function(e, data, status, xhr){
+     $(".form-error p").text(data.responseJSON.msg);
+     $(".form-error").addClass('animated SlideUp').css('visibility', 'visible');
+     setTimeout(function(){  $('.form-error').addClass('hidden-animation');},4000);
+   });
+   $(".invite").validate({ showErrors: function(errorMap, errorList) {
+    $.each(this.validElements(), function (index, element) {
+      var $element = $(element);
+      $element.data("title", "")
+      .tooltip("destroy");
    // $element.removeClass("has-error animated swing fadeInUp");
-  });
+ });
    // Create new tooltips for invalid elements
    $.each(errorList, function (index, error) {
     var $element = $(error.element);
@@ -58,6 +39,26 @@ $(document).ready(function() {
 
 });
  }});
- Animations.init();
+   Animations.init();
+ }else {
+   $(".simple_form").validate({ showErrors: function(errorMap, errorList) {
+    $.each(this.validElements(), function (index, element) {
+      var $element = $(element);
+      $element.data("title", "")
+      .tooltip("destroy");
+      $element.removeClass("has-error");
+    });
 
-});
+   $.each(errorList, function (index, error) {
+    var $element = $(error.element);
+    $element.tooltip("destroy")
+    .data("title", error.message)
+    .data("placement", "bottom")
+    .tooltip();
+    $element.addClass("has-error");
+  });
+
+}});
+
+}
+ });

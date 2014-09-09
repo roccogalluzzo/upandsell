@@ -19,11 +19,9 @@ class RegistrationsController < Devise::RegistrationsController
 end
 
 def create
-  if params[:invitation_token]
-    @invite = Invite.find_by_invitation_token params[:invitation_token]
-    if @invite.status == 'used'
-      redirect_to root_path and return
-    end
+  if params[:user][:invitation_token]
+    @invite = Invite.find_by_invitation_token params[:user][:invitation_token]
+    params[:user][:email] = @invite.email
     @invite.status = 'used'
     @invite.save
   else

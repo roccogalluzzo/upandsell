@@ -1,7 +1,7 @@
 class Admin::InvitesController < Admin::BaseController
 
   def index
-    @invites = Invite.all.page(params[:page]).per(8)
+    @invites = Invite.all.order('invitation_created_at DESC').page(params[:page]).per(8)
     @invite = Invite.new
   end
 
