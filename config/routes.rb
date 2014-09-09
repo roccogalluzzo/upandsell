@@ -98,8 +98,11 @@ namespace :admin do
  resources :users, only: [:index,:show]
  resources :products, only: [:index,:show, :destroy]
  resources :orders, only: [:index,:show]
- resources :invites, only: [:index, :create, :update,:show, :destroy]
- resources :affiliations, only: [:index]
+ resources :invites, only: [:index, :create, :update,:show, :destroy] do
+  get 'send_invite', on: :member
+end
+
+resources :affiliations, only: [:index]
 end
 
 end

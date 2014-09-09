@@ -8,7 +8,7 @@
         <%= f.input_field :email, placeholder: "Email" %>
       </div>
       <div class="col-md-2">
-       <%= button_tag(type: 'submit', class: "btn btn-block btn-primary") do %>
+       <%= button_tag(type: 'submit', class: "btn btn-block btn-primary",  data: {disable_with: 'Sending...'}) do %>
        Send Invite
        <% end %>
      </div>
@@ -42,7 +42,8 @@
        <b><%= invite.invitation_created_at.to_time.strftime('%e %b %Y - %H:%m:%S') %></b>
       </td>
       <td>
-       <%# link_to "Refund", refund_product_order_path(order), :class => "btn btn-primary" %>
+       <%= link_to "Send",   send_invite_admin_invite_path(invite), :class => "btn btn-primary", remote: true,
+        data: {disable_with: 'Sending...'} %>
      </td>
 
 

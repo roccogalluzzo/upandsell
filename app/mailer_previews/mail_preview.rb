@@ -5,6 +5,11 @@ class MailPreview < ActionMailer::Preview
       mail = UserMailer.sold_email(user, order)
       mail
     end
+      def invite_email
+      invite = Invite.first
+      mail = UserMailer.invite_email(invite)
+      mail
+    end
     def bought_email
       user = User.first
       order = Order.first
