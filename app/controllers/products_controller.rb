@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
     @user = User.find(@product.user_id)
     @paypal = @user.paypal
     @ga_code = @user.ga_code
-    @credit_card = true #@user.credit_card
+    @credit_card = @user.credit_card
     @published = true if (@paypal || @credit_card) && @product.published
     return if !@published
 

@@ -52,80 +52,78 @@
     <div class="download-middleline">
       <p><span><span id="js-download-counts" class="dw-counter">5</span> download remain</span></p>
     </div>
-    <%# elsif @downloads and @downloads <= 5 %>
-<!--           <a href="#"
-          class="disabled btn btn-large btn-block btn-success">
-          Download
-        </a>
-        <p>Reached limit downloads, <a href="#buy">buy again</a> </p> -->
-      </div>
-      <div class="buy-box <%= 'hidden' if @downloadable %>">
-        <% if @paypal and !@credit_card %>
-        <a id="js-buy-paypal-btn" data-product-id="<%= @product.id %>" href="#paypal" class="buy-btn">Buy Now</a>
-        <% else %>
-        <a id="js-buy-btn" href="#" class="buy-btn">Buy Now</a>
+
+  </div>
+  <div class="buy-box <%= 'hidden' if @downloadable %>">
+    <% if @paypal and !@credit_card %>
+    <a id="js-buy-paypal-btn" data-product-id="<%= @product.id %>" href="#paypal" class="buy-btn">Buy Now</a>
+    <% else %>
+    <a id="js-buy-btn" href="#" class="buy-btn">Buy Now</a>
+    <% end %>
+  </div>
+  <% if @coupons %>
+  <p class="middleline <%= 'hidden' if @downloadable %>"><span>or</span></p>
+  <div class="coupons-box <%= 'hidden' if @downloadable %>">
+    <div id="js-coupon-form" class="coupon-form hid">
+      <form id="js-coupon-apply">
+        <input class="coupon-code" type="text" placeholder="COUPON" name="coupon_code">
+        <button id="js-coupon-apply" type="submit">Apply</button>
+      </form>
+      <div class="coupon-accepted">Coupon Accepted</div>
+      <div class="coupon-invalid">Coupon Invalid</div>
+    </div>
+    <a id="js-coupon-btn" href="#coupon-form" class="coupon-btn">Apply Coupon</a>
+  </div>
+  <% end %>
+
+  <% else %>
+  <div class="message-box">
+    <p>
+      This product is  no longer for sale
+    </p>
+  </div>
+  <% end %>
+</div>
+<div class="visible-xs landing-mobile-social">
+ <a href="#" class="email-btn">
+  <span class="logo"><i class="fa fa-envelope"></i></span>
+</a>
+<a href="#" class="twitter-btn">
+  <span class="logo"><i class="fa fa-twitter"></i></span>
+  <span class="counter">13</span>
+</a>
+<a href="#" class="fb-btn">
+  <span class="logo"><i class="fa fa-facebook"></i></span>
+
+  <span class="counter">123</span>
+</a>
+</div>
+<div class="visible-xs landing-description">
+  <h1><%= @product.name %> </h1>
+  <h6>by <span class="product-author"><%= @user.name %></span></h6>
+  <p><%= @product.description %></p>
+</div>
+<div class="product-info">
+  <ul>
+    <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe"><a href="#">unsubscribe from product updates</a></li>
+    <li><b>Size</b>
+      <span><%= number_to_human_size @product.file_size %></span></li>
+      <li> <b>Type</b>
+        <span><%= @product.extension.upcase %></span></li>
+        <% if @product.sales_limit %>
+        <li> <b>Avaiable</b>
+        <span><%= @product.sales_limit %> Items</span>
+        </li>
         <% end %>
-      </div>
-      <% if @coupons %>
-      <p class="middleline <%= 'hidden' if @downloadable %>"><span>or</span></p>
-      <div class="coupons-box <%= 'hidden' if @downloadable %>">
-        <div id="js-coupon-form" class="coupon-form hid">
-          <form id="js-coupon-apply">
-            <input class="coupon-code" type="text" placeholder="COUPON" name="coupon_code">
-            <button id="js-coupon-apply" type="submit">Apply</button>
-          </form>
-          <div class="coupon-accepted">Coupon Accepted</div>
-          <div class="coupon-invalid">Coupon Invalid</div>
-        </div>
-        <a id="js-coupon-btn" href="#coupon-form" class="coupon-btn">Apply Coupon</a>
-      </div>
-      <% end %>
-
-      <% else %>
-      <div class="message-box">
+      </ul>
+      <div class="product-seller">
+        <h5>Created By:</h5>
+        <%= image_tag @user.avatar, class: 'seller-pic' %>
+        <h6><%= @user.name %></h6>
         <p>
-          This product is  no longer for sale
-        </p>
-      </div>
-      <% end %>
-    </div>
-    <div class="visible-xs landing-mobile-social">
-     <a href="#" class="email-btn">
-      <span class="logo"><i class="fa fa-envelope"></i></span>
-    </a>
-    <a href="#" class="twitter-btn">
-      <span class="logo"><i class="fa fa-twitter"></i></span>
-      <span class="counter">13</span>
-    </a>
-    <a href="#" class="fb-btn">
-      <span class="logo"><i class="fa fa-facebook"></i></span>
-
-      <span class="counter">123</span>
-    </a>
-  </div>
-  <div class="visible-xs landing-description">
-    <h1><%= @product.name %> </h1>
-    <h6>by <span class="product-author"><%= @user.name %></span></h6>
-    <p><%= @product.description %></p>
-  </div>
-  <div class="product-info">
-    <ul>
-      <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe"><a href="#">unsubscribe from product updates</a></li>
-      <li><b>Size</b>
-        <span><%= number_to_human_size @product.file_size %></span></li>
-        <li> <b>Type</b>
-          <span><%= @product.extension.upcase %></span></li>
-          <li> <b>Avaiable</b>
-            <span>4 Items</span>
-          </ul>
-          <div class="product-seller">
-          <h5>Created By:</h5>
-          <%= image_tag @user.avatar, class: 'seller-pic' %>
-          <h6><%= @user.name %></h6>
-          <p>
          <%= @user.bio %>
-          </p>
-          </div>
-        </div>
-      </div>
-    </div>
+       </p>
+     </div>
+   </div>
+ </div>
+</div>
