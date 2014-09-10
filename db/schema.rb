@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140904173700) do
+ActiveRecord::Schema.define(version: 20140910073442) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",             null: false
@@ -154,6 +154,8 @@ ActiveRecord::Schema.define(version: 20140904173700) do
     t.string   "mailchimp_token"
     t.string   "createsend_token"
     t.text     "custom_email_message"
+    t.string   "avatar"
+    t.string   "bio"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

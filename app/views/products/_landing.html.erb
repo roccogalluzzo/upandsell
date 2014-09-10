@@ -120,11 +120,10 @@
           </ul>
           <div class="product-seller">
           <h5>Created By:</h5>
-          <%= image_tag 'mark_twain.jpg', class: 'seller-pic' %>
+          <%= image_tag @user.avatar, class: 'seller-pic' %>
           <h6><%= @user.name %></h6>
           <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua.
+         <%= @user.bio %>
           </p>
           </div>
         </div>

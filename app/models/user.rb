@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :referrals
   has_many :referrals_payments
 
+  mount_uploader :avatar, AvatarUploader
+
 
   before_create do
     self.currency = Upandsell::Application.config.default_currency.upcase

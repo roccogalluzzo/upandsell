@@ -9,18 +9,46 @@ Settings / <span>Account</span>
   <%= simple_form_for current_user, url:  user_settings_account_path  do |f| %>
   <div class="form-row">
     <div class="row-label">
-      <p>Email</p>
+      <p>Avatar</p>
     </div>
     <div class="row-input">
-      <%= f.input_field :email,  placeholder: "Your Email" %>
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="row-label">
-     <p>Name</p>
+     <div id="preview" class="upload-box-preview-inner avatar-box"
+     data-preview-url="<%= current_user.avatar.url %>">
    </div>
-   <div class="row-input">
-    <%= f.input_field :name,  placeholder: "Your Name"  %>
+
+   <div class="avatar-upload"><button id="js-preview-btn" class="btn btn-primary">Select</button></div>
+
+   <div class="overlay">
+    <%= f.input_field :avatar, id: 'file-input', accept: "image/*",
+    class: 'btn-preview input-thumb fileInput', id: 'js-preview-select' %>
+  </div>
+  <input type="hidden" id="local-preview-path" value="" />
+
+
+</div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+    <p>Email</p>
+  </div>
+  <div class="row-input">
+    <%= f.input_field :email,  placeholder: "Your Email" %>
+  </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+   <p>Name</p>
+ </div>
+ <div class="row-input">
+  <%= f.input_field :name,  placeholder: "Your Name"  %>
+</div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+    <p>Bio</p>
+  </div>
+  <div class="row-input">
+    <%= f.input_field :bio, as: :text,  placeholder: "Max 160 characters", rows: 5 %>
   </div>
 </div>
 <div class="form-row">
