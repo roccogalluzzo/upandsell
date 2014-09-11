@@ -1,61 +1,50 @@
 <% content_for :title do %>
 You just sold <%= @order.product.name %>
 <% end %>
-<tr>
-  <td colspan='2'
-  style="
-  padding:15px 30px 5px 30px;
-  background-color:#FFF;
-  text-align:center;
-  border:0;
-  font-size:16px;
-  font-family:"Helvetica Neue", sans-serif;
-  color:#181818;"
-  >
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="box-title">
+            <h1> You just sold a copy of <b><%= @order.product.name %></b></h1>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 
-  <h1
-  style="
-  color:#595d64;
-  padding-top:5px;
-  margin: 0;
-  font-size: 25px;
-  font-family:'Helvetica Neue', sans-serif;
-  "
-  >
-  You just sold a copy of
-</h1>
-<h2 style="
-color:#53aede;
-padding-bottom:15px;
-font-family: 'Helvetica Neue', sans-serif;
-margin-top: 5px;
-margin-bottom: 0;
-font-size: 26px;
-border-bottom: 1px solid #e3e3e3;
-
-"><%= @order.product.name %></h2>
-</td>
+<table class="row" style="margin-bottom: 15px;">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="text-pad box-message">
+            <p>
+              Your new customer's email is <a
+              style="color:#53aede"
+              href="mailto:<%= @order.email %>">
+              <%= @order.email %>
+            </a>.
+            For order details go on your <a style="color:#53aede" href="https://upandsell.me/user">dashboard</a>.
+          </p>
+        </td>
+        <td class="expander"></td>
+      </tr>
+    </table>
+  </td>
 </tr>
+</table>
 
-<tr>
-  <td colspan='2' style=''>
-    <div>
-      <p style="margin: 25px 75px 25px 75px; text-align:center;
-      color: #888;
-      font-size: 22px; line-height: 1.3;">
-      Your new customer's email is <a
-      style="color:#53aede"
-      href="mailto:<%= @order.email %>">
-      <%= @order.email %>
-    </a>.
-    For order details go on your <a style="color:#53aede" href="https://upandsell.me/user">dashboard</a>.
-  </p>
-</td>
-</tr>
+
 <% content_for :footer do %>
+<p>
 Sent to <b><%= @user.email %></b>.
 <%= link_to "Deactivate notifications",
 unsubscribe_user_url(@user.unsubscribe_token('sales')),
-style:"color:#53aede" %>
+style:"color:#999" %>
+</p>
 <% end %>
 

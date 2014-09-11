@@ -1,6 +1,7 @@
 class UserMailer <  Devise::Mailer
     helper :application # gives access to all helpers defined within `application_helper`.
   include Devise::Controllers::UrlHelpers # Optional. eg. `confirmation_url`
+  include Roadie::Rails::Automatic
   default from: "bot@upandsell.me"
   layout 'email_notifications', except: 'welcome_email'
 

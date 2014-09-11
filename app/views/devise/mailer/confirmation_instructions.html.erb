@@ -1,33 +1,45 @@
-<tr>
-  <td colspan='2'
-  style="
-  padding:15px 30px 5px 30px;
-  background-color:#FFF;
-  text-align:center;
-  border:0;
-  font-size:16px;
-  font-family:"Helvetica Neue", sans-serif;
-  color:#181818;"
-  >
-  <h1
-  style="
-  color:#595d64;
-  padding-top:5px;
-  margin: 0;
-  font-size: 25px;
-  font-family:'Helvetica Neue', sans-serif;
-  border-bottom: 1px solid #e3e3e3;
-  padding-bottom: 20px;
-  "
-  >Welcome <%= @resource.name %>!</h1>
+<% content_for :title do %>
+Email Confirmation - Up&amp;Sell.Me
+<% end %>
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="box-title">
+            <h1>Welcome <%= @resource.name %>!</h1>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="text-pad box-message">
+            <p>
+              You can confirm your account email through the link below:
+            </p>
+          </td>
+          <td class="expander"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 
-     <p style="margin: 30px 30px 0px 30px; text-align:center;
-      color: #888;
-      font-size: 20px; line-height: 1.3;">You can confirm your account email through the link below:</p>
 
-     <p style="margin: 30px 30px 0px 30px;
-      color: #888;
-      font-size: 20px; line-height: 1.3;">
+
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="text-pad box-btn">
       <div><!--[if mso]>
   <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml"
    xmlns:w="urn:schemas-microsoft-com:office:word"
@@ -35,13 +47,33 @@
    style="height:50px;v-text-anchor:middle;width:150px;" arcsize="12%" stroke="f" fillcolor="#53aede">
     <w:anchorlock/>
     <center>
-  <![endif]-->
+      <![endif]-->
       <a href="<%= confirmation_url(@resource, :confirmation_token => @token) %>"
-style="background-color:#53aede;border-radius:6px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:15px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;">Confirm Account</a>
+        style="background-color:#53aede;border-radius:6px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:15px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;">Confirm Account</a>
   <!--[if mso]>
     </center>
   </v:roundrect>
-<![endif]--></div>
-</p>
+  <![endif]--></div>
+</td>
+<td class="expander"></td>
+</tr>
+</table>
 </td>
 </tr>
+</table>
+<table class="row" style="margin-bottom: 10px;">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="text-pad box-alt-link">
+            <a  class="box-alt-link" href="<%= confirmation_url(@resource, :confirmation_token => @token) %>">
+           <%= confirmation_url(@resource, :confirmation_token => @token) %></a>
+          </p>
+        </td>
+        <td class="expander"></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>

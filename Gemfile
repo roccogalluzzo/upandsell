@@ -34,6 +34,7 @@ gem 'omniauth-createsend'
 gem 'omniauth-mailchimp'
 gem 'tabs', git: 'https://github.com/byterussian/tabs.git', branch: 'customization'
 gem 'email_validator'
+gem 'roadie-rails'
 
 gem 'omniauth-paymill'
 gem 'createsend'

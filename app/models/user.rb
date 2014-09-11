@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
 
 
   def admin?
-    Rails.application.secrets.admins.include?(self.email)
+    Rails.application.secrets.admins.include?(email)
   end
 
   def send_welcome_email

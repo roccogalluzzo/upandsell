@@ -1,16 +1,10 @@
 Upandsell::Application.configure do
-
-  # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.smtp_settings = {
-    address: 'smtp.mandrillapp.com',
-    port:     587, # ports 587 and 2525 are also supported with STARTTLS
-    enable_starttls_auto: true, # detects and uses STARTTLS
-    user_name: 'admin@upandsell.me',
-    password: Rails.application.secrets.mandrill['api_key'], # SMTP password is any valid API key
-    authentication: 'login', # Mandrill supports 'plain' or 'login'
-    domain: 'upandsell.me', # your domain to identify your server when connecting
+    address: '127.0.0.1',
+    port:     1025
   }
-  config.action_mailer.asset_host = 'https://dqivr59fnsgbe.cloudfront.net'
+
+  config.action_mailer.asset_host = 'http://localhost:3000'
   config.action_mailer.default_url_options = { host: 'upandsell.me' }
 
   # In the development environment your application's code is reloaded on
