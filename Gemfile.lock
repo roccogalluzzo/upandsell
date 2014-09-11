@@ -308,6 +308,9 @@ GEM
     premailer (1.8.2)
       css_parser (>= 1.3.5)
       htmlentities (>= 4.0.0)
+    premailer-rails (1.8.0)
+      actionmailer (>= 3, < 5)
+      premailer (~> 1.7, >= 1.7.9)
     pry (0.10.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -352,12 +355,6 @@ GEM
       redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
     remotipart (1.2.1)
-    roadie (3.0.1)
-      css_parser (~> 1.3.4)
-      nokogiri (~> 1.6.0)
-    roadie-rails (1.0.3)
-      rails (>= 3.0, < 4.2)
-      roadie (~> 3.0)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
@@ -504,7 +501,7 @@ DEPENDENCIES
   paymill
   paypal-sdk-adaptivepayments
   paypal-sdk-permissions
-  premailer
+  premailer-rails
   pry-rails
   puma
   quiet_assets
@@ -514,7 +511,6 @@ DEPENDENCIES
   redcarpet
   redis (~> 3.0.1)
   remotipart (~> 1.2)
-  roadie-rails
   rspec-rails
   sass-rails!
   sdoc

@@ -1,37 +1,14 @@
 <% content_for :title do %>
 You just bought <%= @order.product.name %>
 <% end %>
-<table class="row">
-  <tr>
-    <td class="wrapper last">
-      <table class="twelve columns">
-        <tr>
-          <td class="box-title">
-            <h1>Thanks for the purchase!</h1>
-          </td>
-          <td class="expander"></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
 
-<table class="row">
-  <tr>
-    <td class="wrapper last">
-      <table class="twelve columns">
-        <tr>
-          <td class="text-pad box-message">
-            <p>
-              You can download it by clicking the link below:
-            </p>
-          </td>
-          <td class="expander"></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
+<% content_for :h1 do %>
+Thanks for the purchase!
+<% end %>
+
+<% content_for :msg do %>
+ You can download it by clicking the link below:
+<% end %>
 
 <table class="row">
   <tr>

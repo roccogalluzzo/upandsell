@@ -34,13 +34,12 @@ gem 'omniauth-createsend'
 gem 'omniauth-mailchimp'
 gem 'tabs', git: 'https://github.com/byterussian/tabs.git', branch: 'customization'
 gem 'email_validator'
-gem 'roadie-rails'
+gem 'premailer-rails'
 
 gem 'omniauth-paymill'
 gem 'createsend'
 gem 'gibbon'
 gem 'mandrill-api'
-gem 'premailer'
 gem 'quiet_assets', group: :development
 
 group :development, :test do

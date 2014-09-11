@@ -1,38 +1,12 @@
 <% content_for :title do %>
 Email Confirmation - Up&amp;Sell.Me
 <% end %>
-<table class="row">
-  <tr>
-    <td class="wrapper last">
-      <table class="twelve columns">
-        <tr>
-          <td class="box-title">
-            <h1>Welcome <%= @resource.name %>!</h1>
-          </td>
-          <td class="expander"></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-<table class="row">
-  <tr>
-    <td class="wrapper last">
-      <table class="twelve columns">
-        <tr>
-          <td class="text-pad box-message">
-            <p>
-              You can confirm your account email through the link below:
-            </p>
-          </td>
-          <td class="expander"></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-</table>
-
-
+<% content_for :h1 do %>
+Welcome <%= @resource.name %>!
+<% end %>
+<% content_for :msg do %>
+ You can confirm your account email through the link below:
+<% end %>
 
 <table class="row">
   <tr>
