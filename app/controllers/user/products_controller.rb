@@ -90,13 +90,13 @@ class User::ProductsController < User::BaseController
   end
 
   private
-  def twitter_url(name, slug)
+  def facebook_url(name, slug)
     URI.escape(
       "https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(slug)}&title=#{name}")
   end
 
   private
-  def facebook_url(name, slug)
+  def twitter_url(name, slug)
     URI.escape(
       "https://twitter.com/intent/tweet?text=#{name} #{product_slug_url(slug)}")
   end
