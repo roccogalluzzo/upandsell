@@ -52,13 +52,13 @@
                 <li>
                   <span><b><%= current_user.name %></b></span>
                 </li>
-                <li>
+                <li class="image-li">
                   <%= image_tag current_user.avatar, class: 'nav-avatar img-circle' %>
                 </li>
 
                 <li class="first-li <%= ap(new_user_product_path) %>">
                  <%= link_to(new_user_product_path) do %>
-                 <i class="fa  icon-add-symbol"></i>
+                 <i class="fa  fa-plus"></i>
                  <% end %>
                </li>
                <% if is_admin? %>

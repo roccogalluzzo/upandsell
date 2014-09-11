@@ -18,28 +18,18 @@
 .settings-emails {
  .make-md-column(10);
  .make-md-column-offset(1);
- #wmd-button-group2, #wmd-button-group3, #wmd-button-group4 {
-  display: none;
+ form {
+  .form-horizontal;
 }
-#wmd-button-group1 {
-  .btn {
-    border-radius: 0px !important;
-    background-color: transparent !important;
-    color: @midnight-blue;
+.form-actions {
+  .make-md-column(12);
+  .text-center;
+  input {
+    .btn;
+    .btn-primary;
   }
-  .btn:hover {
-    border-radius: 0px !important;
-    background-color: @clouds !important;
-    color: @midnight-blue;
-  }
-}
-#wmd-input {
-  margin-top: 35px !important;
 }
 
-#wmd-preview {
-  margin-top: 0px !important;
-}
 h5 {
   .text-center;
 }
@@ -85,6 +75,8 @@ p {
 }
 .avatar-box {
   float: left;
+  width: 110px;
+  height: 110px;
   img {
     .img-circle;
     width: 110px;
@@ -121,3 +113,77 @@ p {
   }
 }
 }
+.email-preview-form {
+  .make-row();
+}
+.email-preview-wrapper {
+  .make-md-column(10);
+  .make-md-column-offset(1);
+  background-color: #fafafa;
+  .email-preview-box {
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+    background-color: white;
+  //  height: 500px;
+  width: 580px;
+  margin: 40px auto;
+  .email-preview-head {
+    border-bottom: 1px solid #e3e3e3;
+    text-align: center;
+    padding: 25px;
+    padding: 25px 80px;
+    input {
+      text-align: center;
+    }
+  }
+  .email-preview-body {
+    text-align: center;
+    padding: 25px 40px;
+    margin: 10px;
+    textarea {
+      height: 150px;
+    }
+    .btn-email {
+      margin-top: 15px;
+      background: #53aede;
+      border-radius: 6px;
+      color: #ffffff;
+      display: inline-block;
+      font-family: sans-serif;
+      font-size: 17px;
+      font-weight: bold;
+      line-height: 55px;
+      text-align: center;
+      text-decoration: none;
+      width: 200px;
+      border: none;
+      opacity: 0.4;
+    }
+    .alt-link-email {
+      color: #999 !important;
+      display: block !important;
+      font-size: 13px !important;
+      margin-top: 10px;
+      opacity: 0.4;
+    }
+    .social-email {
+      .make-row();
+      opacity: 0.4;
+      margin-top: 25px;
+      border-top: 1px solid #e3e3e3;
+      p {
+        padding-top: 20px;
+        color: #888 !important;
+        font-family: 'Helvetica','Arial',sans-serif !important;
+        font-size: 20px;
+      }
+      a {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+}
+
+
+
