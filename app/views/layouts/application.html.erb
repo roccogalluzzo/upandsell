@@ -12,111 +12,126 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script>
-      <![endif]-->
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tag %>
-  <script type="text/javascript">
-    Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
-    <% if Rails.env.production? ||  Rails.env.staging? %>
-    WebFontConfig = {
-      google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
-    };
-    (function() {
-      var wf = document.createElement('script');
-      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-      wf.type = 'text/javascript';
-      wf.async = 'true';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(wf, s);
-    })();
-    <% end %>
-  </script>
-</head>
-<body>
+        <![endif]-->
+        <%= javascript_include_tag "application" %>
+        <%= csrf_meta_tag %>
+        <script type="text/javascript">
+          Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
+          <% if Rails.env.production? ||  Rails.env.staging? %>
+          WebFontConfig = {
+            google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
+          };
+          (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+          })();
+          <% end %>
+        </script>
+      </head>
+      <body>
 
-  <div id="top">
-    <div>
-      <div id="brand">
-        <%= link_to user_root_path do %>
-        <%= image_tag "logo.png", class: 'payment-logo' %>
-        <% end %>
-      </div>
-      <h3>
-        <%= content_for :title %></h3>
-      </div>
-      <div id="navbar">
-        <ul>
-          <% if is_admin? %>
-          <li><%= link_to(admin_root_path) do %>
-           <i class="fa fa-user  icon-user-2"></i>
-           <% end %>
-         </li>
-         <% end %>
-         <li class="<%= ap(new_user_product_path) %>">
-         <%= link_to(new_user_product_path) do %>
-           <i class="fa  icon-add-symbol"></i>
-           <% end %>
-         </li>
-         <li class="<%= ac('accounts') || ac('payments') || ac('emails') %>">
-           <%= link_to(edit_user_settings_account_path) do %>
-           <i class="fa  icon-settings-wheel-fill"></i>
-           <% end %>
-         </li>
-         <li><%= link_to(destroy_user_session_path, method: :delete) do %>
-           <i class="fa  fa-power-off"></i>
-           <% end %>
-         </li>
-       </ul>
-     </div>
-   </div>
+        <div id="top">
+          <div>
+            <div id="brand">
+              <%= link_to user_root_path do %>
+              <%= image_tag "logo.png", class: 'payment-logo' %>
+              <% end %>
+            </div>
+            <h3>
+              <%= content_for :title %></h3>
+            </div>
 
- <div id="content">
-  <div class="page-sidebar" id="main-menu">
-   <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-     <ul>
-      <li class="<%= ap(user_root_path) %>">
-        <%= link_to user_root_path do %>
-        <i class="fa fa-lg fa-w icon-graph-up-2"></i>
-        <span> Summary </span>
-        <% end %>
-      </li>
-      <li class="<%= ac('products') %>">
-       <%= link_to user_products_path do %>
-       <i class="fa fa-lg fa-w icon-tag-2"></i>
-       <span> Products </span>
-       <% end %>
-     </li>
-     <li class="<%= ac('orders') %>">
-      <%= link_to user_orders_path do %>
-      <i class="fa  fa-lg fa-w icon-reciept-1"></i>
-      <span>Orders</span>
-      <% end %>
-    </li>
-    <li class="<%= ac('mailing_lists') || ac('coupons') || ac('emails') %>">
-      <%= link_to  user_tools_mailing_lists_path do %>
-      <i class="fa  fa-lg fa-w fa-bullhorn"></i>
-      <span>Marketing</span>
-      <% end %>
-    </li>
-    <li class="<%= ap(user_affiliations_path) %>">
-      <%= link_to user_affiliations_path do %>
-      <i class="fa  fa-lg fa-w icon-connection"></i>
-      <span>Affiliations</span>
-      <% end %>
-    </li>
-  </ul>
-</div>
-</div>
-<%= render partial: "layouts/messages", flash: flash %>
-<div class="page-content">
-  <div class="content">
-    <%= yield %>
+            <div id="navbar">
+
+              <ul>
+                <li>
+                  <span><b><%= current_user.name %></b></span>
+                </li>
+                <li>
+                  <%= image_tag current_user.avatar, class: 'nav-avatar img-circle' %>
+                </li>
+
+                <li class="first-li <%= ap(new_user_product_path) %>">
+                 <%= link_to(new_user_product_path) do %>
+                 <i class="fa  icon-add-symbol"></i>
+                 <% end %>
+               </li>
+               <% if is_admin? %>
+               <li><%= link_to(admin_root_path) do %>
+                 <i class="fa fa-user  icon-user-2"></i>
+                 <% end %>
+               </li>
+               <% end %>
+               <li class="<%= ac('accounts') || ac('payments') || ac('emails') %>">
+                 <%= link_to(edit_user_settings_account_path) do %>
+                 <i class="fa  icon-settings-wheel-fill"></i>
+                 <% end %>
+               </li>
+               <li><a href="#">
+                 <i class="fa  fa-question-circle"></i>
+               </a>
+             </li>
+             <li><%= link_to(destroy_user_session_path, method: :delete) do %>
+               <i class="fa  fa-power-off"></i>
+               <% end %>
+             </li>
+           </ul>
+
+
+         </div>
+       </div>
+
+       <div id="content">
+        <div class="page-sidebar" id="main-menu">
+         <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+           <ul>
+            <li class="<%= ap(user_root_path) %>">
+              <%= link_to user_root_path do %>
+              <i class="fa fa-lg fa-w icon-graph-up-2"></i>
+              <span> Summary </span>
+              <% end %>
+            </li>
+            <li class="<%= ac('products') %>">
+             <%= link_to user_products_path do %>
+             <i class="fa fa-lg fa-w icon-tag-2"></i>
+             <span> Products </span>
+             <% end %>
+           </li>
+           <li class="<%= ac('orders') %>">
+            <%= link_to user_orders_path do %>
+            <i class="fa  fa-lg fa-w icon-reciept-1"></i>
+            <span>Orders</span>
+            <% end %>
+          </li>
+          <li class="<%= ac('mailing_lists') || ac('coupons') || ac('emails') %>">
+            <%= link_to  user_tools_mailing_lists_path do %>
+            <i class="fa  fa-lg fa-w fa-bullhorn"></i>
+            <span>Marketing</span>
+            <% end %>
+          </li>
+          <li class="<%= ap(user_affiliations_path) %>">
+            <%= link_to user_affiliations_path do %>
+            <i class="fa  fa-lg fa-w icon-connection"></i>
+            <span>Affiliations</span>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <%= render partial: "layouts/messages", flash: flash %>
+    <div class="page-content">
+      <div class="content">
+        <%= yield %>
+      </div>
+    </div>
+    <!-- END PAGE CONTAINER -->
   </div>
-</div>
-<!-- END PAGE CONTAINER -->
-</div>
-<!-- END CONTENT -->
+  <!-- END CONTENT -->
 </div>
 <% if Rails.env.production?  ||  Rails.env.staging?  %>
 <script>

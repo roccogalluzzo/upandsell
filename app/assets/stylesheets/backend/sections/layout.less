@@ -36,54 +36,68 @@
     }
     .pull-left;
   //  width: 340px;
-  }
-  #navbar {
-    ul {
-      .nav;
-      background-color: @secondary;
-      margin: 0 !important;
-      padding-top: 16px;
-      padding-left: 0;
-      height: 55px;
-      .pull-right;
-      .active {
-        a {
-          color: white;
-        }
-      }
-      li {
-        a {
-          color: @primary;
-          padding: 13px;
-       // border-right: 1px solid #ddd !important;
-     }
+}
+.nav-avatar {
+height: 40px;
+width: 40px;
+margin-top: -10px;
+border: 1px solid #e3e3e3;
+margin-right: 16px;
+}
+#navbar {
+   .first-li {
+    a {
+      border: none !important;
 
-     &:hover {
-      a
-      {
-        color: white;
-        }}
-        i { font-size: 21px !important;}
-        span {
-          top: -5px !important;
-          display: block !important;
-          margin: 0px 14px 0px 14px !important;
-          height: 42px !important;
+    }
+    }
+  ul {
+    .nav;
+    //background-color: @secondary;
+    margin: 0 !important;
+    padding-top: 16px;
+    padding-left: 0;
+    height: 55px;
+    .pull-right;
+
+    .active {
+      a {
+        color: @secondary;
+      }
+    }
+    li {
+      a {
+        color: @primary;
+        padding: 5px 10px;
+        border-left: 1px solid #f4f4f4;
+      }
+
+      &:hover {
+        a
+        {
+          color: @secondary;
+          }}
+          i { font-size: 17px !important;}
+          span {
+            top: -5px !important;
+            display: block !important;
+            margin: 0px 14px 0px 14px !important;
+            height: 42px !important;
+          }
         }
       }
     }
-  }
 
-  #brand {
-   border-right: 1px solid @clouds;
-   width: @sidebar-width;
-   height: 53px !important;
-   float: left;
-   padding-top: 11px;
-   .text-center;
-   a {
-    float: none !important;
-    margin-top: 5px;
+    #brand {
+     border-right: 1px solid @clouds;
+     width: @sidebar-width;
+     height: 53px !important;
+     float: left;
+     padding-top: 11px;
+     .text-center;
+     a {
+      float: none !important;
+      margin-top: 5px;
     //padding-left: 16px !important;
     .text-center;
     .navbar-brand;
