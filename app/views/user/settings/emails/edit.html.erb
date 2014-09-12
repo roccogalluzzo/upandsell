@@ -14,11 +14,10 @@ Settings / <span>Emails</span>
      <div class="email-preview-wrapper">
       <div class="email-preview-box">
         <div class="email-preview-head">
-          <input type="text" class="form-control input-lg" value="Thanks for the purchase!" />
+        <%= f.input_field :subject, class: 'form-control input-lg', value: @subject %>
         </div>
         <div class="email-preview-body">
-          <textarea class="text form-control">You can download it by clicking the link below:
-          </textarea>
+           <%= f.input_field :text, as: :text, class: 'form-control text', value: @text %>
           <div class="row">
             <div class="btn-email">Download</div>
             <p class="alt-link-email">https://upandsell.me/download/p/FRpCYQ8273Uw</p>
@@ -35,12 +34,10 @@ Settings / <span>Emails</span>
   </div>
   <div class="form-row">
  <div class="form-actions"><hr />
-   <%= button_tag(type: 'submit', class: "btn btn-primary btn-form") do %>
-   <i class='fa fa-lg fa-lock hidden'>&nbsp; </i> Save Settings
-   <% end %>
+   <%= button_tag(' Save Settings', type: 'submit', class: "btn btn-primary btn-form") %>
+    <%= button_tag(' Reset to Default', value: 'reset', type: 'submit', class: "btn btn-inverse btn-form") %>
  </div>
 </div>
 <% end %>
-
 </div>
 </div>

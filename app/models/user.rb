@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   serialize :settings
   serialize :credit_card_info
   serialize :paypal_info
+  serialize :custom_email_message, Hash
 
   validates_presence_of :name, :email
   validates_confirmation_of :password
@@ -55,20 +56,20 @@ class User < ActiveRecord::Base
     UserMailer.delay.welcome_email(self)
   end
 
-  def connect_credit_card(data)
-    self.credit_card = true
-    self.credit_card_token = data.credentials.token
-    self.credit_card_public_token = data.extra.raw_info.public_key
-    self.credit_card_response = data.extra.raw_info
-    self.save
-  end
+def connect_credit_card(data)
+  self.credit_card = true
+  self.credit_card_token = data.credentials.token
+  self.credit_card_public_token = data.extra.raw_info.public_key
+  self.credit_card_response = data.extra.raw_info
+  self.save
+end
 
-  def connect_paypal(email, token, token_secret)
-    self.paypal = true
-    self.paypal_email = email
-    self.paypal_token = token
-    self.paypal_token_secret = token_secret
-    self.save
-  end
+def connect_paypal(email, token, token_secret)
+  self.paypal = true
+  self.paypal_email = email
+  self.paypal_token = token
+  self.paypal_token_secret = token_secret
+  self.save
+end
 
 end
