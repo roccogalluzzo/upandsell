@@ -7,20 +7,17 @@ Settings / <span>Emails</span>
 <div class="settings-emails">
   <div class="row">
     <div class="col-md-12">
-      <h5>Custom email message after sale</h5>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-       tempor incididunt ut labore et dolore magna aliqua.</p>
+      <h5>Customize the email to send to your customers after sales</h5>
      </div>
    </div>
-   <form class="email-preview-form">
+     <%= simple_form_for current_user, url:  user_settings_emails_path, class: 'email-preview-form'  do |f| %>
      <div class="email-preview-wrapper">
       <div class="email-preview-box">
         <div class="email-preview-head">
           <input type="text" class="form-control input-lg" value="Thanks for the purchase!" />
         </div>
         <div class="email-preview-body">
-          <textarea class="form-control input-lg">
-            You can download it by clicking the link below:
+          <textarea class="text form-control">You can download it by clicking the link below:
           </textarea>
           <div class="row">
             <div class="btn-email">Download</div>
@@ -43,7 +40,7 @@ Settings / <span>Emails</span>
    <% end %>
  </div>
 </div>
-</form>
+<% end %>
 
 </div>
 </div>

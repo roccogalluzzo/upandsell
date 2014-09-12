@@ -16,8 +16,9 @@
 }
 
 .settings-emails {
- .make-md-column(10);
- .make-md-column-offset(1);
+ .make-md-column(12);
+ //.make-md-column-offset(1);
+
  form {
   .form-horizontal;
 }
@@ -29,9 +30,9 @@
     .btn-primary;
   }
 }
-
 h5 {
   .text-center;
+  margin-bottom: 30px;
 }
 p {
   .text-center;
@@ -117,16 +118,17 @@ p {
   .make-row();
 }
 .email-preview-wrapper {
-  .make-md-column(10);
-  .make-md-column-offset(1);
+  .make-md-column(8);
+  .make-md-column-offset(2);
+   border-radius: 6px;
   background-color: #fafafa;
   .email-preview-box {
     border: 1px solid #e3e3e3;
     border-radius: 6px;
     background-color: white;
   //  height: 500px;
-  width: 580px;
-  margin: 40px auto;
+  width: 480px;
+  margin: 20px auto;
   .email-preview-head {
     border-bottom: 1px solid #e3e3e3;
     text-align: center;
@@ -142,6 +144,7 @@ p {
     margin: 10px;
     textarea {
       height: 150px;
+      text-align: left;
     }
     .btn-email {
       margin-top: 15px;
