@@ -3,11 +3,11 @@ You just bought <%= @order.product.name %>
 <% end %>
 
 <% content_for :h1 do %>
-Thanks for the purchase!
+<%= @user.custom_email_message[:subject] || 'Thanks for the purchase!' %>
 <% end %>
 
 <% content_for :msg do %>
- You can download it by clicking the link below:
+<%=  @user.custom_email_message[:text] || 'You can download it by clicking the link below:' %>
 <% end %>
 
 <table class="row">
