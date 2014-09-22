@@ -140,6 +140,8 @@ GEM
       http_parser.rb (~> 0.6.0)
     email_validator (1.4.0)
       activemodel
+    entypo-rails (2.2.2)
+      railties (>= 3.1, <= 5)
     erubis (2.7.0)
     eventmachine (1.0.3)
     exchange (1.2.2)
@@ -295,6 +297,8 @@ GEM
     omniauth-paymill (0.0.1)
       omniauth-oauth2
     orm_adapter (0.5.0)
+    paranoia (2.0.2)
+      activerecord (~> 4.0)
     paymill (0.4.0)
       json
     paypal-sdk-adaptivepayments (1.110.0)
@@ -473,6 +477,7 @@ DEPENDENCIES
   devise
   devise-async
   email_validator
+  entypo-rails
   exchange (~> 1.2.0)
   factory_girl_rails
   faker
@@ -498,6 +503,7 @@ DEPENDENCIES
   omniauth-createsend
   omniauth-mailchimp
   omniauth-paymill
+  paranoia (~> 2.0)
   paymill
   paypal-sdk-adaptivepayments
   paypal-sdk-permissions

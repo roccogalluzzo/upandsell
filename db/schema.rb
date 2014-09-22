@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910073442) do
+ActiveRecord::Schema.define(version: 20140922111818) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",             null: false
@@ -96,8 +96,10 @@ ActiveRecord::Schema.define(version: 20140910073442) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sales_limit"
+    t.datetime "deleted_at"
   end
 
+  add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
   add_index "products", ["file_key"], name: "index_products_on_file_key", unique: true, using: :btree
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree

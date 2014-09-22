@@ -1,5 +1,6 @@
 class Product < ActiveRecord::Base
   include S3File
+
   has_many :mailing_lists, through: :mailing_lists_products
   has_many :mailing_lists_products
   has_many :orders
@@ -9,7 +10,7 @@ class Product < ActiveRecord::Base
   mount_uploader :preview, PreviewUploader
   monetize :price_cents, with_model_currency: :price_currency
   validates :price_cents, numericality: { greater_than: 49 }
-
+ acts_as_paranoid
   before_create do
     self.slug = (Time.now.to_i + rand(1..1000)).to_s(36)
     self.file_info = {size: ''}

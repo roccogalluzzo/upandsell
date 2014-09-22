@@ -35,6 +35,7 @@ gem 'omniauth-mailchimp'
 gem 'tabs', git: 'https://github.com/byterussian/tabs.git', branch: 'customization'
 gem 'email_validator'
 gem 'premailer-rails'
+gem "paranoia", "~> 2.0"
 
 gem 'omniauth-paymill'
 gem 'createsend'
@@ -79,7 +80,7 @@ gem "less-rails"
 gem 'sass-rails', github: 'rails/sass-rails'
 gem "bower-rails", "~> 0.7.0"
 gem "font-awesome-rails"
-
+gem 'entypo-rails'
 
 # Deployment
 group :development do
