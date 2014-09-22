@@ -2,16 +2,18 @@
   .make-row();
   margin: 10px;
 }
-.upload-box {
-  border: #eee dotted 3px;
-  margin: 20px 30px;
+.upload-box:hover {
+
+  background-color: rgba(208, 234, 231, 0.80);
 }
-
-
 .upload-box {
+  border: #D0EAE7 dotted 5px;
+  margin: 10px 30px;
+
   position: relative;
   z-index: 9;
   height: 200px;
+  //background-color: rgba(208, 234, 231, 0.50);
   background-color: rgba(236, 240, 241, 0.21);
   border-radius: 6px;
   .overlay {
@@ -20,19 +22,26 @@
     height: 100%;
     top: 0;
     z-index: 9999;
+    color: #949494;
     p {
-
      font-size: 24px;
      line-height: 1.72222;
      margin: 0 0 15px;
-     position: relative;
+     position: absolute;
      text-align: center;
-     top: 18%;
-     color: @silver;
-
+     top: 25px;
+     width: 100%;
    }
+   i {
+    top: 80px;
+    text-align: center;
+    display: block;
+    position: absolute;
+    width: 100%;
+  }
 
-   .filename {
+
+  .filename {
     font-size: 18px;
     color: rgb(88, 88, 88);
     opacity: 0.9;
@@ -52,14 +61,11 @@
 
 }
 .progress {
-  margin: 0px 23px 0px 23px !important;
+  margin: 7px 23px 0px 23px !important;
   margin-bottom: 10px !important;
   height: 30px !important;
 }
-.upload-box:hover {
 
-  background-color: darken(@clouds, 3%);
-}
 .upload-box-inner {
   position: relative;
   border-radius: 6px;
@@ -67,12 +73,7 @@
   border-bottom: none;
   height: 150px;
   opacity: 0.6;
-  i {
-    color: @silver;
-    margin: 10% 0;
-    text-align: center;
-    display: block;
-  }
+
 
 }
 
@@ -94,30 +95,71 @@
   /*This makes the button huge. If you want a bigger button, increase the font size*/
   font-size:50px;
   /*Opacity settings for all browsers*/
-  opacity: 0;
-  -moz-opacity: 0;
+  opacity: 0 !important;
+  -moz-opacity: 0 !important;
   filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }
 
 .share-url {
+  .make-md-column(6);
+  .make-md-column-offset(3);
+  text-align: center;
   h4 {
     font-size: 23px;
-}
+    display: inline-block;
+    font-weight: 500;
+  }
 
   border: none;
   margin-bottom: 15px;
   padding: 11px;
   border-radius: 6px;
 
-  .slug {
-  background-color: @clouds;
-  background-color: #ecf0f1;
-  border-radius: 6px;
+  a {
+    float: right;
+    color: #8E9199;
+    margin-right: 15px;
+    i {
+      font-size: 25px;
+      line-height: 42px;
+
+    }
+    &:hover {
+      color: @secondary;
+    }
   }
 
+  .slug {
+    .make-md-column(12);
+    background-color: @clouds;
+    background-color: #ecf0f1;
+    border-radius: 6px;
+     padding: 10px;
+  }
+  .slug-actions {
+   // .make-md-column(1);
+   a {
+    color: #bdc3c7;
+    margin-right: 15px;
+    i {
+      font-size: 25px;
+      line-height: 50px;
+
+    }
+    &:hover {
+      color: @secondary;
+    }
+  }
+}
 
 }
+.upload-box-preview:hover {
+  background-color: rgba(208, 234, 231, 0.80);
+}
 .upload-box-preview {
+  border: #D0EAE7 dotted 3px;
+  //background-color: rgba(208, 234, 231, 0.50);
+  background-color: rgba(236, 240, 241, 0.21);
   padding-left: 0px !important;
   padding-right:  0px;
   .overlay {
@@ -128,46 +170,63 @@
     z-index: 9;
   }
 
-
-
   height: 265px;
   border-radius: 6px;
-  border: #eee dotted 3px;
-  background-color: rgba(236, 240, 241, 0.21);
   //margin-top: 24px;
 
   .upload-box-preview-inner {
     //padding-left: 15px;
     position: relative;
     border-radius: 6px;
-    color: transparent;
+    color: #949494;
     border-bottom: none;
     opacity: 0.9;
     overflow: hidden;
     height: 100%;
+    text-align: center;
+    line-height: 250px;
     p {
-
      font-size: 25px;
-     line-height: 1.72222;
+     line-height:35px;
      margin-top: 15px;
-     position: relative;
+     position: absolute;
      text-align: center;
-     top: 6%;
+     top: 15px;
      margin: 6px;
-     color: @silver;
-
    }
 
    i {
-    color: @silver;
     margin: 13% 0;
+    position: absolute;
+    top: 80px;
     text-align: center;
+    text-align: center;
+    width: 100%;
     display: block;
   }
 
 }
 }
 
-.upload-box-preview:hover {
-  background-color: darken(@clouds, 3%);
+.product-image {
+  border: 1px solid #e3e3e3;
+  .img-rounded;
 }
+
+.product-actions-menu {
+  .make-md-column(5);
+  text-align: right;
+  a {
+    color: #bdc3c7;
+    margin-right: 5px;
+    i {
+      font-size: 32px;
+      line-height: 59px;
+    }
+    &:hover {
+      color: @secondary;
+    }
+  }
+}
+
+

@@ -1,10 +1,16 @@
 .cbp_tmtimeline {
  &:before {
-   left: 3% !important;
+   left: 47px !important;
+   //height: 80vh;
  }
 }
 
 .timeline {
+  .timeline-icon-current {
+    background: #d0eae7 !important;
+    box-shadow: 0 0 0 8px #DDF2F0  !important;
+    color: #ffffff !important;
+  }
   .make-row();
   ul {
     .make-md-column(12);
@@ -12,60 +18,79 @@
     margin-top: 10px !important;
   }
   .cbp_tmicon {
-    left: 3% !important;
-    top: 8px !important;
+    left: 44px !important;
+    top: 6px !important;
+    width: 48px !important;
+    height: 48px !important;
+    margin: 0 0 0 -26px !important;
+    font-size: 51px !important;
+    line-height: 30px !important;
+    i {
+      font-size: 28px;
+      margin-right: 0 !important;
+    }
   }
   .cbp_tmlabel {
-    margin: 0 0 15px 6.2% !important;
+    margin: 0 0 15px 87px !important;
     padding: 0px;
     border-radius: 6px;
     border: 1px solid;
-    border-color: #bdc3c7;
+    border-color: #e3e3e3;
     &:after {
       top: 20px !important;
       border-right-color:  #ecf0f1 !important;
     }
     .timeline-header {
       width: 100%;
-      background-color: #F0F4F5;
+      background-color: #f5f7f9 !important;
       border-radius: 6px 6px 0 0;
+      border-bottom: 1px solid #e3e3e3;
       h5 {
-        color: @wet-asphalt;
-        font-size: 20px;
+        color: #595d64;
+        font-size: 18px;
         text-align: center;
         padding: 20px;
-      //font-weight: 600;
-      margin: 0;
-      text-transform: uppercase;
+        font-weight: 400;
+
+        margin: 0;
+        text-transform: uppercase;
+      }
     }
-  }
-        .timeline-footer {
+    .timeline-footer {
       width: 100%;
      // background-color: #F0F4F5;
-      border-radius: 6px 6px 0 0;
-      border-top: 2px solid @clouds;
-      padding-top: 20px;
-      margin-bottom: 0 !important;
+     border-radius: 6px 6px 0 0;
+     border-top: 2px solid @clouds;
+     padding-top: 20px;
+     margin-bottom: 0 !important;
+     text-align: center;
+     h5 {
+      color: @wet-asphalt;
+      font-size: 20px;
       text-align: center;
-      h5 {
-        color: @wet-asphalt;
-        font-size: 20px;
-        text-align: center;
-        padding: 20px;
+      padding: 20px;
       //font-weight: 600;
       margin: 0;
       text-transform: uppercase;
     }
   }
   .timeline-body {
-    padding: 10px;
+    padding: 15px;
   }
 }
+
+
+.filename {
+  font-size: 18px;
+  line-height: 43px;
+  margin: 0;
+}
+
 .product-form {
   padding: 10px !important;
 }
 .show-product-box {
-  padding: 10px;
+  padding: 0px;
 }
 }
 

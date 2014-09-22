@@ -105,10 +105,12 @@ function productSave(event, data, status, xhr) {
 function loadPreview(path){
   loadImage(path, function (img) {
     $('#preview').html(img);
-  });
+  }, {maxHeight: 263, maxWidth: 360});
 }
 function filePreviewAdd(e, data){
+  console.log(e.target.files[0]);
  loadPreview(e.target.files[0]);
+ console.log('ff');
 }
 
 // File related actions

@@ -2,11 +2,15 @@ class PreviewUploader < CarrierWave::Uploader::Base
  include CarrierWave::MiniMagick
  include CarrierWave::Processing::MiniMagick
 
- process resize_to_fit: [800, 800]
+ process resize_to_limit: [780, 500]
  process quality: 75
  process :strip
 
  version :thumb do
+  process resize_to_fill: [80, 80]
+end
+
+ version :preview do
   process resize_to_fill: [120, 80]
 end
 
@@ -17,7 +21,7 @@ def store_dir
 end
 
 def default_url
-  ActionController::Base.helpers.asset_path('missing.png')
+  ActionController::Base.helpers.asset_path([version_name, "missing.png"].compact.join('_'))
 end
 
  def extension_white_list
