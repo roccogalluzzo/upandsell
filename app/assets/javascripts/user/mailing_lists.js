@@ -8,7 +8,6 @@
 
  Mailing_lists.Index = function() {
 $('#js-mailchimp-switch').change(function(event, state) {
-  console.log('ff');
   if($(this).is(':checked')){
     $('.mailchimp-integration').removeClass('unfocused');
   }else{
@@ -44,7 +43,12 @@ $('#js-mailchimp-switch').change(function(event, state) {
   {
     displayKey: 'name',
     source:  mailchimp.ttAdapter()
-  });
+  })
+.bind('typeahead:selected', function(obj, datum, name) {
+     console.log(datum, name);
+    // setttare ml id ad un campo hidden o roba simile
+    $('#js-mailing-list-id').val(datum.id);
+});
 
 
 
@@ -52,24 +56,7 @@ $('#js-mailchimp-switch').change(function(event, state) {
   $("#js-new-list-btn").on('click', function(){
     Mailing_lists.animations.show_form();
   });
-  $('#new-list').on('loaded.bs.modal', function (e) {
-    $("select").selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-default'});
-    $(".select").removeClass('form-control');
-  });
-  $('body').on('hidden.bs.modal', '.modal', function () {
-    $(this).removeData('bs.modal');
-  });
-  $('#sync-modal').on('loaded.bs.modal', function (e) {
-    $('.sync-select').on('shown.bs.tab', function (e) {
-      var provider = $(e.target).data('provider')
-      if(!$(e.target).filter('.sync-completed').is(":visible")){
-        $("#js-sync-search").slideDown(500);
-        $(".modal-footer").slideDown(600);
-      }
-      $("#js-provider-search").val(provider);
-      $("#js-provider-sync").val(provider);
-    });
-  });
+
 
 
   Mailing_lists.animations = {

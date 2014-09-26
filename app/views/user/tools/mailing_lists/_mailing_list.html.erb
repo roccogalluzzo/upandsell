@@ -1,4 +1,14 @@
 <tr id="js-ml-<%= mailing_list.id %>">
+  <td>
+    <% if !mailing_list.mailchimp_list_id.blank? %>
+    <%= image_tag "mailchimp_logo.png",
+    title: "Synced with #{mailing_list.mailchimp_list_name} Mailchimp list",
+    class: 'payment-logo', width: '20px' %>
+    <% else %>
+    <%= image_tag "mailchimp_logo_greyed.png",
+    class: 'payment-logo', width: '20px' %>
+    <% end %>
+  </td>
   <td> <%= mailing_list.name %> </td>
   <td> <%= mailing_list.subscribers %> </td>
   <td> <i class="text-muted"><%= mailing_list.last_sent || 'Never' %></i></td>
@@ -8,10 +18,6 @@
    <i class="fa fa-trash-o"></i>
    <% end %>
 
-   <a href="<%= sync_user_tools_mailing_list_url(mailing_list) %>"
-    class="btn-circle"  data-backdrop="static" data-toggle="modal" data-target="#sync-modal">
-     <i class="fa fa-refresh"></i>
-   </a>
    <%= link_to new_user_tools_mailing_list_emails_path(mailing_list), class: 'btn-send' do %>
    <i class="fa fa-send"></i>
    <% end %>

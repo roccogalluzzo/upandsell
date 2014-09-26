@@ -14,9 +14,8 @@ class User::Tools::MailingListsController < User::BaseController
   end
 
   def create
-    @list = MailingList.new
+    @list = MailingList.new(ml_params)
     @list.user_id = current_user.id
-    @list.name = params[:mailing_list][:name]
     if params[:mailing_list][:products].blank?
       @list.products = current_user.products
     else
@@ -36,53 +35,25 @@ class User::Tools::MailingListsController < User::BaseController
     end
   end
 
-  def sync
-    @list = MailingList.find params[:id]
-    respond_to do |format|
-      format.js {render :partial => "sync_modal"}
-    end
-  end
 
   def search
     @provider = 'mailchimp'
     # api search call
     ml_service = MailingListsService.new(@provider, current_user.send("#{@provider}_token"))
     @lists = ml_service.search(params[:q])
-    lists = @lists.map {|l| l.slice 'name'}
+    lists = @lists.map {|l| l.slice('id', 'name')}
     #lists = @lists.map {|l| l['name']}
     render json: lists
   end
 
 
-  def create_sync
-      # save to db
-      @provider = params[:provider_sync][:provider]
-      if @provider == 'mailchimp'
-        @list = MailingList.find(params[:id])
-        @list.mailchimp_list_id = params[:provider_sync][:provider_list_id]
-        @list.mailchimp_list_name = params[:provider_sync][:provider_list_name]
-        @list_name = params[:provider_sync][:provider_list_name]
-      end
-      if @list.save
-        MailingListSync.perform_async(@list.id, @provider)
-      end
 
-      respond_to do |format|
-        format.js {}
-      end
-    end
-
-    def remove_sync
-      # don't delete exsisting email, only not sync new
-      @provider = params[:provider_unsync][:provider]
-      if @provider == 'mailchimp'
-        @list = MailingList.find(params[:id])
-        @list.mailchimp_list_id = nil;
-        @list.mailchimp_list_name = nil
-      end
-      @list.save
-      respond_to do |format|
-        format.js {}
-      end
-    end
+  private
+  def ml_params
+    params.require(:mailing_list).permit(:name,
+      :mailchimp_list_name,
+      :mailchimp_list_id)
   end
+end
+
+

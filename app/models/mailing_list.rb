@@ -4,6 +4,8 @@ class MailingList < ActiveRecord::Base
   has_many :products, through: :mailing_lists_products
   validates_presence_of :name
 
+  after_create :sync
+
   def subscribers
     counter = 0
     self.products.each do |p|
@@ -19,4 +21,29 @@ class MailingList < ActiveRecord::Base
     end
     emails.uniq
   end
+
+  def remove_sync(provider)
+    # don't delete exsisting email, only not sync new
+    if provider == 'mailchimp'
+      self.mailchimp_list_id = nil
+      self.mailchimp_list_name = nil
+    end
+    if provider == 'createsend'
+      self.createsend_list_id = nil
+      self.createsend_list_name = nil
+    end
+
+    self.save
+  end
+
+  private
+  def sync
+    if self.mailchimp_list_name && self.mailchimp_list_id
+      MailingListSync.new.perform(self.id, 'mailchimp')
+    end
+    if self.createsend_list_name && self.createsend_list_id
+      MailingListSync.perform_async(self.id, 'createsend')
+    end
+  end
+
 end

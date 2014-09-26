@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922111818) do
+ActiveRecord::Schema.define(version: 20140924150146) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",             null: false
@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 20140922111818) do
     t.datetime "last_sent"
     t.datetime "segment_from"
     t.datetime "segment_to"
-    t.integer  "mailchimp_list_id"
+    t.string   "mailchimp_list_id"
     t.string   "mailchimp_list_name"
-    t.integer  "createsend_list_id"
+    t.string   "createsend_list_id"
     t.string   "createsend_list_name"
   end
 

@@ -17,7 +17,7 @@ module Providers::Mailchimp
        double_optin: false,
        update_existing: true
        )
-
+byebug
     end
 
     def self.ubscribe(token, list_id, email)
