@@ -1,38 +1,48 @@
-module Providers::Createsend
+class Providers::Createsend
+  include ActiveSupport::Rescuable
 
-    def self.search_lists(token, query)
-      cs = CreateSend::CreateSend.new(api_key: token)
-      cs.lists.list({
-        filters: {list_name: query},
-        limit: 5
-        })
-    end
+  rescue_from CreateSend::ExpiredOAuthToken do |ex|
+    access_token, expires_in, refresh_token = @cs.refresh_token
+    @user.createsend_token = {access_token: access_token, refresh_token: refresh_token}
+    @user.save
+  end
 
-    def self.batch_subscribe(token, mailchimp_list_id, emails)
-      # TODO transform emails
-      gb = Gibbon::API.new(token)
-      gb.timeout = 300
-      gb.lists.batch_subscribe(id: mailchimp_list_id,
-       batch: emails,
-       double_optin: false,
-       update_existing: true
-       )
+  def initialize(user_id)
+    @user = User.find(user_id)
+    @cs = CreateSend::CreateSend.new(@user.createsend_token)
+  end
 
-    end
+  def clients
+    @cs.clients
+  end
 
-    def self.ubscribe(token, list_id, email)
-      gb = Gibbon::API.new(token)
-      gb.lists.subscribe({id: list_id,
-        email: {email: email},
-        double_optin: false
-        })
-    end
+  def lists(client_id)
+    CreateSend::Client.new(@user.createsend_token, client_id).lists
 
-    def self.unsubscribe(token, list_id, email)
-      gb = Gibbon::API.new(token)
-      gb.lists.unsubscribe(id: list_id,
-       email: {email: "user_email"},
-       delete_member: true,
-       send_notify: true)
-    end
+  end
+
+  def batch_subscribe(list_id, emails)
+    CreateSend::Subscriber.import(@cs.auth_details, list_id)
+  end
+
+  def subscribe(list_id, email)
+  end
+
+  def self.unsubscribe(list_id, email)
+  end
+
+  def self.create_list(user_id, list_name)
+    cs = get_api(user_id)
+    list = CreateSend::List.create(cs.auth_details, cs.clients.first.ClientID, list_name,
+      'https://upandsell.me/', false, 'https://upandsell.me/')
+    byebug
+    list
+  end
+
+
+
+
+
+
+
 end

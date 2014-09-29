@@ -10,14 +10,17 @@ module Providers::Mailchimp
 
   def self.batch_subscribe(token, mailchimp_list_id, emails)
       # TODO transform emails
+      batch = []
+      emails.each do |email|
+        batch << {email: {email: email}}
+      end
       gb = Gibbon::API.new(token)
       gb.timeout = 300
       gb.lists.batch_subscribe(id: mailchimp_list_id,
-       batch: emails,
+       batch: batch,
        double_optin: false,
        update_existing: true
        )
-byebug
     end
 
     def self.ubscribe(token, list_id, email)

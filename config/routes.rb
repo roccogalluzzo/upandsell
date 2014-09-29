@@ -62,6 +62,8 @@ namespace :user do
   resources :serial_keys, except: [:new]
   resources :mailing_lists do
     get 'sync', on: :member
+    get 'createsend_clients', on: :collection
+    get 'createsend_lists', on: :collection
     post 'create_sync', on: :member
     post 'remove_sync', on: :member
     get 'search', on: :collection

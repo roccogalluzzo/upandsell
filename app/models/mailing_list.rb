@@ -38,11 +38,8 @@ class MailingList < ActiveRecord::Base
 
   private
   def sync
-    if self.mailchimp_list_name && self.mailchimp_list_id
+    if !self.mailchimp_list_name.blank? && self.mailchimp_list_id
       MailingListSync.new.perform(self.id, 'mailchimp')
-    end
-    if self.createsend_list_name && self.createsend_list_id
-      MailingListSync.perform_async(self.id, 'createsend')
     end
   end
 

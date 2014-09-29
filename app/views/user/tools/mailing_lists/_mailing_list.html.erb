@@ -3,10 +3,18 @@
     <% if !mailing_list.mailchimp_list_id.blank? %>
     <%= image_tag "mailchimp_logo.png",
     title: "Synced with #{mailing_list.mailchimp_list_name} Mailchimp list",
-    class: 'payment-logo', width: '20px' %>
+    class: 'mailchimp-list-logo', width: '20px' %>
     <% else %>
     <%= image_tag "mailchimp_logo_greyed.png",
+    class: 'mailchimp-list-logo', width: '20px' %>
+    <% end %>
+    <% if !mailing_list.createsend_list_id.blank? %>
+    <%= image_tag "campaign_monitor_logo.png",
+    title: "Synced with #{mailing_list.name} Campaign Monitor list",
     class: 'payment-logo', width: '20px' %>
+    <% else %>
+    <%= image_tag "campaign_monitor_logo_greyed.png",
+    class: 'payment-logo', height: '20px' %>
     <% end %>
   </td>
   <td> <%= mailing_list.name %> </td>

@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   serialize :credit_card_info
   serialize :paypal_info
   serialize :custom_email_message, Hash
+  serialize :createsend_token
 
   validates_presence_of :name, :email
   validates_confirmation_of :password

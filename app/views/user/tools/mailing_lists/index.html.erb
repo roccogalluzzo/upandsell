@@ -77,20 +77,48 @@
   <div class="integration-header">
     <%= image_tag "campaign_monitor_logo.png", class: 'payment-logo', width: '56px' %>
     <% if current_user.createsend_token %>
-    <input id="js-createsend-switch" name="mailchimp_list[createsend]"
+    <input id="js-createsend-switch" name="mailing_list[createsend]"
     class="m-l-5 pull-right" style="top:13px;" type="checkbox" data-toggle="switch" />
     <% else %>
     <a id="js-connect-sync" href="/auth/createsend" class="btn btn-sm btn-inverse pull-right">Connect</a>
     <% end %>
   </div>
 
-  <div class="sync-connect  unfocused integration-content">
+  <div class="sync-connect  unfocused integration-content createsend-integration">
     <% if current_user.createsend_token %>
-    <p>We create a a list on your account with the same name of this list.</p>
-    <% else %>
-    <p>Before sync Mailing List you need to connect with your <b>Campaign Monitor</b> account</p>
-    <% end %>
+    <div id="the-basics" class="row form-group">
+     <div class="col-md-4">
+      <p>Client</p>
+        <span id="js-load-cs-client" class="hid fa fa-spinner fa-spin"></span>
+    </div>
+    <div class="col-md-8">
+      <select name="clients[]" data-width="100%" id="js-createsend-clients-list" title='Choose a Client' class="selectpicker">
+        <option  selected>Choose a Client</option>
+      </select>
+
+      <span id="js-search-mailchimp" class="hid input-icon fa fa-spinner fa-spin"></span>
+      <%= f.input_field :createsend_list_name, as: :hidden,
+      id: 'js-createsend-list-name' %>
+    </div>
   </div>
+  <div id="the-basics" class="row form-group">
+   <div class="col-md-4">
+    <p>List</p>
+    <span id="js-load-cs-list" class="hid fa fa-spinner fa-spin"></span>
+  </div>
+  <div class="col-md-8 ">
+    <select class="select optional" data-width="100%"
+    id="js-createsend-select-list" name="mailing_list[createsend_list_id]" >
+    <option  selected>Choose a List</option>
+  </select>
+  <span id="js-load-cs-client" class="hid input-icon fa fa-spinner fa-spin"></span>
+
+</div>
+</div>
+<% else %>
+<p>Before sync Mailing List you need to connect with your <b>Campaign Monitor</b> account</p>
+<% end %>
+</div>
 </div>
 </div>
 <% end %>
@@ -101,7 +129,7 @@
   <table>
     <thead>
       <tr>
-        <th style="width:5%;"></th>
+        <th style="width:12%;"></th>
         <th class="list-name">List Name</th>
         <th class="subscribers"> Subscribers</th>
         <th class="last-update">Last Update</th>

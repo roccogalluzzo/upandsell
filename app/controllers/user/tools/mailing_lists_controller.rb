@@ -21,6 +21,9 @@ class User::Tools::MailingListsController < User::BaseController
     else
       @list.products = current_user.products.where(id: params[:mailing_list][:products])
     end
+    if params[:mailing_list][:createsend]  == 'on'
+      @list.createsend_list_id = Providers::Createsend.create_list(current_user.id, @list.name)
+    end
     @list.save
     respond_to do |format|
       format.js {}
@@ -46,14 +49,23 @@ class User::Tools::MailingListsController < User::BaseController
     render json: lists
   end
 
+  def createsend_clients
+   render json: Providers::Createsend.new(current_user.id).clients
+  end
 
+    def createsend_lists
+   render json: Providers::Createsend.new(current_user.id).lists(params[:cs_client_id])
+  end
 
   private
   def ml_params
     params.require(:mailing_list).permit(:name,
       :mailchimp_list_name,
-      :mailchimp_list_id)
+      :mailchimp_list_id,
+      :createsend_list_id,
+       :createsend_list_name)
   end
+
 end
 
 

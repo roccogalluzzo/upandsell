@@ -7,13 +7,13 @@
 
 
  Mailing_lists.Index = function() {
-$('#js-mailchimp-switch').change(function(event, state) {
-  if($(this).is(':checked')){
-    $('.mailchimp-integration').removeClass('unfocused');
-  }else{
-     $('.mailchimp-integration').addClass('unfocused');
-  }
-});
+  $('#js-createsend-switch').change(function(event, state) {
+    if($(this).is(':checked')){
+      $('.createsend-integration').removeClass('unfocused');
+    }else{
+     $('.createsend-integration').addClass('unfocused');
+   }
+ });
 
 
   var mailchimp = new Bloodhound({
@@ -44,17 +44,51 @@ $('#js-mailchimp-switch').change(function(event, state) {
     displayKey: 'name',
     source:  mailchimp.ttAdapter()
   })
-.bind('typeahead:selected', function(obj, datum, name) {
-     console.log(datum, name);
+  .bind('typeahead:selected', function(obj, datum, name) {
+   console.log(datum, name);
     // setttare ml id ad un campo hidden o roba simile
     $('#js-mailing-list-id').val(datum.id);
-});
+  });
 
-
+  $('#js-createsend-clients-list').on('change', function() {
+   $("#js-load-cs-list").removeClass('hid');
+   $.getJSON('/user/tools/mailing_lists/createsend_lists',
+   {
+    cs_client_id:  $(this).val()
+  },
+  function(result){
+    var options =  $('#js-createsend-select-list');
+    options.empty();
+    $.each(result, function() {
+      options.append($("<option />").val(this.ListID).text(this.Name));
+    });
+    options.selectpicker('refresh');
+    $("#js-load-cs-list").addClass('hid');
+    $('#js-createsend-list-name').val(
+      $("#js-createsend-select-list option:selected").text()
+      );
+  });
+ });
+  $('#js-createsend-select-list').on('change', function() {
+    $('#js-createsend-list-name').val(
+      $("#js-createsend-select-list option:selected").text()
+      );
+  });
 
 
   $("#js-new-list-btn").on('click', function(){
     Mailing_lists.animations.show_form();
+    $("#js-load-cs-client").removeClass('hid');
+    $.getJSON('/user/tools/mailing_lists/createsend_clients',
+      function(result){
+        var options =  $('#js-createsend-clients-list');
+        $.each(result, function() {
+          options.append($("<option />").val(this.ClientID).text(this.Name));
+        });
+        $("#js-load-cs-client").addClass('hid');
+        options.selectpicker('refresh');
+      });
+
   });
 
 
