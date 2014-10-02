@@ -15,7 +15,7 @@ $(document).ready(function() {
   });
 
   if(!$.cookie('cookie-msg')){
-    $('#js-cookie-msg').addClass('animated fadeInDown').show();
+    $('#js-cookie-msg').addClass('animated fadeInUp').show();
   }
 
   if($('body').hasClass('home')){
