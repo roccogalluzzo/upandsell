@@ -19,6 +19,7 @@
     "typehead.js": "latest",
     "animateCSS": "latest",
     "jquery-simulate-ext": "latest",
-    "ScrollMagic": "latest"
+    "ScrollMagic": "latest",
+    "jquery.cookie": "latest"
   }
 }

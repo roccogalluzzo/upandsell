@@ -9,7 +9,6 @@ module Providers::Mailchimp
   end
 
   def self.batch_subscribe(token, mailchimp_list_id, emails)
-      # TODO transform emails
       batch = []
       emails.each do |email|
         batch << {email: {email: email}}

@@ -41,6 +41,9 @@ class MailingList < ActiveRecord::Base
     if !self.mailchimp_list_name.blank? && self.mailchimp_list_id
       MailingListSync.new.perform(self.id, 'mailchimp')
     end
+    if !self.createsend_list_name.blank? && self.createsend_list_id
+      MailingListSync.new.perform(self.id, 'createsend')
+    end
   end
 
 end

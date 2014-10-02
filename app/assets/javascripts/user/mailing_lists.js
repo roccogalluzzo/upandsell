@@ -15,6 +15,13 @@
    }
  });
 
+  $('#js-mailchimp-switch').change(function(event, state) {
+    if($(this).is(':checked')){
+      $('.mailchimp-integration').removeClass('unfocused');
+    }else{
+     $('.mailchimp-integration').addClass('unfocused');
+   }
+ });
 
   var mailchimp = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),

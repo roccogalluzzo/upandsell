@@ -3,11 +3,20 @@
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.validation/jquery.validate.js
 //= require ScrollMagic/js/jquery.scrollmagic
-//= require ScrollMagic/js/jquery.scrollmagic.debug.js
+//= require jquery.cookie/jquery.cookie.js
 //= require frontend/animations
 
 
 $(document).ready(function() {
+
+  $('#js-cookie-btn').on('click', function(){
+    $('#js-cookie-msg').addClass('animated fadeOutUp');
+    $.cookie('cookie-msg', 'accepted', { expires: 1000 });
+  });
+
+  if(!$.cookie('cookie-msg')){
+    $('#js-cookie-msg').addClass('animated fadeInDown').show();
+  }
 
   if($('body').hasClass('home')){
    $(".invite").on("ajax:success", function(e, data, status, xhr){
@@ -17,7 +26,7 @@ $(document).ready(function() {
   });
    $(".invite").on("ajax:error", function(e, data, status, xhr){
      $(".form-error p").text(data.responseJSON.msg);
-     $(".form-error").addClass('animated SlideUp').css('visibility', 'visible');
+     $(".form-error").addClass('animated fadeOutUp').css('visibility', 'visible');
      setTimeout(function(){  $('.form-error').addClass('hidden-animation');},4000);
    });
    $(".invite").validate({ showErrors: function(errorMap, errorList) {
@@ -49,16 +58,16 @@ $(document).ready(function() {
       $element.removeClass("has-error");
     });
 
-   $.each(errorList, function (index, error) {
-    var $element = $(error.element);
-    $element.tooltip("destroy")
-    .data("title", error.message)
-    .data("placement", "bottom")
-    .tooltip();
-    $element.addClass("has-error");
-  });
+    $.each(errorList, function (index, error) {
+      var $element = $(error.element);
+      $element.tooltip("destroy")
+      .data("title", error.message)
+      .data("placement", "bottom")
+      .tooltip();
+      $element.addClass("has-error");
+    });
 
-}});
+  }});
 
-}
- });
+ }
+});

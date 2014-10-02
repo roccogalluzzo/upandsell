@@ -22,7 +22,11 @@ class Providers::Createsend
   end
 
   def batch_subscribe(list_id, emails)
-    CreateSend::Subscriber.import(@cs.auth_details, list_id)
+    batch = []
+    emails.each do |email|
+      batch << {EmailAddress: email}
+    end
+    res = CreateSend::Subscriber.import(@cs.auth_details, list_id, batch, false)
   end
 
   def subscribe(list_id, email)

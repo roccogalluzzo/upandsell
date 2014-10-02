@@ -9,8 +9,8 @@ class MailingListSync
       ml.batch_subscribe(list.mailchimp_list_id, list.emails)
     end
     if provider == 'createsend'
-      ml = MailingListsService.new(provider, user.createsend_token)
-      ml.batch_subscribe(list.createsend_list_id, list.emails)
+      cs = Providers::Createsend.new(user.id)
+      cs.batch_subscribe(list.createsend_list_id, list.emails)
     end
   end
 end

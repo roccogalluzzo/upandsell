@@ -21,9 +21,7 @@ class User::Tools::MailingListsController < User::BaseController
     else
       @list.products = current_user.products.where(id: params[:mailing_list][:products])
     end
-    if params[:mailing_list][:createsend]  == 'on'
-      @list.createsend_list_id = Providers::Createsend.create_list(current_user.id, @list.name)
-    end
+
     @list.save
     respond_to do |format|
       format.js {}
