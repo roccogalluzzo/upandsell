@@ -13,30 +13,30 @@ class User::ProductsController < User::BaseController
   def create
     product = current_user.products.build(product_params)
 #byebug
-    if product.save
-      response = {product: product}
-      response["twitter_url"] = twitter_url(product.name, product.slug)
-      response["facebook_url"] = facebook_url(product.name, product.slug)
-      response["edit_url"] =  user_product_path(product.id)
-      response["symbol"] = product.price.symbol
-      response["slug_url"] = product_slug_url(product.slug)
-      render json: response and return
-    end
-    render json: {errors: product.errors}, status: :unprocessable_entity
-  end
+if product.save
+  response = {product: product}
+  response["twitter_url"] = twitter_url(product.name, product.slug)
+  response["facebook_url"] = facebook_url(product.name, product.slug)
+  response["edit_url"] =  user_product_path(product.id)
+  response["symbol"] = product.price.symbol
+  response["slug_url"] = product_slug_url(product.slug)
+  render json: response and return
+end
+render json: {errors: product.errors}, status: :unprocessable_entity
+end
 
-  def edit
-    @product = Product.find(params[:id])
-    is_owner?(@product.user_id)
-    @twitter_url =  twitter_url(@product.name, @product.slug)
-    @facebook_url =  facebook_url(@product.name, @product.slug)
-    @slug = product_slug_url(@product.slug)
-  end
+def edit
+  @product = Product.find(params[:id])
+  is_owner?(@product.user_id)
+  @twitter_url =  twitter_url(@product.name, @product.slug)
+  @facebook_url =  facebook_url(@product.name, @product.slug)
+  @slug = product_slug_url(@product.slug)
+end
 
-  def update
-    product = Product.find(params[:id])
-    is_owner?(product.user_id)
-    product.attributes = product_params
+def update
+  product = Product.find(params[:id])
+  is_owner?(product.user_id)
+  product.attributes = product_params
     #  price_currency:  @product.price.symbol }}
     if product.save
       response = {product: product}
@@ -101,4 +101,8 @@ class User::ProductsController < User::BaseController
       "https://twitter.com/intent/tweet?text=#{name} #{product_slug_url(slug)}")
   end
 
+  def twitter_url(name, slug)
+    URI.escape(
+      "https://twitter.com/intent/tweet?text=#{name} #{product_slug_url(slug)}")
+  end
 end

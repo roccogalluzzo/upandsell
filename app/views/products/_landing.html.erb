@@ -4,16 +4,23 @@
     <span class="logo"><i class="fa fa-envelope"></i></span>
     <span class="text">Email</span>
   </a>
-  <a href="#" class="twitter-btn">
-    <span class="logo"><i class="fa fa-twitter"></i></span>
-    <span class="text">Tweet</span>
-    <span class="counter">13</span>
-  </a>
-  <a href="#" class="fb-btn">
-    <span class="logo"><i class="fa fa-facebook"></i></span>
-    <span class="text">Share</span>
-    <span class="counter">123</span>
-  </a>
+  <a id="js-twitter-btn" href=" javascript: void(0)"
+  onclick="window.open(
+  '<%= product_twitter_url(@product, @product.name) %>',
+  'share','toolbar=0,status=0,width=600,height=305')"
+  class="twitter-btn">
+  <span class="logo"><i class="fa fa-twitter"></i></span>
+  <span class="text">Tweet</span>
+</a>
+<a id="js-facebook-btn" href=" javascript: void(0)"
+onclick="window.open(
+'<%= product_facebook_url(@product, @product.name) %>',
+'share','toolbar=0,status=0,width=600,height=305')"
+class="fb-btn">
+<span class="logo"><i class="fa fa-facebook"></i></span>
+<span class="text">Share</span>
+<span class="counter">0</span>
+</a>
 </div>
 <% if @product.preview %>
 <div class="preview-image">
@@ -85,17 +92,14 @@
   <% end %>
 </div>
 <div class="visible-xs landing-mobile-social">
- <a href="#" class="email-btn">
-  <span class="logo"><i class="fa fa-envelope"></i></span>
-</a>
-<a href="#" class="twitter-btn">
+<a href="<%= product_twitter_url(@product, @product.name) %>" class="twitter-btn">
   <span class="logo"><i class="fa fa-twitter"></i></span>
-  <span class="counter">13</span>
+  <span class="text">Tweet</span>
 </a>
-<a href="#" class="fb-btn">
+<a href="<%= product_facebook_url(@product, @product.name) %>" class="fb-btn">
   <span class="logo"><i class="fa fa-facebook"></i></span>
-
-  <span class="counter">123</span>
+<span class="text">Share</span>
+  <span class="counter">0</span>
 </a>
 </div>
 <div class="visible-xs landing-description">
@@ -112,7 +116,7 @@
         <span><%= @product.extension.upcase %></span></li>
         <% if @product.sales_limit %>
         <li> <b>Avaiable</b>
-        <span><%= @product.sales_limit %> Items</span>
+          <span><%= @product.sales_limit %> Items</span>
         </li>
         <% end %>
       </ul>

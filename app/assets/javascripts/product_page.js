@@ -10,10 +10,23 @@
    // opts.paypal = $('#js-modal').data('paypal');
    // opts.paypal = false;
    //ProductPage[opts.action]();
+   ProductPage.Social.init();
  };
 
+ ProductPage.Social = {
+  init: function() {
+    var url = document.URL;
+    var facebookCount = 'https://graph.facebook.com/fql?q=SELECT share_count FROM link_stat WHERE url="' + url + '"';
+    $.getJSON( facebookCount, {
+    })
+    .done(function( data ) {
+      console.log(data.data)
+      $('.fb-btn').find('.counter').text(data.data[0].share_count);
+    });
+  }
+}
 
- ProductPage.Form = {
+ProductPage.Form = {
   init: function() {
     $('input.cc-num').payment('formatCardNumber');
     $('input.cc-exp').payment('formatCardExpiry');
@@ -59,11 +72,11 @@ pay: function(error, result) {
     type: 'POST',
     dataType: 'json',
     data: {product_id: opts.productId,
-    token: result.token,
-    email: $('input.cc-email').val()},
-    success: ProductPage.Form.success,
-    error: ProductPage.Form.error
-  });
+      token: result.token,
+      email: $('input.cc-email').val()},
+      success: ProductPage.Form.success,
+      error: ProductPage.Form.error
+    });
 },
 success: function(data) {
   ProductPage.Animations.show_form_success();
@@ -150,11 +163,11 @@ ProductPage.Animations = {
     $('#product-page-wrapper').scrollTo('#js-product-modal', 800);
     ProductPage.Animations.show_checkout_preview();
     $('#js-product').fadeTo(500, 0);
-     $('#js-product').css('height',1);
+    $('#js-product').css('height',1);
     $('#js-product-modal').fadeTo(500, 1);
   },
   show_product_page: function() {
-      $('#js-product').css('height','100%');
+    $('#js-product').css('height','100%');
     $('#product-page-wrapper').scrollTo('#js-product', 800);
     $('#js-product').fadeTo(500, 1);
     $('#js-product-modal').fadeTo(500, 0);

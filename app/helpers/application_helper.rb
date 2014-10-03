@@ -1,4 +1,14 @@
 module ApplicationHelper
+
+  def product_facebook_url(product, title)
+    URI.escape("https://www.facebook.com/sharer/sharer.php?u=#{product_slug_url(product.slug)}&title=#{title}")
+  end
+
+  def product_twitter_url(product, title)
+    URI.escape(
+      "https://twitter.com/intent/tweet?text=#{title} #{product_slug_url(product.slug)}")
+  end
+
   def gravatar_for email, options = {}
     options = {:alt => 'avatar', :class => 'avatar', :size => 80}.merge! options
     id = Digest::MD5::hexdigest email.strip.downcase
@@ -43,7 +53,7 @@ end
 
 def currency_symbol(currency)
   cur = {eur: '€', usd: '$', gbp: '£'}
-   cur[currency.downcase.to_sym].html_safe
+  cur[currency.downcase.to_sym].html_safe
 end
 
 def step(icon, success = false)
