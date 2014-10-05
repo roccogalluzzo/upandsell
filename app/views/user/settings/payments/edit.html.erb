@@ -20,10 +20,8 @@ Settings / <span>Payments</span>
       <%# f.check_box :credit_card_status, as: :boolean, data: {toggle: 'switch'}, label: false %>
       <input type="checkbox" <%= 'checked' if current_user.credit_card %> data-toggle="switch" data-type="paymill" />
     </div>
-    <%= image_tag "paymill.png", class: 'payment-logo' %>
-    <%= link_to ( current_user.credit_card_token ? "Connected" : "Connect"), '/auth/paymill',
-    class: 'payment-connect', disabled:( current_user.credit_card_token ? true : false) %>
-    <%# link_to("Refresh Token", user_settings_update_cc_token_path, class: 'btn btn-primary') %>
+    <%= image_tag "paymill.png", class: 'pull-right' %>
+
   </div>
 </div>
 
