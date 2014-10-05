@@ -17,9 +17,9 @@ class EmailsController < ApplicationController
   end
 
   def confirm_unsubscribe_order
-    response = Order.unsubscribe(params[:order], params[:type], params[:signature])
+    response = Order.confirm_unsubscribe(params[:order], params[:type], params[:signature])
     if response
-      MailingListRemoveSyncWorker.perform(params[:order])
+      MailingListRemoveSyncWorker.perform_async(params[:order])
       render "emails/unsubscribed"
       return
     end

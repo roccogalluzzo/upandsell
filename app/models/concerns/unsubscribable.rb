@@ -9,13 +9,16 @@ module Unsubscribable
 
 
   def self.is_valid_token?(id, type, signature)
-    self.find(id).unsubscribe_token(type)[:signature] == signature
+    Order.find(id).unsubscribe_token(type)[:signature] == signature
   end
 
-  def self.unsubscribe(id, type, signature)
-    if self.is_valid_token?(id, type, signature)
-      model = self.find(id)
-      model.update_attribute(type, false)
+
+  module ClassMethods
+    def unsubscribe(id, type, signature)
+      if Unsubscribable.is_valid_token?(id, type, signature)
+        model = self.find(id)
+        model.update_attribute(type, false)
+      end
     end
   end
 end

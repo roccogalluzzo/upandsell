@@ -13,6 +13,7 @@ class Order < ActiveRecord::Base
   before_create do
     self.token = SecureRandom.urlsafe_base64(16)
     self.amount_base_cents = self.amount.cents.in(self.amount_currency.downcase.to_sym).to(:eur)
+    self.buyer_accepts_marketing = true
   end
 
   after_save :send_emails
@@ -45,25 +46,28 @@ class Order < ActiveRecord::Base
   end
 end
 
+def self.confirm_unsubscribe(id, type, signature)
+  unsubscribe(id, type, signature)
+end
 private
 def send_emails
   if self.status == 'completed' && self.status_was != 'completed'
     user = User.find(self.product.user_id)
-    UserMailer.delay.bought_email(user, self)
+    UserMailer.delay.bought_email(user.id, self.id)
     Metric::Product.new(self.product).record_sale(self.amount_base_cents)
 
 
     if user.email_after_sale
-      UserMailer.delay.sold_email(user, self)
+      UserMailer.delay.sold_email(user.id, self.id)
     end
 
     if self.buyer_accepts_marketing
-      MailingListAddSyncWorker.perform(self.id)
+      MailingListAddSyncWorker.perform_async(self.id)
     end
   end
 
   if self.status == 'refunded' && self.status_was == 'completed'
-    UserMailer.delay.refund_email(user, self)
+    UserMailer.delay.refund_email(user.id, self.id)
     Metric::Product.new(self.product).delete_sale(self.amount_base_cents, self.created_at)
   end
 end

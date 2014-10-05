@@ -1,9 +1,9 @@
 <div class="product-page-body">
   <div class="share-box">
-   <a href="#" class="email-btn">
+<!--    <a href="#" class="email-btn">
     <span class="logo"><i class="fa fa-envelope"></i></span>
     <span class="text">Email</span>
-  </a>
+  </a> -->
   <a id="js-twitter-btn" href=" javascript: void(0)"
   onclick="window.open(
   '<%= product_twitter_url(@product, @product.name) %>',
@@ -55,9 +55,9 @@ class="fb-btn">
    <% if @published %>
    <div class="downloads-box <%= 'hidden' if !@downloadable %>">
     <%# link_to 'Download', download_product_path(@token), class: "btn-link-download" %>
-    <a id="js-download-btn" href="<%= @download_url %>" class="download-btn">Download</a>
+    <a href="<%= @download_url %>" class="pay-download-btn download-btn">Download</a>
     <div class="download-middleline">
-      <p><span><span id="js-download-counts" class="dw-counter">5</span> download remain</span></p>
+      <p><span><span class="dw-counter js-download-counter"><%= 5 - @downloads %></span> download remain</span></p>
     </div>
 
   </div>
@@ -92,15 +92,15 @@ class="fb-btn">
   <% end %>
 </div>
 <div class="visible-xs landing-mobile-social">
-<a href="<%= product_twitter_url(@product, @product.name) %>" class="twitter-btn">
-  <span class="logo"><i class="fa fa-twitter"></i></span>
-  <span class="text">Tweet</span>
-</a>
-<a href="<%= product_facebook_url(@product, @product.name) %>" class="fb-btn">
-  <span class="logo"><i class="fa fa-facebook"></i></span>
-<span class="text">Share</span>
-  <span class="counter">0</span>
-</a>
+  <a href="<%= product_twitter_url(@product, @product.name) %>" class="twitter-btn">
+    <span class="logo"><i class="fa fa-twitter"></i></span>
+    <span class="text">Tweet</span>
+  </a>
+  <a href="<%= product_facebook_url(@product, @product.name) %>" class="fb-btn">
+    <span class="logo"><i class="fa fa-facebook"></i></span>
+    <span class="text">Share</span>
+    <span class="counter">0</span>
+  </a>
 </div>
 <div class="visible-xs landing-description">
   <h1><%= @product.name %> </h1>
@@ -109,7 +109,13 @@ class="fb-btn">
 </div>
 <div class="product-info">
   <ul>
-    <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe"><a href="#">unsubscribe from product updates</a></li>
+    <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe">
+      <% if @accept_marketing%>
+      <a class="js-unsubscribe-order" data-token="<%= @token %>" href="#">unsubscribe from product updates</a>
+      <% else %>
+      <a class="js-unsubscribe-order disabled" data-token="<%= @token %>" href="#">Unsubscribed from product updates</a>
+      <% end %>
+    </li>
     <li><b>Size</b>
       <span><%= number_to_human_size @product.file_size %></span></li>
       <li> <b>Type</b>

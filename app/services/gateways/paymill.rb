@@ -10,10 +10,7 @@ module Gateways::Paymill
       amount: product.price_cents,
       currency: product.price_currency.upcase,
       payment: payment.id
-          # fee_amount: ((product.price * 4) / 100),
-         # fee_payment: payment.id
-         )
-
+      )
     return {token: pay.id, card_type: pay.payment['card_type'], status: 'completed'}
   end
 

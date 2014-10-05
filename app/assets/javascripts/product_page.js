@@ -11,6 +11,15 @@
    // opts.paypal = false;
    //ProductPage[opts.action]();
    ProductPage.Social.init();
+    $('.pay-download-btn').on('click', function(){
+  var num =  parseInt($('.js-download-counter').first().text(), 10);
+  console.log(num);
+   if(num == 0) {
+     $('.pay-download-btn').prop("href", '#')
+     return false;
+   }
+   $('.js-download-counter').text(num - 1);
+ });
  };
 
  ProductPage.Social = {
@@ -79,7 +88,13 @@ pay: function(error, result) {
     });
 },
 success: function(data) {
-  ProductPage.Animations.show_form_success();
+ $('.js-unsubscribe-order').data('token', data.token);
+ $('.pay-download-btn').attr("href", data.url);
+ $('.downloads-box').removeClass('hidden');
+ $('.l-unsubscribe').removeClass('hidden');
+ $('.buy-box').addClass('hidden');
+
+ ProductPage.Animations.show_form_success();
 },
 error: function(d) {
   ProductPage.Animations.show_form_error();
@@ -143,7 +158,20 @@ ProductPage.Events = {
     $("#js-paypal-btn").on('click', ProductPage.Paypal.request);
     $("#js-close-buy").on('click', ProductPage.Animations.show_product_page);
     $("#js-coupon-apply").on('submit', ProductPage.Events.couponApply);
-
+    $('.js-unsubscribe-order').on('click',  ProductPage.Events.order_unsubscribe);
+    $('#js-buy-paypal-btn').on('click', ProductPage.Paypal.buy_request);
+  },
+  order_unsubscribe: function(){
+    $.ajax({
+      url: '/checkout/unsubscribe_order_updates',
+      type: 'POST',
+      dataType: 'json',
+      data: {token:  $('.js-unsubscribe-order').data('token')},
+      async: true,
+      success: function(d) {
+        $('.js-unsubscribe-order').fadeOut().text('Unsubscribed from product updates').addClass('disabled').fadeIn();
+      }
+    });
   },
   couponApply: function(){
 
@@ -264,6 +292,23 @@ ProductPage.download = function() {
 ProductPage.Paypal = {
   request: function() {
     ProductPage.Animations.show_paypal_processing();
+    $.ajax({
+      url: '/checkout/paypal',
+      type: 'POST',
+      dataType: 'json',
+      data: {product_id:  opts.productId},
+      async: true,
+      success: function(d) {
+        window.location.replace(d.url)
+      },
+      error: function() {
+        ProductPage.Modal.close();
+      }
+    });
+    return  false;
+  },
+  buy_request: function() {
+    $('#js-buy-paypal-btn').text('Contacting Paypal...')
     $.ajax({
       url: '/checkout/paypal',
       type: 'POST',

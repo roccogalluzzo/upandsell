@@ -9,32 +9,21 @@
        actionType: 'CREATE',
        receiverList: {
         receiver: [{
-          email: 'mail@roccogalluzzo.com', #user.email,
-          amount:    product.price_cents,
-          primary:   true },
-
-          { email:
-            if Rails.env.production?
-              'paypal@upandsell.me'
-            else
-              'paypal-facilitator@upandsell.me'
-            end,
-            amount: ((product.price_cents * 4) / 100)
-            }]},
-            cancelUrl: payer[:cancel_url],
-            returnUrl: payer[:return_url] +'&payKey=${payKey}',
-            ipnNotificationUrl:
-            if Rails.env.production?
-             'https://upandsell.me/products/ipn'
-           else
-             'http://upandsell.ngrok.com/products/ipn'
-           end,
-           currencyCode: product.price_currency.upcase,
-           feesPayer: 'PRIMARYRECEIVER'
-           )
+          accountId:      user.paypal_email,
+          amount:  product.price,
+          }]},
+          cancelUrl: payer[:cancel_url],
+          returnUrl: payer[:return_url] +'&payKey=${payKey}',
+          ipnNotificationUrl:
+          if Rails.env.production?
+           'https://upandsell.me/checkout/ipn'
+         else
+           'http://upandsell.ngrok.com/checkout/ipn'
+         end,
+         currencyCode: product.price_currency.upcase
+         )
 
       pay = paypal.pay(req)
-   # byebug
    return {token: pay.payKey, card_type: 'paypal', status: 'created'}
  end
 

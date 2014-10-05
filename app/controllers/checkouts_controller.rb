@@ -15,8 +15,8 @@ class CheckoutsController < ApplicationController
 
     if order && order.status == 'completed'
       url = download_product_url(order.token)
-      #update_user_products(product.id, order.token)
-      render json: { url: url }, status: :ok and return
+      update_user_products(product.id, order.token)
+      render json: { url: url, token: order.token }, status: :ok and return
     end
     render json: {error: order}, status: :unauthorized and return
   end
@@ -39,13 +39,20 @@ class CheckoutsController < ApplicationController
   end
 
   def download
-    order = Order.where(token: params[:token])
+    order = Order.where(token: params[:token]).first
     if order.n_downloads < 5 && order.status == 'completed'
-      redirect_to order.product.expiring_url
+      redirect_to order.product.url
       order.increment!(:n_downloads)
       return
     end
     head(:unauthorized)
+  end
+
+  def unsubscribe_order_updates
+    order = Order.where(token: params[:token]).first
+    order.buyer_accepts_marketing = false
+    order.save
+    render json: {}, status: :ok
   end
 
   def ipn

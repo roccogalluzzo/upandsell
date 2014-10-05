@@ -3,6 +3,9 @@ class ProductsController < ApplicationController
   before_action :set_session
   def show
     @downloads = 0
+    @download_url = '#'
+    @accept_marketing = true
+    @token = nil
 
     @product = Product.find_by_slug!(params[:slug])
     register_visit(@product)
@@ -14,30 +17,33 @@ class ProductsController < ApplicationController
     @published = true if (@paypal || @credit_card) && @product.published
     return if !@published
 
-    @downloadable = !params[:down].blank?
     @coupons = !params[:cou].blank?
 
     #registra pagamento paypal se presente
     if params[:payKey]
-      order = Order.where( gateway_token: params[:payKey])
+      order = Order.where( gateway_token: params[:payKey]).first
       if order.status == 'completed' && order.product_id == @product.id
         update_user_products(order.product.id, order.token)
         @downloads =  order.n_downloads
         @action = 'afterPaypal'
         @downloadable = true if (@downloads < 5)
         @token = order.token
+        @accept_marketing = order.buyer_accepts_marketing
+        @download_url = download_product_url(order.token)
         return
       end
     end
 
     #check sessione se il prodotto risulta gia' acquistato
     if is_user_product?(@product.id)
-      order = Order.where(token: session[:user_products][@product.id])
+      order = Order.where(token: session[:user_products][@product.id]).first
       if order.present? && order.status == 'completed'
         @downloads =  order.n_downloads
         @action = 'download' if (@downloads < 5)
         @downloadable = true if (@downloads < 5)
         @token = order.token
+        @accept_marketing = order.buyer_accepts_marketing
+        @download_url = download_product_url(order.token)
       end
     end
   end
