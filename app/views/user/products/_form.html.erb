@@ -101,59 +101,61 @@
 
                 <div id="preview" class="upload-box-preview-inner"
                 data-preview-url="<%= @product.preview.url if (@product.id && @product.preview.file)%>">
-                <p>Click to set a preview image</p>
-                <i class="fa icon-picture fa-5x"></i>
+                <p>Click to set a preview image
+                  <br />
+                  (780 X 350)</p>
+                  <i class="fa icon-picture fa-5x"></i>
+                </div>
               </div>
             </div>
+            <div class="col-md-8">
+             <%= f.input_field :description,
+             class: 'form-control product-description',
+              placeholder: "Product Description(optional)" %>
+            </div>
           </div>
-          <div class="col-md-8">
-           <%= f.input_field :description,
-           class: 'form-control product-description',
-            placeholder: "Product Description(optional)" %>
+          <div class="timeline-footer form-group row">
+           <div class="col-md-12">
+            <%= f.button :submit,  "Save",
+            data: {disable_with: 'Saving...'}, class: 'btn btn-primary btn-lg text-center' %>
           </div>
         </div>
-        <div class="timeline-footer form-group row">
-         <div class="col-md-12">
-          <%= f.button :submit,  "Save",
-          data: {disable_with: 'Saving...'}, class: 'btn btn-primary btn-lg text-center' %>
-        </div>
-      </div>
-      <% end %>
-    </div>
-
-    <div id="js-product-show" class="show-product-box product_show <% if @product.new_record? %>  hid <% end%>">
-      <div class="row">
-       <div class="col-md-1 preview-product-image">
-         <img class="product-image"
-         src="<%= @product.preview.thumb.url if @product.id%>"
-         style="height: 60px; width: 60px;">
-       </div>
-       <div class="col-md-5">
-        <p class="product-name"><%= @product.name %></p>
-      </div>
-      <div class="col-md-1 text-center">
-        <p><b class="product-price">
-          <%= humanized_money_with_symbol @product.price %>
-        </b></p>
-      </div>
-
-      <div class="product-actions-menu">
-        <a href="#" class="edit-product"><i class="icon-pencil fa-2x"></i></a>
-        <% unless  @product.new_record?  %>
-        <%= link_to user_product_path(@product), method: :delete,
-        class: "", data: {confirm: "Are you sure?"} do %>
-        <i class="fa fa-2x icon-trash"></i>
         <% end %>
+      </div>
 
-        <%
-        if @product.published
-         btn_text = "Unpublish"
-         btn_with = "Unpublishing..."
-       else
-        btn_text = "Publish"
-        btn_with = "Publishing..."
-      end
-      %>
+      <div id="js-product-show" class="show-product-box product_show <% if @product.new_record? %>  hid <% end%>">
+        <div class="row">
+         <div class="col-md-1 preview-product-image">
+           <img class="product-image"
+           src="<%= @product.preview.thumb.url if @product.id%>"
+           style="height: 60px; width: 60px;">
+         </div>
+         <div class="col-md-5">
+          <p class="product-name"><%= @product.name %></p>
+        </div>
+        <div class="col-md-1 text-center">
+          <p><b class="product-price">
+            <%= humanized_money_with_symbol @product.price %>
+          </b></p>
+        </div>
+
+        <div class="product-actions-menu">
+          <a href="#" class="edit-product"><i class="icon-pencil fa-2x"></i></a>
+          <% unless  @product.new_record?  %>
+          <%= link_to user_product_path(@product), method: :delete,
+          class: "", data: {confirm: "Are you sure?"} do %>
+          <i class="fa fa-2x icon-trash"></i>
+          <% end %>
+
+          <%
+          if @product.published
+           btn_text = "Unpublish"
+           btn_with = "Unpublishing..."
+         else
+          btn_text = "Publish"
+          btn_with = "Publishing..."
+        end
+        %>
       <%# link_to btn_text, toggle_published_user_product_path(@product),
       remote: true,
       data: {with: btn_with},
