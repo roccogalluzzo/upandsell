@@ -5,15 +5,15 @@ Orders
 <% end %>
 
 <div class="row p-b-15">
-   <%= simple_form_for :orders, url: user_orders_path,
-   method: :get, html: { class: 'simple_form form-inline' } do |f|%>
+ <%= simple_form_for :orders, url: user_orders_path,
+ method: :get, html: { class: 'simple_form form-inline' } do |f|%>
 
-  <div class="col-md-10">
-       <div class="form-group">
-       <select name="products" class="mbn" data-selected="<%= params[:products] %>">
-        <option value="0">All Products</option>
-        <% current_user.products.each do |product| %>
-        <option <%if product.id == params[:products].to_i %>
+ <div class="col-md-10">
+   <div class="form-group">
+     <select name="products" class="mbn" data-selected="<%= params[:products] %>">
+      <option value="0">All Products</option>
+      <% current_user.products.each do |product| %>
+      <option <%if product.id == params[:products].to_i %>
         selected
         <% end %>
         value="<%= product.id %>"><%= product.name %></option>
@@ -29,71 +29,74 @@ Orders
       Filter</button>
     </div>
 
- <% end %>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="grid simple ">
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="grid simple ">
 
-      <div class="grid-body ">
-
-
-        <table class="table table-condensed ">
-          <thead>
-            <tr role="row">
-              <th></th>
-              <th style="width:18%"
-              class="sorting_asc" rowspan="1" colspan="1">
-              Customer Email</th>
-              <th style="width:6%"rowspan="1" colspan="1">
-               Type</th>
-               <th style="width:44%">Product</th>
-               <th style="width:6%">Amount</th>
-
-               <th style="width:18%">date</th></tr>
-             </thead>
-
-             <tbody role="alert" aria-live="polite" aria-relevant="all">
-               <% if @orders.blank? %>
-               <tr><td colspan="6"><p class="text-center text-muted">No orders</p></td></tr>
-               <% else %>
-
-               <% @orders.each do |order| %>
-               <tr>
-                <td> <b>#<%= order.number %></b> </td>
-                <td> <%= order.email %></td>
-
-                <td>
-                  <% if  order.gateway %>
-                  <%= image_tag "cc_icons/#{order.gateway}.png" %>
-                  <% end %>
-                </td>
-                <td> <%= order.product.name %> </td>
-                <td><%= humanized_money_with_symbol order.amount %></td>
-                <td>               <%= order.created_at.to_time.strftime('%e %b %Y') %>
-
-                 <%= order.created_at.to_time.strftime('%H:%m:%S') %>
-               </td>
-               <td>
-                 <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary" %>
-               </td>
+        <div class="grid-body ">
 
 
-             </tr>
-             <% end %>
-             <% end %>
+          <table class="table table-condensed ">
+            <thead>
+              <tr role="row">
+                <th></th>
+                <th style="width:18%"
+                class="sorting_asc" rowspan="1" colspan="1">
+                Customer Email</th>
+                <th style="width:6%"rowspan="1" colspan="1">
+                 Type</th>
+                 <th style="width:44%">Product</th>
+                 <th style="width:6%">Amount</th>
+
+                 <th style="width:18%">date</th></tr>
+               </thead>
+
+               <tbody role="alert" aria-live="polite" aria-relevant="all">
+                 <% if @orders.blank? %>
+                 <tr><td colspan="6"><p class="text-center text-muted">No orders</p></td></tr>
+                 <% else %>
+
+                 <% @orders.each do |order| %>
+                 <tr>
+                  <td> <b>#<%= order.number %></b> </td>
+                  <td> <%= order.email %></td>
+
+                  <td>
+                    <% if  order.gateway == 'paypal' %>
+                    <%= image_tag "cc_icons/paypal.png" %>
+                    <% else %>
+                    <%= image_tag "cc_icons/#{order.payment_details[:card]}.png" %>
+                    <% end %>
+                  </td>
+                  <td> <%= order.product.name %> </td>
+                  <td><%= humanized_money_with_symbol order.amount %></td>
+                  <td>               <%= order.created_at.to_time.strftime('%e %b %Y') %>
+
+                   <%= order.created_at.to_time.strftime('%H:%m:%S') %>
+                 </td>
+                 <td>
+                   <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary",
+                   data: {confirm: "Are you sure?"} %>
+                 </td>
 
 
-           </tbody></table>
+               </tr>
+               <% end %>
+               <% end %>
 
+
+             </tbody></table>
+
+           </div>
          </div>
        </div>
      </div>
-   </div>
 
 
-   <div class="row">
-     <div class="col-md-offset-5 col-md-6">
-       <%= paginate @orders %>
+     <div class="row">
+       <div class="col-md-offset-5 col-md-6">
+         <%= paginate @orders %>
+       </div>
      </div>
-   </div>

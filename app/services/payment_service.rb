@@ -23,4 +23,8 @@ class PaymentService
   end
   order
 end
+
+def refund(token, amount, user_id)
+  @gateway.refund(token, amount, user_id)
+end
 end

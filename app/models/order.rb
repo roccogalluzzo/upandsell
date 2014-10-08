@@ -25,8 +25,9 @@ class Order < ActiveRecord::Base
    else
       service = PaymentService.new('paypal')
    end
-
-   service.refund(self.gateway_token)
+   service.refund(self.gateway_token, self.amount_cents, self.user_id)
+   self.status = 'refunded'
+   self.save
    end
 
    private
@@ -67,7 +68,7 @@ def send_emails
   end
 
   if self.status == 'refunded' && self.status_was == 'completed'
-    UserMailer.delay.refund_email(user.id, self.id)
+    UserMailer.delay.refund_email(self.product.user_id, self.id)
     Metric::Product.new(self.product).delete_sale(self.amount_base_cents, self.created_at)
   end
 end
