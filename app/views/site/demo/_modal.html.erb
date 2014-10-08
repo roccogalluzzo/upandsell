@@ -1,0 +1,108 @@
+<div id="js-checkout-tab" class="checkout-tab">
+ <div class="top">
+   <div id="js-close-buy" class="close-btn"></div>
+   <div class="checkout-preview">
+     <div class="payform-border">
+      <%= image_tag 'payform_border.png'%>
+    </div>
+    <div class="payform-loading">
+      <%= image_tag 'checkout_preview_loader.gif'%>
+    </div>
+    <div class="clipParent product-image">
+     <%= image_tag "demo_thumb_preview.png",
+     crossorigin: '',
+     class: 'product-image',
+      data: {
+        "polyclip-clippreference" => "svg",
+        "polyclip-height" => "62",
+        "polyclip-width" => "109",
+        polyclip: "path:M90.908,20.802c-0.372-0.042-0.7-0.312-0.788-0.683
+        C87.135,8.549,76.636,0,64.138,0C53.744,0,44.736,5.904,40.273,14.538c-0.204,0.393-0.657,0.585-1.08,0.458
+        c-1.938-0.588-3.995-0.909-6.127-0.909c-11.679,0-21.148,9.468-21.148,21.149c0,0.002,0,0.005,0,0.007
+        c0.002,0.466-0.347,0.855-0.807,0.909C4.853,36.895,0.001,42.219,0.001,48.674c0,6.965,5.646,12.612,12.611,12.612h76.083
+        c11.213,0,20.305-9.084,20.305-20.303C109,30.515,101.08,21.904,90.908,20.802"
+      } %>
+    </div>
+  </div>
+  <div class='checkout-title'>
+    <h1> <%= @product.name %></h1>
+    <h2>by <span class="author"><%= @user.name %></span>
+    </div>
+  </div>
+
+  <div id="js-product-pay-tab" class="product-pay-tab">
+    <form id="js-checkout-form">
+     <div class="form-group">
+       <div class="envelope-icon email-row">
+        <%= image_tag "envelope_icon.png" %>
+        <input type="text" name="cc-email" class="cc-email"  placeholder="Your Email">
+      </div>
+    </div>
+    <div class="cc-row">
+      <p>Payment details</p>
+      <div class="form-group">
+        <div class="cc-icon r-a">
+         <%= image_tag "cc_icon.png" %>
+         <input type="text" name="cc-num" class="cc-num"  placeholder="Credit Card Number">
+       </div>
+     </div>
+     <div class="row form-group">
+       <div class="exp-input">
+         <div class="exp-icon">
+           <%= image_tag "exp_icon.png" %>
+           <input type="text" name="cc-exp" class="cc-exp" placeholder="MM/YY">
+         </div>
+       </div>
+       <div class="cvc-input">
+        <div class="cvc-icon">
+          <%= image_tag "lock_icon.png" %>
+          <input type="text" name="cc-cvc" class="cc-cvc"  placeholder="CVC">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions-section">
+    <div class="action">
+      <button id="js-pay-btn" type="submit" class="pay-btn">
+        <span class="pay-btn-text">Pay <%=  humanized_money_with_symbol  @product.price %></span>
+      </button>
+      <span class="processing-text"><%= image_tag 'btn_loading.gif' %></span>
+      <span class="pay-text">Pay <%=  humanized_money_with_symbol  @product.price %></span>
+      <span class="pay-success-text"><%= image_tag 'success.gif' %></span>
+      <span class="pay-error-text">Payment Not Accepted</span>
+    </div>
+
+    <div class="action-middleline">
+      <p><span>or pay with</span></p>
+    </div>
+    <div class="action">
+      <button id="js-paypal-btn" data-product-id="<%= @product.id %>"
+       class="paypal-btn">
+       <span class="paypal-btn-text"><%= image_tag 'paypal_btn_logo.png' %></span>
+       <span class="paypal-processing-text">Contacting Paypal<span>.</span><span>.</span><span>.</span></span>
+     </button>
+
+   </div>
+
+ </div>
+</form>
+</div>
+
+<div id="js-product-download-tab" class="product-download-tab">
+ <div class="message-box">
+  <h3>Thank you!</h3>
+  <p>Your purchase was successful.</p>
+  <p>Click the button below to download the product</p>
+</div>
+<div class="download-box">
+  <a href="#" class="pay-download-btn">Download</a>
+  <div class="download-middleline">
+    <p><span><span class="dw-counter">5</span> download remain</span></p>
+  </div>
+</div>
+<div class="unsubscribe-box">
+  <a href="#">unsubscribe from product updates</a>
+</div>
+</div>
+</div>

@@ -11,87 +11,135 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140422175006) do
+ActiveRecord::Schema.define(version: 20140924150146) do
 
-  create_table "customers", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "encrypted_password",     default: "",    null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "account_currency",       default: "USD"
-    t.string   "email_paypal"
-    t.boolean  "paypal_status"
-    t.string   "credit_card_token"
-    t.boolean  "credit_card_status"
-    t.text     "gateway_info"
+  create_table "coupons", force: true do |t|
+    t.integer  "product_id",             null: false
+    t.string   "code",                   null: false
+    t.integer  "discount"
+    t.integer  "avaiable"
+    t.integer  "used",       default: 0
+    t.datetime "expire"
+    t.string   "type"
+    t.string   "status"
   end
 
-  add_index "customers", ["email"], name: "index_customers_on_email", unique: true, using: :btree
-  add_index "customers", ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true, using: :btree
+  create_table "invites", force: true do |t|
+    t.string   "email"
+    t.string   "invitation_token"
+    t.string   "status"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+  end
+
+  add_index "invites", ["invitation_token"], name: "index_invites_on_invitation_token", unique: true, using: :btree
+
+  create_table "mailing_list_emails", force: true do |t|
+    t.integer  "mailing_list_id"
+    t.string   "subject"
+    t.text     "content"
+    t.datetime "sent_at"
+  end
+
+  create_table "mailing_lists", force: true do |t|
+    t.string   "name",                 null: false
+    t.integer  "user_id",              null: false
+    t.datetime "last_sent"
+    t.datetime "segment_from"
+    t.datetime "segment_to"
+    t.string   "mailchimp_list_id"
+    t.string   "mailchimp_list_name"
+    t.string   "createsend_list_id"
+    t.string   "createsend_list_name"
+  end
+
+  create_table "mailing_lists_products", force: true do |t|
+    t.integer "mailing_list_id"
+    t.integer "product_id"
+  end
 
   create_table "orders", force: true do |t|
-    t.integer  "product_id",                             null: false
-    t.string   "email"
-    t.string   "name"
-    t.string   "payment_type"
-    t.string   "payment_token"
-    t.integer  "amount_cents",       default: 0,         null: false
-    t.string   "amount_currency",    default: "USD",     null: false
-    t.string   "status",             default: "created"
-    t.string   "token",                                  null: false
-    t.integer  "n_downloads",        default: 0,         null: false
+    t.integer  "product_id",                              null: false
+    t.string   "token",                                   null: false
+    t.integer  "user_id",                                 null: false
+    t.string   "email",                                   null: false
+    t.string   "gateway",                                 null: false
+    t.string   "gateway_token"
+    t.text     "payment_details"
+    t.integer  "amount_cents",            default: 0,     null: false
+    t.string   "amount_currency",         default: "USD", null: false
+    t.integer  "amount_base_cents",       default: 0,     null: false
+    t.string   "status"
+    t.integer  "n_downloads",             default: 0
+    t.string   "cancel_reason"
+    t.string   "ip"
+    t.boolean  "buyer_accepts_marketing"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "cc_type"
-    t.integer  "amount_base_cents",  default: 0,         null: false
-    t.boolean  "email_subscription"
-  end
-
-  create_table "product_files", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "completed_at"
+    t.datetime "cancelled_at"
+    t.integer  "number"
   end
 
   create_table "products", force: true do |t|
-    t.string   "name"
+    t.string   "name",                           null: false
     t.text     "description"
+    t.integer  "price_cents",    default: 0,     null: false
+    t.string   "price_currency", default: "USD", null: false
+    t.string   "file_key",                       null: false
+    t.text     "file_info"
+    t.string   "slug",                           null: false
+    t.integer  "user_id",                        null: false
+    t.boolean  "published",      default: true
+    t.string   "preview"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "thumb_file_name"
-    t.string   "thumb_content_type"
-    t.integer  "thumb_file_size"
-    t.datetime "thumb_updated_at"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.integer  "price_cents",        default: 0,     null: false
-    t.string   "price_currency",     default: "USD", null: false
-    t.string   "slug"
-    t.text     "uuid"
+    t.integer  "sales_limit"
+    t.datetime "deleted_at"
+  end
+
+  add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
+  add_index "products", ["file_key"], name: "index_products_on_file_key", unique: true, using: :btree
+  add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
+  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
+
+  create_table "referrals", force: true do |t|
+    t.integer  "referer_id"
     t.integer  "user_id"
-    t.boolean  "published",          default: false
+    t.string   "amount"
+    t.string   "status"
+    t.datetime "completed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "referrals_payments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "leads_paid"
+    t.string   "payout"
+    t.string   "payout_currency"
+    t.string   "status"
+    t.string   "payment_token"
+    t.datetime "payed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
     t.string   "name",                                   null: false
+    t.string   "email",                                  null: false
+    t.string   "encrypted_password",                     null: false
+    t.string   "currency",                               null: false
+    t.boolean  "credit_card",            default: false
+    t.boolean  "paypal",                 default: false
+    t.text     "credit_card_info"
+    t.text     "paypal_info"
+    t.boolean  "email_after_sale",       default: true
+    t.string   "ga_code"
     t.text     "settings"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -104,13 +152,12 @@ ActiveRecord::Schema.define(version: 20140422175006) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.string   "currency",               default: "USD", null: false
-    t.boolean  "credit_card",            default: false
-    t.boolean  "paypal",                 default: false
-    t.text     "credit_card_info"
-    t.text     "paypal_info"
-    t.boolean  "email_after_sale",       default: true
-    t.string   "ga_code"
+    t.integer  "referer_id"
+    t.string   "mailchimp_token"
+    t.string   "createsend_token"
+    t.text     "custom_email_message"
+    t.string   "avatar"
+    t.string   "bio"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

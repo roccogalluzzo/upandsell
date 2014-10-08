@@ -12,6 +12,7 @@
 //= require jquery-file-upload/js/jquery.iframe-transport.js
 //= require jquery-file-upload/js/jquery.fileupload-process.js
 //= require jquery-file-upload/js/jquery.fileupload-image.js
+//= require jquery.payment/lib/jquery.payment.js
 //= require jquery.validation/jquery.validate.js
 //= require flat-ui-pro/js/bootstrap-switch.js
 //= require flat-ui-pro/js/bootstrap-select.js
@@ -19,7 +20,9 @@
 //= require raphael/raphael
 //= require morris.js/morris
 //= require zeroclipboard/ZeroClipboard.min.js
+//= require froala_editor.min.js
+//= require jquery-tags-input/jquery.tagsinput.js
+//= require typehead.js/dist/typeahead.bundle.min.js
 //= require_tree ./user
-
 
 $(document).ready(Up.init);

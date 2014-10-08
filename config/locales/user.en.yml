@@ -1,0 +1,6 @@
+en:
+  forms:
+    settings:
+      account:
+        name: "Name"
+        email: "Email"

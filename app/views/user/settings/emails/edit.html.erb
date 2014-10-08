@@ -1,0 +1,43 @@
+<% content_for(:page_title)  { "Emails Settings" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg fa-cogs"></i>
+Settings / <span>Emails</span>
+<% end %>
+<%= render partial: "user/settings/tabs" %>
+<div class="settings-emails">
+  <div class="row">
+    <div class="col-md-12">
+      <h5>Customize the email to send to your customers after sales</h5>
+     </div>
+   </div>
+     <%= simple_form_for current_user, url:  user_settings_emails_path, class: 'email-preview-form'  do |f| %>
+     <div class="email-preview-wrapper">
+      <div class="email-preview-box">
+        <div class="email-preview-head">
+        <%= f.input_field :subject, class: 'form-control input-lg', value: @subject %>
+        </div>
+        <div class="email-preview-body">
+           <%= f.input_field :text, as: :text, class: 'form-control text', value: @text %>
+          <div class="row">
+            <div class="btn-email">Download</div>
+            <p class="alt-link-email">https://upandsell.me/download/p/FRpCYQ8273Uw</p>
+          </div>
+          <div class="social-email">
+           <p>Let your friends know about your purchase!</p>
+           <center>
+           <a href="#" target="_blank"> <%= image_tag 'email_share.png' %></a>
+            <a href="#" target="_blank"> <%= image_tag 'email_tweet.png' %></a>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+ <div class="form-actions"><hr />
+   <%= button_tag(' Save Settings', type: 'submit', class: "btn btn-primary btn-form") %>
+    <%= button_tag(' Reset to Default', value: 'reset', type: 'submit', class: "btn btn-inverse btn-form") %>
+ </div>
+</div>
+<% end %>
+</div>
+</div>

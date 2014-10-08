@@ -1,0 +1,79 @@
+<% content_for(:page_title)  { "Products" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg icon-tag-2"></i>
+Products <span style="color: #888">(<%= Product.all.count %>)</span>
+<% end %>
+
+<div class="row p-b-15">
+ <%= simple_form_for :products, url: admin_products_path,
+ method: :get, html: { class: 'simple_form form-inline' } do |f|%>
+
+ <div class="col-md-10">
+
+  <div class="form-group">
+    <input name="q" type="text" class="m-l-10 flat form-control" style="width: 350px;"
+    placeholder="By Id, Name or author" value="<%= params[:q] %>">
+  </div>
+  <button type="submit" class="m-l-5 btn btn-primary">
+    <i class="fa fa-filter"></i>
+    Filter</button>
+  </div>
+
+  <% end %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="grid simple ">
+
+      <div class="grid-body ">
+
+
+        <table class="table table-condensed ">
+          <thead>
+            <tr role="row">
+              <th></th>
+              <th style="width:30%"
+              class="sorting_asc" rowspan="1" colspan="1">
+              Name</th>
+              <th style="width:25%"rowspan="1" colspan="1">
+               Author</th>
+               <th style="width:15%">N. Sales </th>
+
+               <th style="width:20%">Created at</th></tr>
+             </thead>
+
+             <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+
+               <% @products.each do |product| %>
+               <tr>
+                <td> <b>#<%= product.id %></b> </td>
+                <td> <%= product.name %></td>
+
+                <td> <%= product.user.name %> </td>
+                <td> <%= product.orders.count %> </td>
+                <td>
+                  <b><%= product.created_at.to_time.strftime('%e %b %Y - %H:%m:%S') %></b>
+
+                </td>
+                <td>
+                 <%# link_to "Refund", refund_product_order_path(order), :class => "btn btn-primary" %>
+               </td>
+
+
+             </tr>
+             <% end %>
+
+           </tbody></table>
+
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+   <div class="row">
+     <div class="col-md-offset-5 col-md-6">
+       <%= paginate @products %>
+     </div>
+   </div>

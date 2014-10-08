@@ -1,0 +1,81 @@
+<% content_for(:page_title)  { "Users" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg fa-users"></i>
+Users <span style="color: #888">(<%= User.all.count %>)</span>
+<% end %>
+
+<div class="row p-b-15">
+ <%= simple_form_for :users, url: user_orders_path,
+ method: :get, html: { class: 'simple_form form-inline' } do |f|%>
+
+ <div class="col-md-10">
+
+  <div class="form-group">
+    <input name="q" type="text" class="m-l-10 flat form-control" style="width: 350px;"
+    placeholder="By Id, Email or name" value="<%= params[:q] %>">
+  </div>
+  <button type="submit" class="m-l-5 btn btn-primary">
+    <i class="fa fa-filter"></i>
+    Filter</button>
+  </div>
+
+  <% end %>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="grid simple ">
+
+      <div class="grid-body ">
+
+
+        <table class="table table-condensed ">
+          <thead>
+            <tr role="row">
+              <th></th>
+              <th style="width:30%"
+              class="sorting_asc" rowspan="1" colspan="1">
+              Name</th>
+              <th style="width:25%"rowspan="1" colspan="1">
+               Email</th>
+               <th style="width:10%">N. Products</th>
+               <th style="width:15%">N. Sales(30 days) </th>
+
+               <th style="width:20%">Sign Up Date</th></tr>
+             </thead>
+
+             <tbody role="alert" aria-live="polite" aria-relevant="all">
+
+
+               <% @users.each do |user| %>
+               <tr>
+                <td> <b>#<%= user.id %></b> </td>
+                <td> <%= user.name %></td>
+
+                <td> <%= user.email %> </td>
+                <td> <%= user.products.count %> </td>
+                <td> 0 </td>
+                <td>
+                  <b><%= user.created_at.to_time.strftime('%e %b %Y - %H:%m:%S') %></b>
+
+                </td>
+                <td>
+                 <%# link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary" %>
+               </td>
+
+
+             </tr>
+             <% end %>
+
+           </tbody></table>
+
+         </div>
+       </div>
+     </div>
+   </div>
+
+
+   <div class="row">
+     <div class="col-md-offset-5 col-md-6">
+       <%= paginate @users %>
+     </div>
+   </div>

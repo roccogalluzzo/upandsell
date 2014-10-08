@@ -1,0 +1,32 @@
+<%= render partial: "user/tools/tabs" %>
+
+<div class="newsletter-send">
+  <div class="newsletter-send-title">
+    <h6> Send Email to: <b><%= @list.name %></b> <i><b><%= @list.subscribers %></b> subscribers</i></h6>
+  </div>
+  <div class="newsletter-send-content">
+    <%= simple_form_for [:user, :tools, @email] do |f|%>
+    <div class="form-group row">
+      <div class="col-md-7">
+        <%= f.input_field :subject, class: 'input-lg form-control', placeholder: 'Subject' %>
+      </div>
+      <div class="col-md-3">
+      <a href="#" class='btn btn-block btn-default'>Send Test Email</a>
+     </div>
+   <div class="col-md-2">
+    <%= f.button :submit, 'Send', class: 'btn btn-block btn-primary' %>
+  </div>
+</div>
+<div class="row">
+ <div id="edit">
+
+ </div>
+</div>
+</div>
+</div>
+<% end %>
+
+
+</div>
+
+

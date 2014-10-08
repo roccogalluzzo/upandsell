@@ -4,13 +4,24 @@ FactoryGirl.define do
   factory :product do
     name "Dummy product"
     price 300
-    file_file_name 'fsds'
+    sequence(:file_key) { |n| "uploads/temp/products/1/test#{n}.exe" }
     price_currency 'USD'
-    uuid {SecureRandom.uuid}
-    user
-  end
+    user_id 1
+    before(:create) do |instance|
+     Fog.mock!
+     aws =  Rails.application.secrets.aws
+     fog = ::Fog::Storage.new(
+       provider: 'AWS',
+       aws_access_key_id: aws["access_key_id"],
+       aws_secret_access_key: aws["secret_access_key"],
+       region: aws["region"]
+       )
+     fog.put_object(
+      aws["bucket"], instance.file_key, "test")
+   end
+ end
 
-  factory :product_with_orders, parent: :product do
+ factory :product_with_orders, parent: :product do
 
    ignore do
     orders 1

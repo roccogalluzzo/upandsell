@@ -1,0 +1,67 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://svcs.sandbox.paypal.com/Permissions/RequestPermissions
+    body:
+      encoding: UTF-8
+      string: '{"requestEnvelope":{"errorLanguage":"en_US"},"scope":["REFUND","ACCESS_BASIC_PERSONAL_DATA"],"callback":"http://www.example.com/user/settings/add_paypal_callback?gateway=paypal"}'
+    headers:
+      X-Paypal-Security-Userid:
+      - paypal-facilitator_api1.upandsell.me
+      X-Paypal-Security-Password:
+      - '1397145109'
+      X-Paypal-Application-Id:
+      - APP-80W284485P519543T
+      X-Paypal-Sandbox-Email-Address:
+      - paypal-facilitator@upandsell.me
+      X-Paypal-Security-Signature:
+      - AFcWxV21C7fd0v3bYYYRCpSSRl31AgtEdy0k9Q0TW737D.pzUB2OP6Ot
+      X-Paypal-Request-Data-Format:
+      - JSON
+      X-Paypal-Response-Data-Format:
+      - JSON
+      User-Agent:
+      - PayPalSDK/sdk-core-ruby 0.2.9 (paypal-sdk-core 0.2.9; ruby 2.1.1p76-x86_64-darwin13.0)
+      X-Paypal-Request-Source:
+      - permissions-ruby-sdk-1.96.3
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 06 Jun 2014 12:37:35 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Paypal-Message-Protocol:
+      - NONE
+      X-Paypal-Response-Data-Format:
+      - JSON
+      X-Ebay-Soa-Request-Id:
+      - 146712f2-a230-a486-d644-6d04ffffa4e5!Permissions!10.72.109.100![]
+      X-Paypal-Operation-Name:
+      - RequestPermissions
+      X-Paypal-Service-Name:
+      - "{http://svcs.paypal.com/types/perm}Permissions"
+      X-Paypal-Service-Version:
+      - 1.0.0
+      Content-Type:
+      - application/json;charset=UTF-8
+      Set-Cookie:
+      - Apache=10.72.109.11.1402058254870808; path=/; expires=Sun, 29-May-44 12:37:34
+        GMT
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '159'
+    body:
+      encoding: UTF-8
+      string: '{"responseEnvelope":{"timestamp":"2014-06-06T05:37:35.079-07:00","ack":"Success","correlationId":"d1108512f7139","build":"2210301"},"token":"AAAAAAAZ6uD5S3UMSgAQ"}'
+    http_version: 
+  recorded_at: Fri, 06 Jun 2014 12:37:35 GMT
+recorded_with: VCR 2.9.0

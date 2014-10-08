@@ -1,0 +1,119 @@
+<% content_for(:page_title)  { "Account Settings" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg fa-cogs"></i>
+Settings / <span>Account</span>
+<% end %>
+<%= render partial: "user/settings/tabs" %>
+
+<div class="settings-form">
+  <%= simple_form_for current_user, url:  user_settings_account_path  do |f| %>
+  <div class="form-row">
+    <div class="row-label">
+      <p>Avatar</p>
+    </div>
+    <div class="row-input">
+     <div id="preview" class="upload-box-preview-inner avatar-box"
+     data-preview-url="<%= current_user.avatar.url %>">
+   </div>
+
+   <div class="avatar-upload"><button id="js-preview-btn" class="btn btn-primary">Select</button></div>
+
+   <div class="overlay">
+    <%= f.input_field :avatar, id: 'file-input', accept: "image/*",
+    class: 'btn-preview input-thumb fileInput', id: 'js-preview-select' %>
+  </div>
+  <input type="hidden" id="local-preview-path" value="" />
+
+
+</div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+    <p>Email</p>
+  </div>
+  <div class="row-input">
+    <%= f.input_field :email,  placeholder: "Your Email" %>
+  </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+   <p>Name</p>
+ </div>
+ <div class="row-input">
+  <%= f.input_field :name,  placeholder: "Your Name"  %>
+</div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+    <p>Bio</p>
+  </div>
+  <div class="row-input">
+    <%= f.input_field :bio, as: :text,  placeholder: "Max 160 characters", rows: 5 %>
+  </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+    <p>Password</p>
+  </div>
+  <div class="row-input">
+    <%= f.input_field :password,  placeholder: "New Password"  %>
+    <div class="popover right">
+      <div class="arrow"></div>
+      <h3 class="popover-title">Smooth Title</h3>
+      <div class="popover-content">
+        Content goes here
+      </div>
+    </div>
+  </div>
+</div>
+<div id="password_confirmation" class="hid form-row">
+  <div class="row-label">
+  </div>
+  <div class="row-input">
+    <%= f.input_field :password_confirmation, placeholder: "Repeat New Password"  %>
+  </div>
+</div>
+<div id="current_password" class="hid form-row">
+  <div class="row-label">
+  </div>
+  <div class="row-input">
+    <%= f.input_field :current_password, placeholder: "Your Current Password"  %>
+  </div>
+</div>
+<div class="form-row">
+ <div class="row-label">
+   <p>Account Currency</p>
+ </div>
+ <div class="row-input">
+   <%= f.input_field :currency, collection: ['USD', 'EUR', 'GBP'] %>
+ </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+   <p>Emails after Sales</p>
+ </div>
+ <div class="row-input">
+   <%= f.check_box :email_after_sale, class: "switch", data:{toggle: "switch"} %>
+ </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+   <p>Google Analitycs Code</p>
+ </div>
+ <div class="col-md-3">
+   <%= f.input_field :ga_code,
+   placeholder:"UA-xxxxxx-x" %>
+ </div>
+</div>
+<div class="form-row">
+ <div class="form-actions"><hr />
+   <%= button_tag(type: 'submit', class: "btn btn-primary btn-form") do %>
+   <i class='fa fa-lg fa-lock hidden'>&nbsp; </i> Save Settings
+   <% end %>
+ </div>
+</div>
+<% end %>
+</div>
+</div>
+
+

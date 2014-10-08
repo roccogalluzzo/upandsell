@@ -1,0 +1,65 @@
+<%- title "Affiliations" %>
+<div class="col-md-12">
+  <!-- BEGIN MARKET SALES WIDGET -->
+  <div class="row tiles-container tiles white"  data-aspect-ratio="true">
+    <div class="col-md-9 b-grey b-r no-padding" style="height:382px">
+
+      <div class="p-l-45 p-t-20">
+
+        <div class="col-md-12 col-sm-12 no-padding text-center">
+        <h5 class="m-b-30"> Your affiliation link </h5>
+          <h3>https://upandsell.me/?ref=<%= current_user.id %></h3>
+        </div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      <div class="overlayer m-t-10 fullwidth b-t b-grey">
+        payments
+      </div>
+    </div>
+    <div class="col-md-3 no-padding text-center">
+
+      <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-b b-grey">
+
+        <p class="small-text">EARNIGS</p>
+
+        <div class="clearfix"></div>
+
+        <h4 class="sales-month semi-bold">  0 </h4>
+
+
+        <div class="clearfix"></div>
+      </div>
+      <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-b b-grey">
+
+        <p class="small-text">PENDING LEADS</p>
+
+        <div class="clearfix"></div>
+
+        <h4 class="visits-month semi-bold"><%= 0%></h4>
+
+
+        <div class="clearfix"></div>
+      </div>
+      <div class="p-l-15 p-r-15 p-b-10 p-t-10 b-grey">
+
+        <p class="small-text">CONFIRMED LEADS</p>
+
+        <div class="clearfix"></div>
+
+        <h4 class="semi-bold">0</h4>
+
+
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+   <div class="col-md-offset-5 col-md-6">
+     <%# paginate @orders %>
+   </div>
+ </div>

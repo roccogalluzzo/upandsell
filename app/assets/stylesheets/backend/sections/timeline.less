@@ -1,17 +1,136 @@
 .cbp_tmtimeline {
  &:before {
-   left: 4% !important;
+   left: 47px !important;
+   //height: 80vh;
  }
 }
 
-.cbp_tmtimeline > li .cbp_tmlabel {
-  margin: 0 0 15px 7% !important;
+.timeline {
+  .timeline-icon-current {
+    background: #d0eae7 !important;
+    box-shadow: 0 0 0 8px #DDF2F0  !important;
+    color: #ffffff !important;
+  }
+  .make-row();
+  ul {
+    .make-md-column(12);
+    .cbp_tmtimeline;
+    margin-top: 10px !important;
+  }
+  .cbp_tmicon {
+    left: 44px !important;
+    top: 6px !important;
+    width: 48px !important;
+    height: 48px !important;
+    margin: 0 0 0 -26px !important;
+    font-size: 51px !important;
+    line-height: 30px !important;
+    i {
+      font-size: 28px;
+      margin-right: 0 !important;
+    }
+  }
+  .cbp_tmlabel {
+    margin: 0 0 15px 87px !important;
+    padding: 0px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: #e3e3e3;
+    &:after {
+      top: 20px !important;
+      border-right-color:  #ecf0f1 !important;
+    }
+    .timeline-header {
+      width: 100%;
+      background-color: #f5f7f9 !important;
+      border-radius: 6px 6px 0 0;
+      border-bottom: 1px solid #e3e3e3;
+      h5 {
+        color: #595d64;
+        font-size: 18px;
+        text-align: center;
+        padding: 20px;
+        font-weight: 400;
+
+        margin: 0;
+        text-transform: uppercase;
+      }
+    }
+    .timeline-footer {
+      width: 100%;
+     // background-color: #F0F4F5;
+     border-radius: 6px 6px 0 0;
+     border-top: 2px solid @clouds;
+     padding-top: 20px;
+     margin-bottom: 0 !important;
+     text-align: center;
+     h5 {
+      color: @wet-asphalt;
+      font-size: 20px;
+      text-align: center;
+      padding: 20px;
+      //font-weight: 600;
+      margin: 0;
+      text-transform: uppercase;
+    }
+  }
+  .timeline-body {
+    padding: 15px;
+  }
 }
 
-.cbp_tmtimeline > li .cbp_tmicon {
 
- left: 4%;
+.filename {
+  font-size: 18px;
+  line-height: 43px;
+  margin: 0;
 }
-.cbp_tmtimeline {
-margin: 10px 0 0 0 !important;
+
+.product-form {
+  padding: 10px !important;
+}
+.show-product-box {
+  padding: 0px;
+}
+}
+
+.border-right {
+  border-right: 2px solid  @clouds;
+}
+
+.border-bottom {
+  border-bottom: 2px solid  @clouds;
+}
+
+.limit {
+  margin: 0 !important;
+}
+.setup-timeline {
+  .timeline;
+  .text-center;
+
+  .step-success {
+    margin: 0;
+    .text-success;
+  }
+  .email-section {
+    padding: 15px;
+    .form-inline {
+      margin-bottom: 14px;
+    }
+  }
+
+  .gateways-section {
+    padding: 15px;
+    .gateways-row {
+      .make-row();
+    }
+  }
+
+  .add-section {
+    padding: 30px 30px 20px 30px;
+    .gateways-row {
+      .make-row();
+    }
+  }
 }

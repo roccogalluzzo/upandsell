@@ -1,11 +1,15 @@
-<div id="page" class="col-md-12 ol-md-offset-3">
-  <div data-slidr="landing" class="section">
-    <%= render partial: "products/landing" %>
+<div id="product-page-wrapper">
+<div id="product-page-container">
+<div id="js-product" class="product-page-landing">
+  <%= render partial: "products/landing" %>
+</div>
+<div id="js-product-modal" class="product-page-buy">
+  <%= render partial: "products/modal" %>
+</div>
+</div>
+</div>
+ <div id="footer">
+    <span>powered by</span> <%= image_tag "footer_logo.png" %>
+    <p>    <%= link_to "privacy", privacy_path %> |   <%= link_to "terms of service", terms_path %></p>
   </div>
-</div>
-
-<div id="buy" style="display:none;">
- <%= render partial: "products/modal" %>
-</div>
-
 

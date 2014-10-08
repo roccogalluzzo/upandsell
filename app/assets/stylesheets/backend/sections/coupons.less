@@ -1,0 +1,61 @@
+
+.coupons-list {
+  margin-top: 20px;
+  .btn-send {
+    .btn-circle;
+    i {
+      right: 3px;
+      top: 9px !important;
+    }
+  }
+  .make-md-column(10);
+  .make-md-column-offset(1);
+  table {
+    .table;
+    .table-condensed;
+    thead {
+      tr > th {.text-center;}
+      .coupon-list-code {width: 15%}
+       .coupon-list-discount {width: 5%}
+      .coupon-list-product {width: 20%}
+      .coupon-list-counters { width: 15%;}
+      .coupon-list-valid-date { width: 10%;}
+      .coupon-list-status {width: 15%;}
+            .coupon-list-actions {width: 20%;}
+    }
+    tbody {
+      font-size: 16px;
+      .text-center;
+      .coupon-code {
+        font-weight: 600;
+        font-size: 17px;
+      }
+      .coupon-product {
+        font-size: 16px;
+      }
+      .coupon-counters {
+        font-size: 16px;
+      }
+      .coupon-actions {
+        font-size: 16px;
+      }
+      .coupon-valid-date {
+        .text-muted;
+        font-size: 16px;
+      }
+      .coupon-status {
+        font-size: 16px;
+        text-transform: uppercase;
+        .text-success;
+      }
+    }
+  }
+  .pagination {
+    .make-row();
+    &:first_child {
+      .make-md-column(6);
+      .make-md-column-offset(5);
+    }
+  }
+}
+

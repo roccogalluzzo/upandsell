@@ -4,12 +4,13 @@ FactoryGirl.define do
     sequence(:email) { |n| "person#{n}@byebye.com" }
     password '12345678'
     password_confirmation '12345678'
+    credit_card_token 'c22776f4745902e568b0532f73e5a723'
   end
 
 
   factory :user_with_products, parent: :user do
     ignore do
-      products 2
+      products 1
     end
 
     after(:create) do |user, evaluator|

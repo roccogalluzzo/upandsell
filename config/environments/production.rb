@@ -1,15 +1,19 @@
 Upandsell::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   config.action_mailer.smtp_settings = {
-    :address   => "smtp.mandrillapp.com",
-    :port      => 587, # ports 587 and 2525 are also supported with STARTTLS
-    :enable_starttls_auto => true, # detects and uses STARTTLS
-    :user_name => "rocco@upandsell.me",
-    :password  => "EMUgctJsZOqYlv09MXZUkA", # SMTP password is any valid API key
-    :authentication => 'login', # Mandrill supports 'plain' or 'login'
-    :domain => 'upandsell.me', # your domain to identify your server when connecting
+    address: 'smtp.mandrillapp.com',
+    port:     587, # ports 587 and 2525 are also supported with STARTTLS
+    enable_starttls_auto: true, # detects and uses STARTTLS
+    user_name: 'admin@upandsell.me',
+    password: Rails.application.secrets.mandrill['api_key'], # SMTP password is any valid API key
+    authentication: 'login', # Mandrill supports 'plain' or 'login'
+    domain: 'upandsell.me', # your domain to identify your server when connecting
   }
-   config.action_mailer.default_url_options = { :host => 'upandsell.me' }
+  config.action_mailer.default_url_options = { host: 'upandsell.me' }
+  #config.action_controller.asset_host = "dqivr59fnsgbe.cloudfront.net"
+
+  config.action_controller.asset_host = 'dqivr59fnsgbe.cloudfront.net'
+   config.action_mailer.asset_host = 'https://dqivr59fnsgbe.cloudfront.net'
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -30,7 +34,7 @@ Upandsell::Application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   config.serve_static_assets = false
- config.assets.precompile += %w( product.js product.css frontend.js frontend.css )
+  config.assets.precompile += %w( demo.js demo.css product.js product.css frontend.js frontend.css )
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -77,7 +81,7 @@ Upandsell::Application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
-  config.i18n.fallbacks = true
+config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify

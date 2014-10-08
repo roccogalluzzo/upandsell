@@ -1,13 +1,25 @@
-<%- title "Products" %>
+<% content_for(:page_title)  { "Products" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg icon-tag-2"></i>
+Products
+<% end %>
+<div class="row m-b-15">
+  <div class="col-md-offset-10 col-md-2">
+    <%= link_to(new_user_product_path, class: 'btn btn-primary') do %>
+    <i class="fa fa-lg fa-plus"></i>
+    New Product
+    <% end %>
+  </div>
+</div>
 <div class="row tiles-container  m-b-20">
   <div class="m-l-10 ">
     <div class="tiles white ">
      <% if @products.blank? %>
-     <div class="p-t-10 p-b-10 m-l-10 m-r-10">
-       <p class="text-center text-muted">No products Founds</p>
+     <div class="p-t-20 p-b-20 m-l-10 m-r-10">
+       <p class="text-center text-muted">No products yet</p>
        <p class="text-center">
         <%= link_to "Add One Now",
-        new_user_product_path, class: "btn btn-lg btn-add btn-primary" %>
+        new_user_product_path, class: "btn btn-add btn-primary" %>
       </p>
     </div>
     <% else %>
@@ -16,7 +28,7 @@
       <div class="post row">
         <div class="col-md-1">
          <img class="product-image img-rounded"
-         src="<%= product.thumb.url(:small) %>"
+         src="<%= product.preview.thumb.url %>"
          style="height: 60px; width: 60px;">
        </div>
 
@@ -33,7 +45,7 @@
       <i class="fa icon-link"></i>
       <% end %>
       <%= link_to edit_user_product_path(product), class: 'btn-circle' do %>
-      <i class="fa  icon-wrench-fill"></i>
+      <i class="fa  icon-pencil"></i>
       <% end %>
     </div>
 
@@ -41,10 +53,11 @@
 </div>
 <% end %>
 <% end %>
+<div class="row">
+  <div class="col-md-offset-5 col-md-2 text-center">
+   <%= paginate @products %>
+ </div>
 </div>
-<div class="tiles white text-center p-t-5 p-b-5 ">
- <%= paginate @products %>
 </div>
 </div>
 </div>
-

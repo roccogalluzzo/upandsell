@@ -1,5 +1,53 @@
-<p>Welcome <%= @resource.name %>!</p>
+<% content_for :title do %>
+Email Confirmation - Up&amp;Sell.Me
+<% end %>
+<% content_for :h1 do %>
+Welcome <%= @resource.name %>!
+<% end %>
+<% content_for :msg do %>
+ You can confirm your account email through the link below:
+<% end %>
 
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @token) %></p>
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="text-pad box-btn">
+      <div><!--[if mso]>
+  <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml"
+   xmlns:w="urn:schemas-microsoft-com:office:word"
+   href="<%= confirmation_url(@resource, :confirmation_token => @token) %>"
+   style="height:50px;v-text-anchor:middle;width:150px;" arcsize="12%" stroke="f" fillcolor="#53aede">
+    <w:anchorlock/>
+    <center>
+      <![endif]-->
+      <a href="<%= confirmation_url(@resource, :confirmation_token => @token) %>"
+        style="background-color:#53aede;border-radius:6px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:15px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:150px;-webkit-text-size-adjust:none;">Confirm Account</a>
+  <!--[if mso]>
+    </center>
+  </v:roundrect>
+  <![endif]--></div>
+</td>
+<td class="expander"></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<table class="row" style="margin-bottom: 10px;">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="text-pad box-alt-link">
+            <a  class="box-alt-link" href="<%= confirmation_url(@resource, :confirmation_token => @token) %>">
+           <%= confirmation_url(@resource, :confirmation_token => @token) %></a>
+          </p>
+        </td>
+        <td class="expander"></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>

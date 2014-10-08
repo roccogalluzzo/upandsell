@@ -14,6 +14,12 @@
     "momentjs": "latest",
     "infinite-scroll": "latest",
     "zeroclipboard": "latest",
-    "jquery.transit": "latest"
+    "jquery.transit": "latest",
+    "jquery-tags-input": "latest",
+    "typehead.js": "latest",
+    "animateCSS": "latest",
+    "jquery-simulate-ext": "latest",
+    "ScrollMagic": "latest",
+    "jquery.cookie": "latest"
   }
 }

@@ -1,17 +1,22 @@
-<div class="col-md-6 col-md-offset-3 sign-box">
-<div class="head">
-	<h2>Sign in</h2>
-	</div>
-	<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :defaults => { :input_html => { :class => "form-control input-xlarge" }}, :html => {:novalidate => true}) do |f| %>
-	<%= f.error_notification %>
-	<div class="form-group">
-		<%= f.input_field :email, :autofocus => true, :novalidate => true,
-		placeholder: "Your Email" %>
-	</div>
-	<div class="form-group">
-		<%= f.input_field :password, placeholder: "Your Password" %>
-	</div>
-		<%= f.button :submit, "Sign in", class: "btn btn-sign-in btn-lg btn-block btn-primary" %>
-	<% end %>
-	<small><%= link_to "Forget your Password ?", new_user_password_path %></small>
+<div class="sign-box">
+    <div class="head">
+      <h3>Sign in</h3>
+    </div>
+<div class="body">
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), class: 'sign-form') do |f| %>
+    <input name="user[referer_id]" value="<%= @ref %>" type="hidden">
+    <div class="form-group">
+      <%= f.input_field :email, required: true, autofocus: true,
+      placeholder: "Your Email"
+      %>
+    </div>
+    <div class="form-group">
+      <%= f.input_field :password, minlength: "6", required: true, placeholder: "Your Password" %>
+    </div>
+    <%= f.button :submit, "Sign in", class: "btn-submit" %>
+    <% end %>
+    <div class="sign-box-links">
+    <small><%= link_to "Forget your Password ?", new_user_password_path %></small>
+    </div>
+  </div>
 </div>

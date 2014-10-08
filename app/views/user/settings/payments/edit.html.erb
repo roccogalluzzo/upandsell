@@ -1,0 +1,27 @@
+<% content_for(:page_title)  { "Payment Settings" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg fa-cogs"></i>
+Settings / <span>Payments</span>
+<% end %>
+<%= render partial: "user/settings/tabs" %>
+<div class="settings-payments">
+  <div class="row-payments">
+    <div class="payment-switch">
+      <%# f.check_box :paypal_status, as: :boolean, data: {toggle: 'switch'}, label: false %>
+      <input type="checkbox" <%= 'checked' if current_user.paypal %> data-toggle="switch" data-type="paypal" />
+    </div>
+    <%= image_tag "paypal_logo.gif", class: 'payment-logo' %>
+    <%= link_to ( current_user.paypal_email ? "Connected" : "Connect"), paypal_integration_path,
+    class: 'payment-connect', disabled:( current_user.paypal_email ? true : false) %>
+  </div>
+
+  <div class="row-payments">
+    <div class="payment-switch">
+      <%# f.check_box :credit_card_status, as: :boolean, data: {toggle: 'switch'}, label: false %>
+      <input type="checkbox" <%= 'checked' if current_user.credit_card %> data-toggle="switch" data-type="paymill" />
+    </div>
+    <%= image_tag "paymill.png", class: 'pull-right' %>
+
+  </div>
+</div>
+

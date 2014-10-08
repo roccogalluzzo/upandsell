@@ -1,0 +1,80 @@
+<%= render partial: "user/tools/tabs" %>
+<div class="row">
+  <div class="col-md-2">
+    <a href="#" class="btn btn-block btn-primary"> New Coupon</a>
+  </div>
+
+  <div class="col-md-10">
+   <p>Use coupons for your products. Create a code, set a
+    discount, define quantity and duration and start using them in your
+    marketing activities.</p>
+  </div>
+
+</div>
+
+<div class=" m-t-40 coupons-list">
+
+  <table>
+    <thead>
+      <tr>
+        <th class="coupon-list-code">Code</th>
+        <th class="coupon-list-discount">Off</th>
+        <th class="coupon-list-product">Product</th>
+        <th class="coupon-list-counters">Avaiable/Used</th>
+        <th class="coupon-list-valid-date">Valid Until</th>
+        <th class="coupon-list-status">Status</th>
+        <th class="coupon-list-actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if !@list.blank? %>
+      <tr><td colspan="6"><p class="text-center text-muted">No coupons founds</p></td></tr>
+      <% else %>
+      <tr>
+        <td class="coupon-code">CIAONELLY</td>
+        <td> -3%</td>
+        <td class="coupon-product">Prodotto Uno</td>
+        <td class="coupon-counters"><b>100</b>/30</td>
+        <td class="coupon-valid-date"> 12/10/2015</td>
+        <td class="coupon-status"> Running </td>
+        <td class="coupon-actions">
+         <a href="#" class="btn-circle">
+           <i class="fa fa-pause"></i>
+         </a>
+         <a href="#" class="btn-circle">
+           <i class="fa fa-trash-o"></i>
+         </a>
+         <a href="#" class="btn-circle">
+           <i class="fa fa-pencil"></i>
+         </a>
+       </td>
+       <tr>
+        <tr>
+          <td class="coupon-code">CIAONELLY</td>
+          <td> -30%</td>
+          <td class="coupon-product">Prodotto Uno</td>
+          <td class="coupon-counters"><b>100</b>/30</td>
+          <td class="coupon-valid-date"> 12/10/2015</td>
+          <td class="coupon-status"> Running </td>
+          <td class="coupon-actions">
+           <a href="#" class="btn-circle">
+             <i class="fa fa-pause"></i>
+           </a>
+           <a href="#" class="btn-circle">
+             <i class="fa fa-trash-o"></i>
+           </a>
+           <a href="#" class="btn-circle">
+             <i class="fa fa-pencil"></i>
+           </a>
+         </td>
+
+         <tr>
+           <% end %>
+         </tbody>
+       </table>
+       <div class="pagination">
+         <div>
+           <%# paginate @orders %>
+         </div>
+       </div>
+     </div>
