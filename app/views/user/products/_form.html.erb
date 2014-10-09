@@ -9,7 +9,7 @@
           </div>
           <div class="timeline-body">
            <div class="upload-box <% if !@product.new_record? %>  hid <% end %>">
-            <form action="https://<%= Rails.configuration.aws["bucket"] %>.s3.amazonaws.com" method="POST"
+            <form action="<%= Rails.configuration.aws["bucket_url"] %>" method="POST"
               enctype="multipart/form-data" class="direct-upload">
               <input type="hidden" name="success_action_status" value="201">
               <div class="overlay">
