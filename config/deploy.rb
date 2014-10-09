@@ -50,14 +50,3 @@ namespace :deploy do
   end
 
 end
-
-<<<<<<< HEAD
-after :finishing, 'deploy:cleanup'
-after :finishing, 'deploy:restart'
-after :finishing, 'sidekiq:restart'
-after :finishing, 'deploy:currency_db'
-end
-=======
-
-
->>>>>>> staging
