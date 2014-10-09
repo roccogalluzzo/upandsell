@@ -23,7 +23,12 @@ class CheckoutsController < ApplicationController
   end
 
   def paypal
-    url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
+     if Rails.env.production?
+           url = "https://www.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
+         else
+           url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
+         end
+
     product = Product.find(params[:product_id])
 
     order = PaymentService.new('paypal').pay(product,
