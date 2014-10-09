@@ -18,3 +18,4 @@ ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEsta
 ActiveRecord::Base.establish_connection(ENV["DATABASE_URL"] || YAML.load_file("#{cwd}/config/database.yml")[ENV["RACK_ENV"]])
 end
 
+User.create!({:name => "Rocco Galluzzo", :credit_card_gateway => 'paymill', :email => "rocco@upandsell.me", :password => "sanandreas88", :password_confirmation => "sanandreas88" })
