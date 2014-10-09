@@ -8,7 +8,4 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :createsend, secrets.createsend['client_id'], secrets.createsend['client_secret'],
   scope: 'ManageLists ImportSubscribers',  provider_ignores_state: true
 
-  provider :paymill, secrets.paymill['client_id'], secrets.paymill['client_secret'],
-  scope: secrets.paymill['scope'], provider_ignores_state: true
-
 end
