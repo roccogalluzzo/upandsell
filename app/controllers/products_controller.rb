@@ -11,9 +11,9 @@ class ProductsController < ApplicationController
     register_visit(@product)
     @title = @product.name
     @user = User.find(@product.user_id)
-    @paypal = @user.paypal
+    @paypal = @user.paypal_active?
     @ga_code = @user.ga_code
-    @credit_card = @user.credit_card
+    @credit_card = @user.credit_card_active?
     @published = true if (@paypal || @credit_card) && @product.published
     return if !@published
 

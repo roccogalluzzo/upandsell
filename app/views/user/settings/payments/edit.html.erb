@@ -5,23 +5,68 @@ Settings / <span>Payments</span>
 <% end %>
 <%= render partial: "user/settings/tabs" %>
 <div class="settings-payments">
-  <div class="row-payments">
-    <div class="payment-switch">
-      <%# f.check_box :paypal_status, as: :boolean, data: {toggle: 'switch'}, label: false %>
-      <input type="checkbox" <%= 'checked' if current_user.paypal %> data-toggle="switch" data-type="paypal" />
-    </div>
-    <%= image_tag "paypal_logo.gif", class: 'payment-logo' %>
-    <%= link_to ( current_user.paypal_email ? "Connected" : "Connect"), paypal_integration_path,
-    class: 'payment-connect', disabled:( current_user.paypal_email ? true : false) %>
-  </div>
+  <%= simple_form_for current_user, url:  user_settings_payments_path  do |f| %>
 
   <div class="row-payments">
     <div class="payment-switch">
-      <%# f.check_box :credit_card_status, as: :boolean, data: {toggle: 'switch'}, label: false %>
-      <input type="checkbox" <%= 'checked' if current_user.credit_card %> data-toggle="switch" data-type="paymill" />
+      <%= f.check_box :paypal, as: :boolean, data: {toggle: 'switch', type: 'paypal'}, label: false %>
     </div>
-    <%= image_tag "paymill.png", class: 'pull-right' %>
-
+    <div class="payment-box paypal-box">
+      <%= image_tag "paypal_logo.gif", class: 'payment-logo' %>
+      <%= link_to ( current_user.paypal_email ? "Connected" : "Connect"), paypal_integration_path,
+      class: 'payment-connect', disabled:( current_user.paypal_email ? true : false) %>
+    </div>
   </div>
+
+  <div class="row-payments" style="border:none; padding-top: 40px;">
+    <div class="payment-switch">
+      <%= f.check_box :credit_card, as: :boolean, data: {toggle: 'switch', type: 'cc'}, label: false %>
+    </div>
+    <div class="payment-box cc-form-box">
+      <div class="logos-box">
+        <%= image_tag "payments_logo.png", class: 'pull-right' %>
+      </div>
+      <div class="row">
+        <div class="payments-form">
+
+          <div class="form-row">
+            <div class="row-label">
+              <p>Gateway</p>
+            </div>
+            <div class="row-input">
+            <%= f.input_field :credit_card_gateway, collection: ['Paymill'],
+            selected: 'Paymill' %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="row-label">
+              <p>Live Key</p>
+            </div>
+            <div class="row-input">
+              <%= f.input_field :credit_card_public_token %>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="row-label">
+             <p>Live Secret Key</p>
+           </div>
+           <div class="row-input">
+            <%= f.input_field :credit_card_token  %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="row-payments" style="border:none;">
+ <div class="form-actions"><hr />
+   <%= button_tag(type: 'submit', class: "btn btn-primary btn-form") do %>
+   <i class='fa fa-lg fa-lock hidden'>&nbsp; </i> Save Settings
+   <% end %>
+ </div>
+</div>
+<% end %>
 </div>
 

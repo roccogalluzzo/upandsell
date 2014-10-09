@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   length: { is: 13 }, format: {with:/[Uu][Aa]-\d{8}-\d/,
   message: "Google Analitycs Code Not Valid." }
 
+  validates :credit_card_gateway, inclusion: { in: %w(Paymill Stripe Braintree) }
   has_many :orders
   has_many :products
   has_many :referrals
@@ -45,9 +46,16 @@ class User < ActiveRecord::Base
   end
 
   serialize_payment_info :paypal, :email, :token, :token_secret
-  serialize_payment_info :credit_card, :token, :public_token, :response
+  serialize_payment_info :credit_card, :token, :public_token, :gateway
 
 
+  def credit_card_active?
+    true if self.credit_card && !self.credit_card_gateway.blank? && !self.credit_card_token.blank? && !self.credit_card_public_token.blank?
+  end
+
+  def paypal_active?
+    true if self.paypal && !self.paypal_email.blank?
+  end
 
   def admin?
     Rails.application.secrets.admins.include?(email)
@@ -56,14 +64,6 @@ class User < ActiveRecord::Base
   def send_welcome_email
     UserMailer.delay.welcome_email(self)
   end
-
-def connect_credit_card(data)
-  self.credit_card = true
-  self.credit_card_token = data.credentials.token
-  self.credit_card_public_token = data.extra.raw_info.public_key
-  self.credit_card_response = data.extra.raw_info
-  self.save
-end
 
 def connect_paypal(email, token, token_secret)
   self.paypal = true

@@ -6,6 +6,9 @@ class Providers::Createsend
     @user.createsend_token = {access_token: access_token, refresh_token: refresh_token}
     @user.save
   end
+  rescue_from CreateSend::BadRequest do |ex|
+    return true
+  end
 
   def initialize(user_id)
     @user = User.find(user_id)
@@ -26,27 +29,15 @@ class Providers::Createsend
     emails.each do |email|
       batch << {EmailAddress: email}
     end
-    res = CreateSend::Subscriber.import(@cs.auth_details, list_id, batch, false)
+    CreateSend::Subscriber.import(@cs.auth_details, list_id, batch, false)
   end
 
   def subscribe(list_id, email)
+    CreateSend::Subscriber.add(@cs.auth_details, list_id, email, '', '', false)
   end
 
-  def self.unsubscribe(list_id, email)
+  def unsubscribe(list_id, email)
+    CreateSend::Subscriber.new(@cs.auth_details, list_id, email).unsubscribe
   end
-
-  def self.create_list(user_id, list_name)
-    cs = get_api(user_id)
-    list = CreateSend::List.create(cs.auth_details, cs.clients.first.ClientID, list_name,
-      'https://upandsell.me/', false, 'https://upandsell.me/')
-    byebug
-    list
-  end
-
-
-
-
-
-
 
 end
