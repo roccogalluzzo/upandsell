@@ -1,7 +1,9 @@
 pidfile '/tmp/puma.pid'
 bind 'unix:///tmp/upandsell.sock'
 
-threads 0, 6
+workers 2
+
+threads 0, 8
 
 stdout_redirect 'log/puma.log', 'log/puma_error.log', true
 port        ENV['PORT']     || 3000
