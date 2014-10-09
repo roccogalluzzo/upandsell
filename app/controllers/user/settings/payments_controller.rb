@@ -4,24 +4,12 @@ class User::Settings::PaymentsController < User::BaseController
   end
 
   def update
-    if params[:type] == 'paypal' && current_user.paypal_email
-      current_user.update_without_password(paypal: params[:value])
-    end
-    if params[:type] == 'paymill' && current_user.credit_card_token
-      current_user.update_without_password(credit_card: params[:value])
-    end
-    render json: {msg: 'success'}
+    current_user.update_without_password(payment_params)
+    redirect_to edit_user_settings_payments_path, alert: 'Payments Info Updated.'
   end
 
   def paypal_connect
     redirect_to Gateways::Paypal.connect_url(paypal_integration_callback_url) and return
-  end
-
-  def paymill_callback
-    if current_user.connect_credit_card(auth_hash)
-      redirect_to edit_user_settings_payments_path, notice: 'Gateway Connected' and return
-    end
-    redirect_to edit_user_settings_payments_path, alert: 'Error during request processing. Try Again'
   end
 
   def paypal_callback
@@ -39,6 +27,10 @@ end
 
 private
 def payment_params
-  params.require(:user).permit(:credit_card, :paypal)
+  params.require(:user).permit(
+    :credit_card, :paypal,
+    :credit_card_gateway,
+    :credit_card_public_token,
+    :credit_card_token )
 end
 end

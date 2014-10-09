@@ -15,11 +15,11 @@ class MailingListsService
   end
 
   def subscribe(list_id, email)
-    @provider.subscribe(list_id, email)
+    @provider.subscribe(@token, list_id, email)
   end
 
   def unsubscribe(list_id, email)
-    @provider.unsubscribe(list_id, email)
+    @provider.unsubscribe(@token, list_id, email)
   end
 end
 

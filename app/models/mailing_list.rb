@@ -7,11 +7,7 @@ class MailingList < ActiveRecord::Base
   after_create :sync
 
   def subscribers
-    counter = 0
-    self.products.each do |p|
-      counter += p.orders.completed.count
-    end
-    counter
+    self.emails.count
   end
 
   def emails
@@ -39,10 +35,10 @@ class MailingList < ActiveRecord::Base
   private
   def sync
     if !self.mailchimp_list_name.blank? && self.mailchimp_list_id
-      MailingListSync.new.perform(self.id, 'mailchimp')
+      MailingListSync.perform_async(self.id, 'mailchimp')
     end
     if !self.createsend_list_name.blank? && self.createsend_list_id
-      MailingListSync.new.perform(self.id, 'createsend')
+      MailingListSync.perform_async(self.id, 'createsend')
     end
   end
 
