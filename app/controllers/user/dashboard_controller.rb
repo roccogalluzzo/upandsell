@@ -7,7 +7,7 @@ class User::DashboardController < User::BaseController
 
     @visits = visits[:visits]
     @sales = sales[:sales]
-    @conversion_rate = 10000 #conversion_rate(@visits, @sales)
+    @conversion_rate = conversion_rate(@visits, @sales)
     @earnings = get_earnings(sales)
 
   end
