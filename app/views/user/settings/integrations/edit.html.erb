@@ -6,7 +6,7 @@ Settings / <span>Integrations</span>
 <%= render partial: "user/settings/tabs" %>
 <div class="settings-payments">
   <div class="row-payments">
-    <%= image_tag "mailchimp-dark.png", class: 'payment-logo' %>
+    <%= image_tag "mailchimp-dark.png", class: 'payment-logo', style: 'width: 285px;' %>
     <%= link_to ( current_user.mailchimp_token ? "Connected" : "Connect"), '/auth/mailchimp',
     class: 'payment-connect', disabled:( current_user.mailchimp_token ? true : false) %>
   </div>
