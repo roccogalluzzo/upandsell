@@ -10,6 +10,7 @@ class Admin::InvitesController < Admin::BaseController
     invite.email = params[:invite][:email]
     invite.status = 'sending'
     if invite.save
+        UserMailer.delay.invite_email(invite.id)
       return redirect_to admin_invites_path, notice: 'Invite was created.'
     end
     return redirect_to admin_invites_path, notice: 'Error: Invite not created.'
