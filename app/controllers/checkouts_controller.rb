@@ -16,6 +16,7 @@ class CheckoutsController < ApplicationController
     if order && order.status == 'completed'
       url = download_product_url(order.token)
       update_user_products(product.id, order.token)
+      order.send_emails
       render json: { url: url, token: order.token }, status: :ok and return
     end
     render json: {error: order}, status: :unauthorized and return
@@ -61,6 +62,7 @@ class CheckoutsController < ApplicationController
       if order && order.status != 'refunded' && params["status"].downcase == "completed"
         order.status = 'completed'
         order.email = params["sender_email"]
+        order.send_emails
         head(:ok) if order.save
       end
     end
