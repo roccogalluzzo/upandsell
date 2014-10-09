@@ -4,7 +4,7 @@ class Order < ActiveRecord::Base
   STATUS_NAMES = %w(created completed refunded)
   belongs_to :product
   belongs_to :user
-  monetize :amount_cents
+  monetize :amount_cents, with_model_currency: :amount_currency
   scope :completed, -> { where status: 'completed' }
   scope :email_starts_with, -> (query) { where("email like ?", "%#{query}%")}
   validates :status, inclusion: { in: STATUS_NAMES }
