@@ -16,7 +16,8 @@ class User < ActiveRecord::Base
   length: { is: 13 }, format: {with:/[Uu][Aa]-\d{8}-\d/,
   message: "Google Analitycs Code Not Valid." }
 
-  validates :credit_card_gateway, inclusion: { in: %w(Paymill Stripe Braintree) }, :allow_nil => true
+  validates :credit_card_gateway, inclusion: { in: %w(Paymill Stripe Braintree) }, allow_blank: true
+
   has_many :orders
   has_many :products
   has_many :referrals
