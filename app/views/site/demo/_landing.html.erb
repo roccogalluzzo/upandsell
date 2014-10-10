@@ -1,82 +1,109 @@
-<div id="js-product" class="product-page">
-  <div class="product-page-body">
-    <div class="share-box">
-     <a href="#" class="email-btn">
-      <span class="logo"><i class="fa fa-envelope"></i></span>
-      <span class="text">Email</span>
-    </a>
-    <a href="#" class="twitter-btn">
+<div class="product-page-body">
+  <div class="share-box">
+    <a id="js-twitter-btn" href=" javascript: void(0)"
+    onclick="window.open(
+      '<%= URI.escape(
+      "https://twitter.com/intent/tweet?text=#{@product.name} https://upandsell.me/demo") %>',
+      'share','toolbar=0,status=0,width=600,height=305')"
+      class="twitter-btn">
       <span class="logo"><i class="fa fa-twitter"></i></span>
       <span class="text">Tweet</span>
-      <span class="counter">13</span>
     </a>
-    <a href="#" class="fb-btn">
-      <span class="logo"><i class="fa fa-facebook"></i></span>
-      <span class="text">Share</span>
-      <span class="counter">123</span>
-    </a>
-  </div>
-  <div class="preview-image">
-    <%= image_tag 'demo_preview.png' %>
-  </div>
-  <div class="hidden-xs landing-description">
-   <h1><%= @product.name %> </h1>
-   <h6>by <span class="product-author"><%= @user.name %></span></h6>
-   <p><%= @product.description %></p>
- </div>
+    <a id="js-facebook-btn" href=" javascript: void(0)"
+    onclick="window.open(
+    '<%=  URI.escape("https://www.facebook.com/sharer/sharer.php?u=https://upandsell.me/demo&title=#{@product.name}")%>',
+    'share','toolbar=0,status=0,width=600,height=305')"
+    class="fb-btn">
+    <span class="logo"><i class="fa fa-facebook"></i></span>
+    <span class="text">Share</span>
+    <span class="counter">0</span>
+  </a>
+</div>
+<% if @product.preview %>
+<div class="preview-image">
+  <%= image_tag 'demo_preview.png' %>
+</div>
+<% end %>
+<div class="hidden-xs landing-description">
+ <h1><%= @product.name %> </h1>
+ <h6>by <span class="product-author"><%= @user.name %></span></h6>
+ <p><%= @product.description %></p>
+</div>
 
- <div class="product-actions-box">
-   <div class="product-price-box">
-     <div class="hid coupon-label">
-       <span class="vertical-text">Coupon</span>
-     </div>
-     <%
-     symbol = @product.price.symbol
-     price = @product.price.format(no_cents: true ,symbol: false)
-     cents =  @product.price.format(symbol: false).last(2)
-     %>
-     <div class="product-price">
-       <span>
-         <%= "#{symbol} #{price}" %><span class='cents'>.<%= cents %></span>
-       </span>
-     </div>
+<div class="product-actions-box">
+ <div class="product-price-box">
+   <div class="hid coupon-label">
+     <span class="vertical-text">Coupon</span>
    </div>
+   <%
+   symbol = @product.price.symbol
+   price = @product.price.format(no_cents: true ,symbol: false)
+   cents =  @product.price.format(symbol: false).last(2)
+   %>
+   <div class="product-price">
+     <span>
+       <%= "#{symbol} #{price}" %><span class='cents'>.<%= cents %></span>
+     </span>
+   </div>
+ </div>
 
 
-   <div class="product-actions">
-     <div class="downloads-box <%= 'hidden' if !@downloadable %>">
-      <%# link_to 'Download', download_product_path(@token), class: "btn-link-download" %>
-      <a id="js-download-btn" href="<%= @download_url %>" class="download-btn">Download</a>
-      <div class="download-middleline">
-        <p><span><span id="js-download-counts" class="dw-counter">5</span> download remain</span></p>
-      </div>
-    </div>
-    <div class="buy-box <%= 'hidden' if @downloadable %>">
-      <% if @paypal and !@credit_card %>
-      <a id="js-buy-paypal-btn" data-product-id="<%= @product.id %>" href="#paypal" class="buy-btn">Buy Now</a>
-      <% else %>
-      <a id="js-buy-btn" href="#" class="buy-btn">Buy Now</a>
-      <% end %>
+ <div class="product-actions">
+   <div class="downloads-box <%= 'hidden' if !@downloadable %>">
+    <a target="_blank" href="https://s3-eu-west-1.amazonaws.com/upandsell-s3/tom-sawyer-mark-twain.pdf" class="pay-download-btn download-btn">Download</a>
+    <div class="download-middleline">
+      <p><span><span class="dw-counter js-download-counter"><%= 5 - @downloads %></span> download remain</span></p>
     </div>
 
   </div>
-
-  <div class="visible-xs landing-description">
-   <h1><%= @product.name %> </h1>
-   <h6>by <span class="product-author"><%= @user.name %></span></h6>
-   <p><%= @product.description %></p>
- </div>
- <div class="product-info">
+  <div class="buy-box <%= 'hidden' if @downloadable %>">
+    <a id="js-buy-btn" href="#" class="buy-btn">Buy Now</a>
+  </div>
+</div>
+<div class="visible-xs landing-mobile-social">
+  <a href="<%= URI.escape(
+  "https://twitter.com/intent/tweet?text=#{@product.name} https://upandsell.me/demo") %>" class="twitter-btn">
+  <span class="logo"><i class="fa fa-twitter"></i></span>
+  <span class="text">Tweet</span>
+</a>
+<a href="<%= URI.escape("https://www.facebook.com/sharer/sharer.php?u=https://upandsell.me/demo&title=#{@product.name}") %>" class="fb-btn">
+  <span class="logo"><i class="fa fa-facebook"></i></span>
+  <span class="text">Share</span>
+  <span class="counter">0</span>
+</a>
+</div>
+<div class="visible-xs landing-description">
+  <h1><%= @product.name %> </h1>
+  <h6>by <span class="product-author"><%= @user.name %></span></h6>
+  <p><%= @product.description %></p>
+</div>
+<div class="product-info">
   <ul>
-    <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe"><a href="#">unsubscribe from product updates</a></li>
+    <li class="<%= 'hidden' if !@downloadable %> l-unsubscribe">
+      <% if @accept_marketing%>
+      <a class="js-unsubscribe-order" href="#">unsubscribe from product updates</a>
+      <% else %>
+      <a class="js-unsubscribe-order disabled" href="#">Unsubscribed from product updates</a>
+      <% end %>
+    </li>
     <li><b>Size</b>
       <span><%= number_to_human_size @product.file_size %></span></li>
       <li> <b>Type</b>
         <span><%= @product.extension.upcase %></span></li>
+        <% if @product.sales_limit %>
         <li> <b>Avaiable</b>
-          <span>4 Items</span>
-        </ul>
-      </div>
-    </div>
-  </div>
+          <span><%= @product.sales_limit %> Items</span>
+        </li>
+        <% end %>
+      </ul>
+      <div class="product-seller">
+        <h5>Created By:</h5>
+        <%= image_tag 'mark_twain.jpg', class: 'seller-pic' %>
+        <h6><%= @user.name %></h6>
+        <p>
+         <%= @user.bio %>
+       </p>
+     </div>
+   </div>
+ </div>
 </div>

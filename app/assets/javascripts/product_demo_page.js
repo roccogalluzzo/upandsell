@@ -4,28 +4,52 @@
   ProductDemoPage.init = function() {
     ProductDemoPage.Events.init();
     ProductDemoPage.Form.init();
+    opts.productId = $('#js-checkout-tab').data('product-id');
+    ProductDemoPage.Social.init();
+    $('.pay-download-btn').on('click', function(){
+      var num =  parseInt($('.js-download-counter').first().text(), 10);
+      if(num == 0) {
+       $('.pay-download-btn').prop("href", '#')
+       return false;
+     }
+     $('.js-download-counter').text(num - 1);
+   });
   };
 
+  ProductDemoPage.Social = {
+    init: function() {
+      var url = document.URL;
+      var facebookCount = 'https://graph.facebook.com/fql?q=SELECT share_count FROM link_stat WHERE url="' + url + '"';
+      $.getJSON( facebookCount, {
+      })
+      .done(function( data ) {
+        console.log(data.data)
+        $('.fb-btn').find('.counter').text(data.data[0].share_count);
+      });
+    }
+  }
 
   ProductDemoPage.Form = {
     init: function() {
-  $('input.cc-exp').payment('formatCardExpiry');
+      $('input.cc-num').payment('formatCardNumber');
+      $('input.cc-exp').payment('formatCardExpiry');
       $('input.cc-cvc').payment('formatCardCVC');
-      ProductDemoPage.Animations.simulateCheckout();
       ProductDemoPage.Form.setValidation();
     },
-    submit: function() {
+    submit: function(event){
       ProductDemoPage.Animations.show_form_processing();
-      if( !$(".cc-email").val() ) {
-        window.setTimeout(  ProductDemoPage.Animations.show_form_error, 3000 );
-      }else{
-        window.setTimeout(  ProductDemoPage.Animations.show_form_success, 3000 );
-      }
-      return false;
-    },
+      window.setTimeout(ProductDemoPage.Form.success, 1500);
+        return false;
+      },
 
-    validationErrors: function(errorMap, errorList) {
 
+      success: function(data) {
+       $('.downloads-box').removeClass('hidden');
+       $('.l-unsubscribe').removeClass('hidden');
+       $('.buy-box').addClass('hidden');
+       ProductDemoPage.Animations.show_form_success();
+     },
+     validationErrors: function(errorMap, errorList) {
       $.each(this.validElements(), function (index, element) {
         var $element = $(element);
         $element.data("title", "")
@@ -54,13 +78,13 @@
   $('#js-checkout-form').validate({
     submitHandler: ProductDemoPage.Form.submit,
     rules : {
-      "cc-num" : {
+      "cc-num" : { ccNumberValid : true,
         required: true
       },
-      //"cc-email": {
-      //  required: true,
-      //  email: true
-     // },
+      "cc-email": {
+        required: true,
+        email: true
+      },
       "cc-exp": {
         required: true,
         ccExpValid: true
@@ -79,114 +103,99 @@
 
 ProductDemoPage.Events = {
   init: function() {
-    $("#js-coupon-btn").on('click', ProductDemoPage.Animations.show_coupon_form);
     $("#js-buy-btn").on('click', ProductDemoPage.Animations.show_buy_page);
-    $("#js-paypal-btn").on('click', ProductDemoPage.Animations.show_paypal_processing);
     $("#js-close-buy").on('click', ProductDemoPage.Animations.show_product_page);
-    $("#js-coupon-apply").on('submit', ProductDemoPage.Events.couponApply);
+    $('.js-unsubscribe-order').on('click',  ProductDemoPage.Events.order_unsubscribe);
   }
 };
 
 ProductDemoPage.Animations = {
-   show_buy_page: function() {
-    $(".product-modal").slideUp(400, 'swing');
-    $(".product-page-buy").slideDown(400, 'swing');
-    if (polyClip.isOldIE) {
-      jQuery(window).bind('load', polyClip.init);
-    } else {
-      jQuery(document).ready(polyClip.init);
-    }
-    $(document).on("preview_draw", function() {
-       $('.product-image').fadeIn(500);
-      $('.payform-loading').fadeOut(1500);
-      $('.checkout-preview').animate({top: 0}, 1000, function(){
-        $('.checkout-title h1').fadeIn(400);
-       $('.checkout-title h2').fadeIn(400);
-     });
-    });
-  },
-  show_product_page: function() {
-    $(".product-modal").slideDown(400, 'swing');
-    $(".product-page-buy").slideUp(400, 'swing');
-  },
-  show_download_tab: function() {
-    $("#js-product-download-tab").slideDown(400, 'swing');
-    $("#js-product-pay-tab").slideUp(400, 'swing');
-  },
-  show_form_processing: function() {
-    img = $(".processing-text img");
-    img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
-    $("#js-pay-btn .pay-btn-text").fadeOut(function() {
-      $(this).html($('.processing-text').html());
-    }).fadeIn(500);
-    $("#js-pay-btn").prop('disabled', true);
-  },
-  show_paypal_processing: function() {
-    $("#js-paypal-btn .paypal-btn-text").fadeOut(function() {
-      $('.paypal-processing-text').fadeIn(500);
-    });
-    $("#js-paypal-btn").prop('disabled', true);
-  },
-  show_form_success: function() {
-    img = $(".pay-success-text img");
-    img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
-    $("#js-pay-btn .pay-btn-text").fadeOut(function() {
-      $(this).html($('.pay-success-text').html());
-      $("#js-pay-btn").addClass('pay-success-btn');
-    }).fadeIn(500);
-    window.setTimeout(  ProductDemoPage.Animations.show_download_tab, 1900 );
-  },
-  show_form_error: function() {
-   $("#js-pay-btn .pay-btn-text").fadeOut(function() {
-    $(this).html($('.pay-error-text').html());
-    $("#js-pay-btn").addClass('pay-error-btn');
-  }).fadeIn(500);
-   window.setTimeout(function(){
-     $("#js-pay-btn .pay-btn-text").fadeOut(function() {
-      $(this).html($('.pay-text').html());
-      $("#js-pay-btn").prop('disabled', false);
-      $("#js-pay-btn").removeClass('pay-error-btn');
-    }).fadeIn(500);
-   }, 3500 );
+  show_buy_page: function() {
+   ProductDemoPage.Animations.simulateCheckout();
+   $('#product-page-wrapper').scrollTo('#js-product-modal', 800);
+   ProductDemoPage.Animations.show_checkout_preview();
+   $('#js-product').fadeTo(500, 0);
+   $('#js-product').css('height',1);
+   $('#js-product-modal').fadeTo(500, 1);
+
  },
- show_coupon_form: function() {
-  $("#js-coupon-form").slideDown(300);
-  $("#js-coupon-btn").slideUp(300);
+ show_product_page: function() {
+  $('#js-product').css('height','100%');
+  $('#product-page-wrapper').scrollTo('#js-product', 800);
+  $('#js-product').fadeTo(500, 1);
+  $('#js-product-modal').fadeTo(500, 0);
 },
-show_coupon_form_success: function() {
-  $(".coupon-accepted").slideDown(400);
-  $(".coupon-label").fadeIn(400);
-  $("#js-coupon-btn").slideUp(400);
+show_checkout_preview: function() {
+  if (polyClip.isOldIE) {
+    jQuery(window).bind('load', polyClip.init);
+  } else {
+    jQuery(document).ready(polyClip.init);
+  }
+  var top_animations = 0;
+  if ($(".top").css("padding-top") == "20px" ){
+    top_animations = 28;
+  }
+  $(document).on("preview_draw", function() {
+   $('.product-image').fadeIn(500);
+   $('.payform-loading').fadeOut(1500);
+   $('.checkout-preview').animate({top: top_animations}, 1000, function(){
+    $('.checkout-title h1').fadeIn(400);
+    $('.checkout-title h2').fadeIn(400);
+  });
+ });
 },
-show_coupon_form_error: function() {
-  $(".coupon-invalid").slideDown(400);
-  $("#js-coupon-btn").slideUp(400);
-  window.setTimeout(function(){
-    $(".coupon-invalid").slideUp(400);
-    $("#js-coupon-form").slideDown(400);
-  }, 1500);
+show_download_tab: function() {
+  $("#js-product-download-tab").slideDown(400, 'swing');
+  $("#js-product-pay-tab").slideUp(400, 'swing');
+},
+show_form_processing: function() {
+  img = $(".processing-text img");
+  img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
+  $("#js-pay-btn .pay-btn-text").fadeOut(function() {
+    $(this).html($('.processing-text').html());
+  }).fadeIn(500);
+  $("#js-pay-btn").prop('disabled', true);
+},
+show_form_success: function() {
+  img = $(".pay-success-text img");
+  img.prop('src', img.prop('src').replace(/\?.*$/,"")+"?x="+Math.random());
+  $("#js-pay-btn .pay-btn-text").fadeOut(function() {
+    $(this).html($('.pay-success-text').html());
+    $("#js-pay-btn").addClass('pay-success-btn');
+  }).fadeIn(500);
+  window.setTimeout(  ProductDemoPage.Animations.show_download_tab, 1900 );
 },
 simulateCheckout: function(){
- window.setTimeout(function(){
+  console.log('ffi');
+  window.setTimeout(function(){
 
    window.setTimeout(function(){
      $('input.cc-num').simulate("key-sequence",
-      {sequence: '4111 1111 1111 1111', delay: 200});
-   }, 1300);
+      {sequence: '4111111111111', delay: 150});
+   }, 800);
 
    window.setTimeout(function(){
      $('input.cc-exp').simulate("key-sequence",
-      {sequence: '120', delay: 200});
-   }, 5200);
+      {sequence: '120', delay: 150});
+   }, 4100);
 
    window.setTimeout(function(){
 
      $('input.cc-cvc').simulate("key-sequence",
-      {sequence: '123', delay: 200});
-   }, 6400);
+      {sequence: '123', delay: 150});
+   }, 5800);
  }, 1000);
 }
+
 };
 
+ProductDemoPage.download = function() {
+ ProductDemoPage.Modal.set('download');
+ $('.btn-link-download').on('click', function(){
+   rd =  parseInt($('#js-download-counts').text());
+   $('#js-download-counts').text(rd > 0 ? rd - 1: rd )
+ });
+ $('#js-btn-buy').on('click', ProductDemoPage.Modal.open);
+}
 
 }(jQuery, window.ProductDemoPage = window.ProductDemoPage || {}));

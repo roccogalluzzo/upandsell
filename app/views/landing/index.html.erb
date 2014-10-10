@@ -27,8 +27,8 @@
         </script>
       </head>
       <body class="home">
-      <%= render partial: 'layouts/site/cookie_alert' %>
-       <div id="wrap">
+        <%= render partial: 'layouts/site/cookie_alert' %>
+        <div id="wrap">
          <%= render partial: 'layouts/site/header' %>
          <div id="header">
           <div class="container">
@@ -36,7 +36,7 @@
               <div class="inner-header">
                 <h1 class="animated fadeInUp">Sell your  digital products, easily.</h1>
                 <h2 class="animated fadeInUp">Fastest way to sell music, ebooks, software
-                or any other downloadable product.</h2>
+                  or any other downloadable product.</h2>
                   <% if @beta %>
                   <div class="row invite-form">
                     <%= simple_form_for :invite, url:  beta_request_path, class: 'invite-form', remote: true do |f| %>
@@ -99,7 +99,7 @@
               Simple. Isn't it?
             </p>
             <p>
-             <a class="btn-trydemo" href="#">Try Demo</a>
+             <%= link_to 'Try Demo', demo_path, class: 'btn-trydemo',  target: '_blank' %>
            </p>
          </div>
          <div class="section-illustration">
