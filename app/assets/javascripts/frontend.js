@@ -19,10 +19,11 @@ $(document).ready(function() {
   }
 
   if($('body').hasClass('home')){
+
    $(".invite").on("ajax:success", function(e, data, status, xhr){
     $(".invite-form").slideUp();
     $("#js-beta-invite-sent").show().slideDown();
-
+    ga('send', 'event', 'form', 'beta_requested');
   });
    $(".invite").on("ajax:error", function(e, data, status, xhr){
      $(".form-error p").text(data.responseJSON.msg);
