@@ -1,7 +1,7 @@
 class User::ProductsController < User::BaseController
 
   def index
-    @products = nil #current_user.products.page(params[:page]).per(3)
+    @products = current_user.products.page(params[:page]).per(3)
   end
 
   def new
