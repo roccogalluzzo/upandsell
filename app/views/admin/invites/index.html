@@ -19,44 +19,28 @@
  </div>
  <div class="newsletter-list m-t-20">
 
-  <table>
+ <table>
     <thead>
       <tr>
-        <th class="list-name">Email</th>
-        <th class="subscribers">Status</th>
-        <th class="last-update">Created At</th>
-        <th class="actions"></th>
+        <th style="width:65%">Email</th>
+        <th class="subscribe">Status</th>
+        <th class="last-date">Created At</th>
+        <th class="actns"></th>
       </tr>
     </thead>
     <tbody id="js-mailing-list">
      <% if @invites.blank? %>
      <tr><td colspan="4"><p class="text-center text-muted">No invites founds</p></td></tr>
      <% else %>
-     <% @invites.each do |invite| %>
-     <tr>
-
-      <td> <%= invite.email %></td>
-
-      <td> <%= invite.status %> </td>
-      <td>
-       <b><%= invite.invitation_created_at.to_time.strftime('%e %b %Y - %H:%m:%S') %></b>
-      </td>
-      <td>
-       <%= link_to "Send",   send_invite_admin_invite_path(invite), :class => "btn btn-primary", remote: true,
-        data: {disable_with: 'Sending...'} %>
-     </td>
-
-
-   </tr>
-   <% end %>
-   <% end %>
- </tbody>
-</table>
-<div class="pagination">
- <div>
-   <%# paginate @orders %>
+     <%= render @invites %>
+     <% end %>
+   </tbody>
+ </table>
+ <div class="row">
+   <div class="col-md-6 col-md-offset-5">
+     <%= paginate @invites %>
+   </div>
  </div>
-</div>
 </div>
 
 

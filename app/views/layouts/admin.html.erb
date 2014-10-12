@@ -87,7 +87,7 @@
           <% end %>
         </li>
         <li class="<%= ac('invites') %>">
-          <%= link_to  admin_invites_path do %>
+          <%= link_to  admin_invites_path(status: 'sent') do %>
           <i class="fa  fa-lg fa-w fa-send"></i>
           <span>Invites</span>
           <% end %>

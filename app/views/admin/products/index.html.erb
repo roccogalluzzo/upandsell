@@ -31,15 +31,16 @@ Products <span style="color: #888">(<%= Product.all.count %>)</span>
         <table class="table table-condensed ">
           <thead>
             <tr role="row">
-              <th></th>
-              <th style="width:30%"
+              <th class="sorting_asc" style="width: 3%;" rowspan="1" colspan="1">#</th>
+              <th style="width:20%"
               class="sorting_asc" rowspan="1" colspan="1">
               Name</th>
-              <th style="width:25%"rowspan="1" colspan="1">
+              <th style="width:15%"rowspan="1" colspan="1">
                Author</th>
-               <th style="width:15%">N. Sales </th>
+               <th style="width:7%">N. Sales </th>
 
-               <th style="width:20%">Created at</th></tr>
+               <th style="width:10%">Created at</th>
+                 <th style="width:9%">Actions</th></tr>
              </thead>
 
              <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -57,7 +58,8 @@ Products <span style="color: #888">(<%= Product.all.count %>)</span>
 
                 </td>
                 <td>
-                 <%# link_to "Refund", refund_product_order_path(order), :class => "btn btn-primary" %>
+                 <%= link_to "Download", product.url, :class => "btn btn-primary" %>
+                 <%= link_to "View", product_slug_path(product.slug), :class => "btn btn-primary" %>
                </td>
 
 

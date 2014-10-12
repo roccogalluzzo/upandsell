@@ -5,6 +5,9 @@ class Invite < ActiveRecord::Base
   validates :email, email: true
   validates :email, uniqueness: true
   validates :email, presence: true
+  scope :waiting, -> { where status: 'waiting' }
+  scope :used, -> { where status: 'used' }
+  scope :sent, -> { where status: 'sent' }
   private
   def set_attributes
     self.invitation_created_at = Time.now
