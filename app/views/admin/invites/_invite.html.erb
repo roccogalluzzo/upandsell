@@ -6,7 +6,9 @@
    <b><%= invite.invitation_created_at.to_time.strftime('%e %b %Y - %H:%m:%S') %></b>
  </td>
  <td>
+   <% unless invite.status == 'used' %>
    <%= link_to "Send",   send_invite_admin_invite_path(invite), :class => "btn btn-primary", remote: true,
    data: {disable_with: 'Sending...'} %>
+   <% end %>
  </td>
 </tr>
