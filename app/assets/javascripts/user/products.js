@@ -4,6 +4,10 @@
  function init_settings() {
   settings = { form: $(".product")};
 }
+Products.Index = function() {
+  Products.init();
+  ProductsList.init();
+};
 
 Products.New = function() {
   Products.init();

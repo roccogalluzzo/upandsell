@@ -141,32 +141,11 @@
 
         <div class="product-actions-menu">
           <a href="#" class="edit-product"><i class="icon-pencil fa-2x"></i></a>
-          <% unless  @product.new_record?  %>
-          <%= link_to user_product_path(@product), method: :delete,
-          class: "", data: {confirm: "Are you sure?"} do %>
-          <i class="fa fa-2x icon-trash"></i>
-          <% end %>
-
-          <%
-          if @product.published
-           btn_text = "Unpublish"
-           btn_with = "Unpublishing..."
-         else
-          btn_text = "Publish"
-          btn_with = "Publishing..."
-        end
-        %>
-      <%# link_to btn_text, toggle_published_user_product_path(@product),
-      remote: true,
-      data: {with: btn_with},
-      class: "m-r-5 btn btn-warning toggle-published" %>
-
-      <% end %>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-</div>
+  </div>
 </div>
 </li>
 <li class="share-section">

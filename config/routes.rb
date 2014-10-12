@@ -52,6 +52,7 @@ namespace :user do
   resources :products, except: [:show] do
     post 'upload'
     get 'toggle_published',  on: :member
+    get 'share', on: :member
   end
 
   resources :orders, only: [:index] do
