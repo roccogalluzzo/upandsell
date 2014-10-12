@@ -32,6 +32,9 @@ class Order < ActiveRecord::Base
   end
 end
 
+  def product
+    Product.unscoped { super }
+  end
 
 def self.confirm_unsubscribe(id, type, signature)
   unsubscribe(id, type, signature)
