@@ -137,7 +137,7 @@ function fileChanged(id, file_key) {
 }
 function bindCancel(action, istance){
  if(action){
-  el.btn.bind( 'click.abort',function(e)
+  $('#js-btn-upload-action').bind( 'click.abort',function(e)
   {
     istance.abort();
     e.preventDefault();
@@ -182,6 +182,7 @@ function fileFail(e, data) {
   bindCancel(false);
   Upload.Animations.change();
   Upload.Animations.progressBar(0);
+  $('.uploading-box').hide(400);
 }
 function fileProgress(e, data) {
   Upload.Animations.progressBar(parseInt(data.loaded / data.total * 100, 10));
