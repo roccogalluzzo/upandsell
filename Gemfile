@@ -12,6 +12,8 @@ gem "devise-async"
 gem 'paypal-sdk-adaptivepayments'
 gem 'paypal-sdk-permissions'
 gem 'paymill'
+gem 'stripe'
+gem 'braintree'
 gem 'money-rails'
 gem 'monetize'
 gem 'aws-sdk'
