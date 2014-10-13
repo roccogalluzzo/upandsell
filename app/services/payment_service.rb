@@ -19,12 +19,12 @@ class PaymentService
     status: payment[:status])
 
    if !order.save
-    return false
-  end
-  order
-end
+     return false
+   end
+   order
+ end
 
-def refund(token, amount, user_id)
+ def refund(token, amount, user_id)
   @gateway.refund(token, amount, user_id)
 end
 end

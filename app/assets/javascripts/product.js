@@ -10,9 +10,4 @@
 //= require jquery.validation/jquery.validate.js
 //= require jquery.payment/lib/jquery.payment.js
 //= require product_page
-$(document).ready(function() {
-
- ProductPage.init();
-
- $.getScript('https://bridge.paymill.com/');
-});
+$(document).ready(ProductPage.init);

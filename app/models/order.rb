@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
 
   def refund
     if self.gateway != 'paypal'
-     service = PaymentService.new('paymill')
+     service = PaymentService.new(self.gateway)
    else
     service = PaymentService.new('paypal')
   end

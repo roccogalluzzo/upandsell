@@ -9,8 +9,10 @@ class CheckoutsController < ApplicationController
 
   def pay
     product = Product.find(params[:product_id])
-
-    order = PaymentService.new('paymill')
+    unless params[:gateway] == 'paymill' || params[:gateway] == 'stripe' || params[:gateway] == 'braintree'
+      render json: {error: order}, status: :unauthorized and return
+    end
+    order = PaymentService.new(params[:gateway])
     .pay(product, { email: params[:email], token: params[:token]})
 
     if order && order.status == 'completed'
@@ -23,75 +25,75 @@ class CheckoutsController < ApplicationController
   end
 
   def paypal
-     if Rails.env.production?
-           url = "https://www.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
-         else
-           url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
-         end
+   if Rails.env.production?
+     url = "https://www.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
+   else
+     url = "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey="
+   end
 
-    product = Product.find(params[:product_id])
+   product = Product.find(params[:product_id])
 
-    order = PaymentService.new('paypal').pay(product,
-    {
-      cancel_url: product_url(id: product.id, payment: 'failed'),
-      return_url: checkout_check_payment_url(id: product.id)
-      })
+   order = PaymentService.new('paypal').pay(product,
+   {
+    cancel_url: product_url(id: product.id, payment: 'failed'),
+    return_url: checkout_check_payment_url(id: product.id)
+    })
 
-    if order
-      render json: { url:  url + order.gateway_token }, status: :ok and return
-    end
-
-    render json: {}, status: :unprocessable_entity
+   if order
+    render json: { url:  url + order.gateway_token }, status: :ok and return
   end
 
-  def download
-    order = Order.where(token: params[:token]).first
-    if order.n_downloads < 5 && order.status == 'completed'
-      redirect_to order.product.url
-      order.increment!(:n_downloads)
+  render json: {}, status: :unprocessable_entity
+end
+
+def download
+  order = Order.where(token: params[:token]).first
+  if order.n_downloads < 5 && order.status == 'completed'
+    redirect_to order.product.url
+    order.increment!(:n_downloads)
+    return
+  end
+  head(:unauthorized)
+end
+
+def unsubscribe_order_updates
+  order = Order.where(token: params[:token]).first
+  order.buyer_accepts_marketing = false
+  order.save
+  render json: {}, status: :ok
+end
+
+def ipn
+  if PayPal::SDK::Core::API::IPN.valid?(request.raw_post)
+    order = Order.find_by_gateway_token(params["pay_key"])
+    if order && order.status != 'refunded' && params["status"].downcase == "completed"
+      order.status = 'completed'
+      order.email = params["sender_email"]
+      order.send_emails
+      head(:ok) if order.save
+    end
+  end
+
+end
+
+def check_paypal_payment
+ tries ||= 5
+ if payment_completed?(params[:payKey])
+  redirect_to download_url(params[:payKey])
+  return
+else
+  5.times do
+    sleep(2)
+    if payment_completed?(params[:payKey])
+      redirect_to download_url(params[:payKey])
       return
     end
-    head(:unauthorized)
   end
-
-  def unsubscribe_order_updates
-    order = Order.where(token: params[:token]).first
-    order.buyer_accepts_marketing = false
-    order.save
-    render json: {}, status: :ok
-  end
-
-  def ipn
-    if PayPal::SDK::Core::API::IPN.valid?(request.raw_post)
-      order = Order.find_by_gateway_token(params["pay_key"])
-      if order && order.status != 'refunded' && params["status"].downcase == "completed"
-        order.status = 'completed'
-        order.email = params["sender_email"]
-        order.send_emails
-        head(:ok) if order.save
-      end
-    end
-
-  end
-
-  def check_paypal_payment
-   tries ||= 5
-   if payment_completed?(params[:payKey])
-    redirect_to download_url(params[:payKey])
-    return
-  else
-    5.times do
-      sleep(2)
-      if payment_completed?(params[:payKey])
-        redirect_to download_url(params[:payKey])
-        return
-      end
-    end
-    Rails.logger.error "Paypal Error after buy from #{request.remote_ip} - paykey: #{params[:payKey]}"
-    UserMailer.paypal_error_email(params[:payKey], request.remote_ip)
-    @title = "Paypal Error"
-    render 'paypal_error'
-  end
+  Rails.logger.error "Paypal Error after buy from #{request.remote_ip} - paykey: #{params[:payKey]}"
+  UserMailer.paypal_error_email(params[:payKey], request.remote_ip)
+  @title = "Paypal Error"
+  render 'paypal_error'
+end
 end
 
 def download_url(pay_key)

@@ -9,22 +9,21 @@ module Gateways::Paymill
     pay = Paymill::Transaction.create(
       amount: product.price_cents,
       currency: product.price_currency.upcase,
-      payment: payment.id
-      )
+      payment: payment.id)
     return {token: pay.id, card_type: pay.payment['card_type'], status: 'completed'}
   end
 
-  def self.subscribe(token)
-    Paymill.api_key = '6770e56d99744c81f414d04aa1c7a162'
-    client = Paymill::Client.create(email: current_user.email)
-    payment = Paymill::Payment.create(token: token, client: client.id)
-    Paymill::Subscription.create(client: client.id,
-      offer: "offer_6f6badd18f9ebdc5fa58",
-      payment: payment.id)
+  def self.refund(token, amount, user_id)
+    Paymill.api_key = User.find(user_id).credit_card_token
+    Paymill::Refund.create id: token, amount: amount
   end
 
-  def self.refund(token, amount, user_id)
-   Paymill.api_key = User.find(user_id).credit_card_token
-   a= Paymill::Refund.create id: token, amount: amount
+  def self.subscribe(token)
+   Paymill.api_key = '6770e56d99744c81f414d04aa1c7a162'
+   client = Paymill::Client.create(email: current_user.email)
+   payment = Paymill::Payment.create(token: token, client: client.id)
+   Paymill::Subscription.create(client: client.id,
+    offer: "offer_6f6badd18f9ebdc5fa58",
+    payment: payment.id)
  end
 end
