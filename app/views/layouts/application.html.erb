@@ -7,31 +7,30 @@
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script type="text/javascript">
+    Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
+    <% if Rails.env.production? ||  Rails.env.staging? %>
+    WebFontConfig = {
+      google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
+    };
+    (function() {
+      var wf = document.createElement('script');
+      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+    })();
+    <% end %>
+  </script>
   <%= stylesheet_link_tag "application" %>
    <!--[if lte IE 9]>
         <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script>
         <![endif]-->
-        <%= javascript_include_tag "application" %>
         <%= csrf_meta_tag %>
-        <script type="text/javascript">
-          Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
-          <% if Rails.env.production? ||  Rails.env.staging? %>
-          WebFontConfig = {
-            google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
-          };
-          (function() {
-            var wf = document.createElement('script');
-            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-            wf.type = 'text/javascript';
-            wf.async = 'true';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(wf, s);
-          })();
-          <% end %>
-        </script>
       </head>
       <body>
 
@@ -178,5 +177,6 @@ UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right
 UserVoice.push(['autoprompt', {}]);
 </script>
 <% end %>
+<%= javascript_include_tag "application" %>
 </body>
 </html>
