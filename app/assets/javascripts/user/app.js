@@ -9,10 +9,8 @@
      $('.selectpicker').selectpicker('val', $("select").data('selected'));
    }
 
-
    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
    var page = Utils.getPage();
-console.log(page);
    try {
      window[page.controller.capitalize()][page.action.capitalize()]();
    } catch(e) {
