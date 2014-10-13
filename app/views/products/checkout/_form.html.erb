@@ -1,6 +1,9 @@
 <form id="js-checkout-form" data-cc="<%= @credit_card %>"
+  <% if @credit_card %>
   data-gateway="<%= @user.credit_card_gateway.downcase %>"
-  data-public-key="<%= @product.user.credit_card_public_token %>">
+  data-public-key="<%= @product.user.credit_card_public_token %>"
+  <% end %>
+  >
   <div class="form-group">
    <div class="envelope-icon email-row">
     <%= image_tag "envelope_icon.png" %>
