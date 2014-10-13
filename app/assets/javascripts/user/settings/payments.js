@@ -1,9 +1,14 @@
 (function ($, Payments, undefined) {
 
  Payments.Edit = function() {
-  if( $(this).data('type') == 'paypal'){
-    // TODO
-  }
-
+  console.log('ff')
+  $("[data-toggle='switch']").on('change', function(event, state) {
+    if( $(this).data('type') == 'paypal'){
+      $('.paypal-box').toggleClass('unfocus')
+    }
+    if( $(this).data('type') == 'cc'){
+      $('.cc-form-box').toggleClass('unfocus')
+    }
+  });
 }
 }(jQuery, window.Payments = window.Payments || {}));
