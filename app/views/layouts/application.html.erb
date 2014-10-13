@@ -11,21 +11,18 @@
   <%= javascript_include_tag "application" %>
   <script type="text/javascript">
     Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
-    <% if Rails.env.production? ||  Rails.env.staging? %>
-    WebFontConfig = {
-      google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
-    };
-    (function() {
-      var wf = document.createElement('script');
-      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-      wf.type = 'text/javascript';
-      wf.async = 'true';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(wf, s);
-    })();
-    <% end %>
   </script>
+  <% if Rails.env.production? ||  Rails.env.staging? %>
+  <script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script type="text/javascript">
+    Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
+    WebFont.load({
+      google: {
+       families: [ 'Open+Sans:400,300,600,700:latin' ]
+     }
+   });
+  </script>
+  <% end %>
    <!--[if lte IE 9]>
         <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
