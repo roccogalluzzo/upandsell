@@ -2,12 +2,12 @@ class User::Tools::MailingListsController < User::BaseController
 
   def index
     @mailing_list = MailingList.new
-    @list = MailingList.all
+    @list = MailingList.where(user_id: current_user.id)
   end
 
   def new
     @mailing_list = MailingList.new
-    @list = MailingList.all
+    @list = MailingList.where(user_id: current_user.id)
     respond_to do |format|
       format.js { render :partial => "form" }
     end
@@ -49,20 +49,20 @@ class User::Tools::MailingListsController < User::BaseController
 
   def createsend_clients
    render json: Providers::Createsend.new(current_user.id).clients
-  end
+ end
 
-    def createsend_lists
+ def createsend_lists
    render json: Providers::Createsend.new(current_user.id).lists(params[:cs_client_id])
-  end
+ end
 
-  private
-  def ml_params
-    params.require(:mailing_list).permit(:name,
-      :mailchimp_list_name,
-      :mailchimp_list_id,
-      :createsend_list_id,
-       :createsend_list_name)
-  end
+ private
+ def ml_params
+  params.require(:mailing_list).permit(:name,
+    :mailchimp_list_name,
+    :mailchimp_list_id,
+    :createsend_list_id,
+    :createsend_list_name)
+end
 
 end
 

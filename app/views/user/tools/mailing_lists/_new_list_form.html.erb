@@ -1,30 +1,10 @@
-<%= render partial: "user/tools/tabs" %>
-<div style="height: 90px;">
-  <div id="js-new-list-msg" class="row">
-    <div class="col-md-2">
-      <a id="js-new-list-btn" class="btn btn-block btn-primary">
-        <i class="fa fa-lg fa-plus"></i>
-        New List</a>
-      </div>
-
-      <div class="col-md-10">
-        <p>Group all your customers' email addresses into a list.
-          Send them messages, newsletters and updates about your products. You can send them directly from here or through your
-          <b>MailChimp</b> or <b>Campaign Monitor</b> account.
-        </p>
-      </div>
-
-    </div>
-    <div id="js-new-list-form" class="row hid">
       <%= simple_form_for [:user, :tools, @mailing_list], remote: true do |f|%>
       <%= f.input_field :mailchimp_list_id, as: :hidden, id: 'js-mailing-list-id' %>
       <div class="col-md-2">
-
        <%= button_tag(type: 'submit', class: "btn btn-block btn-primary") do %>
        Create List
        <% end %>
      </div>
-
      <div class="col-md-10">
       <div class="row">
        <div class="col-md-8">
@@ -89,7 +69,7 @@
     <div id="the-basics" class="row form-group">
      <div class="col-md-4">
       <p>Client</p>
-        <span id="js-load-cs-client" class="hid fa fa-spinner fa-spin"></span>
+      <span id="js-load-cs-client" class="hid fa fa-spinner fa-spin"></span>
     </div>
     <div class="col-md-8">
       <select name="clients[]" data-width="100%" id="js-createsend-clients-list" title='Choose a Client' class="selectpicker">
@@ -123,45 +103,3 @@
 </div>
 <% end %>
 </div>
-</div>
-<div class="newsletter-list m-t-20">
-
-  <table>
-    <thead>
-      <tr>
-        <th style="width:12%;"></th>
-        <th class="list-name">List Name</th>
-        <th class="subscribers"> Subscribers</th>
-        <th class="last-update">Last Update</th>
-        <th class="actions"></th>
-      </tr>
-    </thead>
-    <tbody id="js-mailing-list">
-     <% if @list.blank? %>
-     <tr><td colspan="4"><p class="text-center text-muted">No mailing list founds</p></td></tr>
-     <% else %>
-     <%= render @list %>
-     <% end %>
-   </tbody>
- </table>
- <div class="pagination">
-   <div>
-     <%# paginate @orders %>
-   </div>
- </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
-
