@@ -95,12 +95,12 @@ a {
   min-height: 100%;
   height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
   height: 100%;
-  margin-bottom: -110px; /* the bottom margin is the negative value of the footer's height */
+  margin-bottom: -140px; /* the bottom margin is the negative value of the footer's height */
   .container-fluid;
-  padding-bottom:  110px;
+  padding-bottom:  140px;
 }
 #footer {
-  height: 110px; /* .push must be the same height as .footer */
+  height: 140px; /* .push must be the same height as .footer */
 }
 
 .site {
@@ -154,10 +154,11 @@ a {
   .checkout-demo-box {
     width: 349px;
     margin: 0 auto;
+    margin-top: 14px;
   }
   .mock-checkout {
    position: absolute;
-   top: 96px;
+   top: 110px;
    width: 280px;
    margin: 0 auto;
    left: 0;
@@ -166,13 +167,11 @@ a {
  .section-illustration {
   .make-md-column-offset(1);
   .make-md-column(5);
-  .make-lg-column-offset(1);
-  .make-lg-column(4);
 
   //  text-align: center;
 }
 .section-text {
-  .make-md-column-offset(2);
+  .make-md-column-offset(1);
   .make-md-column(4);
   p {
     margin-top: 30px;
@@ -190,7 +189,7 @@ a {
   background: image-url("pay_section_separator.png") no-repeat center bottom;
   .section;
   .section-illustration {
-    .make-md-column-offset(1);
+    .make-md-column-offset(0);
     .make-md-column(5);
     text-align: center;
  // margin-left: 45px;
@@ -241,8 +240,8 @@ a {
     font-size: 15px;
     text-align: left;
   }
-  .make-md-column(3);
-  .make-md-column-offset(1);
+  .make-md-column(4);
+  padding: 0 30px;
 }
 }
 
@@ -449,6 +448,9 @@ a {
 
 #footer {
   background-color: white;
+  .wrap-footer-beta {
+    border-top: none !important;
+  }
   .wrap-footer {
     background: image-url("footer-shadow.png") no-repeat center top;
     border-top: 1px solid #e3e3e3;

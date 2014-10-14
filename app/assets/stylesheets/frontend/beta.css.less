@@ -12,31 +12,42 @@
     font-weight: 500;
   }
 }
+.beta-email-input {
+  .make-md-column-push(3);
+  .make-md-column(6);
+}
 #js-beta-invite-sent {
   .make-row();
- display: none;
- margin: 0;
- p {
-    color: #53aede;
-  margin-top: 15px;
-  font-size: 18px;
+  display: none;
   margin: 0;
- }
+  p {
+    color: #53aede;
+    margin-top: 15px;
+    font-size: 18px;
+    margin: 0;
+  }
 }
-.invite-form {
- // display: none;
+form.invite {
+ .make-row();
 }
 
 .beta-message {
-  color: #888;
-  margin-top: 15px;
-  font-size: 18px;
+  .make-row();
+  p {
+    color: #888;
+    margin-top: 15px;
+    font-size: 18px;
+  }
 }
 
 .btn-invite {
  .btn-get-started;
  margin-bottom: 0px;
+ position: absolute;
+ top: 0px;
+ right: 0px;
 }
 #header {
   height: 800px !important;
 }
+

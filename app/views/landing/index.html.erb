@@ -20,10 +20,8 @@
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
           })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
           ga('create', 'UA-54494496-1', 'auto');
           ga('send', 'pageview');
-
         </script>
       </head>
       <body class="home">
@@ -38,27 +36,23 @@
                 <h2 class="animated fadeInUp">Fastest way to sell music, ebooks, software
                   or any other downloadable product.</h2>
                   <% if @beta %>
-                  <div class="row invite-form">
                     <%= simple_form_for :invite, url:  beta_request_path, class: 'invite-form', remote: true do |f| %>
-                    <div class="col-md-4 col-md-offset-3">
+                    <div class="beta-email-input">
                       <div class="form-error">
                        <p>Email not valid.</p>
                      </div>
                      <%= f.input_field :email, required: true, autofocus: true,
                      placeholder: "Your Email Address", class: "beta-input hidden-animation"%>
-                   </div>
-                   <div class="col-md-2">
-                    <%= f.button :submit, "Subscribe", class: "btn-get-started btn-invite hidden-animation",
+                      <%= f.button :submit, "Subscribe", class: "btn-get-started btn-invite hidden-animation",
                     data: {disable_with: 'Processing...'} %>
-                  </div>
+                   </div>
                   <% end %>
-                </div>
                 <div id="js-beta-invite-sent">
                  <p>Thank you for your interest! You have been added to the queue.</p>
                </div>
 
-               <div class="row">
-                <p class="beta-message hidden-animation"><b>Up&amp;Sell.Me</b> is currently in (Free) Beta version. Subscribe and you will get an
+               <div class="beta-message hidden-animation">
+                <p><b>Up&amp;Sell.Me</b> is currently in (Free) Beta version. Subscribe and you will get an
 early access in a few hours.</p>
               </div>
               <% else %>

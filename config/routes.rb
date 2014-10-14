@@ -11,7 +11,7 @@ Upandsell::Application.routes.draw do
 
  # Front-end
  root 'landing#index'
- get 'beta' => 'landing#beta'
+ get 'no-beta' => 'landing#beta'
  post 'beta_request' => 'landing#beta_request'
  get 'pricing' => 'site#pricing'
  get 'privacy' => 'site#privacy'

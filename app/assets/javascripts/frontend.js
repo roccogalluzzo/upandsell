@@ -21,14 +21,14 @@ $(document).ready(function() {
   if($('body').hasClass('home')){
 
    $(".invite").on("ajax:success", function(e, data, status, xhr){
-    $(".invite-form").slideUp();
+    $(".invite").slideUp();
     $("#js-beta-invite-sent").show().slideDown();
     ga('send', 'event', 'form', 'beta_requested');
   });
    $(".invite").on("ajax:error", function(e, data, status, xhr){
      $(".form-error p").text(data.responseJSON.msg);
-     $(".form-error").addClass('animated fadeOutUp').css('visibility', 'visible');
-     setTimeout(function(){  $('.form-error').addClass('hidden-animation');},4000);
+     $(".form-error").removeClass('hidden-animation').addClass('animated fadeInUp').css('visibility', 'visible');
+     setTimeout(function(){ $('.form-error').removeClass('animated fadeInUp').css('visibility', 'hidden');},3000);
    });
    $(".invite").validate({ showErrors: function(errorMap, errorList) {
     $.each(this.validElements(), function (index, element) {
