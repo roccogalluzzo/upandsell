@@ -4,43 +4,39 @@
 Products
 <% end %>
 <div class="products-page-index">
-  <div class="product-page-wrapper">
-    <div class="products-actions">
-      <div>
-        <%= link_to(new_user_product_path, class: 'btn-new') do %>
-        <i class="fa fa-lg fa-plus"></i>
-        New Product
-        <% end %>
-      </div>
+  <div class="products-actions">
+    <div>
+      <%= link_to(new_user_product_path, class: 'btn-new') do %>
+      <i class="fa fa-lg fa-plus"></i>
+      New Product
+      <% end %>
     </div>
-    <div class="products-list-legend">
-      <div class="p-info">
-        <b>Product Info</b> <small>(Click the name to Edit)</small>
-      </div>
-      <div class="p-published">
-        <b>Published</b>
-      </div>
-    </div>
-    <div class="products-list">
-     <% if @products.blank? %>
-     <div class="no-products">
-       <p>No products yet</p>
-       <p>
-        <%= link_to "Add One Now",
-        new_user_product_path, class: "btn btn-add btn-primary" %>
-      </p>
-    </div>
-    <% else %>
-    <%= render @products %>
-    <% end %>
   </div>
-  <% unless @products.blank? %>
-  <div class="products-pagination">
-    <div class="col-md-offset-5 col-md-2 text-center">
-     <%= paginate @products %>
-   </div>
- </div>
- <% end %>
+  <div class="products-list-legend">
+    <div class="p-info">
+      <b>Product Info</b> <small>(Click the name to Edit)</small>
+    </div>
+    <div class="p-published">
+      <b>Published</b>
+    </div>
+  </div>
+  <div class="products-list">
+   <% if @products.blank? %>
+   <div class="no-products">
+     <p>No products yet</p>
+     <p>
+      <%= link_to "Add One Now",
+      new_user_product_path, class: "btn btn-add btn-primary" %>
+    </p>
+  </div>
+  <% else %>
+  <%= render @products %>
+  <% end %>
 </div>
+<% unless @products.blank? %>
+<div class="products-pagination">
+ <%= paginate @products %>
+</div>
+<% end %>
 </div>
 <% render 'share' %>

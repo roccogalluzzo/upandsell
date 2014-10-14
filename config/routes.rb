@@ -35,6 +35,7 @@ Upandsell::Application.routes.draw do
   #checkout
   post 'checkout/paypal' => 'checkouts#paypal'
   get 'checkout/pay_info' => 'checkouts#pay_info'
+  get 'checkout/braintree_token' => 'checkouts#braintree_token'
   post 'checkout/pay' => 'checkouts#pay'
   post 'checkout/unsubscribe_order_updates' => 'checkouts#unsubscribe_order_updates'
   get 'checkout/check_payment' => 'checkouts#check_paypal_payment'

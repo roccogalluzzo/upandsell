@@ -7,6 +7,19 @@ class CheckoutsController < ApplicationController
     render json: { price: product.price_cents, currency: product.price_currency.upcase }
   end
 
+  def braintree_token
+    user = User.find(Product.find(params[:product_id]).user_id)
+    if Rails.env.production?
+      Braintree::Configuration.environment = :live
+    else
+      Braintree::Configuration.environment = :sandbox
+    end
+    Braintree::Configuration.merchant_id = "tmnv8986bpp2tqnq"
+    Braintree::Configuration.public_key = user.credit_card_public_token
+    Braintree::Configuration.private_key = user.credit_card_token
+    render json: { token: Braintree::ClientToken.generate }, status: :ok
+  end
+
   def pay
     product = Product.find(params[:product_id])
     unless params[:gateway] == 'paymill' || params[:gateway] == 'stripe' || params[:gateway] == 'braintree'

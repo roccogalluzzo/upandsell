@@ -25,7 +25,6 @@
           break;
           case 'braintree':
           $.getScript('https://js.braintreegateway.com/v2/braintree.js');
-         });
           break;
         }
       }
@@ -52,6 +51,14 @@
         }, response);
         break;
         case 'braintree':
+        $.get('/checkout/braintree_token',{product_id: opts.productId}, function(data){
+          var client = new braintree.api.Client({clientToken: data.token});
+          client.tokenizeCard({
+            number: cc_num,
+            expirationMonth: cc_exp.month,
+            expirationYear: cc_exp.year,
+            cvv: cc_cvc}, response);
+        });
         break;
       };
     },
@@ -64,6 +71,7 @@
         var token = response.id;
         break;
         case 'braintree':
+         var token = response
         break;
       };
       ProductPage.Form.pay($('#js-checkout-form').data('gateway'), token);

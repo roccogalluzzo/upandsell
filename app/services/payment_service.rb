@@ -7,6 +7,9 @@ class PaymentService
 
   def pay(product, payer)
    payment = @gateway.pay(product, payer)
+   unless payment
+     return false
+   end
    order = Order.new(
     product_id: product.id,
     user_id: product.user_id,

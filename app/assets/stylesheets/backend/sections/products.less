@@ -93,10 +93,7 @@
   padding-top: 20px;
   background-color: white;
   border-radius: 6px;
-  .make-row();
-  div.product-page-wrapper {
-    .make-md-column(12);
-  }
+  .container-fluid;
 }
 .products-list {
   .make-row();
@@ -188,7 +185,8 @@
 
 .products-pagination {
   .make-row();
-  border-top: 1px solid #f4f4f4;
+  border-top: @border-light;
+  text-align: center;
   .pagination {
     margin-top: 30px !important;
     margin-bottom: 15px !important;
