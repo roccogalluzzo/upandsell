@@ -2,12 +2,12 @@ class User::Tools::MailingListsController < User::BaseController
 
   def index
     @mailing_list = MailingList.new
-    @list = MailingList.where(user_id: current_user.id)
+    @list = MailingList.where(user_id: current_user.id).page(params[:page]).per(8)
   end
 
   def new
     @mailing_list = MailingList.new
-    @list = MailingList.where(user_id: current_user.id)
+    @list = MailingList.where(user_id: current_user.id).page(params[:page]).per(8)
     respond_to do |format|
       format.js { render :partial => "form" }
     end
@@ -21,7 +21,6 @@ class User::Tools::MailingListsController < User::BaseController
     else
       @list.products = current_user.products.where(id: params[:mailing_list][:products])
     end
-
     @list.save
     respond_to do |format|
       format.js {}
@@ -57,11 +56,16 @@ class User::Tools::MailingListsController < User::BaseController
 
  private
  def ml_params
-  params.require(:mailing_list).permit(:name,
+  p = params.require(:mailing_list).permit(:name,
     :mailchimp_list_name,
     :mailchimp_list_id,
     :createsend_list_id,
     :createsend_list_name)
+
+  if p[:createsend_list_id] == 'Choose a List'
+    p[:createsend_list_id] = ''
+  end
+  p
 end
 
 end

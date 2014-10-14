@@ -5,7 +5,7 @@
 
 .newsletter-actions {
   .make-row();
-  // height: 90px;
+  min-height: 90px;
   padding: 30px 10px;
   padding-top: 20px;
   border-bottom: @border-light;
@@ -80,6 +80,15 @@
 }
 }
 
+#newsletter-pagination {
+  .make-row();
+  border-top: @border-light;
+  text-align: center !important;
+  .pagination {
+    margin-top: 30px !important;
+    margin-bottom: 15px !important;
+  }
+}
 
 #js-load-cs-client {
   font-size: 28px;

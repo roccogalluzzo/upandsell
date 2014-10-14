@@ -1,57 +1,42 @@
 <%= render partial: "tabs" %>
-
-<div style="height: 90px;">
-  <div id="js-new-list-form" class="row">
-    <%= simple_form_for [:admin, @invite] do |f|%>
-    <div class="row">
-      <div class="col-md-offset-3 col-md-4">
-        <%= f.input_field :email, placeholder: "Email" %>
-      </div>
-      <div class="col-md-2">
-       <%= button_tag(type: 'submit', class: "btn btn-block btn-primary",  data: {disable_with: 'Sending...'}) do %>
-       Send Invite
-       <% end %>
-     </div>
-
-   </div>
-
-   <% end %>
- </div>
- <div class="newsletter-list m-t-20">
-
- <table>
-    <thead>
-      <tr>
-        <th style="width:65%">Email</th>
-        <th class="subscribe">Status</th>
-        <th class="last-date">Created At</th>
-        <th class="actns"></th>
-      </tr>
-    </thead>
-    <tbody id="js-mailing-list">
-     <% if @invites.blank? %>
-     <tr><td colspan="4"><p class="text-center text-muted">No invites founds</p></td></tr>
-     <% else %>
-     <%= render @invites %>
+<div class="newsletter-actions">
+  <div id="js-new-list-form">
+   <%= simple_form_for [:admin, @invite] do |f|%>
+   <div class="row">
+    <div class="col-md-offset-3 col-md-4">
+      <%= f.input_field :email, placeholder: "Email" %>
+    </div>
+    <div class="col-md-2">
+     <%= button_tag(type: 'submit', class: "btn btn-block btn-primary",  data: {disable_with: 'Sending...'}) do %>
+     Send Invite
      <% end %>
-   </tbody>
- </table>
- <div class="row">
-   <div class="col-md-6 col-md-offset-5">
-     <%= paginate @invites %>
    </div>
+ </div>
+ <% end %>
+</div>
+</div>
+<div class="newsletter-list">
+  <div>
+    <table>
+      <thead>
+        <tr>
+         <th style="width:65%">Email</th>
+         <th class="subscribe">Status</th>
+         <th class="last-date">Created At</th>
+         <th class="actns"></th>
+       </tr>
+     </thead>
+     <tbody id="js-mailing-list">
+       <% if @invites.blank? %>
+       <tr><td colspan="4"><p class="text-center text-muted">No invites founds</p></td></tr>
+       <% else %>
+       <%= render @invites %>
+       <% end %>
+     </tbody>
+   </table>
  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
+<div id="newsletter-pagination">
+ <%= paginate @invites %>
+</div>
 </div>
