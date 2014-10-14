@@ -1,0 +1,45 @@
+<%= render partial: "user/tools/tabs" %>
+<div class="newsletter-actions">
+  <div id="js-new-list-msg">
+    <div class="new-list-action">
+      <a id="js-new-list-btn"><i class="fa fa-lg fa-plus"></i>New List</a>
+    </div>
+    <div class="new-list-msg">
+      <p>Group all your customers' email addresses into a list.
+        Send them messages, newsletters and updates about your products. You can send them directly from here or through your
+        <b>MailChimp</b> or <b>Campaign Monitor</b> account.
+      </p>
+    </div>
+  </div>
+  <div id="js-new-list-form" class="hid">
+    <%= render 'new_list_form' %>
+  </div>
+</div>
+<div class="newsletter-list">
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:12%;">Sync</th>
+        <th class="list-name">List Name</th>
+        <th class="subscribers"> Subscribers</th>
+        <th class="last-update">Last Update</th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody id="js-mailing-list">
+     <% if @list.blank? %>
+     <tr><td colspan="5"><p class="text-center text-muted">No mailing list founds</p></td></tr>
+     <% else %>
+     <%= render @list %>
+     <% end %>
+   </tbody>
+ </table>
+ </div>
+ <div class="pagination">
+   <div>
+     <%# paginate @orders %>
+   </div>
+ </div>
+</div>
+</div>
