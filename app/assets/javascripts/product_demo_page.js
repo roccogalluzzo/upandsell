@@ -31,8 +31,6 @@
 
   ProductDemoPage.Form = {
     init: function() {
-      $('input.cc-num').payment('formatCardNumber');
-      $('input.cc-exp').payment('formatCardExpiry');
       $('input.cc-cvc').payment('formatCardCVC');
       ProductDemoPage.Form.setValidation();
     },
@@ -171,12 +169,12 @@ simulateCheckout: function(){
 
    window.setTimeout(function(){
      $('input.cc-num').simulate("key-sequence",
-      {sequence: '4111111111111', delay: 150});
+      {sequence: '4111 1111 1111 1111', delay: 150});
    }, 800);
 
    window.setTimeout(function(){
      $('input.cc-exp').simulate("key-sequence",
-      {sequence: '120', delay: 150});
+      {sequence: '12/22', delay: 150});
    }, 4100);
 
    window.setTimeout(function(){

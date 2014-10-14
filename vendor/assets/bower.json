@@ -4,7 +4,7 @@
     "bootstrap": "3.1.0",
     "jquery-file-upload": "latest",
     "jquery.validation": "latest",
-    "jquery.payment": "latest",
+    "jquery.payment": "1.1.2",
     "slidr": "latest",
     "slimScroll": "latest",
     "animate.css": "latest",
@@ -16,10 +16,10 @@
     "zeroclipboard": "latest",
     "jquery.transit": "latest",
     "jquery-tags-input": "latest",
-    "typehead.js": "latest",
+    "typehead.js": "0.10.5",
     "animateCSS": "latest",
     "jquery-simulate-ext": "latest",
-    "ScrollMagic": "latest",
+    "ScrollMagic": "1.2.0",
     "jquery.cookie": "latest"
   }
 }

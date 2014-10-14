@@ -1,8 +1,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap/dist/js/bootstrap
-//= require jquery.validation/jquery.validate.js
-//= require ScrollMagic/js/jquery.scrollmagic
+//= require jquery.validation/dist/jquery.validate.js
+//= require ScrollMagic/js/jquery.scrollmagic.min.js
 //= require jquery.cookie/jquery.cookie.js
 //= require frontend/animations
 

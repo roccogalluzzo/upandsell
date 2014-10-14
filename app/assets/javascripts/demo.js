@@ -8,7 +8,7 @@
 //= require polyclip.js
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.scrollTo/jquery.scrollTo.js
-//= require jquery.validation/jquery.validate.js
+//= require jquery.validation/dist/jquery.validate.js
 //= require jquery.payment/lib/jquery.payment.js
 //= require jquery-simulate-ext/libs/jquery.simulate.js
 //= require jquery-simulate-ext/src/jquery.simulate.ext.js
