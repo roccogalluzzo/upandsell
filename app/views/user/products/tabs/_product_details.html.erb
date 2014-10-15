@@ -1,0 +1,63 @@
+<div id="js-product-form" class="tab-pane active product-form <% unless  @product.new_record?  %>  hid <% end%>">
+  <%= simple_form_for [:user, @product], html: { multipart: true,
+    class: 'form-horizontal product' },
+      remote: true, data: { type: :json }  do |f| %>
+
+      <input id="file_key" class="filename" type="hidden" name="[product]file_key" value="<%= @product.file_key %>" />
+      <%= f.input_field :price_currency, as: :hidden %>
+      <%= token_tag nil %>
+      <input type="hidden" id="local-preview-path" value="" />
+      <div class="product-form-preview" data-preview-url="<%= @product.preview.url if (@product.id && @product.preview.file)%>" >
+        <div class="inner-form-preview">
+          <a href="#"  class="btn-select-header" >
+            <i class="fa fa-desktop"></i> Choose a Preview
+            <%= f.input_field :preview, id: 'file-input', accept: "image/*"%>
+          </a>
+          <p>(recommended 780 x 350px)</p>
+        </div>
+      </div>
+
+      <div class="product-form-row-1">
+        <div class="name-box">
+          <%= f.input_field :name, class: 'form-control', placeholder: "Product Name" %>
+        </div>
+        <div class="currency-box">
+         <div class="input-group <%= error_class(@product, 'price_cents') %>">
+           <span id="currency"
+           data-currency-symbols="[&quot;$&quot;,&quot;\u00a3&quot;,&quot;\u20ac&quot;]"
+           data-currency-values="[&quot;usd&quot;,&quot;gbp&quot;,&quot;eur&quot;]"
+           class="input-group-addon btn-preview btn-primary"><%= @product.price.symbol %></span>
+           <%= f.input_field :price, class: 'form-control', placeholder: "2.00" %>
+         </div>
+       </div>
+       <div class="submit-box">
+        <%= f.button :submit,  "Save",
+        data: {disable_with: 'Saving...'}, class: 'btn btn-primary btn-lg text-right' %>
+      </div>
+    </div>
+
+    <div class="product-form-row-2">
+      <div class="product-description-box">
+       <%= f.input_field :description,
+       class: 'product-description form-control', id: 'product-description',
+        placeholder: "Product description(optional)" %>
+      </div>
+      <div class="limit-sales">
+        <div class="limit-head">
+          <div class="limit-switch">
+           <input type="checkbox" data-toggle="switch">
+         </div>
+         <div class="limit-label">
+           <p class="limit">Limit Product Sales</p>
+         </div>
+       </div>
+       <div class="limit-body">
+        <div class="limit-input">
+          <%= f.input_field :sales_limit, as: :string,
+          class: 'text-center', placeholder: '∞' %>
+        </div>
+      </div>
+    </div>
+  </div>
+ <% end %>
+</div>

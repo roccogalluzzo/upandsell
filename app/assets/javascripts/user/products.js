@@ -12,6 +12,11 @@ Products.Index = function() {
 Products.New = function() {
   Products.init();
   Products.Form.init();
+    $('#product-description').editable({inlineMode: false,
+      buttons: ['undo', 'redo' , 'sep', 'bold', 'italic', 'underline', 'fontSize', 'color'
+      , 'formatBlock', 'insertOrderedList', 'insertUnorderedList', 'html'],
+      height: 300
+    });
 };
 
 Products.Edit = function() {
