@@ -87,6 +87,13 @@ a {
 .btn-trydemo {
   .btn-tag-blue;
   margin-top: 30px;
+  background-color: transparent !important;
+  &:focus {
+    color:  #a9d6ee !important;
+    box-shadow: none;
+    outline: none;
+
+  }
 }
 .hidden-animation {
   .hidden-md;
@@ -473,6 +480,17 @@ a {
       font-size: 13px;
       padding-right: 5px;
     }
+    .icon-twitter {
+      &:hover {
+        color: #54ACED;
+      }
+    }
+    .icon-facebook {
+      &:hover {
+        color: #3D5294;
+      }
+    }
+
     a {
       background-color: #f3f3f3;
       border-radius: 3px;
@@ -482,6 +500,9 @@ a {
       text-align: center;
       padding-top: 5px;
       display: inline-block;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }
