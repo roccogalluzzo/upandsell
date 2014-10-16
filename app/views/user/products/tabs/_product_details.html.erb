@@ -1,25 +1,55 @@
-<%= simple_form_for [:user, @product], html: { multipart: true,
-  class: 'form-horizontal product' },
-    remote: true, data: { type: :json }  do |f| %>
+<div class="product-form-preview" data-preview-url="<%= @product.preview.url if (@product.id && @product.preview.file)%>" >
+  <div class="inner-form-preview">
+    <div id="preview"></div>
+    <a href="#"  class="btn-select-header" >
+      <i class="fa fa-desktop"></i> Choose a Preview
+    </a>
+    <p>(recommended 780 x 350px)</p>
+  </div>
+</div>
 
+<%#if @product.id %>
+ <div class="product-file-box">
+ <form action="<%= Rails.configuration.aws["bucket_url"] %>" method="POST" enctype="multipart/form-data"
+ class="js-s3-upload">
+  <div class="product-file-icon">
+    <i class="fa icon-docs fa-4x"></i>
+  </div>
+  <div class="product-file-info">
+    <p class="js-filename"></p>
+  </div>
+  <div class="product-file-upload-btns">
+    <small>New Product File?</small>
+    <a href="#"  class="btn-computer" >
+      <input data-url="<%= Rails.configuration.aws["bucket_url"] %>"
+      class="js-s3-upload-input"
+      type="file" name="product[file_js]" multiple="">
+      <i class="fa fa-desktop"></i> Computer
+    </a>
+    <a href="#"  class="btn-cancel" >
+      <i class="fa fa-times"></i> <span>Cancel Upload</span>
+    </a>
+    <a href="#"  class="btn-dropbox" >
+      <i class="fa fa-dropbox"></i><span>Dropbox</span>
+    </a>
+  </div>
+  <div class="progress">
+    <div class="progress-bar" style="width: 0%;">
+    </div>
+  </div>
+  </form>
+</div>
+<%# end %>
+
+<%= simple_form_for [:user, @product], html: { multipart: true,
+  class: 'form-horizontal product product-form' },
+    remote: true, data: { type: :json }  do |f| %>
+    <%= f.input_field :preview, id: 'js-input-preview', accept: "image/*"%>
+    <%= f.input_field :id, as: :hidden, id: 'js-product-id' %>
     <input id="file_key" class="filename" type="hidden" name="[product]file_key" value="<%= @product.file_key %>" />
     <%= f.input_field :price_currency, as: :hidden %>
     <%= token_tag nil %>
     <input type="hidden" id="local-preview-path" value="" />
-    <div class="product-form-preview" data-preview-url="<%= @product.preview.url if (@product.id && @product.preview.file)%>" >
-      <div class="inner-form-preview">
-        <div id="preview"></div>
-        <a href="#"  class="btn-select-header" >
-          <i class="fa fa-desktop"></i> Choose a Preview
-          <%= f.input_field :preview, id: 'js-input-preview', accept: "image/*"%>
-        </a>
-        <p>(recommended 780 x 350px)</p>
-      </div>
-    </div>
-    <% if @product.id %>
-    <div class="product-file-box">
-    </div>
-    <% end %>
     <div class="product-form-row-1">
       <div class="name-box">
         <%= f.input_field :name, class: 'form-control', placeholder: "Product Name" %>

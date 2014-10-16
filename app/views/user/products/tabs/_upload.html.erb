@@ -1,21 +1,23 @@
-  <form id="js-s3-upload" action="<%= Rails.configuration.aws["bucket_url"] %>" method="POST" enctype="multipart/form-data" class="direct-upload">
-    <input type="hidden" name="success_action_status" value="201">
-    <div class="drop-box">
-      <p> Drop product file here</p>
-      <i class="fa icon-docs fa-5x"></i>
-    </div>
-    <div class="upload-actions">
-      <p>or choose from</p>
-      <p>
-        <a href="#"  class="btn-computer" >
-          <input data-url="<%= Rails.configuration.aws["bucket_url"] %>"
-          id="product-upload-btn"
-          type="file" name="product[file_js]" multiple="">
-          <i class="fa fa-desktop"></i> Computer
-        </a>
-        <a href="#"  class="btn-dropbox" >
-          <i class="fa fa-dropbox"></i> Dropbox
-        </a>
-      </p>
-    </div>
-  </form>
+  <form action="<%= Rails.configuration.aws["bucket_url"] %>"
+  method="POST"
+  enctype="multipart/form-data" class="js-s3-upload">
+
+  <div class="drop-box">
+    <p> Drop product file here</p>
+    <i class="fa icon-docs fa-5x"></i>
+  </div>
+  <div class="upload-actions">
+    <p>or choose from</p>
+    <p>
+      <a href="#"  class="btn-computer" >
+        <input data-url="<%= Rails.configuration.aws["bucket_url"] %>"
+        class="js-s3-upload-input"
+        type="file" name="product[file_js]" multiple="">
+        <i class="fa fa-desktop"></i> Computer
+      </a>
+      <a href="#"  class="btn-dropbox" >
+        <i class="fa fa-dropbox"></i> <span>Dropbox</span>
+      </a>
+    </p>
+  </div>
+</form>

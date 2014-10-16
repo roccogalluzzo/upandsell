@@ -4,32 +4,43 @@
   var attrs = {file_key: null};
 
   Upload.init = function() {
-   initElements();
-   Upload.S3.init();
-   Upload.Dropbox.init();
- }
+    Upload.init_elements();
+    Upload.S3.init();
+    Upload.Dropbox.init();
+  }
 
- Upload.Dropbox = {
+  Upload.init_elements = function() {
+    el = {form: $(".product"),
+    box: $(".upload-box"),
+    uploading_box:  $('.uploading-box'),
+  };
+
+  preview = {target: $(".input-thumb "),
+  form: $(".product"),
+  box: $(".upload-box-preview"),
+  btn:   $('.btn-preview')};
+}
+
+Upload.Dropbox = {
   init: function() {
     $('.btn-dropbox').on('click', Upload.Dropbox.chooser);
   },
   chooser: function() {
-    Dropbox.choose({success: Upload.Dropbox.select, linkType: "direct"})
+    Dropbox.choose({success: Upload.Dropbox.select, linkType: "direct"});
   },
   success: function(d) {
-    ProductsTab.setCompleted('upload');
-    $('#js-upload-text').text('Done');
-    $('.step-upload-icon').removeClass().addClass('fa icon-cloud-upload step-upload-icon');
-
-    if($('.upload-section').data('product-id')){
-      fileChanged($('.upload-section').data('product-id'), d.file_key);
-    }
-    $("#file_key").val(d.file_key);
-    el.form.find('input[type=submit]').removeAttr('disabled', 'disabled');
+    Upload.Animations.complete(d.file_key);
+    $('.btn-dropbox span').text('Dropbox');
+    $('.btn-dropbox').toggleClass('dropbox-disabled');
+  },
+  simulate_progress: function() {
+    $('.progress .progress-bar').animate({width: '100%'}, 1000);
   },
   select: function(files){
-    Upload.Animations.progressBar(100);
-    ProductsTab.switchTo('product');
+    Upload.Animations.start(files[0]);
+    Upload.Dropbox.simulate_progress();
+    $('.btn-dropbox span').text('Uploading...');
+    $('.btn-dropbox').toggleClass('dropbox-disabled');
     $.ajax({
       url: '/user/products/files',
       type: 'POST',
@@ -46,7 +57,7 @@ Upload.S3 = {
     $(document).bind('drop dragover', function (e) {
       e.preventDefault();
     });
-    el.target.fileupload({
+    $('.js-s3-upload').fileupload({
       autoUpload: true,
       type: 'POST',
       paramName: 'file',
@@ -58,8 +69,6 @@ Upload.S3 = {
     .bind('fileuploadprogress', Upload.S3.progress)
     .bind('fileuploaddone', Upload.S3.done)
     .bind('fileuploadfail', Upload.S3.fail);
-
-    $('.file-change').on('click', fileChange);
   },
   signed_request: function(filename){
     $.ajax({
@@ -73,52 +82,44 @@ Upload.S3 = {
     return data;
   },
   add: function(e, data){
-    Upload.Animations.cancel_icon();
-    Upload.Animations.progressBar(0);
-    ProductsTab.switchTo('product');
+    Upload.Animations.start(data.files[0]);
+    $('.btn-cancel').show();
+    $('.btn-computer').hide();
     req = Upload.S3.signed_request(data.files[0].name);
     data.formData = req;
     attrs.file_key = req.key;
     var jqXHR = data.submit();
     Upload.S3.cancel(true, jqXHR);
 
+
   },
   progress: function(e, data){
     Upload.Animations.progressBar(parseInt(data.loaded / data.total * 100, 10));
   },
   done: function(e, data){
-    ProductsTab.setCompleted('upload');
-    $('#js-upload-text').text('Done');
-    $('.step-upload-icon').removeClass().addClass('fa icon-cloud-upload step-upload-icon');
-    if($('.upload-section').data('product-id')){
-      fileChanged($('.upload-section').data('product-id'), attrs.file_key);
-    }
-    $("#file_key").val(attrs.file_key);
-    el.form.find('input[type=submit]').removeAttr('disabled', 'disabled');
+    Upload.Animations.complete(attrs.file_key);
     Upload.S3.cancel(false);
-
+    $('.btn-cancel').hide();
+    $('.btn-computer').show();
   },
   cancel: function(action, istance) {
    if(action){
-    $('#js-upload-tab').bind( 'click.abort',function(e)
+    $('.btn-cancel').bind( 'click.abort',function(e)
     {
       istance.abort();
       Upload.Animations.error();
       Upload.S3.cancel(false);
+      $('.btn-cancel').hide();
+      $('.btn-computer').show();
       e.preventDefault();
     });
   }else{
-    $('#js-upload-tab').unbind('click.abort');
+    $('.btn-cancel').unbind('click.abort');
   }
 },
 fail: function(e, data){
-  console.log('fail');
   Upload.Animations.error();
   Upload.S3.cancel(false);
-  ProductsTab.setDisabled('product');
-  Upload.Animations.change();
-  Upload.Animations.progressBar(0);
-  $('.uploading-box').hide(400);
 },
 ondrag: function(e) {
   var dropZone = $('.drop-box'),
@@ -152,36 +153,6 @@ ondrag: function(e) {
 }
 };
 
-// Init Functions
-function initElements() {
-  el = {target: $("#js-s3-upload"),
-  form: $(".product"),
-  box: $(".upload-box"),
-  uploading_box:  $('.uploading-box'),
-  btn:   $('#product-upload-btn')};
-
-  preview = {target: $(".input-thumb "),
-  form: $(".product"),
-  box: $(".upload-box-preview"),
-  btn:   $('.btn-preview')};
-}
-
-// File related actions
-
-function fileChanged(id, file_key) {
-  $.ajax({
-    url: "/user/products/" + id,
-    type: 'POST',
-    dataType: 'json',
-    data: { _method: 'patch', product: {file_key: file_key}}
-  });
-  return data;
-}
-
-function fileChange() {
- Upload.Animations.change();
-}
-
 Upload.Gdrive = {
   init: function() {
     var picker = new FilePicker({
@@ -192,7 +163,6 @@ Upload.Gdrive = {
     });
   },
   upload: function(file) {
-    console.log(file);
     $.ajax({
       url: '/user/products/files',
       type: 'POST',
@@ -209,45 +179,47 @@ Upload.Gdrive = {
 // Animations
 Upload.Animations = {
 
+  start: function(file) {
+    Upload.Animations.progressBar(0);
+    $('.progress').show().removeClass('animated fadeOut').addClass('animated fadeIn');
+    if($('.upload').hasClass('active')){
+      ProductsTab.switchTo('product');
+    }
+    $('.js-filename').text(file.name);
+    $('.btn-dropbox').fadeTo(100, 0.2);
+    $('.btn-computer').fadeTo(100, 0.2);
+  },
+  complete: function(file_key) {
+    if(window.PRODUCT_EDIT){
+      Products.Form.update_product_file(file_key);
+    }
+    $('.progress').addClass('animated fadeOut');
+    $('.btn-dropbox').fadeTo(100, 1);
+    $('.btn-computer').fadeTo(100, 1);
+    if($('.upload')){
+      ProductsTab.setCompleted('upload');
+    }
+    $("#file_key").val(file_key);
+    el.form.find('input[type=submit]').removeAttr('disabled', 'disabled');
 
+  },
   change: function() {
     $('.upload-box').show(400);
     $('.uploading-box').slideDown(500);
     el.form.find('input[type=submit]').attr('disabled', 'disabled');
   },
   progressBar: function(percent) {
-    $('#file-upload-progress').show().addClass('animated fadeIn');
-    $('#js-upload-text').text('Uploading...');
-    $('#file-upload-progress .progress-bar').css({width: percent +'%'});
+    $('.progress .progress-bar').css({width: percent +'%'});
   },
   error: function() {
-    $('#file-upload-progress').hide();
-    $('#js-upload-text').text('Upload product file');
-    $('#file-upload-progress .progress-bar').css({width: '0%'})
-    $('.step-upload-icon').removeClass().addClass('fa icon-cloud-upload step-upload-icon');
+    $('.progress').hide();
+    $('.progress .progress-bar').css({width: '0%'});
+    $('.btn-dropbox').fadeTo(100, 1);
+    $('.btn-computer').fadeTo(100, 1);
+    $('.js-filename').text('');
+    Up.alert.open("Error: Product File Not Uploaded.");
   },
-  cancel_icon: function() {
-    $('.step-upload-icon').removeClass().addClass('fa fa-times cancel-text step-upload-icon')
-    $('#js-upload-text').text('Upload product file');
 
-  },
-  actionBtn: function(action) {
-   btns = {cancel: 'btn-danger', change: 'btn-primary'};
-   btns_text = {cancel: 'Cancel', change: 'Change'};
-   $('.fileinput-button')
-   .removeClass('btn-primary')
-   .removeClass('btn-danger')
-   .addClass(btns[action]).text(btns_text[action]);
- },
- fileStatus: function(filename, status) {
-  switch(status){
-   case 'visible':
-   el.uploading_box.find('.filename').text(filename).removeClass('invisible');
-   break;
-   case 'error':
-//TODO error case
-break;
 }
-}
-}
+
 }(jQuery, window.Upload = window.Upload || {}));

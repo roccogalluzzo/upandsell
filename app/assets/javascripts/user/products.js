@@ -11,6 +11,7 @@ Products.Index = function() {
 
 Products.New = function() {
   window.EDIT_PRODUCT = false;
+  window.EDIT_PRODUCT_FILE = false;
   Products.init();
   Products.Form.init();
 };
@@ -39,8 +40,7 @@ Products.Form = {
     Upload.init();
     Products.Form.preview_init();
     Products.Form.currencyInit();
-    Products.Form.validationInit();
-
+    Products.Form.validate_init();
     Products.Form.init_editor();
     $(".product").on("ajax:success", Products.Form.save);
 
@@ -52,6 +52,14 @@ Products.Form = {
     $('#product-description').editable({inlineMode: false,
       buttons: ['undo', 'redo' , 'sep', 'bold', 'italic', 'underline', 'fontSize', 'color'
       , 'formatBlock', 'insertOrderedList', 'insertUnorderedList', 'html'],height: 300
+    });
+  },
+  update_product_file: function(file_key) {
+    $.ajax({
+      url: "/user/products/" + $('#js-product-id').val(),
+      type: 'POST',
+      dataType: 'json',
+      data: { _method: 'patch', product: {file_key: file_key}}
     });
   },
   save: function(event, data, status, xhr) {
@@ -75,6 +83,7 @@ Products.Form = {
 
       ProductsTab.setCompleted('product');
       ProductsTab.switchTo('share');
+      window.EDIT_PRODUCT = true;
     }
   },
   preview_init: function() {
@@ -93,6 +102,9 @@ Products.Form = {
   $('.inner-form-preview').css('background-image', 'none');
   window.PREVIEW = true;
 },
+switch_limit: function() {
+
+},
 currencyInit: function() {
   settings.form.find("#currency").bind('click', function(e){
     syms =  settings.form.find("#currency").data('currency-symbols');
@@ -107,10 +119,9 @@ currencyInit: function() {
     settings.form.find("#product_price_currency").val(vals[i]);
   });
 },
-validationInit: function(){
-  settings.form.validate({
+validate_init: function(){
+  $('.product-form').validate({
     showErrors: function(errorMap, errorList) {
-
       $.each(this.validElements(), function (index, element) {
         var $element = $(element);
         $element.data("title", "")
@@ -136,6 +147,7 @@ validationInit: function(){
         }
       });
 }
+
 }
 function loadPreview(path){
   loadImage(path, function (img) {
