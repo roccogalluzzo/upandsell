@@ -6,6 +6,9 @@
     border-bottom: @border-light;
     .make-row();
     .product-form-step {
+      .cancel-text {
+        color: @alizarin;
+      }
       .make-md-column(4);
       border-right: @border-light;
       padding-top: 15px;
@@ -21,6 +24,7 @@
        left: 0;
        bottom: 0;
        border-radius: 0;
+       display: none;
      }
      p {
       i {
@@ -89,11 +93,6 @@
       position: relative;
       bottom: 6px;
     }
-
-    &:hover {
-      background-color: #fdfdfd;
-      opacity: 0.2;
-    }
   }
   .upload-actions {
     padding-top: 15px;
@@ -120,6 +119,26 @@
       }
     }
   }
+
+  .drop-box.hover {
+    background: #f4f4f4;
+  }
+  .drop-box.fade {
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    opacity: 1;
+  }
+}
+
+.product-form-actions {
+  .make-row();
+  padding: 30px 10px;
+  padding-top: 20px;
+  border-top: @border-light;
+}
 }
 .btn-computer {
   .btn;
@@ -138,17 +157,29 @@
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
   }
 }
+
 #js-product-form {
   .product-form-preview {
     .make-row();
     border-bottom: @border-light;
-    margin-bottom: 15px;
+    #preview {
+      position: absolute;
+      width: 100%;
+      height: 250px;
+      z-index: 10;
+      background-color: #444c5f;
+      text-align: center;
+      opacity: 0.09;
+    }
     .inner-form-preview {
+      z-index: 11;
       height: 250px;
       .make-md-column(12);
+      padding: 0;
       background-color: rgba(236, 240, 241, 0.81);
       background-image: image-url("header-default.jpg");
       text-align: center;
+      p { margin-top: 15px; }
       .btn-select-header {
         p { margin-top: 15px; }
         .btn-computer;
@@ -169,9 +200,16 @@
       }
     }
   }
+  .product-file-box {
+    .make-row();
+    height: 100px;
+    border-bottom: @border-light;
+    background-color: #fafafa;
+  }
   .product-form-row {
     .make-row();
     .form-group;
+     padding-top: 15px;
   }
   .product-form-row-1 {
     .product-form-row;
@@ -236,15 +274,6 @@
 
 }
 }
-
-.product-form-actions {
-  .make-row();
-  padding: 30px 10px;
-  padding-top: 20px;
-  border-top: @border-light;
-}
-}
-
 
 
 

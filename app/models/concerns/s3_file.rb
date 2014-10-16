@@ -1,3 +1,5 @@
+require 'open-uri'
+
 module S3File
   extend ActiveSupport::Concern
 
@@ -38,5 +40,24 @@ module S3File
       success_action_redirect: file.success_action_redirect,
       policy: file.policy,
       signature: file.signature}
+    end
+
+    def self.upload_from_url(name, url)
+     file = ProductUploader.new
+     file.success_action_redirect = '/'
+     key = file.store_key(file.temp_store_key(name))
+
+     open(url) {|f|
+      file =  @s3.directories.new(key: @c['bucket']).files.create({
+        key: key,
+        body: f.read,
+        public: false,
+        })
+      @res = file.save
+    }
+    if @res
+      return { key: file.key}
+    end
+    return false
   end
 end

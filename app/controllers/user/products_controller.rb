@@ -60,7 +60,11 @@ class User::ProductsController < User::BaseController
   end
 
   def files
-    render json: Product.request(params[:name])
+    if params[:provider] == 'dropbox'
+      render json: Product.upload_from_url(params[:file][:name], params[:file][:link])
+    else
+      render json: Product.request(params[:name])
+    end
   end
 
   def share

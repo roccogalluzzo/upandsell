@@ -1,39 +1,49 @@
 <div id="product-form-page">
   <div class="product-form-steps">
-    <a href="#upload" class="active-tab product-form-step" data-toggle="tab">
+    <a id="js-upload-tab" href="#upload" class="active-tab product-form-step" data-toggle="tab">
       <p>
-        <i class="fa icon-cloud-upload step-icon"></i>
-        Upload product file
-        <div class="progress">
+        <i class="fa icon-cloud-upload step-upload-icon"></i>
+        <span id="js-upload-text">Upload product file</span>
+        <div id="file-upload-progress" class="progress">
           <div class="progress-bar" style="width: 0%;">
           </div>
         </div>
       </p>
     </a>
-    <a href="#js-product-form" class="disabled-tab product-form-step" data-toggle="tab">
+    <a id="js-product-tab" href="#js-product-form" class="disabled-tab product-form-step" data-toggle="tab">
       <p>
         <i class="fa icon-tag step-icon"></i>
         Set product details
       </p>
     </a>
-    <a href="#share" class="completed-tab product-form-step" data-toggle="tab">
+    <a id="js-share-tab" href="#share" class="disabled-tab product-form-step" data-toggle="tab">
       <p>
-        <i class="fa fa-check step-icon"></i>
+        <i class="fa fa-share-alt"></i>
         Share to your audience
       </p>
     </a>
   </div>
+
+
   <div class="tab-content">
-  <div id="upload" class="tab-pane <% if !@product.new_record? %>  hid <% end %>">
+    <div id="upload" class="tab-pane upload fade in active">
       <%= render 'user/products/tabs/upload' %>
     </div>
 
-    <%= render 'user/products/tabs/product_details' %>
 
-    <div class="share <% if  @product.new_record?  %>  hid <% end%>">
+    <div id="js-product-form" class="tab-pane fade product product-form">
+      <%= render 'user/products/tabs/product_details' %>
+    </div>
+
+
+    <div id="share" class="tab-pane share"  data-toggle="tab">
       <%= render 'user/products/tabs/share' %>
     </div>
+
   </div>
+
+
   <div class="produc-form-actions">
   </div>
 </div>
+<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="c94cz0pz2g37050"></script>
