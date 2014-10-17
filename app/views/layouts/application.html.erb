@@ -33,7 +33,7 @@
       <body>
 
 
-
+    <%= render "layouts/messages" %>
         <div id="top">
           <div>
 
@@ -123,7 +123,6 @@
         </ul>
       </div>
     </div>
-    <%= render partial: "layouts/messages", flash: flash %>
     <div class="page-content">
       <div class="content">
         <%= yield %>

@@ -25,7 +25,7 @@ Up.alert = {
     $('.animated-alert').animate({
      top: 55
    }, 500);
-    setTimeout(Up.alert.close, 4500);
+    setTimeout(Up.alert.close, 5000);
   },
   close: function() {
     $('.animated-alert').animate({

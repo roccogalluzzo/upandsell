@@ -5,6 +5,7 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require bootstrap/dist/js/bootstrap
+//= require jquery-ui/draggable
 //= require jquery-file-upload//js/vendor/jquery.ui.widget.js
 //= require jquery-file-upload//js/jquery.iframe-transport.js
 //= require blueimp-load-image/js/load-image.all.min.js
@@ -13,7 +14,7 @@
 //= require jquery-file-upload/js/jquery.fileupload-process.js
 //= require jquery-file-upload/js/jquery.fileupload-image.js
 //= require jquery.payment/lib/jquery.payment.js
-//= require jquery.validation/dist/jquery.validate.js
+//= require jquery.validation/dist/jquery.validate
 //= require flat-ui-pro/js/bootstrap-switch.js
 //= require flat-ui-pro/js/bootstrap-select.js
 //= require momentjs/min/moment.min.js

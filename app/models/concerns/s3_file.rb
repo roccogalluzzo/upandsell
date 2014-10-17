@@ -1,3 +1,5 @@
+require 'open-uri'
+
 module S3File
   extend ActiveSupport::Concern
 
@@ -10,8 +12,12 @@ module S3File
    region: @c['region']})
 
   def self.confirm(key)
-    new_key = key.sub(/temp\//, '')
-    @s3.copy_object(@c['bucket'], key, @c['bucket'], new_key)
+    if key.include? '/temp/'
+      new_key = key.sub(/temp\//, '')
+      @s3.copy_object(@c['bucket'], key, @c['bucket'], new_key)
+    else
+      new_key = key
+    end
     head = @s3.head_object(@c['bucket'], new_key).headers
 
     {key: new_key, info: { type: head["Content-Type"],
@@ -38,5 +44,23 @@ module S3File
       success_action_redirect: file.success_action_redirect,
       policy: file.policy,
       signature: file.signature}
+    end
+
+    def self.upload_from_url(name, url)
+     file = ProductUploader.new
+     file.success_action_redirect = '/'
+     key = file.store_key(file.temp_store_key(name))
+
+     open(url) {|f|
+      file =  @s3.directories.new(key: @c['bucket']).files.create({
+        key: key,
+        body: f.read,
+        public: false,
+        })
+      if file.save
+        return { file_key: file.key}
+      end
+    }
+    return false
   end
 end

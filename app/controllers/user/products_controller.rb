@@ -12,6 +12,7 @@ class User::ProductsController < User::BaseController
 
   def create
     product = current_user.products.build(product_params)
+    product.description = Sanitize.fragment(product.description, Sanitize::Config::BASIC)
     if product.save
       response = {product: product}
       response["twitter_url"] = twitter_url(product.name, product.slug)
@@ -36,6 +37,7 @@ class User::ProductsController < User::BaseController
     product = Product.find(params[:id])
     is_owner?(product.user_id)
     product.attributes = product_params
+    product.description = Sanitize.fragment(product.description, Sanitize::Config::BASIC)
     #  price_currency:  @product.price.symbol }}
     if product.save
       response = {product: product}
@@ -60,7 +62,11 @@ class User::ProductsController < User::BaseController
   end
 
   def files
-    render json: Product.request(params[:name])
+    if params[:provider] == 'dropbox'
+      render json: Product.upload_from_url(params[:file][:name], params[:file][:link])
+    else
+      render json: Product.request(params[:name])
+    end
   end
 
   def share
