@@ -9,14 +9,14 @@
 </div>
 
 <%#if @product.id %>
- <div class="product-file-box">
+<div class="product-file-box">
  <form action="<%= Rails.configuration.aws["bucket_url"] %>" method="POST" enctype="multipart/form-data"
- class="js-s3-upload">
-  <div class="product-file-icon">
+   class="js-s3-upload">
+   <div class="product-file-icon">
     <i class="fa icon-docs fa-4x"></i>
   </div>
   <div class="product-file-info">
-    <p class="js-filename"></p>
+    <p class="js-filename"><%= @product.file_name %></p>
   </div>
   <div class="product-file-upload-btns">
     <small>New Product File?</small>
@@ -37,8 +37,8 @@
     <div class="progress-bar" style="width: 0%;">
     </div>
   </div>
-  </form>
 </div>
+</form>
 <%# end %>
 
 <%= simple_form_for [:user, @product], html: { multipart: true,
@@ -77,11 +77,8 @@
     </div>
     <div class="limit-sales">
       <div class="limit-head">
-        <div class="limit-switch">
-         <input type="checkbox" data-toggle="switch">
-       </div>
        <div class="limit-label">
-         <p class="limit">Limit Product Sales</p>
+       <p class="limit">Limit Sales To:</p>
        </div>
      </div>
      <div class="limit-body">
@@ -93,3 +90,4 @@
   </div>
 </div>
 <% end %>
+<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="c94cz0pz2g37050"></script>

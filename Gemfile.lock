@@ -117,6 +117,7 @@ GEM
     connection_pool (2.0.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
+    crass (0.2.1)
     createsend (4.0.1)
       hashie (>= 1.2, < 3)
       httparty (~> 0.10)
@@ -278,6 +279,8 @@ GEM
     netrc (0.7.7)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
+    nokogumbo (1.1.12)
+      nokogiri
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -386,6 +389,10 @@ GEM
     ruby-progressbar (1.5.1)
     rubyzip (1.1.6)
     safe_yaml (1.0.3)
+    sanitize (3.0.2)
+      crass (~> 0.2.0)
+      nokogiri (>= 1.4.4)
+      nokogumbo (= 1.1.12)
     sass (3.3.13)
     sdoc (0.4.0)
       json (~> 1.8)
@@ -526,6 +533,7 @@ DEPENDENCIES
   redis (~> 3.0.1)
   remotipart (~> 1.2)
   rspec-rails
+  sanitize
   sass-rails!
   sdoc
   selenium-webdriver

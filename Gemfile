@@ -51,6 +51,7 @@ gem 'tabs', git: 'https://github.com/byterussian/tabs.git', branch: 'customizati
 gem 'email_validator'
 gem 'premailer-rails'
 gem "paranoia", "~> 2.0"
+gem 'sanitize'
 
 # Javscript gems
 gem 'jquery-rails'

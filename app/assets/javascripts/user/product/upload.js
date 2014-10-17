@@ -190,7 +190,7 @@ Upload.Animations = {
     $('.btn-computer').fadeTo(100, 0.2);
   },
   complete: function(file_key) {
-    if(window.PRODUCT_EDIT){
+    if(window.EDIT_PRODUCT){
       Products.Form.update_product_file(file_key);
     }
     $('.progress').addClass('animated fadeOut');
@@ -199,6 +199,7 @@ Upload.Animations = {
     if($('.upload')){
       ProductsTab.setCompleted('upload');
     }
+    console.log(file_key);
     $("#file_key").val(file_key);
     el.form.find('input[type=submit]').removeAttr('disabled', 'disabled');
 

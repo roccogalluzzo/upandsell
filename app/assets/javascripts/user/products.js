@@ -32,6 +32,12 @@ Products.init = function() {
 function copyToClipboard(element) {
   ZeroClipboard.config( { moviePath: '/ZeroClipboard.swf' } );
   var client = new ZeroClipboard(element);
+  client.on( 'aftercopy', function(event) {
+    $('#js-copied').addClass('animated FadeIn').show();
+    setTimeout(function(){
+     $('#js-copied').hide();
+   }, 2000);
+  } );
 }
 
 Products.Form = {
@@ -59,51 +65,77 @@ Products.Form = {
       url: "/user/products/" + $('#js-product-id').val(),
       type: 'POST',
       dataType: 'json',
-      data: { _method: 'patch', product: {file_key: file_key}}
+      data: { _method: 'patch', product: {file_key: file_key}},
+      success: function() {   Up.alert.open('Product file was updated.');}
     });
   },
   save: function(event, data, status, xhr) {
     if(data.product){
-      el.form.attr('action', data.edit_url);
-      $('<input>').attr({
-        type: 'hidden',
-        value: 'patch',
-        name: '_method'
-      }).appendTo(el.form);
+     settings.form.attr('action', data.edit_url);
+     $('<input>').attr({
+      type: 'hidden',
+      value: 'patch',
+      name: '_method'
+    }).appendTo( settings.form);
 
-      $('#js-slug').text(data.slug_url);
-      $("#js-ext-link").attr('href', data.slug_url);
-      $('.btn-social-twitter').on('click', function(){
-        window.open(data.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
-      });
-      $('.btn-social-facebook').on('click', function(){
-        window.open(data.facebook_url, 'share','toolbar=0,status=0,width=600,height=305')
-      });
-      $('.share').removeClass('hid');
+     $('#js-slug').text(data.slug_url);
+     $("#js-ext-link").attr('href', data.slug_url);
+     $('.btn-social-twitter').on('click', function(){
+      window.open(data.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
+    });
+     $('.btn-social-facebook').on('click', function(){
+      window.open(data.facebook_url, 'share','toolbar=0,status=0,width=600,height=305')
+    });
 
-      ProductsTab.setCompleted('product');
-      ProductsTab.switchTo('share');
-      window.EDIT_PRODUCT = true;
+     ProductsTab.setCompleted('product');
+     ProductsTab.switchTo('share');
+     if(EDIT_PRODUCT) {
+      Up.alert.open('Product was updated.');
     }
-  },
-  preview_init: function() {
-    $('#js-input-preview').change(Products.Form.preview_add);
-    if($("#local-preview-path").val()){
-      loadPreview($("#local-preview-path").val());
-    }
-    if($(".product-form-preview").data('preview-url')){
-     window.PREVIEW = true;
-     $('.inner-form-preview').css('background-image', 'none');
-     loadPreview($(".product-form-preview").data('preview-url'));
-   }
- },
- preview_add: function(e, data) {
+    window.EDIT_PRODUCT = true;
+    return  true;
+  }
+},
+preview_init: function() {
+  $('#js-input-preview').change(Products.Form.preview_add);
+  if($("#local-preview-path").val()){
+    loadPreview($("#local-preview-path").val());
+  }
+  if($(".product-form-preview").data('preview-url')){
+   window.PREVIEW = true;
+   $('.inner-form-preview').css('background-image', 'none');
+   loadPreview($(".product-form-preview").data('preview-url'));
+ }
+},
+preview_add: function(e, data) {
   loadPreview(e.target.files[0]);
   $('.inner-form-preview').css('background-image', 'none');
   window.PREVIEW = true;
 },
-switch_limit: function() {
 
+validate: function() {
+  var name = $('#product_name').val();
+  var price = $('#product_price').val();
+  if(name == '') {
+    $('#product_name').parent()
+    .addClass("has-error")
+    .tooltip("destroy")
+    .data("title", "Product Name is required")
+    .tooltip();
+    return false
+  }
+  if(price == '' || !$.isNumeric(price)) {
+    $('#product_price').parent()
+    .addClass("has-error")
+    .tooltip("destroy")
+    .data("title", "Price is required and must be greater than 0.50" + $('#currency').text())
+    .tooltip();
+    return false
+
+  }
+  $('#product_name').parent().removeClass("has-error").tooltip("destroy");
+  $('#product_price').parent().removeClass("has-error").tooltip("destroy");
+  return true;
 },
 currencyInit: function() {
   settings.form.find("#currency").bind('click', function(e){
@@ -120,50 +152,41 @@ currencyInit: function() {
   });
 },
 validate_init: function(){
-  $('.product-form').validate({
-    showErrors: function(errorMap, errorList) {
-      $.each(this.validElements(), function (index, element) {
-        var $element = $(element);
-        $element.data("title", "")
-        .tooltip("destroy");
-        $element.parent().removeClass("has-error");
-      });
+  $('.product-form').on('submit', Products.Form.validate);
+},
+show_validation_errors: function(errorMap, errorList) {
+  $.each(this.validElements(), function (index, element) {
+    var $element = $(element);
+    $element.data("title", "")
+    .tooltip("destroy");
+    $element.parent().removeClass("has-error");
+  });
           // Create new tooltips for invalid elements
           $.each(errorList, function (index, error) {
             var $element = $(error.element);
             $element.tooltip("destroy")
             .data("title", error.message)
             .tooltip();
-            console.log($element.parent())
             $element.parent().addClass("has-error");
           });
-        },
-        rules: {
-          "product[price]": {
-            required: true,
-            number: true,
-            min: 0.50
-          }
         }
-      });
-}
 
-}
-function loadPreview(path){
-  loadImage(path, function (img) {
-    $('#preview').html(img);
+      }
+      function loadPreview(path){
+        loadImage(path, function (img) {
+          $('#preview').html(img);
 
-  }, {maxHeight: 250, maxWidth: 780, crop: true, canvas: false});
-}
-function fileError(action){
-  if(action == 'hide'){
-    $('.file-error').addClass('hidden');
-    $('.file-row-error').removeClass('file-row-error');
-  }else {
-    $('.file-error').removeClass('hidden');
-    $('.file-row-error').addClass('file-row-error');
-  }
-}
+        }, {maxHeight: 250, maxWidth: 780, crop: true, canvas: false});
+      }
+      function fileError(action){
+        if(action == 'hide'){
+          $('.file-error').addClass('hidden');
+          $('.file-row-error').removeClass('file-row-error');
+        }else {
+          $('.file-error').removeClass('hidden');
+          $('.file-row-error').addClass('file-row-error');
+        }
+      }
 
 
-}(jQuery, window.Products = window.Products || {}));
+    }(jQuery, window.Products = window.Products || {}));
