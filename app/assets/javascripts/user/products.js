@@ -30,7 +30,7 @@ Products.init = function() {
 };
 
 function copyToClipboard(element) {
-  ZeroClipboard.config( { moviePath: '/ZeroClipboard.swf' } );
+  ZeroClipboard.config( { moviePath: 'ZeroClipboard.swf' } );
   var client = new ZeroClipboard(element);
   client.on( 'aftercopy', function(event) {
     $('#js-copied').addClass('animated FadeIn').show();
