@@ -16,7 +16,7 @@ gem 'devise-async'
 gem 'email_validator'
 gem 'entypo-rails'
 gem 'exchange', '~> 1.2.0'
-gem 'fog', require: false
+gem 'fog', require: 'fog/aws/storage'
 gem 'font-awesome-rails'
 gem 'foreman'
 gem 'gibbon'
