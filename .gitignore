@@ -39,3 +39,6 @@ doc/api/classes/ActionController/LiveTestResponse.html
 config/secrets.yml
 
 config/secrets.yml
+
+/node_modules/*
+npm-debug.log
