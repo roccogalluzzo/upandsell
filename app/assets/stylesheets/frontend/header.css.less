@@ -14,7 +14,7 @@
     color: white;
     background-color: #4b9fca;
   }
-   color: white !important;
+  color: white !important;
 }
 .navbar-top {
   .navbar;
@@ -34,6 +34,7 @@
     .btn;
     .btn-primary;
     .pull-right;
+    .hidden-xs;
     background-color: #53aede;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
     border: none;
@@ -147,6 +148,7 @@
     bottom: 0px;
     left: 5px;
     z-index: 80;
+
   }
   .bg-clouds-right {
     position: absolute;
@@ -177,23 +179,24 @@
    }
  }
 
-.beta-input {
- .form-control;
- .input-lg;
- border: 1px solid #dcdcdc;
+ .beta-input {
+   .form-control;
+   .input-lg;
+   border: 1px solid #dcdcdc;
 
- box-shadow: none;
- line-height: 22px;
- color: #a1a1a1;
- height: 50px;
- &:focus {
-   border-color:  #a9d6ee !important;
    box-shadow: none;
+   line-height: 22px;
+   color: #a1a1a1;
+   height: 50px;
+   &:focus {
+     border-color:  #a9d6ee !important;
+     box-shadow: none;
 
+   }
  }
-}
-.browser-preview-wrap {
+ .browser-preview-wrap {
   .make-row();
+  .hidden-xs;
   min-height: 341px;
   z-index: 1000;
   .browser-preview {

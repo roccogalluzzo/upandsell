@@ -9,6 +9,10 @@
   border-radius: @box-border-radius;
 }
 
+.page-content {
+  overflow: initial !important;
+}
+
 #top {
   border-radius: 0px !important;
   height: 55px !important;
@@ -34,9 +38,11 @@
 
   h3 {
     text-transform: uppercase;
-    margin-left: 15px;
+    padding-left: 15px;
     font-size: 29px;
     margin-top: 10px;
+    background-color: white;
+    z-index: 2;
     span {
       color: @silver;
     }
@@ -144,6 +150,10 @@ h6 {
 .page-sidebar {
   width: @sidebar-width;
   background-color: @primary !important;
+  display: inline-block;
+  float: left;
+  position: fixed;
+  margin-top:55px;
 }
 
 .page-sidebar-wrapper {
