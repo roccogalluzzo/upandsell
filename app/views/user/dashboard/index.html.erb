@@ -45,7 +45,7 @@ Summary
 
   <div class="stats">
     <div class="stats-box">
-      <select name="products" class="mbn">
+      <select name="products" class="form-control select select-primary select-block mbl">
         <option value="0">All Products</option>
         <% @products.each do |product| %>
         <option value="<%= product.id %>"><%= product.name %></option>

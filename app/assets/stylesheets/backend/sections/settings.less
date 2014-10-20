@@ -12,7 +12,14 @@
    .nav;
    .nav-tabs;
    margin-bottom: 0px !important;
- }
+   li {
+    &.active {
+      a{
+        background-color: white !important;
+      }
+    }
+  }
+}
 }
 
 .settings-page {
@@ -127,8 +134,6 @@
    border-bottom: none !important;
  }
  .payment-connect {
-  .btn;
-  .btn-primary;
   .pull-right;
 }
 }
@@ -175,7 +180,8 @@
   .make-row();
   .form-group;
   .row-label {
-    .make-md-column(5);
+    .make-md-column(4);
+    .make-md-column-offset(1);
   }
   .row-input {
     .make-md-column(5);

@@ -6,7 +6,7 @@ Products
 <div class="products-page-index">
   <div class="products-actions">
     <div>
-      <%= link_to(new_user_product_path, class: 'btn-new') do %>
+      <%= link_to(new_user_product_path, class: 'btn-app') do %>
       <i class="fa fa-lg fa-plus"></i>
       New Product
       <% end %>
@@ -26,7 +26,7 @@ Products
      <p>No products yet</p>
      <p>
       <%= link_to "Add One Now",
-      new_user_product_path, class: "btn btn-add btn-primary" %>
+      new_user_product_path, class: "btn-app" %>
     </p>
   </div>
   <% else %>

@@ -139,35 +139,10 @@
   border-top: @border-light;
 }
 }
-.btn-computer {
-  .btn;
-  .btn-primary;
-  input {
-    cursor: pointer;
-    height: 50px;
-    position: absolute;
-    width: 100px;
-    z-index: 99;
-    font-size: 50px;
-    opacity: 0 !important;
-    margin-top: -12px;
-    opacity: 0 !important;
-    -moz-opacity: 0 !important;
-    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
-  }
-}
+
 .dropbox-disabled {
  background-color: #5CA5E0 !important;
  cursor: initial;
-}
-.btn-dropbox {
-  .btn;
-  background-color: #007ee5;
-  margin-left: 3px;
-  color: white;
-  &:hover {
-    background-color: #5CA5E0;
-  }
 }
 
 .btn-cancel {
@@ -488,9 +463,7 @@
   border-bottom: 1px solid #f4f4f4;
   div {
     .make-md-column(12);
-    .btn-new {
-      .btn;
-      .btn-primary;
+    a {
       .pull-right;
     }
   }

@@ -16,7 +16,7 @@ class User::Tools::MailingListsController < User::BaseController
   def create
     @list = MailingList.new(ml_params)
     @list.user_id = current_user.id
-    if params[:mailing_list][:products].blank?
+    if params[:mailing_list][:products].first == '0'
       @list.products = current_user.products
     else
       @list.products = current_user.products.where(id: params[:mailing_list][:products])

@@ -7,7 +7,7 @@ Orders
   <div class="orders-actions">
    <%= simple_form_for :orders, url: user_orders_path, method: :get, html: { class: 'simple_form' } do |f|%>
    <div class="form-group">
-     <select name="products" class="mbn" data-selected="<%= params[:products] %>">
+     <select name="products" class="select select-primary select-block" data-selected="<%= params[:products] %>">
       <option value="0">All Products</option>
       <% current_user.products.each do |product| %>
       <option <%if product.id == params[:products].to_i %>

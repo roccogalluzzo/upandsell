@@ -2,7 +2,7 @@
 
   ProductsList.init = function() {
     $('.js-product-share').on('click', ProductsList.actions.share);
-    $('.js-p-published').on('change', ProductsList.actions.publish)
+    $('.js-p-published').on('switchChange.bootstrapSwitch', ProductsList.actions.publish)
   };
 
   ProductsList.actions = {

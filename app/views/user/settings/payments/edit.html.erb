@@ -9,18 +9,22 @@ Settings / <span>Payments</span>
 
   <div class="paypal-row">
     <div class="payment-switch">
-      <%= f.check_box :paypal, class: 'p-switch', as: :boolean, data: {toggle: 'switch', type: 'paypal'}, label: false %>
+      <div class="bootstrap-switch-square">
+        <%= f.check_box :paypal, class: 'p-switch', as: :boolean, data: {toggle: 'switch', type: 'paypal'}, label: false %>
+      </div>
     </div>
     <div class="paypal-box <% unless current_user.paypal %>unfocus <% end %>">
       <%= image_tag "paypal_logo.gif", class: 'payment-logo' %>
       <%= link_to ( current_user.paypal_email ? "Connected" : "Connect"), paypal_integration_path,
-      class: 'payment-connect', disabled:( current_user.paypal_email ? true : false) %>
+      class: 'payment-connect btn-app', disabled:( current_user.paypal_email ? true : false) %>
     </div>
   </div>
 
   <div class="cc-row">
     <div class="payment-switch">
-      <%= f.check_box :credit_card, class: 'p-switch', as: :boolean, data: {toggle: 'switch', type: 'cc'}, label: false %>
+      <div class="bootstrap-switch-square">
+        <%= f.check_box :credit_card, class: 'p-switch', as: :boolean, data: {toggle: 'switch', type: 'cc'}, label: false %>
+      </div>
     </div>
     <div class="cc-form-box <% unless current_user.credit_card %>unfocus <% end %>">
       <div class="logos-box">
@@ -33,7 +37,8 @@ Settings / <span>Payments</span>
               <p>Gateway</p>
             </div>
             <div class="row-input">
-              <%= f.input_field :credit_card_gateway, collection: ['Paymill', 'Stripe', 'Braintree'] %>
+            <%= f.input_field :credit_card_gateway, collection: ['Paymill', 'Stripe', 'Braintree'],
+            class: 'select select-primary select-block' %>
             </div>
           </div>
           <div class="form-row">

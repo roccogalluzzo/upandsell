@@ -2,7 +2,7 @@
 
  Payments.Edit = function() {
   console.log('ff')
-  $("[data-toggle='switch']").on('change', function(event, state) {
+  $("[data-toggle='switch']").on('switchChange.bootstrapSwitch', function(event, state) {
     if( $(this).data('type') == 'paypal'){
       $('.paypal-box').toggleClass('unfocus')
     }

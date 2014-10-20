@@ -2,14 +2,13 @@
 
   Up.init = function() {
     if ($("#js-message").text().length > 20) { Up.alert.open();}
-    $("select").selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-default'});
-    $(".select").removeClass('form-control');
+    $("select").select2({style: 'btn btn-primary', menuStyle: 'dropdown-default'});
 
     if($("select").data('selected')){
-     $('.selectpicker').selectpicker('val', $("select").data('selected'));
+     $('.selectpicker').select2('val', $("select").data('selected'));
    }
 
-   $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+   $("[data-toggle='switch']").bootstrapSwitch();
    var page = Utils.getPage();
    try {
      window[page.controller.capitalize()][page.action.capitalize()]();

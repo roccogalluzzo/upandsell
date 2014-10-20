@@ -23,11 +23,14 @@
 
   </div>
   <div class="item-published">
-    <input type="checkbox" class="js-p-published switch" data-toggle="switch"
+    <div class="bootstrap-switch-square">
+    <input  data-on-text="Yes" data-off-text="No"
+     type="checkbox" class="js-p-published switch" data-toggle="switch"
     data-url="<%= toggle_published_user_product_url(product) %>"
     <% if product.published %>
     checked
     <% end %>
     >
   </div>
+</div>
 </div>
