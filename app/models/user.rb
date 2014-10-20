@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   end
 
   serialize_payment_info :paypal, :email, :token, :token_secret
-  serialize_payment_info :credit_card, :token, :public_token, :gateway
+  serialize_payment_info :credit_card, :token, :public_token, :gateway, :bt_merchant_id, :bt_currency
 
 
   def credit_card_active?

@@ -80,17 +80,25 @@
        .make-row();
      }
      .cc-form {
-      padding-top: 30px;
+      padding-top: 0px;
+      .select {
+        width: 100%;
+      }
+      .gateway-selector {
+        .make-md-column(12);
+        margin-bottom: 20px;
+      }
       .make-md-column(12);
       form {.form-horizontal;}
       .form-row {
         .make-row();
         .form-group;
+        margin-bottom: 10px;
         .row-label {
-          .make-md-column(3);
+          .make-md-column(5);
         }
         .row-input {
-          .make-md-column(6);
+          .make-md-column(7);
           .select .btn {
             width: 200px;
           }
