@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   end
 
   after_create :send_welcome_email
+  after_create :add_to_mailchimp
 
   def self.serialize_payment_info(type, *args)
     args.each do |method_name|
@@ -63,15 +64,19 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome_email
-    UserMailer.delay.welcome_email(self)
+    UserMailer.delay.welcome_email(self.id)
   end
 
-def connect_paypal(email, token, token_secret)
-  self.paypal = true
-  self.paypal_email = email
-  self.paypal_token = token
-  self.paypal_token_secret = token_secret
-  self.save
-end
+  def add_to_mailchimp
+    UserMailchimpSync.perform_async(self.id)
+  end
+
+  def connect_paypal(email, token, token_secret)
+    self.paypal = true
+    self.paypal_email = email
+    self.paypal_token = token
+    self.paypal_token_secret = token_secret
+    self.save
+  end
 
 end

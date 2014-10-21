@@ -2,6 +2,7 @@ class Invite < ActiveRecord::Base
 
   before_create :generate_token
   before_create :set_attributes
+  after_create :add_to_mailchimp
   validates :email, email: true
   validates :email, uniqueness: true
   validates :email, presence: true
@@ -16,6 +17,10 @@ class Invite < ActiveRecord::Base
 
   def generate_token
     self.invitation_token = Digest::SHA1.hexdigest([Time.now, rand].join)
+  end
+
+  def add_to_mailchimp
+    InviteMailchimpSync.perform_async(self.id)
   end
 
 end
