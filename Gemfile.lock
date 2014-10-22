@@ -228,6 +228,8 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
     inflecto (0.0.2)
+    intercom-rails (0.2.26)
+      activesupport (> 3.0)
     ipaddress (0.8.0)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
@@ -511,6 +513,7 @@ DEPENDENCIES
   guard-livereload
   guard-rspec
   hiredis (~> 0.4.5)
+  intercom-rails (~> 0.2.26)
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
