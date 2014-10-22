@@ -27,7 +27,7 @@ class Admin::EmailsController < Admin::BaseController
      message = {"html"=> content,
        "subject"=> subject,
        "from_email"=>"rocco@upandsell.me",
-       "from_name"=>"Rocco Galluzzo",
+       "from_name"=>"Rocco from Up&Sell.Me",
        "to"=> [{"email"=> email, "name"=> name}],
        "auto_text"=> true,
        "signing_domain"=> 'upandsell.me'

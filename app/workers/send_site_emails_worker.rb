@@ -13,7 +13,7 @@ class SendSiteEmailsWorker
    message = {"html"=>  email.content,
     "subject"=> email.subject,
     "from_email"=>"rocco@upandsell.me",
-    "from_name"=>"Rocco Galluzzo",
+    "from_name"=>"Rocco from Up&Sell.Me",
     "to"=> emails,
     "auto_text"=> true,
     "signing_domain"=> 'upandsell.me'
