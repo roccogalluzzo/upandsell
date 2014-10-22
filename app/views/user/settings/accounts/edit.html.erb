@@ -93,8 +93,18 @@ Settings / <span>Account</span>
    <p>Emails after Sales</p>
  </div>
  <div class="row-input">
-     <div class="bootstrap-switch-square">
-   <%= f.check_box :email_after_sale, class: "switch", data:{toggle: "switch"} %>
+   <div class="bootstrap-switch-square">
+     <%= f.check_box :email_after_sale, class: "switch", data:{toggle: "switch"} %>
+   </div>
+ </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+  <p>Site Newsletter</p>
+ </div>
+ <div class="row-input">
+   <div class="bootstrap-switch-square">
+     <%= f.check_box :newsletter, class: "switch", data:{toggle: "switch"} %>
    </div>
  </div>
 </div>

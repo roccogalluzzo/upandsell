@@ -1,0 +1,40 @@
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $('#email').editable({inlineMode: false,height: 300
+    });
+    $("form")
+    .bind("ajax:complete", function(xhr, data, status) {
+      $('.btn').attr('disabled', true);
+
+    });
+  });
+</script>
+<div id="site-newsletter">
+  <div class="newsletter-send-title">
+    <h6> Send Email to: <b>Users</b> <i><b><%= User.newsletter.count %></b> subscribers</i></h6>
+  </div>
+  <div class="newsletter-send-content">
+    <%= simple_form_for admin_emails_path, remote: true do |f|%>
+    <div class="form-group row">
+      <div class="col-md-7">
+        <%= f.input_field :subject, class: 'input-lg form-control', placeholder: 'Subject' %>
+      </div>
+      <div class="col-md-3">
+        <%= f.button :submit, 'Send Test Email', class: 'btn btn-block btn-default',   data: {disable_with: 'Sending...'} %>
+      </div>
+      <div class="col-md-2">
+        <%= f.button :submit, 'Send', class: 'btn btn-block btn-primary', data: {disable_with: 'Sending...'}%>
+      </div>
+    </div>
+    <div class="row">
+     <div>
+       <%= f.input_field :content, as: :text, id:'email', placeholder: 'Subject' %>
+     </div>
+   </div>
+ </div>
+ <% end %>
+
+
+</div>
+
+</div>

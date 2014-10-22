@@ -106,7 +106,9 @@ namespace :admin do
  resources :invites, only: [:index, :create, :update,:show, :destroy] do
   get 'send_invite', on: :member
 end
-
+resources :emails, only: [:index, :create] do
+  get 'send_test_email'
+end
 resources :affiliations, only: [:index]
 end
 

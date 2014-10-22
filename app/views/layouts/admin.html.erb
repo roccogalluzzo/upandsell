@@ -9,7 +9,7 @@
   <%= csrf_meta_tag %>
   <script type="text/javascript">
     Utils.registerPage("<%= controller_name %>", "<%= action_name %>");
-    </script>
+  </script>
   <script type="text/javascript">
     WebFontConfig = {
       google: { families: [ 'Open+Sans:400,300,600,700:latin' ] }
@@ -92,10 +92,10 @@
           <span>Invites</span>
           <% end %>
         </li>
-        <li class="<%= ap(user_affiliations_path) %>">
-          <%= link_to admin_affiliations_path do %>
-          <i class="fa  fa-lg fa-w icon-connection"></i>
-          <span>Affiliations</span>
+        <li class="<%= ac('emails') %>">
+          <%= link_to  admin_emails_path do %>
+          <i class="fa  fa-lg fa-w fa-envelope"></i>
+          <span>Emails</span>
           <% end %>
         </li>
       </ul>

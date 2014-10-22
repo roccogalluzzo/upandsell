@@ -28,7 +28,7 @@ gem 'jquery-ui-rails'
 gem 'kaminari'
 
 gem 'maildown'
-gem 'mandrill-api'
+gem 'mandrill-api', require: 'mandrill'
 gem 'mini_magick'
 gem 'money-rails'
 gem 'monetize'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140924150146) do
+ActiveRecord::Schema.define(version: 20141021184032) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",             null: false
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20140924150146) do
     t.datetime "invitation_accepted_at"
   end
 
-  add_index "invites", ["email"], name: "index_invites_on_email", unique: true, using: :btree
   add_index "invites", ["invitation_token"], name: "index_invites_on_invitation_token", unique: true, using: :btree
 
   create_table "mailing_list_emails", force: true do |t|
@@ -127,6 +126,13 @@ ActiveRecord::Schema.define(version: 20140924150146) do
     t.datetime "updated_at"
   end
 
+  create_table "site_newsletters", force: true do |t|
+    t.string   "subject"
+    t.text     "content"
+    t.datetime "sent_at"
+    t.string   "target"
+  end
+
   create_table "users", force: true do |t|
     t.string   "name",                                   null: false
     t.string   "email",                                  null: false
@@ -159,6 +165,7 @@ ActiveRecord::Schema.define(version: 20140924150146) do
     t.text     "custom_email_message"
     t.string   "avatar"
     t.string   "bio"
+    t.boolean  "newsletter",             default: true
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

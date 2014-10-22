@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   serialize :custom_email_message, Hash
   serialize :createsend_token
 
+  scope :newsletter, -> { where newsletter: true }
+
   validates_presence_of :name, :email
   validates_confirmation_of :password
   validates :ga_code,  allow_blank: true,
