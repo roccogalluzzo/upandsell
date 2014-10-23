@@ -16,14 +16,21 @@ class Product < ActiveRecord::Base
     self.file_info = {size: ''}
   end
 
+  before_create do
+    if self.file_key
+      response = S3File.confirm(self.file_key)
+      self.file_key = response[:key]
+      self.file_info = response[:info]
+    else
+      return false
+    end
+  end
   before_save do
-    if self.file_key_changed?
+    if self.file_key_changed? && self.file_key_was != nil
       response = S3File.confirm(self.file_key)
       self.file_key = response[:key]
       self.file_info     = response[:info]
-      unless self.file_key_was == nil
-        S3File.delete(self.file_key_was)
-      end
+      S3File.delete(self.file_key_was)
     end
   end
 

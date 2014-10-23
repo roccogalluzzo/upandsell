@@ -170,6 +170,7 @@
   .product-form-preview {
     .make-row();
     border-bottom: @border-light;
+    position: relative !important;
     #preview {
       position: absolute;
       width: 100%;
@@ -177,9 +178,10 @@
       //z-index: 1;
       background-color: #444c5f;
       text-align: center;
-      opacity: 0.09;
+      opacity: 0.07;
     }
     .inner-form-preview {
+      border-radius: 6px 6px 0px 0px;
       z-index: 11;
       height: 250px;
       position: initial !important;
