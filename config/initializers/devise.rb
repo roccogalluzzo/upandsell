@@ -6,6 +6,10 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   config.secret_key = '00a52ee396be536a5b90554d89b3a264d9c751250fa9e2fa7a573b39659c054609a82b50923d13d937200f8b568decf6b59de2baf07d8af5e4b97df5d07345b0'
 
+  config.omniauth :google_oauth2, "878378211116-vn8157bkd8odm8i5g6nlp95trq6bq2cc.apps.googleusercontent.com",
+  "h2k9kjviwyrsOMxlHtFernJ3", { }
+  config.omniauth :facebook, "727274180680256", "be1d495f9f3749c852771f3705e4d2bd"
+  config.omniauth :twitter, "FwNWis4Eo2MB7FA82EH951kZo", "3FJFP4kiNvtL0pX5p7vGmnFZ908sgCmDSruVm4LgHqI3NisCr1"
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
@@ -13,7 +17,7 @@ Devise.setup do |config|
   config.mailer_sender = 'bot@upandsell.me'
 
   # Configure the class responsible to send e-mails.
-   config.mailer = 'UserMailer'
+  config.mailer = 'UserMailer'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -106,7 +110,7 @@ Devise.setup do |config|
   # able to access the website for two days without confirming his account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming his account.
-   config.allow_unconfirmed_access_for = 300.days
+  config.allow_unconfirmed_access_for = 300.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
