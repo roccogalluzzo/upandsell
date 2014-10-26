@@ -193,7 +193,7 @@ GEM
     fog-softlayer (0.3.11)
       fog-core
       fog-json
-    font-awesome-rails (4.1.0.0)
+    font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
     foreman (0.74.0)
       dotenv (~> 0.11.1)

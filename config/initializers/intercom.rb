@@ -18,7 +18,7 @@ IntercomRails.config do |config|
   # == Enabled Environments
   # Which environments is auto inclusion of the Javascript enabled for
   #
-  config.enabled_environments = ["production"]
+  config.enabled_environments = ["production", "development"]
 
   # == Current user method/variable
   # The method/variable that contains the logged in user in your controllers.
@@ -92,5 +92,5 @@ IntercomRails.config do |config|
   #             id of #Intercom.
   #
   # config.inbox.style = :default
-  # config.inbox.style = :custom
+  config.inbox.style = :default
 end

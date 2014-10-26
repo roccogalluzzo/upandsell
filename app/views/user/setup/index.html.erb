@@ -1,72 +1,72 @@
-<%- title "Setup Account" %>
-<div class="setup-timeline">
-  <ul>
-    <li>
-      <%= step('fa-envelope-o', @email) %>
-      <div class="cbp_tmlabel email-section">
+<% content_for(:page_title)  { "Setup Account" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg fa-cogs"></i>
+Account / <span>Setup</span>
+<% end %>
 
-        <% if @email %>
-        <p class="step-success"> Email Confirmed</p>
-        <% else %>
+<div id="setup-page">
+  <div class="welcome-tab">
+    <div class="welcome-msg">
+      <h1>Welcome To Up&amp;Sell.Me!</h1>
+      <p>Just few steps to start selling with us. If you have any problem you can contact the support by
+       clicking the question mark icon at bottom right of the page or by sending and email at
+       <a href="mailto:support@upandsell.me">support@upandsell.me</a>. </p>
+     </div>
+   </div>
+   <div class="product-form-steps">
+    <a id="js-upload-tab" href="#email-tab" class="
+    <%= 'completed-tab' if @email %>
+    <%= 'active-tab' if !@email %>
+    product-form-step" data-toggle="tab">
+    <p>
+      <i class="
+      <%= 'fa-check' if @email %>
+      <%= 'fa-envelope-o' if !@email %>
+      fa"></i>
+      <span>Confirm your email</span>
+    </p>
+  </a>
+  <a id="js-product-tab" href="#payment-tab" class="
+  <%= 'completed-tab' if @payments %>
+  <%= 'active-tab' if !@payments && @email %>
+  <%= 'disabled-tab' if !@payments && !@email %>
+  product-form-step" data-toggle="tab">
+  <p>
+    <i class="fa
+    <%= 'fa-check' if @payments %>
+    <%= 'fa-credit-card' if !@payments %>
+    "></i>
+    Set Up Payments
+  </p>
+</a>
+<a id="js-share-tab" href="#add-tab" class="
 
-        <p> We've sent an email to <b id="email"><%= current_user.email %></b>. </p>
-        <p> Please click the link in that message to confirm your email andress.</p>
-        <%= form_tag user_update_email_path,
-        disable_with: "Saving...", method: :patch, remote: true, id: 'js-email-box',
-        class: "hid form-inline" do %>
 
-        <div class="form-group" style="width:40%;">
-          <input id="new-email" type="email" name="user[email]"
-          style="width:100%;" class="form-control" placeholder="New Email">
-        </div>
-        <button type="submit" class="btn btn-default">Save</button>
-        <% end %>
-        <p>
-          <%= link_to "Resend", user_resend_email_path, remote: true,
-          data: { disable_with: "Resending..."},
-          class: "btn btn-primary", id: "resend-email" %>
+<%= 'active-tab' if @payments && @email %>
+<%= 'disabled-tab' if !@payments || !@email %>
+product-form-step" data-toggle="tab">
+<p>
+  <i class="fa fa-tag"></i>
+  Add Product
+</p>
+</a>
+</div>
+<div class="tab-content">
+  <div id="email-tab" class="tab-pane upload   <%= 'in active' if !@email %>">
+    <%= render 'user/setup/tabs/confirm_email' %>
+  </div>
+  <div id="payment-tab" class="tab-pane fade product product-form <%= 'in active' if !@payments && @email %>">
+    <%= render 'user/setup/tabs/add_payment' %>
+  </div>
+  <div id="add-tab" class="tab-pane share <%= 'active in' if @payments && @email %>"  data-toggle="tab">
+    <%= render 'user/setup/tabs/add_and_social' %>
+  </div>
+</div>
+<div class="setup-footer">
+  <%= link_to user_root_path do %>
+  <i class="fa fa-times"> I'm just looking around</i>
+  <% end %>
+</div>
+</div>
 
-          <a class="btn btn-default" id="change-email" href="#">Change Email</a></p>
-          <small>Make sure to check your junk or spam folder.
-           The sender is <b>bot@upandsell.me</b></small>
-           <% end %>
-         </div>
-       </li>
-
-       <li>
-         <%= step('fa-money', @payments) %>
-         <div class="cbp_tmlabel gateways-section ">
-
-          <% if @payments %>
-          <p class="step-success"> Payment Gateway Added</p>
-          <% else %>
-          <p>Connect a payment gateway to your account.</p>
-
-          <div class="gateways-row">
-            <div class="col-md-5 col-md-offset-1">
-              <%= image_tag "paypal_logo.gif" %>
-              <p>
-               <%= link_to "Connect", paypal_integration_path, class: 'btn btn-primary m-t-20' %>
-             </p>
-           </div>
-           <div class="col-md-4">
-            <%= image_tag "paymill.png" %>
-            <p>
-             <%= link_to "Set Up", edit_user_settings_payments_path, class: 'btn btn-primary m-t-20' %>
-           </p>
-         </div>
-       </div>
-       <% end %>
-     </li>
-     <li>
-      <%= step('fa-file-o', false) %>
-      <div class="cbp_tmlabel add-section">
-        <p>Setup complete, add your first product and start selling with us.</p>
-        <p><%= link_to(new_user_product_path, class: "btn btn-lg btn-primary") do %>
-         Add New Product
-         <% end %></p>
-       </div>
-     </li>
-   </ul>
- </div>
 
