@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  skip_after_filter :intercom_rails_auto_include
   layout "product"
   before_action :set_session
   def show

@@ -1,6 +1,7 @@
 class CheckoutsController < ApplicationController
 
   skip_before_filter :verify_authenticity_token, only: [:ipn]
+  skip_after_filter :intercom_rails_auto_include
 
   def pay_info
     product = Product.find(params[:product_id])

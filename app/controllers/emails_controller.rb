@@ -1,5 +1,5 @@
 class EmailsController < ApplicationController
-
+  skip_after_filter :intercom_rails_auto_include
   def unsubscribe_user
   end
 

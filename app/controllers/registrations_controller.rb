@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-
+  skip_after_filter :intercom_rails_auto_include
   def new
     if params[:invite_token]
       @invite = Invite.find_by_invitation_token params[:invite_token]
