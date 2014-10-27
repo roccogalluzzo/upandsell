@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-8 col-md-offset-2 text-center">
-    <p> We've sent an email to <b id="email"><%= current_user.email %></b>. </p>
-    <p> Please click the link in that message to confirm your email andress.</p>
+    <p> We have sent an email to <b id="email"><%= current_user.email %></b>. </p>
+    <p> Please click the link in the message to confirm your email andress.</p>
     <p>
       <%= link_to "Resend", user_resend_email_path, remote: true,
       data: { disable_with: "Resending..."},
