@@ -87,7 +87,7 @@
          <div class="page-sidebar-wrapper" id="main-menu-wrapper">
          <% if !current_user.confirmed? || !(current_user.paypal || current_user.credit_card) %>
            <div id="sidebar-setup-box">
-           <%= link_to "Set Up Account", user_setup_path, class: 'btn-app' %>
+           <%= link_to "Account Setup", user_setup_path, class: 'btn-app' %>
           </div>
           <% end %>
           <ul>
