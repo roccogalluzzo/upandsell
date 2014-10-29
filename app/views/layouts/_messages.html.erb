@@ -1,7 +1,7 @@
 <div class="animated-alert"><div class="message">
   <p id="js-message" >
     <% flash.each do |type, message| %>
-    <%= message %>
+    <%= message if !message.blank?%>
     <% end %>
   </p>
 </div></div>
