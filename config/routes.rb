@@ -1,5 +1,5 @@
 require 'sidekiq/web'
-
+require 'split/dashboard'
 
 Upandsell::Application.routes.draw do
   devise_for :users, controllers: { confirmations: 'confirmations', registrations: "registrations" }
@@ -99,6 +99,8 @@ end
 
 namespace :admin do
  mount Sidekiq::Web => 'sidekiq'
+ mount Split::Dashboard => "split"
+
  root 'dashboard#index'
  resources :users, only: [:index,:show]
  resources :products, only: [:index,:show, :destroy]

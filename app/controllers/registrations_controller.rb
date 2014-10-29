@@ -1,15 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
   skip_after_filter :intercom_rails_auto_include
   def new
-    if params[:invite_token]
-      @invite = Invite.find_by_invitation_token params[:invite_token]
-
-    else
-      redirect_to root_path and return
-    end
-
-
-    # if param not present show beta error message
     if params[:ref]
      @ref = params[:ref]
    else
@@ -19,15 +10,6 @@ class RegistrationsController < Devise::RegistrationsController
 end
 
 def create
-  if params[:user][:invitation_token]
-    @invite = Invite.find_by_invitation_token params[:user][:invitation_token]
-    params[:user][:email] = @invite.email
-    @invite.status = 'used'
-    @invite.save
-  else
-    redirect_to root_path and return
-  end
-
   super
 end
 
