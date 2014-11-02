@@ -34,7 +34,6 @@ class Product < ActiveRecord::Base
       S3File.delete(self.file_key_was)
     end
   end
-end
 
 before_destroy do
   S3File.delete(self.file_key)
