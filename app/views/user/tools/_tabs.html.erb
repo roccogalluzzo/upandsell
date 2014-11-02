@@ -1,6 +1,6 @@
 <% content_for(:page_title)  { "Marketing Tools" } %>
 <%- content_for :title  do %>
- <i class="fa  fa-lg fa-w fa-bullhorn"></i>
+<i class="fa  fa-lg fa-w fa-bullhorn"></i>
 Marketing
 <% end %>
 <div class="tools-menu">
@@ -10,11 +10,12 @@ Marketing
       Newsletters/Mailing Lists
       <% end %>
     </li>
-  <!--   <li class="<%= ap( user_tools_coupons_path)%>">
+    <li class="<%= ap( user_tools_coupons_path)%>">
       <%= link_to( user_tools_coupons_path) do %>
       Coupons
       <% end %>
     </li>
+  <!--
     <li class="<%= ap(user_tools_serial_keys_path)%>">
       <%= link_to(user_tools_serial_keys_path) do %>
       Serial Key Upload

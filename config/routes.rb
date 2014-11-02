@@ -41,6 +41,8 @@ Upandsell::Application.routes.draw do
   get 'checkout/check_payment' => 'checkouts#check_paypal_payment'
   post 'checkout/ipn' => 'checkouts#ipn'
   get 'download/p/:token' => 'checkouts#download', :as => 'download_product'
+  post 'checkout/check_coupon' => 'checkouts#check_coupon'
+
   resources :products, only: [:show]  do
   #get 'paypal',  on: :member
 end

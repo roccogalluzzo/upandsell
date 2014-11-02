@@ -1,0 +1,122 @@
+#coupon-page {
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+  .coupon-header {
+    .make-row();
+    min-height: 90px;
+    padding: 30px 10px;
+    padding-top: 20px;
+    border-bottom: @border-light;
+    .show-price-box {
+      .make-md-column(2);
+      padding: 8px 12px;
+      height: 42px;
+      border-radius: 6px;
+      border-width: 2px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 28px;
+      border-color: #bdc3c7;
+      line-height: 28px;
+      color: @emerald;
+    }
+    form {
+      .random-btn {
+        i {
+         border-bottom: 1px dotted #fff;
+       }
+       span {
+         border-bottom: 1px dotted #fff;
+       }
+       background-color:  darken(@secondary, 15%);
+       border-color:  darken(@secondary, 15%);
+       cursor: pointer;
+       &:hover {
+         background-color: darken(@secondary, 20%);
+         border-color:  darken(@secondary, 20%);
+         color: white;
+       }
+       &:active {
+         background-color: darken(@secondary, 20%);
+         border-color:  darken(@secondary, 20%);
+         color: white;
+       }
+       &:focus {
+         background-color: darken(@secondary, 20%);
+         border-color:  darken(@secondary, 20%);
+         color: white;
+       }
+     }
+     #coupon_avaiable {
+      text-align: center;
+      font-size: 22px;
+      line-height: 28px;
+      padding: 0;
+    }
+    p {
+      font-weight: bold;
+      line-height: 41px;
+    }
+    .first-row-form {
+      .make-row();
+      border-bottom: @border-light;
+      margin-bottom: 20px;
+    }
+  }
+}
+.coupon-list  {
+  .make-row();
+  div {
+   .make-md-column(12);
+   padding: 0;
+   table {
+    .table;
+    .table-condensed;
+    margin-bottom: 0px;
+    thead {
+      .coupon-list-code { width: 14%;}
+      .coupon-list-discount {width: 10%;}
+      .coupon-list-product {width: 30%}
+      .coupon-list-counters {width: 14%}
+      tr {
+        height: 50px;
+        border-bottom: 1px solid #f4f4f4;
+        text-transform: uppercase;
+        th {
+         border-right: 1px solid #f4f4f4;
+         line-height: 39px;
+         text-align: center;
+         font-size: 11px;
+       }
+     }
+   }
+   tbody {
+    tr {
+     border-bottom: @border-light;
+     &:last-child {
+      border-bottom: none !important;
+    }
+    td {
+      border-top: none;
+      text-align: center;
+      vertical-align: middle;
+      .btn-delete {
+        .btn-circle;
+        display: inline-block;
+        float: none !important;
+        i {
+          right: 3px;
+          top: 9px !important;
+        }
+      }
+    }
+  }
+}
+}
+}
+}
+}

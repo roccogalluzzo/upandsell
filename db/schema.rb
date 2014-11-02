@@ -11,18 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021184032) do
+ActiveRecord::Schema.define(version: 20141101195610) do
 
   create_table "coupons", force: true do |t|
-    t.integer  "product_id",             null: false
-    t.string   "code",                   null: false
+    t.integer  "product_id",                       null: false
+    t.string   "code",                             null: false
     t.integer  "discount"
-    t.integer  "avaiable"
-    t.integer  "used",       default: 0
+    t.integer  "available"
+    t.integer  "used",                 default: 0
     t.datetime "expire"
-    t.string   "type"
+    t.string   "discount_type"
     t.string   "status"
+    t.integer  "user_id"
+    t.integer  "discount_money_cents", default: 0
   end
+
+  add_index "coupons", ["code"], name: "index_coupons_on_code", using: :btree
+  add_index "coupons", ["product_id"], name: "index_coupons_on_product_id", using: :btree
+  add_index "coupons", ["user_id"], name: "index_coupons_on_user_id", using: :btree
+
+  create_table "identities", force: true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "invites", force: true do |t|
     t.string   "email"
@@ -80,6 +96,7 @@ ActiveRecord::Schema.define(version: 20141021184032) do
     t.datetime "completed_at"
     t.datetime "cancelled_at"
     t.integer  "number"
+    t.integer  "coupon_id"
   end
 
   create_table "products", force: true do |t|

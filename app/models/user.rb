@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :products
   has_many :referrals
   has_many :referrals_payments
+  has_many :coupons
 
   mount_uploader :avatar, AvatarUploader
 

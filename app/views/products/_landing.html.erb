@@ -44,8 +44,7 @@ class="fb-btn">
    cents =  @product.price.format(symbol: false).last(2)
    %>
    <div class="product-price">
-     <span>
-       <%= "#{symbol} #{price}" %><span class='cents'>.<%= cents %></span>
+     <span> <%= symbol %> <span class="price"><%= price %></span><span class='cents'>.<%= cents %></span>
      </span>
    </div>
  </div>

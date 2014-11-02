@@ -1,0 +1,5 @@
+$("<%= escape_javascript(render @coupon) %>").prependTo("#js-coupons-list");
+$('#js-new-coupon-form').hide();
+$('.coupon-header').removeClass('hid');
+Up.alert.open('Coupon was created.');
+// Mailing_lists.animations.hide_form();

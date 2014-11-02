@@ -4,6 +4,7 @@ class Product < ActiveRecord::Base
   has_many :mailing_lists, through: :mailing_lists_products
   has_many :mailing_lists_products
   has_many :orders
+  has_many :coupons
   belongs_to :user
   validates_presence_of :name, :price, :file_key
   serialize :file_info
@@ -33,31 +34,36 @@ class Product < ActiveRecord::Base
       S3File.delete(self.file_key_was)
     end
   end
+end
 
-  before_destroy do
-    S3File.delete(self.file_key)
-  end
+before_destroy do
+  S3File.delete(self.file_key)
+end
 
-  def extension
-    File.extname(self.file_key).delete('.')
-  end
+def active_coupons
+  self.coupons.active
+end
 
-  def url
-    S3File.url(self.file_key)
-  end
+def extension
+  File.extname(self.file_key).delete('.')
+end
 
-  def file_name
-    File.basename(self.file_key) if self.file_key
-  end
+def url
+  S3File.url(self.file_key)
+end
 
-  def file_size
-    self.file_info[:size] || 0
-  end
-  def self.request(name)
-    S3File.request(name)
-  end
+def file_name
+  File.basename(self.file_key) if self.file_key
+end
 
-  def self.upload_from_url(name, url)
-    S3File.upload_from_url(name, url)
-  end
+def file_size
+  self.file_info[:size] || 0
+end
+def self.request(name)
+  S3File.request(name)
+end
+
+def self.upload_from_url(name, url)
+  S3File.upload_from_url(name, url)
+end
 end
