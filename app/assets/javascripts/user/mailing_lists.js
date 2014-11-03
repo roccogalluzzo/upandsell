@@ -102,13 +102,13 @@
 
   Mailing_lists.animations = {
    show_form: function(){
-    $("#js-new-list-form").slideDown(300);
-    $("#js-new-list-msg").slideUp(300);
+    $(".js-new-ml").slideDown(300);
+    $(".js-ml-msg").slideUp(300);
 
   },
   hide_form: function(){
-    $("#js-new-list-form").slideUp(300);
-    $("#js-new-list-msg").slideDown(300);
+    $(".js-new-ml").slideUp(300);
+    $(".js-ml-msg").slideDown(300);
 
   },
   show_list: function(provider, html){
