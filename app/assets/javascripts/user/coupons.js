@@ -1,31 +1,41 @@
 (function ($, Coupons, undefined) {
 
-  Coupons.Index = function() {
+  Coupons.init = function() {
     $( "#datepicker" ).datepicker({minDate: 1,
       dateFormat: "dd/mm/yy"});
-   $( "#coupon_available" ).spinner();
+    $( "#coupon_available" ).spinner();
 
-   setProduct();
-   setProductDiscount(PRODUCT.price, PRODUCT.currency);
+  };
 
-
-     $("#js-new-coupon-btn").on('click', function(){
-    Coupons.animations.show_form();
-
-  });
-
-   $('#coupon_discount').on('keyup', function(){
-    calculateDiscount($(this).val(), $('#js-coupon-type').val());
-  });
-   $('#js-product-select').on('change', function(){
+  Coupons.Index = function() {
+    Coupons.init();
+    Coupons.Events.init();
     setProduct();
     setProductDiscount(PRODUCT.price, PRODUCT.currency);
-  });
-   $('#js-coupon-random').on('click', function(){
+
+  };
+
+  Coupons.Events = {
+   init: function(){
+     $("#js-new-coupon-btn").on('click', Coupons.animations.show_form);
+     $('#coupon_discount').on('keyup', Coupons.Events.discount_key_up);
+     $('#js-product-select').on('change', Coupons.Events.select_product);
+     $('#js-coupon-random').on('click', Coupons.Events.random_code);
+     $('#js-coupon-type-btn').on('click', Coupons.Events.coupon_type);
+   },
+   discount_key_up: function(){
+     calculateDiscount($(this).val(), $('#js-coupon-type').val());
+   },
+   select_product: function(){
+    setProduct();
+    setProductDiscount(PRODUCT.price, PRODUCT.currency);
+    calculateDiscount( $('#coupon_discount').val(), $('#js-coupon-type').val());
+  },
+  random_code: function(){
     $('#coupon_code').val(Math.random().toString(36).substr(2, 5).toUpperCase());
     return false;
-  });
-   $('#js-coupon-type-btn').on('click', function(){
+  },
+  coupon_type: function(){
     var type = $(this).find('span');
     if(type.text() == '%') {
       type.text(window.PRODUCT.currency);
@@ -38,16 +48,38 @@
       $('#coupon_discount').prop('max', '100');
       $('#coupon_discount').prop('step', '1');
     }
+    calculateDiscount( $('#coupon_discount').val(), $('#js-coupon-type').val());
     return false;
-  });
- };
+  }
+};
 
- function calculateDiscount(off, type){
+Coupons.animations = {
+ show_form: function(){
+  $(".js-coupon-form").slideDown(300);
+  $(".js-coupon-msg").slideUp(300);
+
+},
+hide_form: function(){
+  $(".js-coupon-form").slideUp(300);
+  $(".js-coupon-msg").slideDown(300);
+
+}
+};
+
+function calculateDiscount(off, type){
   if(type == 'cents'){
-   $('#js-product-price').text((PRODUCT.price - off).toFixed(2));
- }else {
-   $('#js-product-price').text((PRODUCT.price - ((off/100)*PRODUCT.price)).toFixed(2));
- }
+    var new_price = (PRODUCT.price - off).toFixed(2);
+  }else {
+    var new_price = (PRODUCT.price - ((off/100)*PRODUCT.price)).toFixed(2);
+  }
+
+  if(new_price < 0 || new_price > window.PRODUCT.price) {
+    $('#js-product-price').addClass('text-error');
+     $('#js-product-price').text("Err...");
+  }else {
+    $('#js-product-price').removeClass('text-error');
+      $('#js-product-price').text(new_price);
+  }
 }
 
 function setProductDiscount(price, currency) {
@@ -63,18 +95,5 @@ function setProduct(){
 };
 }
 
-  Coupons.animations = {
-   show_form: function(){
-    $("#js-new-coupon-form").slideDown(300);
-    $("#js-new-coupon-msg").slideUp(300);
-
-  },
-  hide_form: function(){
-    $("#js-new-coupon-form").slideUp(300);
-    $("#js-new-coupon-msg").slideDown(300);
-
-  }
-
-  };
 
 }(jQuery, window.Coupons = window.Coupons || {}));

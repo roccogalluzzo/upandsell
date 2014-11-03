@@ -6,11 +6,14 @@ class User::Tools::CouponsController < User::BaseController
   end
 
   def create
+    if Coupon.find_by_code  params[:coupon][:code]
+      render json: {}, status: :not_found and return
+    end
     @coupon = Coupon.new(coupon_params)
     if params[:coupon][:discount_type] == 'cents' && params[:coupon][:discount]
       @coupon.discount_money = params[:coupon][:discount]
     end
-    if @coupon.save
+    if @coupon.is_valid? && @coupon.save
       respond_to do |format|
         format.js {}
       end

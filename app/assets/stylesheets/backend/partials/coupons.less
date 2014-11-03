@@ -5,6 +5,9 @@
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
   }
+  .js-coupon-form {
+    display: none;
+  }
   .coupon-header {
     .make-row();
     min-height: 90px;
@@ -57,7 +60,7 @@
       line-height: 28px;
       padding: 0;
     }
-    p {
+    .label-cou {
       font-weight: bold;
       line-height: 41px;
     }
@@ -82,6 +85,7 @@
       .coupon-list-discount {width: 10%;}
       .coupon-list-product {width: 30%}
       .coupon-list-counters {width: 14%}
+      .coupon-list-actions {width: 10%}
       tr {
         height: 50px;
         border-bottom: 1px solid #f4f4f4;
@@ -99,6 +103,9 @@
      border-bottom: @border-light;
      &:last-child {
       border-bottom: none !important;
+    }
+    .coupon-valid-date {
+      .text-muted;
     }
     td {
       border-top: none;

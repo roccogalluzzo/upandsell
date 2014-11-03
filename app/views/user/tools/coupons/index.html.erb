@@ -1,40 +1,49 @@
 <%= render partial: "user/tools/tabs" %>
 <div id="coupon-page">
   <div class="coupon-header" id="js-new-coupon-msg">
+    <%= simple_form_for [:user, :tools, @coupon], remote: true do |f|%>
+    <%= f.input_field :discount_type, as: :hidden, id: 'js-coupon-type' %>
+
+
     <div class="col-md-2">
-      <a id="js-new-coupon-btn" href="#" class="btn-app btn-block"> New Coupon</a>
+      <a id="js-new-coupon-btn" href="#" class="js-coupon-msg btn-app btn-block"><i class="fa fa-plus"></i> New Coupon</a>
+      <%= button_tag(type: 'submit', class: "js-coupon-form btn-app btn-block") do %>
+      <i class="fa fa-plus"></i>
+      Create Coupon
+      <% end %>
     </div>
+
     <div class="col-md-10">
-     <p>Use coupons for your products. Create a code, set a
-      discount, define quantity and duration and start using them in your
-      marketing activities.</p>
+      <%= render partial: 'new_coupon_form', :locals => {:f => f} %>
+      <p class="js-coupon-msg">Use coupons for your products. Create a code, set a
+        discount, define quantity and duration and start using them in your
+        marketing activities.</p>
+      </div>
+      <% end %>
     </div>
-  </div>
-  <div class="coupon-header hid" id="js-new-coupon-form">
-    <%= render 'new_coupon_form' %>
-  </div>
-  <div class="coupon-list">
-<div>
-    <table>
-      <thead>
-        <tr>
-          <th class="coupon-list-code">Code</th>
-          <th class="coupon-list-discount">Off</th>
-          <th class="coupon-list-product">Product</th>
-          <th class="coupon-list-counters">Avaiable/Used</th>
-          <th class="coupon-list-valid-date">Valid Until</th>
-          <th class="coupon-list-actions"></th>
-        </tr>
-      </thead>
-      <tbody id="js-coupons-list">
-        <% if !@list.blank? %>
-        <tr><td colspan="6"><p class="text-center text-muted">No coupons founds</p></td></tr>
-        <% else %>
-        <%= render @coupons %>
-        <% end %>
-      </tbody>
-    </table>
-    </div>
+
+    <div class="coupon-list">
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th class="coupon-list-code">Code</th>
+              <th class="coupon-list-discount">Off</th>
+              <th class="coupon-list-product">Product</th>
+              <th class="coupon-list-counters">Avaiable/Used</th>
+              <th class="coupon-list-valid-date">Valid Until</th>
+              <th class="coupon-list-actions"></th>
+            </tr>
+          </thead>
+          <tbody id="js-coupons-list">
+            <% if !@list.blank? %>
+            <tr><td colspan="6"><p class="text-center text-muted">No coupons founds</p></td></tr>
+            <% else %>
+            <%= render @coupons %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="pagination">
      <div>

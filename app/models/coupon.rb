@@ -17,7 +17,10 @@ class Coupon < ActiveRecord::Base
       (self.product.price - self.discount_money).price
     else
       self.product.price - Money.new(((self.product.price.cents * self.discount)/100), product.price_currency)
-   end
+    end
+  end
 
- end
+  def is_valid?
+    true if  self.discounted_price < self.product.price
+  end
 end
