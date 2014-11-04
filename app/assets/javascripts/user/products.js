@@ -79,7 +79,9 @@ Products.Form = {
     }).appendTo( settings.form);
 
      $('#js-slug').text(data.slug_url);
-     $("#js-ext-link").attr('href', data.slug_url);
+     $("#js-ext-link").prop('href', data.slug_url).on('click', function(){
+      window.open(data.slug_url, '_blank');
+    });
      $('.btn-social-twitter').on('click', function(){
       window.open(data.twitter_url, 'tweet','toolbar=0,status=0,width=600,height=305')
     });

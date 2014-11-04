@@ -1,5 +1,5 @@
 class LandingController < ApplicationController
-
+  skip_after_filter :intercom_rails_auto_include
   layout false
 
   def index

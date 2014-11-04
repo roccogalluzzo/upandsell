@@ -71,7 +71,7 @@
         var token = response.id;
         break;
         case 'braintree':
-         var token = response
+        var token = response
         break;
       };
       ProductPage.Form.pay($('#js-checkout-form').data('gateway'), token);
@@ -228,13 +228,14 @@ ProductPage.Events = {
   });
 },
 couponApply: function(){
-
-  if($('input.coupon-code').val()){
-    ProductPage.Animations.show_coupon_form_success();
-  }else
-  {
-    ProductPage.Animations.show_coupon_form_error();
-  }
+  $.ajax({
+    url: '/checkout/check_coupon',
+    type: 'POST',
+    dataType: 'json',
+    data: {product_id: $('#js-checkout-tab').data('product-id') , code:  $('input.coupon-code').val()},
+    success: ProductPage.Animations.show_coupon_form_success,
+    error:  ProductPage.Animations.show_coupon_form_error
+  });
   return false;
 }
 };
@@ -317,7 +318,13 @@ ProductPage.Animations = {
   $("#js-coupon-form").slideDown(300);
   $("#js-coupon-btn").slideUp(300);
 },
-show_coupon_form_success: function() {
+show_coupon_form_success: function(data) {
+  $('#js-checkout-tab').data('coupon-id', data.id);
+  $('#js-coupon-id').val(data.id);
+
+  $('.cents').text('.' + data.cents);
+  $('.price').text(data.int);
+  $('.pay-btn-text').text('Pay ' + data.sym + ' ' + data.price)
   $(".coupon-accepted").slideDown(400);
   $(".coupon-label").fadeIn(400);
   $("#js-coupon-btn").slideUp(400);
@@ -350,7 +357,7 @@ ProductPage.Paypal = {
       url: '/checkout/paypal',
       type: 'POST',
       dataType: 'json',
-      data: {product_id:  opts.productId},
+      data: {product_id:  opts.productId, coupon_id: $('#js-checkout-tab').data('coupon-id')},
       async: true,
       success: function(d) {
         window.location.replace(d.url)
@@ -367,7 +374,7 @@ ProductPage.Paypal = {
       url: '/checkout/paypal',
       type: 'POST',
       dataType: 'json',
-      data: {product_id:  opts.productId},
+      data: {product_id:  opts.productId, coupon_id: $('#js-checkout-tab').data('coupon-id')},
       async: true,
       success: function(d) {
         window.location.replace(d.url)

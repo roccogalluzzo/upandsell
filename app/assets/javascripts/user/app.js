@@ -10,6 +10,7 @@
 
    $("[data-toggle='switch']").bootstrapSwitch();
    var page = Utils.getPage();
+   console.log(page)
    try {
      window[page.controller.capitalize()][page.action.capitalize()]();
    } catch(e) {

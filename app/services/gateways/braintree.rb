@@ -12,7 +12,7 @@ module Gateways::Braintree
     Braintree::Configuration.private_key = user.credit_card_token
 
     result = Braintree::Transaction.sale(
-      amount:  product.price,
+      amount:  payer[:new_price] || product.price,
       payment_method_nonce: payer[:token])
     if result.transaction.currency_iso_code != product.price_currency.upcase
       Braintree::Transaction.void(result.transaction.id)

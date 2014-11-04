@@ -3,7 +3,7 @@ module Gateways::Stripe
   def self.pay(product, payer)
     Stripe.api_key = User.find(product.user_id).credit_card_token
     payment = Stripe::Charge.create(
-      amount: product.price_cents,
+      amount: payer[:new_price].cents || product.price.cents,
       currency: product.price_currency.upcase,
       card: payer[:token]
       )

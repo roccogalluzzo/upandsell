@@ -13,10 +13,11 @@ class PaymentService
    order = Order.new(
     product_id: product.id,
     user_id: product.user_id,
+    coupon_id: payer[:coupon_id] || nil,
     email: payer[:email] || 'placeholder@paypal.com',
     gateway: @gateway_name,
     gateway_token: payment[:token],
-    amount: product.price,
+    amount: payer[:new_price] || product.price,
     amount_currency: product.price_currency,
     payment_details: {card: payment[:card_type]},
     status: payment[:status])

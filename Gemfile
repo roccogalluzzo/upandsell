@@ -55,6 +55,7 @@ gem 'sdoc', require: false
 gem 'sidekiq'
 gem 'simple_form'
 gem 'sinatra', '>= 1.3.0', require: false
+gem 'split'
 gem 'stripe'
 gem 'therubyracer', platforms: :ruby
 gem 'turbolinks'

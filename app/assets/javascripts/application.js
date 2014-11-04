@@ -6,6 +6,8 @@
 //= require jquery.remotipart
 //= require bootstrap/dist/js/bootstrap
 //= require jquery-ui/draggable
+//= require jquery-ui/spinner
+//= require jquery-ui/datepicker
 //= require jquery-file-upload//js/vendor/jquery.ui.widget.js
 //= require jquery-file-upload//js/jquery.iframe-transport.js
 //= require blueimp-load-image/js/load-image.all.min.js

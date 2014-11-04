@@ -10,7 +10,7 @@
        receiverList: {
         receiver: [{
           accountId:      user.paypal_email,
-          amount:  product.price,
+          amount: payer[:new_price] || product.price,
           }]},
           cancelUrl: payer[:cancel_url],
           returnUrl: payer[:return_url] +'&payKey=${payKey}',

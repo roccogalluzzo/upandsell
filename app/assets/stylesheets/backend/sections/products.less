@@ -170,6 +170,7 @@
   .product-form-preview {
     .make-row();
     border-bottom: @border-light;
+    position: relative !important;
     #preview {
       position: absolute;
       width: 100%;
@@ -177,9 +178,10 @@
       //z-index: 1;
       background-color: #444c5f;
       text-align: center;
-      opacity: 0.09;
+      opacity: 0.07;
     }
     .inner-form-preview {
+      border-radius: 6px 6px 0px 0px;
       z-index: 11;
       height: 250px;
       position: initial !important;
@@ -479,8 +481,8 @@
     .make-md-column(10);
     border-right: 1px solid #f4f4f4;
     small {
-      font-size: 13px;
-      color: @clouds;
+      font-size: 12px;
+      color: #cdcdcd;
     }
   }
   .p-published {
@@ -534,16 +536,19 @@
     }
     .item-actions {
       .make-md-column(3);
+      position: relative;
+      top: 2px;
       .btn-product-action {
        font-size: 20px;
        border-radius: 50%;
        z-index: 1000;
        width: 40px;
        height:  40px;
-       color: #ecf0f1;
+       color: @concrete;
        display: block;
        float: right;
        margin-right: 1px;
+
        &:hover{
         color: @secondary !important;
       }

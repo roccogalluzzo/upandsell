@@ -7,7 +7,7 @@ module Gateways::Paymill
     payment = Paymill::Payment.create(token: payer[:token])
 
     pay = Paymill::Transaction.create(
-      amount: product.price_cents,
+      amount: payer[:new_price].cents || product.price.cents,
       currency: product.price_currency.upcase,
       payment: payment.id)
     return {token: pay.id, card_type: pay.payment['card_type'], status: 'completed'}

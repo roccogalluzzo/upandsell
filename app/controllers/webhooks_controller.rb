@@ -1,6 +1,6 @@
 class WebhooksController < ApplicationController
   skip_before_filter :verify_authenticity_token
-
+  skip_after_filter :intercom_rails_auto_include
   def mailchimp_unsubscribe
     # bug here, trovare filtrare gli ordini con quella email, partendo dalla
     # mailing list

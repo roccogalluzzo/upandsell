@@ -1,5 +1,5 @@
 require 'sidekiq/web'
-
+require 'split/dashboard'
 
 Upandsell::Application.routes.draw do
   devise_for :users, controllers: {  omniauth_callbacks: 'omniauth_callbacks',
@@ -42,6 +42,8 @@ Upandsell::Application.routes.draw do
   get 'checkout/check_payment' => 'checkouts#check_paypal_payment'
   post 'checkout/ipn' => 'checkouts#ipn'
   get 'download/p/:token' => 'checkouts#download', :as => 'download_product'
+  post 'checkout/check_coupon' => 'checkouts#check_coupon'
+
   resources :products, only: [:show]  do
   #get 'paypal',  on: :member
 end
@@ -100,6 +102,8 @@ end
 
 namespace :admin do
  mount Sidekiq::Web => 'sidekiq'
+ mount Split::Dashboard => "split"
+
  root 'dashboard#index'
  resources :users, only: [:index,:show]
  resources :products, only: [:index,:show, :destroy]

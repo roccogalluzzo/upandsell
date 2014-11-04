@@ -1,64 +1,57 @@
-      <%= simple_form_for [:user, :tools, @mailing_list], remote: true do |f|%>
-      <%= f.input_field :mailchimp_list_id, as: :hidden, id: 'js-mailing-list-id' %>
-      <div class="col-md-2">
-       <%= button_tag(type: 'submit', class: "btn btn-block btn-primary") do %>
-       Create List
-       <% end %>
-     </div>
-     <div class="col-md-10">
-      <div class="row">
-       <div class="col-md-6">
-        <%= f.input_field :name, placeholder: "List Name" %>
-      </div>
-      <div class="col-md-6">
-        <select name="mailing_list[products][]" style="width:100%;"
-        data-width="100%"
-        data-selected-text-format="count" title='All Products'
-        multiple="multiple" class="form-control multiselect multiselect-primary"
-        data-placeholder="All products"
-        data-toggle="select">
-        <option selected value="0">All Products</option>
-        <% current_user.products.each do |product| %>
-        <option value="<%= product.id %>"><%= product.name %></option>
-        <% end %>
-      </select>
-    </div>
-  </div>
+<div class="js-new-ml">
   <div class="row">
-
+   <div class="col-md-6">
+    <%= f.input_field :name, placeholder: "List Name" %>
   </div>
-  <div class="integration-form-div">
-   <div class="integration-box mailchimp">
-    <div class="integration-header">
-     <%= image_tag "mailchimp_logo.png", class: 'payment-logo', width: '40px' %>
-     <% if current_user.mailchimp_token %>
-     <div class="bootstrap-switch-square m-l-5 pull-right">
-       <input id="js-mailchimp-switch" name="mailchimp_list[mailchimp]"
-       class="" style="top:13px;" type="checkbox" data-toggle="switch" />
-     </div>
-     <% else %>
-     <a id="js-connect-sync" href="/auth/mailchimp" class="btn btn-sm btn-inverse pull-right">Connect</a>
-     <% end %>
+  <div class="col-md-6">
+    <select name="mailing_list[products][]" style="width:100%;"
+    data-width="100%"
+    data-selected-text-format="count" title='All Products'
+    multiple="multiple" class="form-control multiselect multiselect-primary"
+    data-placeholder="All products"
+    data-toggle="select">
+    <option selected value="0">All Products</option>
+    <% current_user.products.each do |product| %>
+    <option value="<%= product.id %>"><%= product.name %></option>
+    <% end %>
+  </select>
+</div>
+</div>
+<div class="row">
+
+</div>
+<div class="integration-form-div">
+ <div class="integration-box mailchimp">
+  <div class="integration-header">
+   <%= image_tag "mailchimp_logo.png", class: 'payment-logo', width: '40px' %>
+   <% if current_user.mailchimp_token %>
+   <div class="bootstrap-switch-square m-l-5 pull-right">
+     <input id="js-mailchimp-switch" name="mailchimp_list[mailchimp]"
+     class="" style="top:13px;" type="checkbox" data-toggle="switch" />
    </div>
-   <div class="integration-content unfocused mailchimp-integration">
-    <% if current_user.mailchimp_token %>
-    <div id="the-basics" class="row form-group">
-     <div class="col-md-6">
-      <p>Select <b>MailChimp</b> list that want to sync</p>
-    </div>
-    <div class="col-md-6 ">
-      <%= f.input_field :mailchimp_list_name, placeholder: "Search Mailchimp List",
-      class:"form-control input-sm tt-query typeahead"  %>
-      <span id="js-search-mailchimp" class="hid input-icon fa fa-spinner fa-spin"></span>
-
-    </div>
+   <% else %>
+   <a id="js-connect-sync" href="/auth/mailchimp" class="btn btn-sm btn-inverse pull-right">Connect</a>
+   <% end %>
+ </div>
+ <div class="integration-content unfocused mailchimp-integration">
+  <% if current_user.mailchimp_token %>
+  <div id="the-basics" class="row form-group">
+   <div class="col-md-6">
+    <p>Select <b>MailChimp</b> list that want to sync</p>
   </div>
+  <div class="col-md-6 ">
+    <%= f.input_field :mailchimp_list_name, placeholder: "Search Mailchimp List",
+    class:"form-control input-sm tt-query typeahead"  %>
+    <span id="js-search-mailchimp" class="hid input-icon fa fa-spinner fa-spin"></span>
 
-  <% else %>
-  <div class="sync-connect  unfocused integration-content">
-    <p>Before sync Mailing List you need to connect with your <b>Mailchimp</b> account</p>
   </div>
-  <% end %>
+</div>
+
+<% else %>
+<div class="sync-connect  unfocused integration-content">
+  <p>Before sync Mailing List you need to connect with your <b>Mailchimp</b> account</p>
+</div>
+<% end %>
 
 </div>
 </div>
@@ -114,5 +107,5 @@
 </div>
 </div>
 </div>
-<% end %>
+
 </div>

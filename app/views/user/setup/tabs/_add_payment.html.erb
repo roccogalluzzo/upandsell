@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="msg-payments">
+    <p>Connect your Paypal account and/or your payments gateway to start receive money.</p>
+    </div>
+  </div>
+<div class="actions-payments">
+  <div class="action-paypal">
+    <%= image_tag "paypal_setup.png" %>
+    <p>
+     <%= link_to "Connect", paypal_integration_path, class: 'btn btn-primary m-t-20' %>
+   </p>
+ </div>
+ <div class="action-gateway">
+  <%= image_tag "gateway_logo.png" %>
+  <p>
+   <%= link_to "Set Up", edit_user_settings_payments_path, class: 'btn btn-primary m-t-20' %>
+ </p>
+</div>
+
+</div>
