@@ -6,6 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
    else
     @ref = cookies[:aff_tag]
   end
+
   super
 end
 

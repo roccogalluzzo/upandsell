@@ -2,7 +2,8 @@ require 'sidekiq/web'
 require 'split/dashboard'
 
 Upandsell::Application.routes.draw do
-  devise_for :users, controllers: { confirmations: 'confirmations', registrations: "registrations" }
+  devise_for :users, controllers: {  omniauth_callbacks: 'omniauth_callbacks',
+    confirmations: 'confirmations', registrations: "registrations" }
 
   get '/auth/paypal' => 'user/settings/payments#paypal_connect', as: 'paypal_integration'
   get '/auth/paymill/callback' => 'user/settings/payments#paymill_callback', as: 'paymill_integration_callback'

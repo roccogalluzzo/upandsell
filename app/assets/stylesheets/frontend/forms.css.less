@@ -3,38 +3,74 @@
  .make-md-column(4);
  border: 1px solid #e3e3e3;
  box-shadow: 0px 3px 4px 0px rgba(0,0,0,0.06);
- background-color: #f4feff;
+ background-color: #fff;
  border-radius: 6px;
  padding-bottom: 12px;
  padding-left: 0;
  padding-right: 0;
  .head, .body {
   padding: 0 30px;
- }
- .head {
+}
+.head {
   border-bottom: 1px solid #e3e3e3;
   padding-top: 20px;
-  background-color: white;
+  background-color: #F5F7F9;
   border-radius: 6px 6px 0 0;
 
+}
+.body {
+  padding-top: 25px;
+}
+.social-logins {
+  .make-row();
+  margin-bottom: 15px;
+text-align: center;
+  .fb-login {
+   .make-md-column(6);
  }
- .body {
-padding-top: 25px;
+   .google-login {
+   .make-md-column(6);
  }
- h3 {
+}
+
+  .msg-connect p{
+    width: 100%;
+    text-align: center;
+    line-height: 0.1em;
+    margin: 8px 0 0px;
+    margin-top: 0px;
+    margin-bottom: 19px;
+     color: #3e5a68;
+ }
+  .login-middleline p{
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+    line-height: 0.1em;
+    margin: 8px 0 0px;
+    margin-top: 19px;
+    margin-bottom: 19px;
+    span {
+     background-color: white;
+     padding:0 10px;
+     color: #3e5a68;
+     font-size: 13px;
+   }
+ }
+
+h3 {
   text-align: center;
   margin-bottom: 30px;
   margin-top: 0px;
+  color: #3e5a68;
 }
 input {
   .form-control;
   border: 1px solid #dcdcdc;
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09) inset;
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09) inset;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.09) inset;
+  box-shadow: none;
   line-height: 17px;
- // color: #a1a1a1;
-  height: 40px;
+  color: #a1a1a1;
+  height: 44px;
   &:focus {
    border-color:  #a9d6ee !important;
    box-shadow: none;
@@ -52,16 +88,16 @@ input {
  .btn-primary;
  .btn-block;
  background-color: #53aede;
- box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
+ box-shadow: none;
  border: none;
- font-weight: bold;
+ font-weight: 400;
  font-size: 18px;
  padding: 14px;
  height: 55px;
  line-height: 9px;
  margin-top: 0px;
  border-radius: 6px;
-   margin-top: 25px;
+ margin-top: 25px;
  &:hover {
   background-color: #4b9fca
 }
@@ -76,7 +112,7 @@ input {
 }
 
 .sign-box-links {
-    width: 100%;
+  width: 100%;
   margin-top: 25px;
   padding: 0 15px;
   a {color: #888;}
@@ -88,12 +124,12 @@ input {
   .sign-box;
   text-align: center;
   .head {
-  h3 {
-    font-size: 18px !important;
+    h3 {
+      font-size: 18px !important;
+    }
   }
-}
-.btn-submit {
-  margin-top: 10px !important;
-  line-height: 29px !important;
-}
+  .btn-submit {
+    margin-top: 10px !important;
+    line-height: 29px !important;
+  }
 }

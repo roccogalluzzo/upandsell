@@ -3,8 +3,23 @@
     <h3>Sign up</h3>
   </div>
   <div class="body">
+  <div class="msg-connect">
+  <p>Connect with</p>
+  </div>
+    <div class="social-logins">
+      <div class="fb-login">
+        <a href="/users/auth/facebook" class="fb-btn"><span class="logo"><i class="fa fa-facebook"></i></span> <span class="text">Facebook</span></a>
+      </div>
+      <div class="google-login">
+      <a href="/users/auth/google_oauth2" class="google-btn"><span class="logo"><i class="fa fa-google"></i></span> <span class="text">Google</span></a>
+    </div>
+    </div>
+    <div class="login-middleline row">
+<p><span>or</span></p>
+    </div>
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), id: 'sign-form') do |f| %>
     <input name="user[referer_id]" value="<%= @ref %>" type="hidden">
+
     <div class="form-group">
       <%= f.input_field :name, required: true, autofocus: true,
       placeholder: "Your Full Name"
