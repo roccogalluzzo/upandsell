@@ -1,8 +1,22 @@
 <div class="sign-box">
-    <div class="head">
-      <h3>Sign in</h3>
+  <div class="head">
+    <h3>Sign in</h3>
+  </div>
+  <div class="body">
+    <div class="msg-connect">
+      <p>Connect with</p>
     </div>
-<div class="body">
+    <div class="social-logins">
+      <div class="fb-login">
+        <a href="/users/auth/facebook" class="fb-btn"><span class="logo"><i class="fa fa-facebook"></i></span> <span class="text">Facebook</span></a>
+      </div>
+      <div class="google-login">
+        <a href="/users/auth/google_oauth2" class="google-btn"><span class="logo"><i class="fa fa-google"></i></span> <span class="text">Google</span></a>
+      </div>
+    </div>
+    <div class="login-middleline row">
+      <p><span>or</span></p>
+    </div>
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), class: 'sign-form') do |f| %>
     <input name="user[referer_id]" value="<%= @ref %>" type="hidden">
     <div class="form-group">
@@ -16,7 +30,7 @@
     <%= f.button :submit, "Sign in", class: "btn-submit" %>
     <% end %>
     <div class="sign-box-links">
-    <small><%= link_to "Forgot your Password ?", new_user_password_path %></small>
+      <small><%= link_to "Forgot your Password ?", new_user_password_path %></small>
     </div>
   </div>
 </div>

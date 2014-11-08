@@ -11,9 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20141101195610) do
-
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",                       null: false
@@ -31,14 +29,6 @@ ActiveRecord::Schema.define(version: 20141101195610) do
   add_index "coupons", ["code"], name: "index_coupons_on_code", using: :btree
   add_index "coupons", ["product_id"], name: "index_coupons_on_product_id", using: :btree
   add_index "coupons", ["user_id"], name: "index_coupons_on_user_id", using: :btree
-
-  create_table "identities", force: true do |t|
-    t.integer  "user_id"
-    t.string   "provider"
-    t.string   "uid"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"

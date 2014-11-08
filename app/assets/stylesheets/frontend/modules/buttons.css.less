@@ -1,11 +1,12 @@
 .social-btn {
   .btn;
-  margin-right: 10px;
+  border-color: rgba(0,0,0,0.1);
   .logo {
-    width: 30px;
+    width: 40px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     color: white;
     display: inline-block;
+    float: left;
     i {
       line-height: 30px;
       vertical-align: middle;
@@ -21,9 +22,10 @@
   padding: 0 8px;
 }
 text-transform: uppercase;
-height: 31px;
+height: 40px;
 padding: 0px;
-line-height: 20px;
+line-height: 38px;
+width: 100%;
 
 }
 .fb-btn {
@@ -66,5 +68,13 @@ line-height: 20px;
    background: -ms-linear-gradient(top, #19b2e8 0%,#02aae6 100%);
    background: linear-gradient(to bottom, #19b2e8 0%,#02aae6 100%);
    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#19b2e8', endColorstr='#02aae6',GradientType=0 );
+ }
+}
+.google-btn {
+ .social-btn;
+
+ background-color: #dd4b39;
+ &:hover {
+   background-color: #c23321;
  }
 }

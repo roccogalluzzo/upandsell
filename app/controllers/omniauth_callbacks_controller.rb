@@ -15,15 +15,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     }
   end
 
-  [:twitter, :facebook, :google_oauth2].each do |provider|
+  [:facebook, :google_oauth2].each do |provider|
     provides_callback_for provider
   end
 
-  def after_sign_in_path_for(resource)
-    if resource.email_verified?
-      super resource
-    else
-      finish_signup_path(resource)
-    end
+  def after_sign_up_path_for(resource)
+    user_setup_path
   end
 end
