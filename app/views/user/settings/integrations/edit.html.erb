@@ -7,13 +7,13 @@ Settings / <span>Integrations</span>
 <div class="settings-integrations">
   <div class="integration-row">
     <%= image_tag "mailchimp-dark.png", class: 'payment-logo', style: 'width: 285px;' %>
-    <%= link_to ( current_user.mailchimp_token ? "Connected" : "Connect"), '/auth/mailchimp',
+    <%= link_to ( current_user.mailchimp_token ? "Connected" : "Connect"), '/users/auth/mailchimp',
     class: 'payment-connect btn-app', disabled:( current_user.mailchimp_token ? true : false) %>
   </div>
 
   <div class="integration-row">
     <%= image_tag "campaign_monitor.png", class: 'payment-logo' %>
-    <%= link_to ( current_user.createsend_token ? "Connected" : "Connect"), '/auth/createsend',
+    <%= link_to ( current_user.createsend_token ? "Connected" : "Connect"), '/users/auth/createsend',
     class: 'payment-connect btn-app', disabled:( current_user.createsend_token ? true : false) %>
   </div>
 </div>
