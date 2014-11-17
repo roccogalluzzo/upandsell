@@ -5,11 +5,11 @@ Upandsell::Application.routes.draw do
 
 
   get '/auth/paypal' => 'user/settings/payments#paypal_connect', as: 'paypal_integration'
-  get '/auth/paymill/callback' => 'user/settings/payments#paymill_callback', as: 'paymill_integration_callback'
   get '/auth/paypal/callback' => 'user/settings/payments#paypal_callback', as: 'paypal_integration_callback'
-  get '/users/auth/:provider/callback' => 'user/settings/integrations#create', as: 'integration_callback'
+
   devise_for :users, controllers: {  omniauth_callbacks: 'omniauth_callbacks',
     confirmations: 'confirmations', registrations: "registrations" }
+    get '/users/auth/:provider/callback' => 'user/settings/integrations#create', as: 'integration_callback'
  # Front-end
  root 'landing#index'
  get 'no-beta' => 'landing#beta'
