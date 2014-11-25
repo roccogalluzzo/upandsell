@@ -26,6 +26,7 @@
 //= require froala_editor.min.js
 //= require jquery-tags-input/jquery.tagsinput.js
 //= require typehead.js/dist/typeahead.bundle.min.js
+//= require jquery.payment/lib/jquery.payment.js
 //= require_tree ./user
 
 $(document).ready(Up.init);
