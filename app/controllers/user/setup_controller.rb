@@ -17,4 +17,7 @@ class User::SetupController < User::BaseController
     end
     render json: {}, status: :unprocessable_entity
   end
+
+  def billing_details
+  end
 end

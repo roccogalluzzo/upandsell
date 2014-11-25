@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141101195610) do
+ActiveRecord::Schema.define(version: 20141120160514) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",                       null: false
@@ -151,10 +151,10 @@ ActiveRecord::Schema.define(version: 20141101195610) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "name",                                   null: false
-    t.string   "email",                                  null: false
-    t.string   "encrypted_password",                     null: false
-    t.string   "currency",                               null: false
+    t.string   "name",                                       null: false
+    t.string   "email",                                      null: false
+    t.string   "encrypted_password",                         null: false
+    t.string   "currency",                                   null: false
     t.boolean  "credit_card",            default: false
     t.boolean  "paypal",                 default: false
     t.text     "credit_card_info"
@@ -167,7 +167,7 @@ ActiveRecord::Schema.define(version: 20141101195610) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,         null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -183,6 +183,15 @@ ActiveRecord::Schema.define(version: 20141101195610) do
     t.string   "avatar"
     t.string   "bio"
     t.boolean  "newsletter",             default: true
+    t.string   "business_type",          default: "private"
+    t.string   "country"
+    t.string   "legal_name"
+    t.string   "tax_code"
+    t.string   "city"
+    t.string   "address"
+    t.string   "province"
+    t.string   "cap"
+    t.string   "stripe_id"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
