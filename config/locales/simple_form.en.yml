@@ -13,6 +13,7 @@ en:
     #   defaults:
     #     password: 'Password'
       user:
+        legal_name: 'Your Full Name (First and last name)'
         tax_code: 'VAT'
         province: 'Province/State'
         cc_expire: 'Expiration Date'
@@ -26,4 +27,3 @@ en:
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
-

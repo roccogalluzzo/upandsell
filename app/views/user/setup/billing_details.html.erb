@@ -27,11 +27,9 @@ Account / <span>Billing Info</span>
     class: 'select select-primary select-block mbl',
      priority: ["IT", "GB", "US"], selected: "IT" %>
 
-     <%= f.input :legal_name, placeholder: 'ACME S.r.l.', as: :with_feedback, label: "Legal Name <i class='fa fa-question-circle'></i>".html_safe %>
-
-
-
-     <%= f.input :tax_code, as: :with_feedback, label: "VAT <i class='fa fa-question-circle'></i>".html_safe %>
+     <%= f.input :legal_name, as: :with_feedback %>
+     <%= f.input :tax_code, as: :with_feedback %>
+     
      <div class="row">
        <%= f.input :address, as: :with_feedback, :wrapper_html => { :class => 'col-sm-9' } %>
        <%= f.input :zip_code, as: :with_feedback, :wrapper_html => { :class => 'col-sm-3' } %>
@@ -68,5 +66,3 @@ Account / <span>Billing Info</span>
    <% end %>
  </div>
 </div>
-
-
