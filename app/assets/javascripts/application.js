@@ -27,6 +27,9 @@
 //= require jquery-tags-input/jquery.tagsinput.js
 //= require typehead.js/dist/typeahead.bundle.min.js
 //= require jquery.payment/lib/jquery.payment.js
+//= require d3/d3.js
+//= require topojson/topojson.js
+//= require datamaps/dist/datamaps.world.js
 //= require_tree ./user
 
 $(document).ready(Up.init);

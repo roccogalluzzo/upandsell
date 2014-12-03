@@ -21,6 +21,9 @@
     "jquery-simulate-ext": "latest",
     "ScrollMagic": "1.2.0",
     "jquery.cookie": "latest",
-    "bootstrapvalidator": "latest"
+    "bootstrapvalidator": "latest",
+    "topojson": "latest",
+    "d3": "latest",
+    "datamaps": "latest"
   }
 }

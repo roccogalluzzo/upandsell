@@ -1,0 +1,63 @@
+#dashboard-page {
+  .container-fluid;
+  .box;
+  padding-bottom: 15px;
+
+  .dashboard-tabs {
+    .make-row();
+    .dashboard-tab {
+      //background-color: @clouds;
+      .make-md-column(4);
+      border-left: @border-light;
+      text-align: center;
+      padding-bottom: 20px;
+      padding-top: 20px;
+      cursor: pointer;
+      border-bottom: @border-light;
+      &.active-tab {
+        border-top: 5px solid @secondary;
+        margin-bottom: -5px;
+        border-bottom: none;
+      }
+      &:hover {
+        border-top: 5px solid @silver;
+        margin-bottom: -5px;
+        background-color: #fefefe;
+      }
+      .dashboard-tab-title {
+        font-size: 22px;
+        color: @silver;
+        text-transform: uppercase;
+      }
+      .da-money {
+        clear: both;
+        display:block;
+        color: #444;
+        font-size: 25px;
+      }
+    }
+  }
+  .dashboard-content {
+    .da-basic-info {
+    .make-row();
+    .earnings-graph {
+      .make-md-column(8);
+    }
+    .metrics-box{
+      .make-md-column(4);
+    }
+  }
+  .da-advaced-info {
+    .make-row();
+    .visits-map {
+      .make-md-column(8);
+    }
+    .visits-list{
+      .make-md-column(4);
+    }
+  }
+
+
+
+  }
+}
