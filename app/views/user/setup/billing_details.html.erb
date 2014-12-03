@@ -3,11 +3,18 @@
 <i class="fa fa-lg fa-credit-card"></i>
 Account / <span>Billing Info</span>
 <% end %>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+<!-- New section -->
+<script type="text/javascript">
+Stripe.setPublishableKey('<%= Rails.application.secrets.stripe['public_api_key'] %>');
+</script>
 <div class="setup-billing">
  <h3>Billing Info</h3>
  <h5>Fill out your billing information to start your free trial</h5>
  <div id='billing-form'>
-  <%= simple_form_for :user do |f| %>
+  <%= simple_form_for :user, url: user_billing_details_path, remote: true do |f| %>
+  <%= f.input :stripe_token, as: :hidden, id: 'stripe_token' %>
   <div class="billing-inputs">
     <div class="billing-type">
       <div class="radio radio-inline">
@@ -29,7 +36,7 @@ Account / <span>Billing Info</span>
 
      <%= f.input :legal_name, as: :with_feedback %>
      <%= f.input :tax_code, as: :with_feedback %>
-     
+
      <div class="row">
        <%= f.input :address, as: :with_feedback, :wrapper_html => { :class => 'col-sm-9' } %>
        <%= f.input :zip_code, as: :with_feedback, :wrapper_html => { :class => 'col-sm-3' } %>
@@ -38,31 +45,76 @@ Account / <span>Billing Info</span>
        <%= f.input :city, as: :with_feedback, :wrapper_html => { :class => 'col-sm-9' } %>
        <%= f.input :province, as: :with_feedback, :wrapper_html => { :class => 'col-sm-3' } %>
      </div>
-     <div class="row">
-       <h4>Payment Details</h4>
-       <div class="payment-box">
-         <%= f.input :cc_number,
-         label: "Credit Card Number
-         #{image_tag 'cc_icons/amex_e.png'}
-         #{image_tag 'cc_icons/mastercard_e.png'}
-         #{image_tag 'cc_icons/visa_e.png'}
-         ".html_safe  %>
+     <div id="billing-plans">
+       <h5>Payment Details</h5>
+       <div class="radio radio-inline">
+         <label>
+           <input type="radio" name="user[plan_type]" value="monthly" checked>
+           <div class="active-plan billing-plan month-plan">
+             <h6>Monthly Plan</h6>
+             <p class="price-tag">25$/month</p>
+           </div>
+         </label>
+       </div>
+       <div class="radio radio-inline">
+         <label>
+           <input type="radio" name="user[plan_type]" value="yearly">
+           <div class="billing-plan year-plan">
+             <h6>Yearly Plan</h6>
+             <p class="price-tag">250$/year</p>
+             <p class="discount-plan">(save 50$)</p>
+           </div>
+         </label>
+       </div>
 
-         <div class="row">
-           <%= f.input :cc_expire, :wrapper_html => { :class => 'col-sm-4' } %>
-           <%= f.input :cc_cvc, :wrapper_html => { :class => 'col-sm-4' } %>
-           <div class="cvc-info">
-             <span>The last 3 digits displayed on the back of your card</span>
+     </div>
+     <div class="row">
+       <div class="payment-box">
+         <div class="form-group with_feedback required user_cc_number">
+           <label class="with_feedback required control-label" for="user_cc_number">
+             Credit Card Number
+             <%= image_tag 'cc_icons/amex_e.png' %>
+             <%= image_tag 'cc_icons/mastercard_e.png' %>
+             <%= image_tag 'cc_icons/visa_e.png' %>
+           </label>
+
+        <div class="form-group has-feedback">
+          <input class="with_feedback required form-control" id="cc_number" name="user[cc_number]" stripe-data="cc_number" type="text">
+          <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
+        </div>
+        </div>
+
+           <div class="row">
+             <div class="form-group with_feedback required user_cc_expire col-sm-4">
+               <label class="with_feedback control-label" for="user_cc_expire">Expiration Date</label>
+
+                 <div class="form-group has-feedback">
+                   <input class="with_feedback form-control" id="cc_expire" name="user[cc_expire]" stripe-data="cc_expire" type="text">
+                 <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
+               </div>
+
+               </div>
+             <div class="form-group with_feedback user_cc_cvc col-sm-4">
+               <label class="with_feedback control-label" for="user_cc_cvc">Security Code</label>
+
+                 <div class="form-group has-feedback">
+                   <input class="with_feedback form-control"name="user[cc_cvc]" id="cc_cvc" stripe-data="cc_cvc" type="text">
+                   <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
+                   </div>
+                   </div>
+             <div class="cvc-info">
+               <span>The last 3 digits displayed on the back of your card</span>
+             </div>
            </div>
          </div>
-       </div>
+
      </div>
      <div class="footer-billing">
        <p>After the first month you will be charged $25.00 every month</p>
      </div>
    </div>
    <div class="action-form">
-     <%= f.button :submit, "Start your 30 day FREE TRIAL", class: "btn-action" %>
+     <%= f.button :submit, "Start your 30 day FREE TRIAL", class: "btn-action", data: { disable_with: "Processing..." } %>
    <% end %>
  </div>
 </div>

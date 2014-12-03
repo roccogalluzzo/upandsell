@@ -82,6 +82,7 @@ end
 
 get 'setup', to: 'setup#index'
 get 'billing_details', to: 'setup#billing_details'
+post 'billing_details', to: 'setup#save_billing_details'
 get 'resend_email', to: 'setup#resend_email'
 patch 'update_email', to: 'setup#update_email'
 

@@ -23,11 +23,16 @@ class User::SetupController < User::BaseController
 
   def save_billing_details
     if billing_info_valid?
-      current_user.attributes = billing_params.except(:cc_number, :cc_expire, :cc_cvc)
+      current_user.attributes = billing_params.except(:stripe_token, :plan_type)
       if current_user.save
-        SubscriptionService.subscribe(user, params[:stripe_token])
+        yearly = false
+        yearly  = true if  params[:user][:plan_type]
+        SubscriptionService.subscribe(current_user, params[:user][:stripe_token], yearly)
+        render json: {url: user_setup_path}, status: :ok and return
       end
   end
+
+  render json: {error: current_user.errors.full_messages}, status: :unprocessable_entity
 end
 
   private
@@ -35,7 +40,9 @@ end
     eu_countries= ['AT', 'BE', 'BG', 'CY', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'GB', 'CZ', 'RO', 'SK', 'SI', 'ES', 'SE', 'HU']
 
     info = billing_params
-    [:business_type, :country, :legal_name, :address, :zip_code, :city, :province, :cc_number, :cc_expire, :cc_cvc].each do | e |
+
+    [:stripe_token, :plan_type, :business_type, :country, :legal_name, :address,
+      :zip_code, :city, :province].each do | e |
       return false if info[e].blank?
     end
 
@@ -46,10 +53,11 @@ end
     if eu_countries.include?(info[:country]) && info[:business_type] == 'company'  && info[:tax_code].blank?
       return false
     end
+    true
   end
 
   private
   def billing_params
-    params.require(:user).permit(:business_type, :country, :legal_name,   :tax_code, :address, :zip_code, :city, :province, :cc_number, :cc_expire, :cc_cvc)
+    params.require(:user).permit(:stripe_token, :plan_type, :business_type, :country, :legal_name, :tax_code, :address, :zip_code, :city, :province)
   end
 end

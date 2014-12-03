@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141128201922) do
+ActiveRecord::Schema.define(version: 20141203155700) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",                       null: false
@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20141128201922) do
     t.integer  "discount_money_cents", default: 0
   end
 
-  add_index "coupons", ["code"], name: "index_coupons_on_code"
-  add_index "coupons", ["product_id"], name: "index_coupons_on_product_id"
-  add_index "coupons", ["user_id"], name: "index_coupons_on_user_id"
+  add_index "coupons", ["code"], name: "index_coupons_on_code", using: :btree
+  add_index "coupons", ["product_id"], name: "index_coupons_on_product_id", using: :btree
+  add_index "coupons", ["user_id"], name: "index_coupons_on_user_id", using: :btree
 
   create_table "identities", force: true do |t|
     t.integer  "user_id"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20141128201922) do
     t.datetime "updated_at"
   end
 
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "invites", force: true do |t|
     t.string   "email"
@@ -49,8 +49,7 @@ ActiveRecord::Schema.define(version: 20141128201922) do
     t.datetime "invitation_accepted_at"
   end
 
-  add_index "invites", ["email"], name: "index_invites_on_email", unique: true
-  add_index "invites", ["invitation_token"], name: "index_invites_on_invitation_token", unique: true
+  add_index "invites", ["invitation_token"], name: "index_invites_on_invitation_token", unique: true, using: :btree
 
   create_table "mailing_list_emails", force: true do |t|
     t.integer  "mailing_list_id"
@@ -117,10 +116,10 @@ ActiveRecord::Schema.define(version: 20141128201922) do
     t.datetime "deleted_at"
   end
 
-  add_index "products", ["deleted_at"], name: "index_products_on_deleted_at"
-  add_index "products", ["file_key"], name: "index_products_on_file_key", unique: true
-  add_index "products", ["slug"], name: "index_products_on_slug", unique: true
-  add_index "products", ["user_id"], name: "index_products_on_user_id"
+  add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
+  add_index "products", ["file_key"], name: "index_products_on_file_key", unique: true, using: :btree
+  add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
+  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "referrals", force: true do |t|
     t.integer  "referer_id"
@@ -191,13 +190,13 @@ ActiveRecord::Schema.define(version: 20141128201922) do
     t.string   "city"
     t.string   "address"
     t.string   "province"
-    t.string   "cap"
+    t.string   "zip_code"
     t.string   "stripe_id"
     t.string   "last_4_digits"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

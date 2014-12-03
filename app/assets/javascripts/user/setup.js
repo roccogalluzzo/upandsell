@@ -41,6 +41,41 @@
       $('#user_country').on('change', Setup.BillingForm.update_fields);
       $("input[name='user[business_type]']:radio").on('change', Setup.BillingForm.update_fields);
       Setup.BillingForm.update_fields();
+      $('form').bind('ajax:beforeSend', Setup.BillingForm.success);
+      $('form').bind('ajax:success', Setup.BillingForm.success);
+      $('form').bind('ajax:error', Setup.BillingForm.error);
+    },
+    beforeSend: function(data) {
+
+    },
+    success: function(e, data) {
+    window.location.href = data.url;
+    },
+    error: function(e, xhr, status) {
+      Up.alert.open('Error:' + xhr.responseJSON.error);
+      $('.btn-action').removeAttr("disabled");
+    },
+    submit: function() {
+      $('.btn-action').attr("disabled", "disabled");
+      expire = $('#cc_expire').payment('cardExpiryVal');
+      Stripe.card.createToken({
+        number:  $('#cc_number').val().replace(/\s+/g, ''),
+        cvc:  $('#cc_cvc').val(),
+        exp_month: expire.month,
+        exp_year: expire.year
+      }, Setup.BillingForm.stripe);
+
+    return false;
+    },
+    stripe: function(status, response) {
+      var $form = $('form');
+      if (response.error) {
+        Up.alert.open(response.error.message);
+        return false
+      } else {
+        $('#user_stripe_token').val(response.id);
+      $form.trigger("submit.rails");
+      }
     },
     update_fields: function () {
       type = $("input[name='user[business_type]']:checked").val();
@@ -75,13 +110,13 @@
     },
     validation: {
       init: function () {
-        $('#user_cc_number').payment('formatCardNumber');
-        $('#user_cc_expire').payment('formatCardExpiry');
-        $('#user_cc_cvc').payment('formatCardCVC');
+        $('#cc_number').payment('formatCardNumber');
+        $('#cc_expire').payment('formatCardExpiry');
+        $('#cc_cvc').payment('formatCardCVC');
         $.validator.addMethod("ccNumberValid", $.payment.validateCardNumber, " Credit Card Number is Invalid.");
         $.validator.addMethod("ccExpValid", Setup.BillingForm.validation.ccExpValid, " Credit Card Data is Invalid.");
         $('form').validate({
-          //submitHandler: Setup.BillingForm.submit,
+          submitHandler: Setup.BillingForm.submit,
           showErrors: Setup.BillingForm.validation.showErrors,
           errorPlacement: Setup.BillingForm.validation.errorPlacement,
           success: Setup.BillingForm.validation.success,
@@ -120,44 +155,47 @@
           .removeClass('hidden text-success fa-check')
           .addClass('fa-times text-error');
         });
-      }
-    },
-    errorPlacement: function (error, element) {
-      $(element).next()
-      .removeClass('hidden text-success fa-check')
-      .addClass('fa-times text-error');
-
-    },
-    success: function (label, element) {
-      $(element).next()
-      .removeClass('hidden text-error fa-times')
-      .addClass('fa-check text-success');
-      $(element).parent().addClass("has-success");
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).parent().addClass("has-error");
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).parent().removeClass("has-error");
-    },
-    rules : {
-      "cc-num" : { ccNumberValid : true,
-        required: true
       },
-      "cc-email": {
-        required: true,
-        email: true
+      errorPlacement: function (error, element) {
+        $(element).next()
+        .removeClass('hidden text-success fa-check')
+        .addClass('fa-times text-error');
       },
-      "cc-exp": {
-        required: true,
-        ccExpValid: true
+      success: function (label, element) {
+        $(element).next()
+        .removeClass('hidden text-error fa-times')
+        .addClass('fa-check text-success');
+        $(element).parent().addClass("has-success");
       },
-      "cc-cvc": {
-        required: true,
-        digits: true,
-        minlength: 3,
-        maxlength: 4
-      }
-    },
+      highlight: function (element, errorClass, validClass) {
+        $(element).parent().addClass("has-error");
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).parent().removeClass("has-error");
+      },
+      rules : {
+        "user[tax_code]": {
+          required: "#user_tax_code:visible",
+        },
+        "user[zip_code]": {
+          required: true,
+          digits: true
+        },
+        "user[cc_number]" : {
+          ccNumberValid : true,
+          required: true
+        },
+        "user[cc_expire]": {
+          required: true,
+          ccExpValid: true
+        },
+        "user[cc_cvc]": {
+          required: true,
+          digits: true,
+          minlength: 3,
+          maxlength: 4
+        }
+      },
+    }
   }
 }($, window.Setup = window.Setup || {}));
