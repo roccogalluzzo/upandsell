@@ -52,7 +52,7 @@ Stripe.setPublishableKey('<%= Rails.application.secrets.stripe['public_api_key']
            <input type="radio" name="user[plan_type]" value="monthly" checked>
            <div class="active-plan billing-plan month-plan">
              <h6>Monthly Plan</h6>
-             <p class="price-tag">25$/month</p>
+             <p class="price-tag">25$<span class="period">/month</span></p>
            </div>
          </label>
        </div>
@@ -61,7 +61,7 @@ Stripe.setPublishableKey('<%= Rails.application.secrets.stripe['public_api_key']
            <input type="radio" name="user[plan_type]" value="yearly">
            <div class="billing-plan year-plan">
              <h6>Yearly Plan</h6>
-             <p class="price-tag">250$/year</p>
+             <p class="price-tag">250$<span class="period">/year</span></p>
              <p class="discount-plan">(save 50$)</p>
            </div>
          </label>
