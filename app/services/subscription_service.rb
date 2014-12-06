@@ -1,40 +1,95 @@
 class SubscriptionService
 
-  def self.subscribe(user, card_token, yearly = false)
+  def initialize(user)
     Stripe.api_key = Rails.application.secrets.stripe['api_key']
+    @user = user
+    @customer = self.get_customer
+    @plans = {monthly: 'MONTHLY_PLAN', yearly: 'YEARLY_PLAN'}
+  end
 
-    if user.stripe_id.nil?
-
-    customer = Stripe::Customer.create(
-    card: card_token,
-    email: user.email,
-    metadata: {id: user.id, country: user.country, name: user.legal_name,
-      type: user.business_type, tax_code: user.tax_code },
-      plan: yearly ? 'YEARLY_PLAN' : 'MONTHLY_PLAN'
-      )
-    else
-      customer = Stripe::Customer.retrieve(user.stripe_id)
-      customer.subscriptions.create(plan: yearly ? 'YEARLY_PLAN' : 'MONTHLY_PLAN', card: card_token)
+  def subscribe(card_token, plan_type = :monthly)
+    if @customer.nil?
+      @customer = Stripe::Customer.create(
+      card: card_token,
+      email: @user.email,
+      metadata: {id: @user.id, country: @user.country, name: @user.legal_name,
+        type: @user.business_type, tax_code: @user.tax_code },
+        plan: @plans[plan_type]
+        )
+    elsif @customer && !self.is_subscribed?
+      @customer.subscriptions.create(plan: @plans[plan_type], card: card_token)
     end
 
-      user.last_4_digits = customer.cards.data.first["last4"]
-      user.stripe_id = customer.id
-      user.save
+    @user.last_4_digits = @customer.cards.data.first["last4"]
+    @user.cc_brand = @customer.cards.data.first["brand"].downcase
+    @user.stripe_id = @customer.id
+    @user.subscription_end = @customer.subscriptions.data[0].current_period_end
+    @user.subscription_active = true
+    @user.save
+
     rescue Stripe::StripeError => e
       Rails.logger.error "Stripe Error: " + e.message
       false
   end
 
-  def self.cancel_subscription(user)
-    unless user.stripe_id.nil?
-      customer = Stripe::Customer.retrieve(user.stripe_id)
-      unless customer.nil? or customer.respond_to?('deleted')
-        subscription = customer.subscriptions.data[0]
-        customer.subscriptions.retrieve(subscription.id).delete(at_period_end: true).cancel_at_period_end
-      end
+  def update_subscription(plan_type = :monthly)
+    unless @customer.nil? && !self.is_subscribed?
+     subscription = @customer.subscriptions.retrieve(@customer.subscriptions.data[0].id)
+     subscription.plan =  @plans[:plan_type]
+     subscription.prorate = false
+     subscription.save
+     @user.subscription_active = true
+     @user.subscription_end = subscription.current_period_end
+     @user.save
     end
+
   rescue Stripe::StripeError => e
     Rails.logger.error "Stripe Error: " + e.message
     false
+  end
+
+  def update_card(card_token)
+    unless @customer.nil?
+      @customer.card = token
+      @customer.save
+      @user.last_4_digits = @customer.cards.data.first["last4"]
+      @user.cc_brand = @customer.cards.data.first["brand"].downcase
+      @user.save
+    end
+
+    rescue Stripe::StripeError => e
+      Rails.logger.error "Stripe Error: " + e.message
+      false
+  end
+
+  def cancel_subscription
+      unless @customer.nil?
+        subscription = @customer.subscriptions.data[0]
+        @customer.subscriptions.retrieve(subscription.id).delete(at_period_end: true).cancel_at_period_end
+        @user.subscription_active = false
+        @user.save
+      end
+
+  rescue Stripe::StripeError => e
+    Rails.logger.error "Stripe Error: " + e.message
+    false
+  end
+
+  def get_customer
+    unless @user.stripe_id.nil?
+      customer = Stripe::Customer.retrieve(@user.stripe_id)
+      return nil if customer.respond_to?('deleted')
+      customer
+    end
+  end
+
+  def is_subscribed?
+      unless @customer.nil?
+        subscription = @customer.subscriptions.data[0]
+        if subscription.status == 'trialing' || subscription.status == 'active'
+          return true
+        end
+      end
+      false
   end
 end
