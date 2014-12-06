@@ -1,0 +1,54 @@
+<% content_for(:page_title)  { "Billing Information" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg fa-credit-card"></i>
+Settings / <span>Billing Information</span>
+<% end %>
+<%= render partial: "user/settings/tabs" %>
+<div class="subscription-info">
+  <div class="sub-info">
+  <p>
+  <span>Next payment will be processed on <span class="text-muted"><%= (Time.now + 30.days).strftime("%d %B  %Y") %></span>.</span>
+</p>
+  <p>
+    <%= image_tag 'cc_icons/mastercard_e.png' %> XXXX-XXXX-XXXX-<%= current_user.last_4_digits %><a id="js-toggle-cc-form" href="#"> (change)</a>
+  </p>
+</div>
+  <div class="sub-action">
+    <button id="js-btn-cancel-subscription" class="btn btn-danger">Cancel Subscription</button>
+    <button id="js-toggle-billing-form" class="btn-app">Edit Billing Info</button>
+</div>
+</div>
+<div id="billing-edit-form">
+  <div id='billing-cc-form' style="display:none;">
+    <%= render partial: "user/settings/billings/cc_form" %>
+  </div>
+  <div id='billing-form' style="display:none;">
+    <%= render partial: "user/settings/billings/form" %>
+      </div>
+</div>
+
+<div class="payment-history">
+<h4>Payment History</h4>
+</div>
+  <div id="payments-list">
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:6%">CC</th>
+            <th style="width:18%">Type</th>
+            <th style="width:44%">Date</th>
+            <th style="width:6%">Amount</th>
+            <th style="width:18%">Invoice</th>
+          </tr>
+        </thead>
+
+        <tbody role="alert" aria-live="polite" aria-relevant="all">
+          <tr><td colspan="6"><p class="text-center text-muted">No payments</p></td></tr>
+        </tbody></table>
+      </div>
+    </div>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+Stripe.setPublishableKey('<%= Rails.application.secrets.stripe['public_api_key'] %>');
+</script>

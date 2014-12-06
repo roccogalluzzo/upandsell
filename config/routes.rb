@@ -97,7 +97,7 @@ namespace :settings do
   end
   resource :integrations, only: [:edit, :create]
   resource :emails, only: [:edit, :update]
-  resource :upgrade, only: [:edit, :update]
+  resource :billing, only: [:edit, :update]
 end
 
 end
