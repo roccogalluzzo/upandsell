@@ -1,29 +1,36 @@
 class User::Settings::BillingsController < User::BaseController
 
   def new
+    @method = :post
   end
 
   def create
+    @success = false
     if billing_info_valid?
       current_user.attributes = billing_params
       if SubscriptionService.new(current_user).subscribe
-        render json: {}, status: :ok and return
+        #render json: {}, status: :ok and return
+        @success = true
+      end
+      respond_to do |format|
+        format.js
       end
     end
   end
 
   def edit
+    @method = :put
   end
 
   def update
     if billing_info_valid?
       current_user.attributes = billing_params
         sub = SubscriptionService.new(current_user)
-        if current_user.stripe_token.changed? &&  current_user.plan_type.changed?
+        if current_user.stripe_token_changed? &&  current_user.plan_type_changed?
           success = sub.subscribe
-        elsif current_user.stripe_token.changed?
+        elsif current_user.stripe_token_changed?
           success = sub.update_card
-        elsif  current_user.plan_type.changed?
+        elsif  current_user.plan_type_changed?
         success = sub.update_subscription
         end
         if success

@@ -7,7 +7,7 @@ class SubscriptionService
     @plans = {'monthly' => 'MONTHLY_PLAN', 'yearly' => 'YEARLY_PLAN'}
   end
 
-  def subscribe(card_token, plan_type = :monthly)
+  def subscribe
     if @customer.nil?
       @customer = Stripe::Customer.create(
       card: @user.stripe_token,
@@ -17,8 +17,8 @@ class SubscriptionService
         plan: @plans[@user.plan_type]
         )
     elsif self.is_subscribed?
-      self.update_subscription(@plans[@user.plan_type])
-      self.update_card(@user.stripe_token)
+      self.update_subscription
+      self.update_card
     elsif !self.is_subscribed?
       @customer.subscriptions.create(plan: @plans[@user.plan_type], card: @user.stripe_token)
     end
@@ -51,7 +51,7 @@ class SubscriptionService
     false
   end
 
-  def update_card(card_token)
+  def update_card
     unless @customer.nil?
       @customer.card = @user.stripe_token
       @customer.save

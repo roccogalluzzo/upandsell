@@ -1,0 +1,99 @@
+.subscription-info {
+  .make-row();
+  border-bottom: @border-light;
+  margin-top: -5px;
+  padding: 0px 0px 20px 0;
+  .sub-info {
+    font-size: 18px;
+    font-weight: bold;
+    .make-sm-column(9);
+    p {
+      margin: 0;
+    margin-bottom: 10px;
+    img {
+      height: 40px;
+    }
+    }
+  }
+  .sub-action {
+    .make-sm-column(3);
+    text-align: right;
+    #js-btn-cancel-subscription {
+      margin-bottom: 10px;
+    }
+  }
+}
+#billing-edit-form {
+  .make-row();
+  margin: 30px 0;
+
+  #billing-orm {
+      margin-top: 20px;
+      margin-bottom: 40px;
+      .action-form {
+        margin-top: 10px;
+      }
+  }
+}
+.payment-history {
+  .make-row();
+  margin-left: -20px;
+  margin-right: -20px;
+
+  h4 {
+    width: 100%;
+    border: @border-light;
+    padding: 12px;
+    margin-top: 0px;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #fafafa;
+    color: @primary;
+    margin-bottom: 0;
+  }
+}
+#payments-list {
+  .make-md-column(12);
+  margin-left: -20px;
+  margin-right: -20px;
+
+  div {
+    padding: 0;
+    table {
+      .table;
+      .table-condensed;
+      margin-bottom: 0px;
+      thead {
+        tr {
+          height: 40px;
+          border-bottom: 1px solid #f4f4f4;
+          text-transform: uppercase;
+          th {
+            border-right: 1px solid #f4f4f4;
+            line-height: 39px;
+            text-align: center;
+            font-size: 11px;
+            padding: 0 10px;
+          }
+        }
+      }
+      tbody {
+        tr {
+          border-bottom: @border-light;
+          &:last-child {
+            border-bottom: none !important;
+          }
+          td {
+            border-top: none;
+            text-align: center;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}

@@ -24,10 +24,7 @@ class User::SetupController < User::BaseController
   def save_billing_details
     if billing_info_valid?
       current_user.attributes = billing_params.except(:stripe_token, :plan_type)
-      if current_user.save
-        yearly = false
-        yearly  = true if  params[:user][:plan_type]
-        SubscriptionService.subscribe(current_user, params[:user][:stripe_token], yearly)
+      if current_user.save && SubscriptionService.new(current_user).subscribe(params[:user][:stripe_token], params[:user][:plan_type].to_sym)
         render json: {url: user_setup_path}, status: :ok and return
       end
   end

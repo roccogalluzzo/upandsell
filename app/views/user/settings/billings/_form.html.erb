@@ -1,5 +1,5 @@
 <div id='billing-form'>
-  <%= simple_form_for :user, url: user_billing_details_path, remote: true do |f| %>
+  <%= simple_form_for current_user, url: user_settings_billing_path, method: @method, remote: true do |f| %>
   <%= f.input :stripe_token, as: :hidden, id: 'stripe_token' %>
   <div class="billing-inputs">
     <div class="billing-type">
@@ -95,11 +95,19 @@
         </div>
 
       </div>
+      <% if defined?(edit) && edit %>
+    </div>
+    <div class="action-edit-form">
+      <%= f.button :submit, "Save", class: "btn-app btn-lg", data: { disable_with: "Saving..." } %>
+    </div>
+      <% else %>
       <div class="footer-billing">
         <p>After the first month you will be charged $25.00 every month</p>
       </div>
     </div>
     <div class="action-form">
       <%= f.button :submit, "Start your 30 day FREE TRIAL", class: "btn-action", data: { disable_with: "Processing..." } %>
+    </div>
+      <% end %>
       <% end %>
     </div>
