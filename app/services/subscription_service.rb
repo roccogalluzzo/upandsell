@@ -4,20 +4,23 @@ class SubscriptionService
     Stripe.api_key = Rails.application.secrets.stripe['api_key']
     @user = user
     @customer = self.get_customer
-    @plans = {monthly: 'MONTHLY_PLAN', yearly: 'YEARLY_PLAN'}
+    @plans = {'monthly' => 'MONTHLY_PLAN', 'yearly' => 'YEARLY_PLAN'}
   end
 
   def subscribe(card_token, plan_type = :monthly)
     if @customer.nil?
       @customer = Stripe::Customer.create(
-      card: card_token,
+      card: @user.stripe_token,
       email: @user.email,
       metadata: {id: @user.id, country: @user.country, name: @user.legal_name,
         type: @user.business_type, tax_code: @user.tax_code },
-        plan: @plans[plan_type]
+        plan: @plans[@user.plan_type]
         )
-    elsif @customer && !self.is_subscribed?
-      @customer.subscriptions.create(plan: @plans[plan_type], card: card_token)
+    elsif self.is_subscribed?
+      self.update_subscription(@plans[@user.plan_type])
+      self.update_card(@user.stripe_token)
+    elsif !self.is_subscribed?
+      @customer.subscriptions.create(plan: @plans[@user.plan_type], card: @user.stripe_token)
     end
 
     @user.last_4_digits = @customer.cards.data.first["last4"]
@@ -32,10 +35,10 @@ class SubscriptionService
       false
   end
 
-  def update_subscription(plan_type = :monthly)
+  def update_subscription
     unless @customer.nil? && !self.is_subscribed?
      subscription = @customer.subscriptions.retrieve(@customer.subscriptions.data[0].id)
-     subscription.plan =  @plans[:plan_type]
+     subscription.plan = @plans[@user.plan_type]
      subscription.prorate = false
      subscription.save
      @user.subscription_active = true
@@ -50,7 +53,7 @@ class SubscriptionService
 
   def update_card(card_token)
     unless @customer.nil?
-      @customer.card = token
+      @customer.card = @user.stripe_token
       @customer.save
       @user.last_4_digits = @customer.cards.data.first["last4"]
       @user.cc_brand = @customer.cards.data.first["brand"].downcase
