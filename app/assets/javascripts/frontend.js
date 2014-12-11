@@ -34,7 +34,7 @@ $(document).ready(function() {
       window.location.href = '/user';
     },
     sign_up_success: function() {
-      window.location.href = '/user/setup';
+      window.location.href = '/user/complete_signup';
     },
     form_error: function() {
       $('#js-form-error').fadeIn(700);

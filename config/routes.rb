@@ -56,6 +56,7 @@ end
 namespace :user do
   root 'dashboard#index'
   get 'dashboard/metrics'  => 'dashboard#metrics'
+  get 'complete_signup' => 'settings/billings#new'
 
   resources :affiliations
   resources :products, except: [:show] do
@@ -102,7 +103,7 @@ namespace :settings do
   end
   resource :integrations, only: [:edit, :create]
   resource :emails, only: [:edit, :update]
-  resource :billing, except: [:index]
+  resource :billing, except: [:index] 
 end
 
 end
