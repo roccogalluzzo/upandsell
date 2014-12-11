@@ -1,9 +1,24 @@
 #billing-plans {
   .make-row();
-  margin-bottom: 50px;
+  margin-left: -25px;
+  margin-right: -25px;
+  padding: 15px 0 50px;
   text-align: center;
+  background: #fafafa;
+  border: 1px solid #e3e3e3;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 20px;
+  .change-price {
+    margin: 0;
+    margin-bottom: 10px;
+    a {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
   h5 {
-    margin-bottom: 25px;
+    margin-bottom: 0px;
     margin-top: 0px;
     color: #414551;
   }
@@ -34,23 +49,23 @@
       position: absolute;
       left: 34%;
       font-size: 13px;
-      bottom: 5px;
+      bottom: -22px;
       color: #2ecc71;
     }
     }
     text-align: center;
     border-radius: 6px;
-    background-color: #ECF0F1;
-    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
-    padding-bottom: 25px;
-    border: @border-light;
+    background-color: #4A4E62;
+    //box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+    padding-bottom: 10px;
+    border: 1px solid #e3e3e3;
     h6 {
       font-size: 17px;
       text-transform: uppercase;
       font-weight: 600;
       margin-top: 10px;
       margin-bottom: 5px;
-      color: #888;//@primary;
+      color: white;//@primary;
     }
 
     .price-tag {
@@ -87,7 +102,7 @@
 }
 .setup-billing {
   .make-row();
-  .box;
+  //.box;
   .form-control-feedback {
     padding: 0 !important;
   }
@@ -95,6 +110,7 @@
   padding-bottom: 80px;
   h3, h4, h5 {
     text-align: center;
+    color: white
   }
   h3 {
 
@@ -128,7 +144,17 @@ border-color: #48c9b0;
 }
 .setup-payments-row {
   .make-row();
-
+p {
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 25px;
+  color: @concrete;
+}
+h5 {
+  color: @primary;
+  margin-bottom: 0;
+}
 .payment-box {
   width: 410px;
   background-color: #ecf0f1;
@@ -191,11 +217,14 @@ border-color: #48c9b0;
 //  .make-md-column-offset(3);
 margin: 0 auto;
 max-width: 525px;
+.form-group {
+  margin-bottom: 15px !important;
+}
 .billing-type {
    // margin-top: 15px;
    text-align: center;
    .radio {
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     padding-left: 20px;
     font-size: 13px;
     line-height: 1.5;
@@ -213,28 +242,29 @@ label {
   font-weight: 600;
 }
 .billing-inputs {
-  background-color: #fafafa;
-  border: 1px solid #e3e3e3;
+  background-color: white;
+  border: 5px solid #e3e3e3;
   padding: 25px;
   border-radius: 6px;
   .footer-billing {
-    background-color: rgb(69, 77, 96);
+    background-color: #fafafa;
+    border-top: 1px solid #e3e3e3;
     margin-left: -25px;
     margin-right: -25px;
     margin-top: 25px;
     /* position: absolute; */
     /* bottom: 0; */
-    height: 83px;
+    height: 130px;
     padding-bottom: 33px;
     margin-bottom: -25px;
     border-radius: 0 0 6px 6px;
     text-align: center;
-    padding: 25px;
-    color: white;
+    padding: 15px;
+    color: #333;
     position: relative;
     p {
       .make-md-column(12);
-      font-weight: bold;
+      font-weight: 400;
       font-size: 15px;
     }
 
@@ -251,13 +281,14 @@ label {
 
     &:after {
       border-color: rgba(136, 183, 213, 0);
-      border-top-color: #454D60;
+      border-top-color: #e3e3e3;
       border-width: 20px;
       margin-left: -20px;
     }
     &:before {
-      border-color: rgba(194, 225, 245, 0);
-      border-top-color: #454D60;
+      border-color: rgba(136, 183, 213, 0);
+      border-top-color: #e3e3e3;
+
       border-width: 26px;
       margin-left: -26px;
     }
@@ -306,6 +337,8 @@ label {
       padding-bottom: 1px;
       color: #8b91a0;
       text-align: center;
+      cursor: default;
+      pointer-events: none;
       p {
         i {
           border: @border-strong;

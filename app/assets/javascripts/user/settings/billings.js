@@ -42,6 +42,21 @@
       $('form').bind('ajax:beforeSend', Billings.BillingForm.success);
       $('form').bind('ajax:success', Billings.BillingForm.success);
       $('form').bind('ajax:error', Billings.BillingForm.error);
+      $('#js-change-price').on('click',  Billings.BillingForm.change_price);
+    },
+    change_price: function() {
+      cur_month = $('.month-price').text();
+      cur_year = $('.year-price').text();
+      $('.month-price').text($(this).data('switch-month'));
+      $('.year-price').text($(this).data('switch-year'));
+
+      $(this).data('switch-month', cur_month);
+      $(this).data('switch-year', cur_year);
+
+      cur_text = $(this).text();
+      $(this).text( $(this).data('text'));
+      $(this).data('text', cur_text);
+      return false;
     },
     beforeSend: function(data) {
 

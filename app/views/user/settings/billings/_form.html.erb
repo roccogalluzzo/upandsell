@@ -20,7 +20,7 @@
     class: 'select select-primary select-block mbl',
       priority: ["IT", "GB", "US"], selected: "IT" %>
 
-      <%= f.input :legal_name, as: :with_feedback %>
+      <%= f.input :legal_name, as: :with_feedback, input_html: {value: f.object.legal_name || current_user.name} %>
       <%= f.input :tax_code, as: :with_feedback %>
 
       <div class="row">
@@ -32,13 +32,16 @@
         <%= f.input :province, as: :with_feedback, :wrapper_html => { :class => 'col-sm-3' } %>
       </div>
       <div id="billing-plans">
-        <h5>Payment Details</h5>
+        <h5>Choose A plan</h5>
+        <p class="change-price"><a id="js-change-price" data-text="(See prices in EUR)"
+          data-switch-month="<%= @month_price %>$"
+          data-switch-year="<%= @year_price %>$" href="#">(See estimated prices in USD)</a></p>
         <div class="radio radio-inline">
           <label>
             <input type="radio" name="user[plan_type]" value="monthly" checked>
             <div class="active-plan billing-plan month-plan">
               <h6>Monthly Plan</h6>
-              <p class="price-tag">25$<span class="period">/month</span></p>
+              <p class="price-tag"><span class="month-price">24.99€</span><span class="period">/month</span></p>
             </div>
           </label>
         </div>
@@ -47,7 +50,7 @@
             <input type="radio" name="user[plan_type]" value="yearly">
             <div class="billing-plan year-plan">
               <h6>Yearly Plan</h6>
-              <p class="price-tag">250$<span class="period">/year</span></p>
+              <p class="price-tag"><span class="year-price">249.99€</span><span class="period">/year</span></p>
               <p class="discount-plan">(save 50$)</p>
             </div>
           </label>
@@ -55,6 +58,8 @@
 
       </div>
       <div class="setup-payments-row">
+        <h5>Payment Details</h5>
+        <p>This is just to open your account, we won't charge your card until trial ends.</p>
         <div class="payment-box">
           <div class="form-group with_feedback required user_cc_number">
             <label class="with_feedback required control-label" for="user_cc_number">
@@ -93,7 +98,6 @@
             </div>
           </div>
         </div>
-
       </div>
       <% if defined?(edit) && edit %>
     </div>
@@ -102,7 +106,7 @@
     </div>
       <% else %>
       <div class="footer-billing">
-        <p>After the first month you will be charged $25.00 every month</p>
+        <p>  If you don’t want to continue using Up&amp;Sell.Me, just cancel before the trial ends and you won’t be charged. Otherwise, you’ll pay for the service as long you don't cancel the subscription.</p>
       </div>
     </div>
     <div class="action-form">
