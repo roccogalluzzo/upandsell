@@ -11,6 +11,9 @@ $(document).ready(function() {
   Devise = {
     init: function() {
       $('#js-change-price').on('click', Devise.change_price);
+      $('.sign-in-form').on('ajax:success', Devise.sign_in_success);
+      $('.sign-up-form').on('ajax:success', Devise.sign_up_success);
+      $('.simple_form').on('ajax:error', Devise.form_error);
     },
     change_price: function() {
       cur_currency = $('.tag-currency').text();
@@ -26,6 +29,15 @@ $(document).ready(function() {
       cur_text = $(this).text();
       $(this).text( $(this).data('text'));
       $(this).data('text', cur_text);
+    },
+    sign_in_success: function() {
+      window.location.href = '/user';
+    },
+    sign_up_success: function() {
+      window.location.href = '/user/setup';
+    },
+    form_error: function() {
+      $('#js-form-error').fadeIn(700);
     }
   };
   Cookies = {
@@ -44,12 +56,7 @@ $(document).ready(function() {
    Animations.init();
  }else {
    Devise.init();
-   $(".simple_form").on('ajax:success', function(e, data){
-     window.location.href = '/user/setup';
-   });
-   $(".simple_form").on('ajax:error', function(e, data){
-    $('#js-form-error').fadeIn(700);
-   });
+
 
    $(".simple_form").validate({ showErrors: function(errorMap, errorList) {
     $.each(this.validElements(), function (index, element) {

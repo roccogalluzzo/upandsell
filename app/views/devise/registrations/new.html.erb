@@ -6,8 +6,6 @@
   <div class="row">
 <div class="sign-box">
   <div class="body">
-  <div class="msg-connect">
-  </div>
     <div class="social-logins">
       <div class="fb-login">
         <a href="/users/auth/facebook" class="fb-btn"><span class="logo"><i class="fa fa-facebook"></i></span> <span class="text">Facebook</span></a>
@@ -19,7 +17,7 @@
     <div class="login-middleline row">
 <p><span>or</span></p>
     </div>
-    <%= simple_form_for(resource, as: resource_name, :html => {:'data-type' => 'json'}, remote: true, format: :json, url: registration_path(resource_name), id: 'sign-form') do |f| %>
+    <%= simple_form_for(resource, as: resource_name, :html => {:'data-type' => 'json', class: 'sign-up-form'}, remote: true, format: :json, url: registration_path(resource_name), id: 'sign-form') do |f| %>
     <input name="user[referer_id]" value="<%= @ref %>" type="hidden">
 
     <div class="form-group">

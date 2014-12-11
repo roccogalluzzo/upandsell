@@ -1,15 +1,24 @@
-<div class="sign-box">
-<div class="head">
-	<h3>Forgot your password?</h3>
-	</div>
-	<div class="body">
-	<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }, :defaults => { :input_html => { :class => "form-control input-xlarge" }}) do |f| %>
-	<div class="form-group">
-		<%= f.input_field :email, required: true, autofocus: true,
-		placeholder: 'Your Email' %>
-	</div>
-	<%= f.button :submit, "Send Reset Password Email",
-	class: "btn-submit" %>
-	<% end %>
+<% content_for(:page_title)  { "Reset Password" } %>
+
+<div class="sign-up-header">
+	<h1>Forgot your password?</h1>
 </div>
+<div class="sign-in-container">
+	<div class="row">
+		<div class="sign-in-box">
+			<div class="body">
+				<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }, :defaults => { :input_html => { :class => "form-control input-xlarge" }}) do |f| %>
+				<div class="form-group">
+					<%= f.input_field :email, required: true, autofocus: true,
+					placeholder: 'Your Email' %>
+				</div>
+				<div id="js-form-error">Invalid email or password.</div>
+				<%= f.button :submit, "Send Reset Password Email", class: "btn-submit", data: { disable_with: "Processing..." } %>
+				<% end %>
+			</div>
+			<div class="sign-box-links">
+				<small><%= link_to "Go to Login", login_path %></small>
+			</div>
+		</div>
+	</div>
 </div>
