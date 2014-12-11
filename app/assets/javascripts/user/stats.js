@@ -8,7 +8,13 @@
   Stats.init = function() {
 
     data = formatData($('.graph').data('earnings'));
-    buildSummaryChart('js-earnings', data);
+    //buildSummaryChart('js-earnings', data);
+    options = {
+      animation: true,
+      responsive: true,
+      maintainAspectRatio: true
+    }
+    new Chart(document.getElementById("canvas").getContext("2d")).Line(data, options);
 
     $('select').on('change', function() {
      $.ajax({
@@ -41,12 +47,24 @@
  }
 
  function formatData(data) {
-  var rval = [];
+  var x = [];
+  var labels = []
   console.log(data)
   $.each(data, function(timestamp, d) {
-   rval.push({x: moment(timestamp).format('YYYY-MM-D'), y: d.earnings/100, z: d.sales});
+    labels.push(moment(timestamp).format('YYYY-MM-D'));
+    x.push(d.earnings + 100 )
  });
-  return rval;
+  return {labels: labels, datasets: [
+    {
+      fillColor : "rgba(220,220,220,0.5)",
+      strokeColor : "rgba(220,220,220,1)",
+      pointColor : "rgba(220,220,220,1)",
+      pointStrokeColor : "rgba(220,220,220,1)",
+      data : x,
+  //    xPos : labels,
+      title : "With xPos"
+    }
+    ]}
 }
 
 

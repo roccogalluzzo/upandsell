@@ -30,6 +30,7 @@
 //= require d3/d3.js
 //= require topojson/topojson.js
 //= require datamaps/dist/datamaps.world.js
+//= require chartnewjs/ChartNew.js
 //= require_tree ./user
 
 $(document).ready(Up.init);

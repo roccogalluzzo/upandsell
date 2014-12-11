@@ -22,8 +22,8 @@ Summary
   <div class="dashboard-content">
 <div class="da-basic-info">
 <div class="earnings-graph">
-  <h4>earnings</h4>
   <div class="overlay-graph">
+    <canvas id="canvas" height="600" width="1000"></canvas>
     <div class="overlayer-wrapper">
       <%= content_tag "div", id: "chart", class: "graph",
       data: { earnings: @earnings[:summary_data], currency: currency_symbol(current_user.currency) } do %>
@@ -32,7 +32,7 @@ Summary
   </div>
 </div>
 <div class="metrics-box">
-  <div class="stats-box">
+  <div class="stats-box" style="display: none;">
     <select name="products" class="form-control select select-primary select-block mbl">
       <option value="0">All Products</option>
       <% @products.each do |product| %>
@@ -42,21 +42,21 @@ Summary
 
 
   </div>
-  <div class="stats-box">
+  <div class="stats-box b-sales">
     <p>SALES</p>
     <div class="clearfix"></div>
     <h4 class="sales-month"><%= @sales || 0%></h4>
     <div class="clearfix"></div>
   </div>
 
-  <div class="stats-box">
+  <div class="stats-box b-visits">
     <p>VISITS</p>
     <div class="clearfix"></div>
     <h4 class="visits-month"><%= @visits || 0%></h4>
     <div class="clearfix"></div>
   </div>
 
-  <div class="stats-box">
+  <div class="stats-box b-cr">
     <p>CONVERSION RATE</p>
     <div class="clearfix"></div>
     <h4>
@@ -68,30 +68,15 @@ Summary
 </div>
 <div class="da-advaced-info">
   <div class="visits-map">
-<div id="world"  style="position: relative; height: 500px;">l</div>
+    <h4>Map</h4>
+<div id="world"  style="position: relative; height: 300px;"></div>
 </div>
 <div class="visits-list">
-  referral list
+  <h4>referral list</h4>
 </div>
 </div>
 </div>
 
-<div id="dashboard-support">
-<div class="row" style="margin-top: 50px;">
- <div class="support-widget">
-   <h4>
-     <i class="fa fa-3x fa-bullhorn pull-left"></i>
-   </h4>
-   <p>
-     Hi! <b>Up&amp;Sell.Me</b> is currently in beta.
-     If you have suggestions, requests o need support you can reach you by clicking on the <b>question mark icon</b> at the bottom right of the page. We also have a list of features we are working on,
-     <a href="https://upandsellme.uservoice.com/">take a look</a> and vote to prioritize the release.
-   </p>
-
-
- </div>
-</div>
-</div>
 
 </div>
 </div>

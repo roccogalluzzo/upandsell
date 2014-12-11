@@ -9,7 +9,12 @@ Upandsell::Application.routes.draw do
 
   devise_for :users, controllers: {  omniauth_callbacks: 'omniauth_callbacks',
     confirmations: 'confirmations', registrations: "registrations" }
-    get '/users/auth/:provider/callback' => 'user/settings/integrations#create', as: 'integration_callback'
+
+    devise_scope :user do
+      delete "/logout" => "devise/sessions#destroy"
+      get "/join"   => "registrations#new"
+      get "/login" => "devise/sessions#new"
+    end
  # Front-end
  root 'landing#index'
  get 'no-beta' => 'landing#beta'

@@ -26,6 +26,9 @@
   Billings.Edit = function () {
     s = init_settings();
     Billings.BillingForm.init();
+    $('#js-toggle-billing-form').on('click', function(){
+      $('#billing-edit-form').fadeToggle();
+    });
   };
 
   Billings.BillingForm = {
@@ -46,7 +49,7 @@
     success: function(e, data) {
     },
     error: function(e, xhr, status) {
-    
+
     },
     submit: function() {
       $('.btn-action').attr("disabled", "disabled");

@@ -2,7 +2,7 @@
   .btn;
  // background-color: #53aede;
  background-color: #4A4E62;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   color: white;
  // text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
@@ -11,9 +11,15 @@
   line-height: 16px;
   padding: 16px 30px;
   border-radius: 30px;
+
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
   &:hover {
-    color: white;
-    background-color: lighten(#4A4E62, 12%);
+    color: #4A4E62 !important;//#DAEFF2 !important;
+    background-color: white; //darken(#4A4E62, 15%);
   }
   color: white !important;
 }
@@ -24,7 +30,7 @@
   background-color: white;
   border-top: 5px solid #4a4e62;
   border-bottom: 1px solid #e3e3e3;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+  //box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
   height: 95px;
   padding: 25px 20px;
   .navbar-brand {
@@ -36,8 +42,8 @@
     .btn-primary;
     .pull-right;
     .hidden-xs;
-    background-color: #53aede;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
+    background-color: #4A4E62;
+    //box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
     border: none;
     font-weight: bold;
     font-size: 13px;
@@ -46,8 +52,13 @@
     line-height: 9px;
     margin-top: 0px;
     border-radius: 6px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
     &:hover {
-      background-color: #4b9fca
+      background-color: darken(#4A4E62, 15%);//#4b9fca
     }
     &:active {
      background-color: #53aede;
@@ -66,8 +77,8 @@
   margin-right: 5px;
   border: 1px solid transparent;
   &:hover {
-    border: 1px solid #4b9fca;
-    color: #4b9fca !important;
+    border: 1px solid #4A4E62;
+    color: #4A4E62 !important;
     background-color: white;
   }
   &:active {
@@ -139,7 +150,7 @@
     margin-top: 0px;
   }
   h2 {
-    margin-top: 22px;
+    margin-top: 20px;
     font-size: 20px;
     font-weight: 400;
     color: #888;

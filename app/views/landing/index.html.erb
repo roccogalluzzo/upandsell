@@ -35,11 +35,11 @@
                 <h1 class="animated fadeInUp">Easily sell your digital products.</h1>
                 <h2 class="animated fadeInUp">Fastest way to sell music, ebooks, software
                   or any other downloadable product.</h2>
-                  <%= link_to "Start Free Trial", new_user_registration_path,
+                  <%= link_to "Start Free Trial", join_path,
                   class: "btn-get-started hidden-animation" %>
 
                   <div class="beta-message hidden-animation">
-                  <p>Scroll to see all features</p>
+                  <p><i class="fa fa-arrow-down"></i> Scroll to see all features <i class="fa fa-arrow-down"></i></p>
                     </div>
                   </div>
                 </div>
@@ -162,12 +162,12 @@
               </div>
             </div>
           </div>
-          <% unless @beta %>
+
           <div class="pricing-section">
            <div class="container">
              <div class="head">
                <h6>Pricing</h6>
-               <p>One edition. 30 days trial. 24.99$ per month. 24/7 customer service.
+               <p>One edition. 30 days trial. 24.99€ per month. 24/7 customer service.
                 Try our service, start selling and contact us at anytime for any support.</p>
               </div>
               <div class="pricing-plans">
@@ -175,7 +175,7 @@
                  <div class="plan-tag-blue">
                   <%= image_tag 'price_tag_blue.png' %>
                   <h6 class="tag-head">Pro</h6>
-                  <span class="tag-currency">$</span><span class="tag-price">24</span>.99
+                  <span class="tag-currency">€</span><span class="tag-price">24</span>.99
                   <div class="bottom-tag">
                     <p class="f-p">Free Trial</p>
                     <p class="s-p">30 days</p>
@@ -194,7 +194,7 @@
             </div>
           </div>
         </div>
-        <% end %>
+
 
       </div>
       <%= render :partial => 'layouts/site/footer' %>

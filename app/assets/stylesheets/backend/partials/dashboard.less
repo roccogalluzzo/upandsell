@@ -41,19 +41,67 @@
     .da-basic-info {
     .make-row();
     .earnings-graph {
-      .make-md-column(8);
+      .make-md-column(9);
+      background-color: #fafafa;
+      border: @border-light;
     }
     .metrics-box{
-      .make-md-column(4);
+      .make-md-column(3);
+      padding-left: 0px;
+      padding-right: 0px;
+      width: 150px;
+      .stats-box {
+        border-bottom: @border-light;
+        text-align: center;
+        color: white;
+        padding: 14px 0;
+        h4 {
+          color: white;
+        }
+      }
+      .b-sales {
+        background-color: @turquoise;
+      }
+      .b-visits {
+        background-color: @peter-river;
+      }
+      .b-cr {
+        background-color: @primary;
+      }
     }
   }
   .da-advaced-info {
     .make-row();
     .visits-map {
       .make-md-column(8);
+      padding-left: 0px;
+      padding-right: 0px;
+      background-color: #fafafa;
+      border-right: @border-light;
+      h4{
+        text-align: center;
+        border-bottom: @border-light;
+        text-transform: uppercase;
+        padding: 17px;
+        font-size: 26px;
+        background: white;
+        margin: 0;
+      }
     }
     .visits-list{
       .make-md-column(4);
+      padding-left: 0px;
+      padding-right: 0px;
+      h4{
+        text-align: center;
+        border-bottom: @border-light;
+        text-transform: uppercase;
+        padding: 17px;
+        font-size: 26px;
+        background: white;
+        margin: 0;
+      }
+
     }
   }
 
