@@ -23,16 +23,6 @@ class UserMailer <  Devise::Mailer
      template_name: 'sold_email')
   end
 
-  def invite_email(invite_id)
-    @invite = Invite.find invite_id
-    @invite.status = 'sent'
-    @invite.save
-    mail(to: @invite.email,
-     subject: "You have been invited to the beta of Up&Sell.Me",
-     template_path: 'notifications',
-     template_name: 'invite_email')
-  end
-
   def bought_email(user_id, order_id)
     @user = User.find user_id
     @order  = Order.find order_id
