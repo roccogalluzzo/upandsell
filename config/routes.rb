@@ -3,6 +3,7 @@ require 'split/dashboard'
 
 Upandsell::Application.routes.draw do
 
+  mount StripeEvent::Engine, at: '/stripe'
 
   get '/auth/paypal' => 'user/settings/payments#paypal_connect', as: 'paypal_integration'
   get '/auth/paypal/callback' => 'user/settings/payments#paypal_callback', as: 'paypal_integration_callback'
@@ -103,7 +104,7 @@ namespace :settings do
   end
   resource :integrations, only: [:edit, :create]
   resource :emails, only: [:edit, :update]
-  resource :billing, except: [:index] 
+  resource :billing, except: [:index]
 end
 
 end
