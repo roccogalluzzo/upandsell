@@ -44,6 +44,38 @@ class UserMailer <  Devise::Mailer
      template_name: 'bought_email')
   end
 
+  def trial_will_expire_email(user_id)
+    @user = User.find user_id
+    mail(to: @user.email,
+    subject: "",
+    template_path: 'notifications',
+    template_name: 'trial_will_expire')
+  end
+
+  def payment_succeeded_email(user_id)
+    @user = User.find user_id
+    mail(to: @user.email,
+    subject: "",
+    template_path: 'notifications',
+    template_name: 'payment_succeeded')
+  end
+
+  def payment_failed_email(user_id)
+    @user = User.find user_id
+    mail(to: @user.email,
+    subject: "",
+    template_path: 'notifications',
+    template_name: 'payment_failed')
+  end
+
+  def subscription_deleted_email(user_id)
+    @user = User.find user_id
+    mail(to: @user.email,
+    subject: "",
+    template_path: 'notifications',
+    template_name: 'payment_succeeded')
+  end
+
   def refund_email(user_id, order_id)
    @user = User.find user_id
    @order  = Order.find order_id
