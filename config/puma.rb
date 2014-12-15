@@ -7,7 +7,7 @@ threads 0, 8
 
 stdout_redirect 'log/puma.log', 'log/puma_error.log', true
 port        ENV['PORT']     || 3000
-environment 'production'
+environment ENV['RACK_ENV'] || 'production'
 stdout_redirect "/var/www/upandsell/current/log/puma-.stdout.log", "/var/www/upandsell/current/log/puma-.stderr.log"
 
 

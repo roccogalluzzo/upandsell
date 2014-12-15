@@ -5,7 +5,7 @@
 # property set.  Don't declare `role :all`, it's a meta role.
 
 server '5.101.102.88', user: 'deploy', roles: %w{web app db}, primary: true
-
+set :rails_env, "production"
 
 # Extended Server Syntax
 # ======================
