@@ -16,6 +16,7 @@ set :linked_files, %w{config/database.yml config/secrets.yml}
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle}
 
+set :ssh_options, { forward_agent: true }
 # Rbenv settings
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, '2.1.2'
