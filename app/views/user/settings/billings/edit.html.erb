@@ -4,21 +4,31 @@
 Settings / <span>Billing Information</span>
 <% end %>
 <%= render partial: "user/settings/tabs" %>
+<% if current_user.subscription_active %>
 <div class="subscription-info">
+  <div class="sub-plan-info">
+    <div class="t-plan">
+  <% if current_user.plan_type == 'monthly' %>
+  <h5>Monthly plan</h5>
+  <span>24.99€</span>
+  <% else %>
+  <h5>Yearly plan</h5>
+  <span>249.99€</span>
+  <% end %>
+  </div>
+</div>
+
   <div class="sub-info">
   <p>
-  <span>Next payment will be processed on <span class="text-muted"><%= (Time.now + 30.days).strftime("%d %B  %Y") %></span></span>
+
+  <span>
+    Next payment will be processed on
+    <span class="text-muted"><%= (Time.now + 30.days).strftime("%d %B  %Y") %>.
+  </span>
+  </span>
 </p>
   <p>
     <%= image_tag "cc_icons/#{current_user.cc_brand.downcase}_e.png" %> XXXX-XXXX-XXXX-<%= current_user.last_4_digits %>
-    <span class="plan-view">(<% if current_user.plan_type == 'monthly' %>
-      <b>24.99€</b>/month
-      <% else %>
-      <b>249.99€</b>/year
-      <% end %>)
-
-    </span>
-
     </p>
 </div>
   <div class="sub-action">
@@ -26,7 +36,9 @@ Settings / <span>Billing Information</span>
     <button id="js-toggle-billing-form" class="btn-app">Edit Billing Info</button>
 </div>
 </div>
-<div id="billing-edit-form" style="display: none;">
+<% end %>
+
+<div id="billing-edit-form" style="<%= 'display: none;' if current_user.subscription_active %>">
     <%= render partial: "user/settings/billings/form", :locals => {:edit => true}  %>
 </div>
 

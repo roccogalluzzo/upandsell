@@ -59,7 +59,9 @@
       </div>
       <div class="setup-payments-row">
         <h5>Payment Details</h5>
+        <% unless defined?(edit) && edit %>
         <p>This is just to open your account, we won't charge your card until trial ends.</p>
+        <% end %>
         <div class="payment-box">
           <div class="form-group with_feedback required user_cc_number">
             <label class="with_feedback required control-label" for="user_cc_number">

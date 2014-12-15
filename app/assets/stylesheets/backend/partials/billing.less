@@ -6,10 +6,47 @@
   border-bottom: @border-light;
   margin-top: -5px;
   padding: 0px 0px 20px 0;
+  .sub-plan-info {
+    .make-sm-column(2);
+    border-right: 2px solid #e3e3e3;
+    .t-plan {
+      margin: 0 auto;
+      max-width: 160px;
+    border: 1px solid #e3e3e3;
+    padding: 2px;
+    background: white;
+    border-radius: 6px;
+    color: white;
+    text-align: center;
+    h5 {
+      margin: 0;
+      font-size: 18px;
+      text-transform: uppercase;
+      background-color: @secondary;
+      padding: 5px;
+      color: white;
+      font-weight: 500;
+      border-radius: 6px 6px 0 0;
+    }
+    span {
+      display: block;
+      font-size: 22px;
+      padding: 8px;
+      color: @primary;
+    }
+  }
+}
+
+.subscribe-info {
+  .make-sm-column(12);
+  text-align: center;
+  background-color: #fafafa;
+}
+
   .sub-info {
     font-size: 18px;
     font-weight: bold;
-    .make-sm-column(9);
+    .make-sm-column(7);
     p {
       margin: 0;
     margin-bottom: 10px;

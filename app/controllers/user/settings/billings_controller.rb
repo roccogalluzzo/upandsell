@@ -26,7 +26,6 @@ class User::Settings::BillingsController < User::BaseController
     @method = :put
     @month_price = 24.99.in(:eur).to(:usd).to_s(:plain)
     @year_price =  249.99.in(:eur).to(:usd).to_s(:plain)
-    
   end
 
   def update
