@@ -24,7 +24,6 @@
     "bootstrapvalidator": "latest",
     "topojson": "latest",
     "d3": "latest",
-    "datamaps": "latest",
-    "chartnewjs": "latest"
+    "datamaps": "latest"
   }
 }
