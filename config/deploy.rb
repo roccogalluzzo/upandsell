@@ -29,6 +29,7 @@ set :rbenv_roles, :all
 
 # Default value for keep_releases is 5
 set :keep_releases, 2
+after "deploy:updated", "newrelic:notice_deployment"
 
 namespace :deploy do
 
