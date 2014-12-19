@@ -30,7 +30,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'kaminari'
-
+gem 'newrelic_rpm'
 gem 'maildown'
 gem 'mandrill-api', require: 'mandrill'
 gem 'mini_magick'
