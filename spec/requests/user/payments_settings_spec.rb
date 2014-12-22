@@ -8,7 +8,7 @@ describe "Payments Settings" do
 
  describe "Paypal Connect" do
 
-  subject { get paypal_integration_path}
+  subject { get 'auth/paypal'}
 
   it "redirect to paypal connect url" do
     VCR.use_cassette('paypal_connect', record: :once) do
@@ -34,17 +34,4 @@ describe "Payments Settings" do
   end
 
 end
-
-describe "Paymill Connect" do
-
-  it "save paymill connect to db" do
-
-   action = get paymill_integration_callback_path, code: '6fdce604e4c7af00bf87925086c36a83d4f31b04'
-   user = User.find USER.id
-   expect(user.credit_card_token).to eq('mock_token')
- end
-
-end
-
-
 end

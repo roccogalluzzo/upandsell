@@ -57,6 +57,7 @@ end
 namespace :user do
   root 'dashboard#index'
   get 'dashboard/metrics'  => 'dashboard#metrics'
+  get 'dashboard/onload_metrics'  => 'dashboard#onload_metrics'
   get 'complete_signup' => 'settings/billings#new'
 
   resources :affiliations

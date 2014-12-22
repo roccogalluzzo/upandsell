@@ -22,7 +22,14 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 
 WebMock.disable_net_connect!(allow_localhost: true)
+aws =  Rails.application.secrets.aws
+connection = Fog::Storage.new({
+  :provider                 => 'AWS',
+  :aws_access_key_id        => aws["access_key_id"],
+  :aws_secret_access_key    => aws["secret_access_key"]
+  })
 
+  connection.directories.create(key: aws["bucket"])
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   c.hook_into :webmock

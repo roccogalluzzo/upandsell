@@ -1,29 +1,59 @@
 #dashboard-page {
   .container-fluid;
   .box;
-  padding-bottom: 15px;
+    #js-graph-canvas > div > div > a {
+      color: #aaa !important;
+      font-size: 11px;
+    }
+  .balloon-earnings, .balloon-sales, .balloon-visits {
+    margin: 0;
+    text-align: left;
+    i {
+      color: #addad5;
+    }
+  }
+  .balloon-earnings {
+text-align: center;
+    color: @primary;
+    font-size: 18px;
+    margin-top: 4px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  .balloon-sales {
 
+  }
+  padding-bottom: 15px;
+  #js-graph-canvas {
+    width: 100% !important;
+    //  max-width: 800px;
+    height: 400px !important;
+  }
   .dashboard-tabs {
     .make-row();
     .dashboard-tab {
       //background-color: @clouds;
       .make-md-column(4);
-      border-left: @border-light;
+      border-left: 2px solid @clouds;
       text-align: center;
       padding-bottom: 20px;
       padding-top: 20px;
       cursor: pointer;
       border-bottom: @border-light;
       transition: all 0.3s;
+      border-bottom: 5px solid @clouds;
+    //  background-color: darken(#fff, 10%);
       &.active-tab {
-        border-top: 5px solid @secondary;
-        margin-bottom: -5px;
-        border-bottom: none;
+        border-bottom: 5px solid @secondary;
+        .dashboard-tab-title {
+          color: @secondary;
+        }
       }
       &:hover {
-        border-top: 5px solid @silver;
-        margin-bottom: -5px;
-        background-color: #fefefe;
+        border-bottom: 5px solid @silver;
+      }
+      &:first-child {
+        border-left: none;
       }
       .dashboard-tab-title {
         font-size: 22px;
@@ -38,13 +68,36 @@
       }
     }
   }
+  position: relative;
   .dashboard-content {
+    #loading-graph {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 412px;
+      background-color: rgba(236, 236, 236, 0.8);
+      z-index: 111;
+      color: rgb(155, 210, 204);
+      margin-left: -15px;
+      i {
+        position: absolute;
+        left: 42%;
+        top: 37%;
+        font-size: 45px;
+      }
+    }
     .da-basic-info {
     .make-row();
+    canvas {
+
+    }
+    background-color: #fafafa;
+    border: @border-light;
     .earnings-graph {
       .make-md-column(9);
-      background-color: #fafafa;
-      border: @border-light;
+      padding-top: 20px;
+      padding-left: 10px;
+      padding-right: 10px;
     }
     .metrics-box{
       .make-md-column(3);
@@ -52,10 +105,12 @@
       padding-right: 0px;
       width: 150px;
       .stats-box {
-        border-bottom: @border-light;
         text-align: center;
         color: white;
-        padding: 14px 0;
+        padding-top: 10px;
+        padding-bottom: 20px;
+        background-color: rgb(69, 77, 96);
+        border: 10px solid lighten(rgb(69, 77, 96), 8%);
         h4 {
           color: white;
         }
