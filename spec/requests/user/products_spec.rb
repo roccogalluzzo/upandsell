@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe "Products" do
+  before { skip }
  before :all do
    post 'users/sign_in',
    'user[email]' => USER.email, 'user[password]' => USER.password

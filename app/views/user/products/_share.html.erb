@@ -1,0 +1,52 @@
+<div id="share-modal" class="modal fade" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Share to your Audience!</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="share-url-box">
+            <div class="slug">
+              <h4 id="js-slug">http://ciao.com</h4>
+              <a id="js-ext-link" class=""
+              href="<%= @slug %>" target="_blank">
+              <i class="fa  fa-external-link"></i></a>
+              <a id="js-copy-to-clipboard"
+              data-clipboard-target="js-slug"
+              class=""
+              href="#"><i class="fa fa-clipboard"></i></a>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="text-center col-md-6 col-md-offset-3">
+            <a href=" javascript: void(0)"
+            <% if @twitter_url %>
+            onclick="window.open(
+            '<%= @twitter_url %>',
+            'tweet','toolbar=0,status=0,width=600,height=305')"
+            <% end %>
+            class="btn btn-social-twitter btn-lg">
+            <i class="fui-twitter"></i>
+            Tweet
+          </a>
+
+          <a href=" javascript: void(0)"
+          <% if @facebook_url %>
+          onclick="window.open(
+          '<%= @facebook_url %>',
+          'share','toolbar=0,status=0,width=600,height=305')"
+          <% end %>
+          class="btn btn-lg btn-social-facebook">
+          <i class="fui-facebook"></i>
+          Share
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

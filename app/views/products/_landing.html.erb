@@ -30,7 +30,7 @@ class="fb-btn">
 <div class="hidden-xs landing-description">
  <h1><%= @product.name %> </h1>
  <h6>by <span class="product-author"><%= @user.name %></span></h6>
- <p><%= @product.description %></p>
+ <p><%= @product.description.html_safe %></p>
 </div>
 
 <div class="product-actions-box">
@@ -44,8 +44,7 @@ class="fb-btn">
    cents =  @product.price.format(symbol: false).last(2)
    %>
    <div class="product-price">
-     <span>
-       <%= "#{symbol} #{price}" %><span class='cents'>.<%= cents %></span>
+     <span> <%= symbol %> <span class="price"><%= price %></span><span class='cents'>.<%= cents %></span>
      </span>
    </div>
  </div>
@@ -105,7 +104,7 @@ class="fb-btn">
 <div class="visible-xs landing-description">
   <h1><%= @product.name %> </h1>
   <h6>by <span class="product-author"><%= @user.name %></span></h6>
-  <p><%= @product.description %></p>
+  <p><%= @product.description.html_safe %></p>
 </div>
 <div class="product-info">
   <ul>

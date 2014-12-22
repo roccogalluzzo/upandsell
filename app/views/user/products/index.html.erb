@@ -3,61 +3,40 @@
 <i class="fa fa-lg icon-tag-2"></i>
 Products
 <% end %>
-<div class="row m-b-15">
-  <div class="col-md-offset-10 col-md-2">
-    <%= link_to(new_user_product_path, class: 'btn btn-primary') do %>
-    <i class="fa fa-lg fa-plus"></i>
-    New Product
-    <% end %>
-  </div>
-</div>
-<div class="row tiles-container  m-b-20">
-  <div class="m-l-10 ">
-    <div class="tiles white ">
-     <% if @products.blank? %>
-     <div class="p-t-20 p-b-20 m-l-10 m-r-10">
-       <p class="text-center text-muted">No products yet</p>
-       <p class="text-center">
-        <%= link_to "Add One Now",
-        new_user_product_path, class: "btn btn-add btn-primary" %>
-      </p>
-    </div>
-    <% else %>
-    <% @products.each do |product| %>
-    <div class="p-t-10 p-b-10 m-l-10 m-r-10 b-b b-gray">
-      <div class="post row">
-        <div class="col-md-1">
-         <img class="product-image img-rounded"
-         src="<%= product.preview.thumb.url %>"
-         style="height: 60px; width: 60px;">
-       </div>
-
-       <div class="col-md-9">
-        <div class="info text-black ">
-          <p>
-           <strong> <%= product.name %></strong>
-         </p>
-       </div>
-     </div>
-     <div class="col-md-2 text-right action-links">
-
-      <%= link_to   product_slug_path(product.slug), class: 'btn-circle-b' do %>
-      <i class="fa icon-link"></i>
-      <% end %>
-      <%= link_to edit_user_product_path(product), class: 'btn-circle' do %>
-      <i class="fa  icon-pencil"></i>
+<div class="products-page-index">
+  <div class="products-actions">
+    <div>
+      <%= link_to(new_user_product_path, class: 'btn-app') do %>
+      <i class="fa fa-lg fa-plus"></i>
+      New Product
       <% end %>
     </div>
-
   </div>
+  <div class="products-list-legend">
+    <div class="p-info">
+      <b>Product Info</b> <small>(Click the name to Edit)</small>
+    </div>
+    <div class="p-published">
+      <b>Published</b>
+    </div>
+  </div>
+  <div class="products-list">
+   <% if @products.blank? %>
+   <div class="no-products">
+     <p>No products yet</p>
+     <p>
+      <%= link_to "Add One Now",
+      new_user_product_path, class: "btn-app" %>
+    </p>
+  </div>
+  <% else %>
+  <%= render @products %>
+  <% end %>
+</div>
+<% unless @products.blank? %>
+<div class="products-pagination">
+ <%= paginate @products %>
 </div>
 <% end %>
-<% end %>
-<div class="row">
-  <div class="col-md-offset-5 col-md-2 text-center">
-   <%= paginate @products %>
- </div>
 </div>
-</div>
-</div>
-</div>
+<%= render 'share' %>

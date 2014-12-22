@@ -1,4 +1,18 @@
 @sidebar-width: 190px;
+@box-border-radius: 6px;
+@box-background: #fff;
+@border-light:  1px solid #f4f4f4;
+@border-strong: 1px solid #ededed;
+
+.box {
+  background-color: @box-background;
+  border-radius: @box-border-radius;
+}
+
+.page-content {
+  overflow: initial !important;
+}
+
 #top {
   border-radius: 0px !important;
   height: 55px !important;
@@ -24,11 +38,24 @@
 
   h3 {
     text-transform: uppercase;
-    margin-left: 15px;
+    padding-left: 15px;
     font-size: 29px;
     margin-top: 10px;
+    background-color: white;
+    z-index: 2;
     span {
       color: @silver;
+    }
+    .select {
+      margin-bottom: 0 !important;
+      margin-left: 15px;
+      a {
+        padding: 7px 40px 7px 15px !important;
+        span {
+          color: white;
+          text-transform: initial;
+        }
+      }
     }
     i {
       margin-right: 5px;
@@ -38,23 +65,23 @@
   //  width: 340px;
 }
 .nav-avatar {
-height: 40px;
-width: 40px;
-margin-top: -10px;
-border: 1px solid #e3e3e3;
-margin-right: 16px;
+  height: 40px;
+  width: 40px;
+  margin-top: -10px;
+  border: 1px solid #e3e3e3;
+  margin-right: 16px;
 }
 #navbar {
-   .first-li {
-    a {
-      border: none !important;
-    }
-    }
-    .image-li {
-      width: 55px;
-    }
-  ul {
-    .nav;
+ .first-li {
+  a {
+    border: none !important;
+  }
+}
+.image-li {
+  width: 55px;
+}
+ul {
+  .nav;
     //background-color: @secondary;
     margin: 0 !important;
     padding-top: 16px;
@@ -133,7 +160,11 @@ h6 {
 }
 .page-sidebar {
   width: @sidebar-width;
-  background-color: @primary !important;
+  //background-color: @primary !important;
+  display: inline-block;
+  float: left;
+  position: fixed;
+  margin-top:55px;
 }
 
 .page-sidebar-wrapper {
@@ -175,9 +206,7 @@ h6 {
   font-size: 16px !important;
 }
 
-ul > li {
-  padding-left: 0px !important;
-}
+
 
 .action-links {
   margin-top: 10px;
@@ -216,10 +245,6 @@ i {
 
 }
 
-
-.btn {
-  border-radius: 20px !important;
-}
 .btn-primary {
   color: white ;
   background-color: darken(@secondary, 15%);
@@ -231,5 +256,3 @@ i {
   border-bottom-color: white;
   border-top-color: white;
 }
-
-

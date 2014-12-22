@@ -1,7 +1,7 @@
-
-<% flash.each do |type, message| %>
 <div class="animated-alert"><div class="message">
-  <p id="js-message" > <%= message %></p>
-
+  <p id="js-message" >
+    <% flash.each do |type, message| %>
+    <%= message if !message.blank?%>
+    <% end %>
+  </p>
 </div></div>
-<% end %>

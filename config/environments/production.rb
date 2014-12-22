@@ -1,5 +1,7 @@
 Upandsell::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+  config.assets.precompile += %w( .svg .eot .woff .ttf)
   config.action_mailer.smtp_settings = {
     address: 'smtp.mandrillapp.com',
     port:     587, # ports 587 and 2525 are also supported with STARTTLS
@@ -13,7 +15,7 @@ Upandsell::Application.configure do
   #config.action_controller.asset_host = "dqivr59fnsgbe.cloudfront.net"
 
   config.action_controller.asset_host = 'dqivr59fnsgbe.cloudfront.net'
-   config.action_mailer.asset_host = 'https://dqivr59fnsgbe.cloudfront.net'
+  config.action_mailer.asset_host = 'https://dqivr59fnsgbe.cloudfront.net'
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -47,7 +49,7 @@ Upandsell::Application.configure do
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.0'
+  config.assets.version = '1.1'
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache

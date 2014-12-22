@@ -1,0 +1,24 @@
+<tr>
+  <td> <b>#<%= order.number %></b></td>
+  <td> <%= order.email %></td>
+  <td>
+    <% if  order.gateway == 'paypal' %>
+    <%= image_tag "cc_icons/paypal.png" %>
+    <% else %>
+    <%= image_tag "cc_icons/#{order.payment_details[:card]}.png" %>
+    <% end %>
+  </td>
+  <td> <%= order.product.name %> </td>
+  <td><%= humanized_money_with_symbol order.amount %></td>
+  <td>               <%= order.created_at.to_time.strftime('%e %b %Y') %>
+
+   <%= order.created_at.to_time.strftime('%H:%m:%S') %>
+ </td>
+ <td>
+ <% if (order.gateway == current_user.credit_card_gateway.downcase) ||  (order.gateway == 'paypal') ||
+  order.created_at > 30.days.ago %>
+    <%= link_to "Refund", refund_user_order_path(order), :class => "btn btn-primary",
+   data: {confirm: "Are you sure?"} %>
+   <% end %>
+ </td>
+</tr>

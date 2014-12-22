@@ -1,0 +1,27 @@
+<% content_for :title do %>
+You just sold <%= @order.product.name %>
+<% end %>
+<% content_for :h1 do %>
+You just sold a copy of <b><%= @order.product.name %></b>
+<% end %>
+
+<% content_for :msg do %>
+Your new customer's email is <a
+style="color:#53aede"
+href="mailto:<%= @order.email %>">
+<%= @order.email %>
+</a>.
+For order details go on your <a style="color:#53aede" href="https://upandsell.me/user">dashboard</a>.
+<% end %>
+
+<div style="margin-top:10px"></div>
+
+
+<% content_for :footer do %>
+<p>
+  Sent to <b><%= @user.email %></b>.
+  <%= link_to "Deactivate notifications",
+  unsubscribe_user_url(@user.unsubscribe_token('sales')),
+  style:"color:#999" %>
+</p>
+<% end %>

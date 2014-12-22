@@ -1,0 +1,62 @@
+#orders-page {
+  .container-fluid;
+  .box;
+  padding-bottom: 15px;
+  .orders-actions {
+    .make-row();
+    padding: 30px 10px;
+    padding-top: 20px;
+    border-bottom: @border-light;
+    form {
+      .make-md-column(10);
+      .form-inline;
+    }
+  }
+  #orders-list {
+    .make-row();
+    div {
+     .make-md-column(12);
+     padding: 0;
+     table {
+      .table;
+      .table-condensed;
+      margin-bottom: 0px;
+      thead {
+        tr {
+          height: 50px;
+          border-bottom: 1px solid #f4f4f4;
+          text-transform: uppercase;
+          th {
+           border-right: 1px solid #f4f4f4;
+           line-height: 39px;
+           text-align: center;
+           font-size: 11px;
+         }
+       }
+     }
+     tbody {
+      tr {
+       border-bottom: @border-light;
+       &:last-child {
+        border-bottom: none !important;
+      }
+      td {
+        border-top: none;
+        text-align: center;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+}
+}
+#orders-pagination {
+  .make-row();
+  border-top: @border-light;
+  text-align: center !important;
+  .pagination {
+    margin-top: 30px !important;
+    margin-bottom: 15px !important;
+  }
+}
+}

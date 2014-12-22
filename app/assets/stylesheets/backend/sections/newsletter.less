@@ -1,20 +1,122 @@
-  #js-load-cs-client {
-    font-size: 28px;
-    position: absolute;
-    top: 8px;
-    right: -6px;
+.tools-page {
+  .box;
+  .container-fluid;
 }
-  #js-load-cs-list {
-    font-size: 28px;
-    position: absolute;
-    top: 8px;
-    right: -6px;
+.js-new-ml {
+  display: none;
+}
+.newsletter-actions {
+  .make-row();
+  min-height: 90px;
+  padding: 30px 10px;
+  padding-top: 20px;
+  border-bottom: @border-light;
+  #js-new-list-msg {
+    .new-list-action {
+      .make-md-column(2);
+      #js-new-list-btn {
+        .btn;
+        .btn-block;
+        .btn-primary;
+      }
+    }
+    .new-list-msg {
+      .make-md-column(10);
+      p {
+        margin: 0;
+      }
+    }
+  }
+  .select .btn {
+    width: 100% !important;
+  }
+}
+
+.newsletter-list  {
+  .make-row();
+  div {
+   .make-md-column(12);
+   padding: 0;
+   table {
+    .table;
+    .table-condensed;
+    margin-bottom: 0px;
+    thead {
+      .list-name { width: 40%;}
+      .subscribers {width: 10%;}
+      .last-update {width: 24%}
+      .actions {width: 25%}
+      tr {
+        height: 50px;
+        border-bottom: 1px solid #f4f4f4;
+        text-transform: uppercase;
+        th {
+         border-right: 1px solid #f4f4f4;
+         line-height: 39px;
+         text-align: center;
+         font-size: 11px;
+       }
+     }
+   }
+   tbody {
+    tr {
+     border-bottom: @border-light;
+     &:last-child {
+      border-bottom: none !important;
+    }
+    td {
+      border-top: none;
+      text-align: center;
+      vertical-align: middle;
+      .btn-send {
+        .btn-circle;
+        i {
+          right: 3px;
+          top: 9px !important;
+        }
+      }
+    }
+  }
+}
+}
+}
+}
+
+#newsletter-pagination {
+  .make-row();
+  border-top: @border-light;
+  text-align: center !important;
+  .pagination {
+    margin-top: 30px !important;
+    margin-bottom: 15px !important;
+  }
+}
+
+#js-load-cs-client {
+  font-size: 28px;
+  position: absolute;
+  top: 8px;
+  right: -6px;
+}
+#js-load-cs-list {
+  font-size: 28px;
+  position: absolute;
+  top: 8px;
+  right: -6px;
 }
 .tools-menu {
+  margin-left: 10px;
   ul {
     margin-bottom: 0px !important;
     .nav;
     .nav-tabs;
+    li {
+      &.active {
+        a{
+          background-color: white !important;
+        }
+      }
+    }
   }
 }
 .mailchimp-list-logo {
@@ -25,16 +127,7 @@
 .unfocused {
   opacity: 0.2;
 }
-.tools-page {
-  border: none;
-  border-radius: 6px;
-  background-color: #fff;
-  padding: 40px 20px 20px;
-  .make-row();
-  .select .btn {
-    width: 100% !important;
-  }
-}
+
 
 .integration-form-div {
   .has-switch {
@@ -72,38 +165,6 @@
   }
 }
 }
-.newsletter-list {
-
-  margin-top: 40px;
-  .btn-send {
-    .btn-circle;
-    i {
-      right: 3px;
-      top: 9px !important;
-    }
-  }
-  .make-md-column(12);
-  //.make-md-column-offset(1);
-  table {
-    .table;
-    .table-condensed;
-    thead {
-      //tr > th {.text-center;}
-      .actions {width: 20%}
-      .last-update {width: 15%}
-      .list-name { width: 40%;}
-      .subscribers {width: 10%;}
-    }
-  }
-  .pagination {
-    .make-row();
-    &:first_child {
-      .make-md-column(6);
-      .make-md-column-offset(5);
-    }
-  }
-}
-
 .newsletter-sync {
   .modal-content;
   .sync-header {

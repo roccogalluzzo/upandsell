@@ -23,16 +23,6 @@ class UserMailer <  Devise::Mailer
      template_name: 'sold_email')
   end
 
-  def invite_email(invite_id)
-    @invite = Invite.find invite_id
-    @invite.status = 'sent'
-    @invite.save
-    mail(to: @invite.email,
-     subject: "You have been invited to the beta of Up&Sell.Me",
-     template_path: 'notifications',
-     template_name: 'invite_email')
-  end
-
   def bought_email(user_id, order_id)
     @user = User.find user_id
     @order  = Order.find order_id
@@ -42,6 +32,38 @@ class UserMailer <  Devise::Mailer
      subject: "You bought #{@order.product.name}.",
      template_path: 'notifications',
      template_name: 'bought_email')
+  end
+
+  def trial_will_expire_email(user_id)
+    @user = User.find user_id
+    mail(to: @user.email,
+    subject: "",
+    template_path: 'notifications',
+    template_name: 'trial_will_expire')
+  end
+
+  def payment_succeeded_email(user_id)
+    @user = User.find user_id
+    mail(to: @user.email,
+    subject: "",
+    template_path: 'notifications',
+    template_name: 'payment_succeeded')
+  end
+
+  def payment_failed_email(user_id)
+    @user = User.find user_id
+    mail(to: @user.email,
+    subject: "",
+    template_path: 'notifications',
+    template_name: 'payment_failed')
+  end
+
+  def subscription_deleted_email(user_id)
+    @user = User.find user_id
+    mail(to: @user.email,
+    subject: "",
+    template_path: 'notifications',
+    template_name: 'payment_succeeded')
   end
 
   def refund_email(user_id, order_id)

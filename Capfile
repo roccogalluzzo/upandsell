@@ -3,6 +3,7 @@ require 'capistrano/setup'
 
 # Includes default deployment tasks
 require 'capistrano/deploy'
+require 'new_relic/recipes'
 
 # Includes tasks from other gems included in your Gemfile
 #

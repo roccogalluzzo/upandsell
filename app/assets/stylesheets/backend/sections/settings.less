@@ -1,110 +1,148 @@
+.settings-integrations{
+  .make-md-column(8);
+  .make-md-column-offset(2);
+  padding-bottom: 20px;
+  .integration-row {
+    .payment-row;
+    border-bottom: @border-light;
+  }
+}
 .settings-menu {
   ul {
    .nav;
    .nav-tabs;
    margin-bottom: 0px !important;
- }
+   li {
+    &.active {
+      a{
+        background-color: white !important;
+      }
+    }
+  }
+}
 }
 
 .settings-page {
- border: none;
- border-radius: 0px;
- background-color: #fff;
- padding: 30px 20px 20px;
- .make-row();
- border-radius: 3px;
+  .make-row();
+  .box;
+  padding: 30px 20px 20px;
 }
 
 .settings-emails {
- .make-md-column(12);
- //.make-md-column-offset(1);
-
- form {
-  .form-horizontal;
-}
-.form-actions {
   .make-md-column(12);
-  .text-center;
-  input {
-    .btn;
-    .btn-primary;
+  h5 {
+    margin-bottom: 30px;
+    text-align: center;
   }
-}
-h5 {
-  .text-center;
-  margin-bottom: 30px;
-}
-p {
-  .text-center;
-  margin-bottom: 4px !important;
-}
+  p {
+    text-align: center;
+    margin-bottom: 4px !important;
+  }
+  form {.form-horizontal;}
+  .form-actions {
+    .make-md-column(12);
+    text-align: center;
+    input {
+      .btn;
+      .btn-primary;
+    }
+  }
 }
 
 .settings-payments {
-
-  .payments-form {
-    padding-top: 30px;
-    .make-md-column(12);
-    form {
-      .form-horizontal;
-    }
-    .form-row {
-      .make-row();
-      .form-group;
-      .row-label {
-        .make-md-column(3);
-      }
-      .row-input {
-        .make-md-column(6);
-        .select .btn {
-          width: 200px;
-        }
-      }
-    }
-  }
-        .form-actions {
-        .make-md-column(12);
-        .text-center;
-        input {
-          .btn;
-          .btn-primary;
-        }
-      }
   .make-md-column(8);
   .make-md-column-offset(2);
-  margin-bottom: 10px;
-  .row-payments {
-   .make-row();
-   border-bottom: 1px solid #e3e3e3;
-   padding-bottom: 20px;
-   margin-bottom: 0px;
-   padding-top: 25px;
-   height: 110px;
-   padding-right: 5px;
-   .payment-switch {
-    .make-md-column(1);
+  .unfocus {
+    opacity: 0.4;
   }
-  .payment-box {
-   .make-md-column(10);
-   .make-md-column-offset(1);
-   .logos-box {
-    height: 80px;
-    img {
-      margin-right: 20px;
-      height: 35px;
-      .pull-left;
+  .paypal-row {
+    .payment-row;
+    border-bottom: @border-strong;
+    height: 110px;
+    .paypal-box {
+      .payment-gateway-box;
+    }
+  }
+  .cc-row {
+    .payment-row;
+    padding-top: 40px;
+    .cc-form-box {
+      .payment-gateway-box;
+      .logos-box {
+        height: 80px;
+        img {
+         .pull-left;
+         height: 35px;
+         margin-right: 20px;
+       }
+     }
+     .cc-form-row {
+       .make-row();
+     }
+     .cc-form {
+      padding-top: 0px;
+      .select {
+        width: 100%;
+      }
+      .gateway-selector {
+        .make-md-column(12);
+        margin-bottom: 20px;
+      }
+      .make-md-column(12);
+      form {.form-horizontal;}
+      .form-row {
+        .make-row();
+        .form-group;
+        margin-bottom: 10px;
+        .row-label {
+          .make-md-column(5);
+        }
+        .row-input {
+          .make-md-column(7);
+          .select .btn {
+            width: 200px;
+          }
+        }
+      }
     }
   }
 }
-.cc-form-box {
- // margin-top: 15px;
-  border-bottom: none !important;
+
+
+
+
+.form-footer {
+  .payment-row;
+  border-top: @border-light;
+  .form-actions {
+    .make-md-column(12);
+    .text-center;
+    .btn-form {
+      .btn;
+      .btn-primary;
+    }
+  }
 }
-.payment-connect {
-  .btn;
-  .btn-primary;
+
+}
+.payment-gateway-box {
+  .make-md-column(10);
+  .make-md-column-offset(1);
+}
+.payment-row {
+  .make-row();
+  margin-bottom: 0px;
+  padding-bottom: 20px;
+  padding-right: 5px;
+  padding-top: 25px;
+  .payment-switch {
+    .make-md-column(1);
+  }
+  .cc-form-box {
+   border-bottom: none !important;
+ }
+ .payment-connect {
   .pull-right;
-}
 }
 }
 .settings-form {
@@ -131,11 +169,27 @@ p {
  vertical-align: middle;
  padding-top: 32px;
 }
+.avatar-overlay {
+  .fileInput {
+    cursor: pointer;
+    height: 100px;
+    position: absolute;
+    width: 100%;
+    z-index: 99;
+    font-size: 50px;
+    opacity: 0 !important;
+    margin-top: -12px;
+    opacity: 0 !important;
+    -moz-opacity: 0 !important;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+  }
+}
 .form-row {
   .make-row();
   .form-group;
   .row-label {
-    .make-md-column(5);
+    .make-md-column(4);
+    .make-md-column-offset(1);
   }
   .row-input {
     .make-md-column(5);
@@ -227,6 +281,3 @@ p {
   }
 }
 }
-
-
-

@@ -1,0 +1,36 @@
+<div id="js-p-<%= product.id %>" class="products-list-item" >
+  <div class="item-preview">
+   <%= image_tag product.preview.thumb %>
+ </div>
+
+ <div class="item-info">
+  <a title="Click to edit" href="<%= edit_user_product_url(product) %>">
+    <%= product.name %></a>
+  </div>
+  <div class="item-actions">
+    <%= link_to share_user_product_path(product.id),  class:'btn-product-action',
+    data: { toggle: 'modal', target: '#share-modal' }, remote: true do %>
+    <i class="fa fa-share-alt"></i>
+    <% end %>
+
+    <%= link_to product_slug_path(product.slug), class: 'btn-product-action' do %>
+    <i class="fa fa-link"></i>
+    <% end %>
+    <%= link_to user_product_path(product), method: :delete, remote: true,
+    class: 'js-p-delete btn-product-action', data: {confirm: 'Are you sure?'} do %>
+    <i class="fa fa-trash-o"></i>
+    <% end %>
+
+  </div>
+  <div class="item-published">
+    <div class="bootstrap-switch-square">
+    <input  data-on-text="Yes" data-off-text="No"
+     type="checkbox" class="js-p-published switch" data-toggle="switch"
+    data-url="<%= toggle_published_user_product_url(product) %>"
+    <% if product.published %>
+    checked
+    <% end %>
+    >
+  </div>
+</div>
+</div>

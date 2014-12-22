@@ -1,5 +1,5 @@
 class LandingController < ApplicationController
-
+  skip_after_filter :intercom_rails_auto_include
   layout false
 
   def index
@@ -10,15 +10,6 @@ class LandingController < ApplicationController
   end
 
   def beta
-  end
-
-  def beta_request
-    invite = Invite.new
-    invite.email = params[:invite][:email]
-    if invite.save
-      render json: {}, status: :ok and return
-    end
-    render json: {msg: "Email not valid or already registered"}, status: :unprocessable_entity
   end
 
 end

@@ -3,22 +3,21 @@
 		<div class="navbar-header">
 			<%= link_to(root_path,
 			class: "navbar-brand") do %>
-			<%= image_tag "logo_beta.png",
+			<%= image_tag "logo_a.png",
 			alt: 'Up&Sell.Me Logo',
 			title: 'Web app to sell your digital downloads' %>
 			<% end %>
 		</div>
 		<% if user_signed_in? %>
 		<%= link_to(user_root_path,
-		class: "btn navbar-btn btn-inverse pull-right") do %>
+		class: "navbar-btn btn-inverse") do %>
 		Go To Dashboard
 		<% end %>
 		<% else %>
-		<% unless Upandsell::Application.config.beta %>
-		<%= link_to("Sign Up", new_user_registration_path,
+		<%= link_to("Sign Up & Pricing", join_path,
 		class: "navbar-btn") %>
-		<% end %>
-		<%= link_to("Sign In", new_user_session_path,
+
+		<%= link_to("Sign In", login_path,
 		class: "navbar-text-btn") %>
 		<% end %>
 	</div>

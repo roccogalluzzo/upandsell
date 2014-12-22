@@ -7,7 +7,7 @@
 
 
  Mailing_lists.Index = function() {
-  $('#js-createsend-switch').change(function(event, state) {
+  $('#js-createsend-switch').on('switchChange.bootstrapSwitch', function(event, state) {
     if($(this).is(':checked')){
       $('.createsend-integration').removeClass('unfocused');
     }else{
@@ -15,7 +15,7 @@
    }
  });
 
-  $('#js-mailchimp-switch').change(function(event, state) {
+  $('#js-mailchimp-switch').on('switchChange.bootstrapSwitch', function(event, state) {
     if($(this).is(':checked')){
       $('.mailchimp-integration').removeClass('unfocused');
     }else{
@@ -69,7 +69,7 @@
     $.each(result, function() {
       options.append($("<option />").val(this.ListID).text(this.Name));
     });
-    options.selectpicker('refresh');
+  //  options.select2('refresh');
     $("#js-load-cs-list").addClass('hid');
     $('#js-createsend-list-name').val(
       $("#js-createsend-select-list option:selected").text()
@@ -93,7 +93,7 @@
           options.append($("<option />").val(this.ClientID).text(this.Name));
         });
         $("#js-load-cs-client").addClass('hid');
-        options.selectpicker('refresh');
+      //  options.select2('refresh');
       });
 
   });
@@ -102,13 +102,13 @@
 
   Mailing_lists.animations = {
    show_form: function(){
-    $("#js-new-list-form").slideDown(300);
-    $("#js-new-list-msg").slideUp(300);
+    $(".js-new-ml").slideDown(300);
+    $(".js-ml-msg").slideUp(300);
 
   },
   hide_form: function(){
-    $("#js-new-list-form").slideUp(300);
-    $("#js-new-list-msg").slideDown(300);
+    $(".js-new-ml").slideUp(300);
+    $(".js-ml-msg").slideDown(300);
 
   },
   show_list: function(provider, html){

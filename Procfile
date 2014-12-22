@@ -1,2 +1,2 @@
-app: bundle exec puma -C config/puma.rb
+app: bundle exec rails server
 sidekiq: bundle exec sidekiq

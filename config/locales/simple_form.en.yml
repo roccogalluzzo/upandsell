@@ -4,23 +4,26 @@ en:
     "no": 'No'
     required:
       text: 'required'
-      mark: '*'
-      # You can uncomment the line below if you need to overwrite the whole required html.
-      # When using html, text and mark won't be used.
-      # html: '<abbr title="required">*</abbr>'
+      mark: ''
+      html: ' '
     error_notification:
       default_message: "Please review the problems below:"
     # Labels and hints examples
-    # labels:
+    labels:
     #   defaults:
     #     password: 'Password'
-    #   user:
-    #     new:
-    #       email: 'E-mail to sign in.'
-    #     edit:
-    #       email: 'E-mail.'
+      user:
+        legal_name: 'Your Full Name (First and last name)'
+        tax_code: 'VAT'
+        province: 'Province/State'
+        cc_expire: 'Expiration Date'
+        cc_cvc: 'Security Code'
+    placeholders:
+      user:
+        legal_name: 'ACME S.r.l.'
+        cc_expire: 'MM/YY'
+        cc_cvc: 'CVC'
     # hints:
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
-

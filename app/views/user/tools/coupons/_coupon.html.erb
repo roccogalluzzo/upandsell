@@ -1,0 +1,26 @@
+<tr id="js-cou-<%= coupon.id %>">
+  <td class="coupon-code"><b><%= coupon.code %></b></td>
+  <td>
+   <% if coupon.discount_type == 'cents' %>
+   <%= coupon.discount_money %> <%= coupon.product.price.symbol %>
+   <% else %>
+   <%= coupon.discount %>%
+   <% end %>
+ </td>
+ <td class="coupon-product"><%= coupon.product.name %></td>
+ <td class="coupon-counters"><b>
+
+  <%= coupon.available || '∞' %></b>/<%= coupon.used %></td>
+  <td class="coupon-valid-date text-muted">
+   <% if coupon.expire %>
+   <%= coupon.expire.strftime("%d/%m/%Y") %>
+   <% else %>
+   No Expire
+   <% end %></td>
+   <td class="coupon-actions">
+     <%= link_to user_tools_coupon_path(coupon),
+     remote: true, method: :delete, class: 'btn-delete', data: {confirm: 'Are you sure?'} do %>
+     <i class="fa fa-trash-o"></i>
+     <% end %>
+   </td>
+ </tr>

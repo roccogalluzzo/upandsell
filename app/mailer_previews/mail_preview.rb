@@ -16,6 +16,12 @@ class MailPreview < ActionMailer::Preview
       mail = UserMailer.bought_email(user, order)
       mail
     end
+       def refund_email
+      user = User.first
+      order = Order.first
+      mail = UserMailer.refund_email(user, order)
+      mail
+    end
     # Factory-like pattern
     def welcome
       user = User.first

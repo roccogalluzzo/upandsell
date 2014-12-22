@@ -58,10 +58,10 @@ end
 
 def step(icon, success = false)
   if success
-    "<div class=\"cbp_tmicon success animated bounceIn\">
-    <i class=\"fa fa-check-circle-o fa-lg\"></i> </div>".html_safe
+    "<div class=\"cbp_tmicon timeline-icon-current animated bounceIn\">
+    <i class=\"fa fa-check fa-lg\"></i> </div>".html_safe
   else
-    "<div class=\"cbp_tmicon info animated bounceIn\">
+    "<div class=\"cbp_tmicon timeline-icon-current animated bounceIn\">
     <i class=\"fa #{icon}\"></i> </div>".html_safe
   end
 end

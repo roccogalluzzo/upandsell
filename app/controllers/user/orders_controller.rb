@@ -4,7 +4,7 @@ class User::OrdersController < User::BaseController
     if params[:products] && params[:products] != '0'
       @orders = current_user.orders.where(product_id: params[:products])
     else
-      @orders = current_user.orders
+      @orders = current_user.orders.order('created_at desc')
     end
 
     if params[:q] && !params[:q].blank?

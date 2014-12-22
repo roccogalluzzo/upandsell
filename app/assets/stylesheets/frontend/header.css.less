@@ -1,20 +1,28 @@
  .btn-get-started {
   .btn;
-  background-color: #53aede;
-  font-size: 15px;
+  background-color: #4A4E62;
+// background-color: #4A4E62;
+  font-size: 18px;
   font-weight: bold;
   color: white;
-  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+ // text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
   height: 50px;
-  margin-bottom: 50px;
-  line-height: 8px;
-  padding: 20px 30px;
-  border-radius: 6px;
+  margin-bottom: 0px;
+  line-height: 46px;
+  padding: 0px 30px;
+  border-radius: 30px;
+  border: 2px solid transparent;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
   &:hover {
-    color: white;
-    background-color: #4b9fca;
+    color: #4A4E62 !important;//#DAEFF2 !important;
+    background-color: white; //darken(#4A4E62, 15%);
+    border: 2px solid #4A4E62;
   }
-   color: white !important;
+  color: white !important;
 }
 .navbar-top {
   .navbar;
@@ -23,33 +31,48 @@
   background-color: white;
   border-top: 5px solid #4a4e62;
   border-bottom: 1px solid #e3e3e3;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
-  height: 101px;
-  padding: 29px 20px;
+  //box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.1);
+  height: 95px;
+  padding: 25px 20px;
   .navbar-brand {
     padding: 0px;
-    margin-top: -6px;
+    margin-top: -0px;
+    img {
+      height: 38px;
+    }
   }
   .navbar-btn {
     .btn;
     .btn-primary;
     .pull-right;
-    background-color: #53aede;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
+    .hidden-xs;
+    background-color: #4A4E62;
+    //box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
     border: none;
     font-weight: bold;
     font-size: 13px;
-    padding: 14px;
+    padding: 0 15px;
     height: 38px;
-    line-height: 9px;
+    line-height: 33px;
     margin-top: 0px;
     border-radius: 6px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+    border: 2px solid transparent;
     &:hover {
-      background-color: #4b9fca
+    //  background-color: darken(#4A4E62, 15%);//#4b9fca
+    color: #4A4E62 !important;//#DAEFF2 !important;
+    background-color: white; //darken(#4A4E62, 15%);
+    border: 2px solid #4A4E62;
     }
     &:active {
-     background-color: #53aede;
-     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.18);
+      //  background-color: darken(#4A4E62, 15%);//#4b9fca
+      color: #4A4E62 !important;//#DAEFF2 !important;
+      background-color: white; //darken(#4A4E62, 15%);
+      border: 2px solid #4A4E62;
    }
    &:focus {
     color: white;
@@ -59,13 +82,16 @@
   .navbar-btn;
   background-color: white;
   box-shadow: none;
-  padding: 14px;
+  padding: 0 15px;
+  height: 38px;
+  line-height: 33px;
+  margin-top: 0px;
   color: #555;
   margin-right: 5px;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   &:hover {
-    border: 1px solid #4b9fca;
-    color: #4b9fca !important;
+    border: 2px solid #4A4E62;
+    color: #4A4E62 !important;
     background-color: white;
   }
   &:active {
@@ -120,8 +146,10 @@
   height: 780px;
   position: relative;
   background-color: #f4feff;
+  //background-color: #DAEFF2;
+  background-color: #96D1CC;
   border-bottom: 1px solid #e3e3e3;
-  padding-top: 189px;
+  padding-top: 170px;
   .make-row();
   .inner-header {
     min-height: 249px !important;
@@ -136,17 +164,18 @@
     margin-top: 0px;
   }
   h2 {
-    margin-top: 22px;
+    margin-top: 15px;
     font-size: 20px;
     font-weight: 400;
-    color: #888;
-    margin-bottom: 46px;
+    color: white;
+    margin-bottom: 40px;
   }
   .bg-clouds-left {
     position: absolute;
     bottom: 0px;
     left: 5px;
     z-index: 80;
+
   }
   .bg-clouds-right {
     position: absolute;
@@ -156,14 +185,14 @@
   }
   .btn-more {
     .btn;
-    background-color: #f4feff;
+    background-color: transparent;
     border: 1px solid #53aede;
     color: #53aede;
     font-size: 15px;
     font-weight: bold;
     margin-right: 30px;
     height: 50px;
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     line-height: 8px;
     padding: 20px 30px;
     border-radius: 6px;
@@ -177,23 +206,24 @@
    }
  }
 
-.beta-input {
- .form-control;
- .input-lg;
- border: 1px solid #dcdcdc;
+ .beta-input {
+   .form-control;
+   .input-lg;
+   border: 1px solid #dcdcdc;
 
- box-shadow: none;
- line-height: 22px;
- color: #a1a1a1;
- height: 50px;
- &:focus {
-   border-color:  #a9d6ee !important;
    box-shadow: none;
+   line-height: 22px;
+   color: #a1a1a1;
+   height: 50px;
+   &:focus {
+     border-color:  #a9d6ee !important;
+     box-shadow: none;
 
+   }
  }
-}
-.browser-preview-wrap {
+ .browser-preview-wrap {
   .make-row();
+  .hidden-xs;
   min-height: 341px;
   z-index: 1000;
   .browser-preview {

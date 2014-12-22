@@ -1,0 +1,8 @@
+   $('#js-slug').text('<%= escape_javascript(@slug) %>');
+   $("#js-ext-link").attr('href', '<%= escape_javascript(@slug) %>');
+   $('.btn-social-twitter').on('click', function(){
+    window.open('<%= escape_javascript(@twitter) %>', 'tweet','toolbar=0,status=0,width=600,height=305')
+  });
+   $('.btn-social-facebook').on('click', function(){
+    window.open('<%= escape_javascript(@facebook) %>', 'share','toolbar=0,status=0,width=600,height=305')
+  });

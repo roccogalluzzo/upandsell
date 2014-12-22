@@ -7,12 +7,7 @@
 //= require polyclip.js
 //= require bootstrap/dist/js/bootstrap
 //= require jquery.scrollTo/jquery.scrollTo.js
-//= require jquery.validation/jquery.validate.js
+//= require jquery.validation/dist/jquery.validate.js
 //= require jquery.payment/lib/jquery.payment.js
 //= require product_page
-$(document).ready(function() {
-
- ProductPage.init();
-
- $.getScript('https://bridge.paymill.com/');
-});
+$(document).ready(ProductPage.init);

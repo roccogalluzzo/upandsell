@@ -1,36 +1,20 @@
 class RegistrationsController < Devise::RegistrationsController
+  skip_after_filter :intercom_rails_auto_include
 
   def new
-    if params[:invite_token]
-      @invite = Invite.find_by_invitation_token params[:invite_token]
-
-    else
-      redirect_to root_path and return
-    end
-
-
-    # if param not present show beta error message
+    @page_title = "Join us"
     if params[:ref]
      @ref = params[:ref]
    else
     @ref = cookies[:aff_tag]
   end
-  super
-end
 
-def create
-  if params[:user][:invitation_token]
-    @invite = Invite.find_by_invitation_token params[:user][:invitation_token]
-    params[:user][:email] = @invite.email
-    @invite.status = 'used'
-    @invite.save
-  else
-    redirect_to root_path and return
-  end
+  @price_usd = 24.99.in(:eur).to(:usd).to_s(:plain).split('.')
+  @price = @price_usd[0]
+  @cents =  @price_usd[1]
 
   super
 end
-
 
 protected
 def after_inactive_sign_up_path_for(resource)

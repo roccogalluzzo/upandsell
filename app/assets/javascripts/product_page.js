@@ -1,102 +1,134 @@
 (function ($, ProductPage, undefined) {
 
   var opts = {pages: ['cc', 'paypal', 'download']};
+
   ProductPage.init = function() {
     ProductPage.Events.init();
     ProductPage.Form.init();
-    // buy, buyPaypal, download, afterPaypal
-    //opts.action = $('#js-modal').data('action');
-    opts.productId = $('#js-checkout-tab').data('product-id');
-   // opts.paypal = $('#js-modal').data('paypal');
-   // opts.paypal = false;
-   //ProductPage[opts.action]();
-   ProductPage.Social.init();
-    $('.pay-download-btn').on('click', function(){
-  var num =  parseInt($('.js-download-counter').first().text(), 10);
-  console.log(num);
-   if(num == 0) {
-     $('.pay-download-btn').prop("href", '#')
-     return false;
-   }
-   $('.js-download-counter').text(num - 1);
- });
- };
+    ProductPage.Social.init();
+    ProductPage.Gateway.init();
+  };
 
- ProductPage.Social = {
-  init: function() {
-    var url = document.URL;
-    var facebookCount = 'https://graph.facebook.com/fql?q=SELECT share_count FROM link_stat WHERE url="' + url + '"';
-    $.getJSON( facebookCount, {
-    })
-    .done(function( data ) {
-      console.log(data.data)
-      $('.fb-btn').find('.counter').text(data.data[0].share_count);
+  ProductPage.Gateway = {
+    init: function() {
+      if($('#js-checkout-form').data('cc')){
+        var public_key = $('#js-checkout-form').data('public-key');
+        switch($('#js-checkout-form').data('gateway')) {
+          case 'paymill':
+          window.PAYMILL_PUBLIC_KEY = public_key;
+          $.getScript('https://bridge.paymill.com/');
+          break;
+          case 'stripe':
+          $.getScript('https://js.stripe.com/v2/', function(){
+           Stripe.setPublishableKey(public_key);
+         });
+          break;
+          case 'braintree':
+          $.getScript('https://js.braintreegateway.com/v2/braintree.js');
+          break;
+        }
+      }
+    },
+    getToken: function(cc_num, cc_exp, cc_cvc, amount, currency) {
+      var response = ProductPage.Gateway.processToken;
+      switch($('#js-checkout-form').data('gateway')) {
+        case 'paymill':
+        paymill.createToken({
+          number: cc_num,
+          exp_month: cc_exp.month,
+          exp_year: cc_exp.year,
+          cvc: cc_cvc,
+          amount_int: amount,
+          currency: currency
+        },response);
+        break;
+        case 'stripe':
+        Stripe.card.createToken({
+          number: cc_num,
+          exp_month: cc_exp.month,
+          exp_year: cc_exp.year,
+          cvc: cc_cvc,
+        }, response);
+        break;
+        case 'braintree':
+        $.get('/checkout/braintree_token',{product_id: opts.productId}, function(data){
+          var client = new braintree.api.Client({clientToken: data.token});
+          client.tokenizeCard({
+            number: cc_num,
+            expirationMonth: cc_exp.month,
+            expirationYear: cc_exp.year,
+            cvv: cc_cvc}, response);
+        });
+        break;
+      };
+    },
+    processToken: function(status, response) {
+      switch($('#js-checkout-form').data('gateway')) {
+        case 'paymill':
+        var token = response.token;
+        break;
+        case 'stripe':
+        var token = response.id;
+        break;
+        case 'braintree':
+        var token = response
+        break;
+      };
+      ProductPage.Form.pay($('#js-checkout-form').data('gateway'), token);
+    }
+  };
+  ProductPage.Form = {
+    init: function() {
+      $('input.cc-num').payment('formatCardNumber');
+      $('input.cc-exp').payment('formatCardExpiry');
+      $('input.cc-cvc').payment('formatCardCVC');
+      opts.productId = $('#js-checkout-tab').data('product-id');
+      ProductPage.Form.setValidation();
+    },
+    submit: function(event){
+      ProductPage.Animations.show_form_processing();
+      cc_num = $('input.cc-num').val().replace(/\s+/g, '');
+      cc_exp = $('input.cc-exp').payment('cardExpiryVal')
+      cc_cvc = $('input.cc-cvc').val();
+      product = ProductPage.Form.productInfo();
+      ProductPage.Gateway.getToken(cc_num, cc_exp, cc_cvc, product.price, product.currency);
+      return false;
+    },
+    productInfo: function() {
+     product = {};
+     $.ajax({
+      url: '/checkout/pay_info',
+      type: 'GET',
+      dataType: 'json',
+      data: {product_id: opts.productId},
+      async: false,
+      success: function(d) { product = d }
     });
-  }
-}
+     return product;
+   },
+   pay: function(gateway, token) {
+    $.ajax({
+      url: '/checkout/pay',
+      type: 'POST',
+      dataType: 'json',
+      data: {product_id: opts.productId,
+        token: token,
+        gateway: gateway,
+        email: $('input.cc-email').val()},
+        success: ProductPage.Form.success,
+        error: ProductPage.Form.error
+      });
+  },
+  success: function(data) {
+   $('.js-unsubscribe-order').data('token', data.token);
+   $('.pay-download-btn').attr("href", data.url);
+   $('.downloads-box').removeClass('hidden');
+   $('.l-unsubscribe').removeClass('hidden');
+   $('.buy-box').addClass('hidden');
 
-ProductPage.Form = {
-  init: function() {
-    $('input.cc-num').payment('formatCardNumber');
-    $('input.cc-exp').payment('formatCardExpiry');
-    $('input.cc-cvc').payment('formatCardCVC');
-    ProductPage.Form.setValidation();
-  },
-  submit: function(event){
-    ProductPage.Animations.show_form_processing();
-    cc_num = $('input.cc-num').val().replace(/\s+/g, '');
-    cc_exp = $('input.cc-exp').payment('cardExpiryVal')
-    cc_cvc = $('input.cc-cvc').val();
-    product = ProductPage.Form.productInfo();
-    ProductPage.Form.token(cc_num, cc_exp, cc_cvc, product.price, product.currency,
-      ProductPage.Form.pay)
-    return false;
-  },
-  productInfo: function() {
-   product = {};
-   $.ajax({
-    url: '/checkout/pay_info',
-    type: 'GET',
-    dataType: 'json',
-    data: {product_id: opts.productId},
-    async: false,
-    success: function(d) { product = d }
-  });
-   return product;
+   ProductPage.Animations.show_form_success();
  },
- token: function(cc_num, cc_exp, cc_cvc, amount, currency, response) {
-  paymill.createToken({
-    number:         cc_num,
-    exp_month:      cc_exp.month,
-    exp_year:       cc_exp.year,
-    cvc:            cc_cvc,
-    amount_int:     amount,
-    currency:       currency
-  },
-  response);
-},
-pay: function(error, result) {
-  $.ajax({
-    url: '/checkout/pay',
-    type: 'POST',
-    dataType: 'json',
-    data: {product_id: opts.productId,
-      token: result.token,
-      email: $('input.cc-email').val()},
-      success: ProductPage.Form.success,
-      error: ProductPage.Form.error
-    });
-},
-success: function(data) {
- $('.js-unsubscribe-order').data('token', data.token);
- $('.pay-download-btn').attr("href", data.url);
- $('.downloads-box').removeClass('hidden');
- $('.l-unsubscribe').removeClass('hidden');
- $('.buy-box').addClass('hidden');
-
- ProductPage.Animations.show_form_success();
-},
-error: function(d) {
+ error: function(d) {
   ProductPage.Animations.show_form_error();
 },
 validationErrors: function(errorMap, errorList) {
@@ -151,6 +183,19 @@ validationErrors: function(errorMap, errorList) {
 }
 };
 
+ProductPage.Social = {
+  init: function() {
+    var url = document.URL;
+    var facebookCount = 'https://graph.facebook.com/fql?q=SELECT share_count FROM link_stat WHERE url="' + url + '"';
+    $.getJSON( facebookCount, {
+    })
+    .done(function( data ) {
+      console.log(data.data)
+      $('.fb-btn').find('.counter').text(data.data[0].share_count);
+    });
+  }
+};
+
 ProductPage.Events = {
   init: function() {
     $("#js-coupon-btn").on('click', ProductPage.Animations.show_coupon_form);
@@ -160,29 +205,39 @@ ProductPage.Events = {
     $("#js-coupon-apply").on('submit', ProductPage.Events.couponApply);
     $('.js-unsubscribe-order').on('click',  ProductPage.Events.order_unsubscribe);
     $('#js-buy-paypal-btn').on('click', ProductPage.Paypal.buy_request);
+    $('.pay-download-btn').on('click', ProductPage.Events.download_counter_updated);
   },
-  order_unsubscribe: function(){
-    $.ajax({
-      url: '/checkout/unsubscribe_order_updates',
-      type: 'POST',
-      dataType: 'json',
-      data: {token:  $('.js-unsubscribe-order').data('token')},
-      async: true,
-      success: function(d) {
-        $('.js-unsubscribe-order').fadeOut().text('Unsubscribed from product updates').addClass('disabled').fadeIn();
-      }
-    });
-  },
-  couponApply: function(){
-
-    if($('input.coupon-code').val()){
-      ProductPage.Animations.show_coupon_form_success();
-    }else
-    {
-      ProductPage.Animations.show_coupon_form_error();
+  download_counter_updated: function() {
+    var num =  parseInt($('.js-download-counter').first().text(), 10);
+    if(num == 0) {
+     $('.pay-download-btn').prop("href", '#')
+     return false;
+   }
+   $('.js-download-counter').text(num - 1);
+ },
+ order_unsubscribe: function(){
+  $.ajax({
+    url: '/checkout/unsubscribe_order_updates',
+    type: 'POST',
+    dataType: 'json',
+    data: {token:  $('.js-unsubscribe-order').data('token')},
+    async: true,
+    success: function(d) {
+      $('.js-unsubscribe-order').fadeOut().text('Unsubscribed from product updates').addClass('disabled').fadeIn();
     }
-    return false;
-  }
+  });
+},
+couponApply: function(){
+  $.ajax({
+    url: '/checkout/check_coupon',
+    type: 'POST',
+    dataType: 'json',
+    data: {product_id: $('#js-checkout-tab').data('product-id') , code:  $('input.coupon-code').val()},
+    success: ProductPage.Animations.show_coupon_form_success,
+    error:  ProductPage.Animations.show_coupon_form_error
+  });
+  return false;
+}
 };
 
 ProductPage.Animations = {
@@ -263,7 +318,13 @@ ProductPage.Animations = {
   $("#js-coupon-form").slideDown(300);
   $("#js-coupon-btn").slideUp(300);
 },
-show_coupon_form_success: function() {
+show_coupon_form_success: function(data) {
+  $('#js-checkout-tab').data('coupon-id', data.id);
+  $('#js-coupon-id').val(data.id);
+
+  $('.cents').text('.' + data.cents);
+  $('.price').text(data.int);
+  $('.pay-btn-text').text('Pay ' + data.sym + ' ' + data.price)
   $(".coupon-accepted").slideDown(400);
   $(".coupon-label").fadeIn(400);
   $("#js-coupon-btn").slideUp(400);
@@ -296,7 +357,7 @@ ProductPage.Paypal = {
       url: '/checkout/paypal',
       type: 'POST',
       dataType: 'json',
-      data: {product_id:  opts.productId},
+      data: {product_id:  opts.productId, coupon_id: $('#js-checkout-tab').data('coupon-id')},
       async: true,
       success: function(d) {
         window.location.replace(d.url)
@@ -313,7 +374,7 @@ ProductPage.Paypal = {
       url: '/checkout/paypal',
       type: 'POST',
       dataType: 'json',
-      data: {product_id:  opts.productId},
+      data: {product_id:  opts.productId, coupon_id: $('#js-checkout-tab').data('coupon-id')},
       async: true,
       success: function(d) {
         window.location.replace(d.url)

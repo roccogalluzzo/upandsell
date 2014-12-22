@@ -1,17 +1,24 @@
 require 'sidekiq/web'
-
+require 'split/dashboard'
 
 Upandsell::Application.routes.draw do
-  devise_for :users, controllers: { confirmations: 'confirmations', registrations: "registrations" }
+
+  mount StripeEvent::Engine, at: '/stripe'
 
   get '/auth/paypal' => 'user/settings/payments#paypal_connect', as: 'paypal_integration'
-  get '/auth/paymill/callback' => 'user/settings/payments#paymill_callback', as: 'paymill_integration_callback'
   get '/auth/paypal/callback' => 'user/settings/payments#paypal_callback', as: 'paypal_integration_callback'
-  get '/auth/:provider/callback' => 'user/settings/integrations#create', as: 'integration_callback'
 
+  devise_for :users, controllers: {  omniauth_callbacks: 'omniauth_callbacks',
+    confirmations: 'confirmations', registrations: "registrations" }
+
+    devise_scope :user do
+      delete "/logout" => "devise/sessions#destroy"
+      get "/join"   => "registrations#new"
+      get "/login" => "devise/sessions#new"
+    end
  # Front-end
  root 'landing#index'
- get 'beta' => 'landing#beta'
+ get 'no-beta' => 'landing#beta'
  post 'beta_request' => 'landing#beta_request'
  get 'pricing' => 'site#pricing'
  get 'privacy' => 'site#privacy'
@@ -35,11 +42,14 @@ Upandsell::Application.routes.draw do
   #checkout
   post 'checkout/paypal' => 'checkouts#paypal'
   get 'checkout/pay_info' => 'checkouts#pay_info'
+  get 'checkout/braintree_token' => 'checkouts#braintree_token'
   post 'checkout/pay' => 'checkouts#pay'
   post 'checkout/unsubscribe_order_updates' => 'checkouts#unsubscribe_order_updates'
   get 'checkout/check_payment' => 'checkouts#check_paypal_payment'
   post 'checkout/ipn' => 'checkouts#ipn'
   get 'download/p/:token' => 'checkouts#download', :as => 'download_product'
+  post 'checkout/check_coupon' => 'checkouts#check_coupon'
+
   resources :products, only: [:show]  do
   #get 'paypal',  on: :member
 end
@@ -47,11 +57,14 @@ end
 namespace :user do
   root 'dashboard#index'
   get 'dashboard/metrics'  => 'dashboard#metrics'
+  get 'dashboard/onload_metrics'  => 'dashboard#onload_metrics'
+  get 'complete_signup' => 'settings/billings#new'
 
   resources :affiliations
   resources :products, except: [:show] do
     post 'upload'
     get 'toggle_published',  on: :member
+    get 'share', on: :member
   end
 
   resources :orders, only: [:index] do
@@ -76,6 +89,8 @@ end
 
 
 get 'setup', to: 'setup#index'
+get 'billing_details', to: 'setup#billing_details'
+post 'billing_details', to: 'setup#save_billing_details'
 get 'resend_email', to: 'setup#resend_email'
 patch 'update_email', to: 'setup#update_email'
 
@@ -90,13 +105,15 @@ namespace :settings do
   end
   resource :integrations, only: [:edit, :create]
   resource :emails, only: [:edit, :update]
-  resource :upgrade, only: [:edit, :update]
+  resource :billing, except: [:index]
 end
 
 end
 
 namespace :admin do
  mount Sidekiq::Web => 'sidekiq'
+ mount Split::Dashboard => "split"
+
  root 'dashboard#index'
  resources :users, only: [:index,:show]
  resources :products, only: [:index,:show, :destroy]
@@ -104,7 +121,9 @@ namespace :admin do
  resources :invites, only: [:index, :create, :update,:show, :destroy] do
   get 'send_invite', on: :member
 end
-
+resources :emails, only: [:index, :create] do
+  get 'send_test_email'
+end
 resources :affiliations, only: [:index]
 end
 

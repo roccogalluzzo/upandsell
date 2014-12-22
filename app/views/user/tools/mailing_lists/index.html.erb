@@ -1,167 +1,48 @@
 <%= render partial: "user/tools/tabs" %>
-<div style="height: 90px;">
-  <div id="js-new-list-msg" class="row">
-    <div class="col-md-2">
-      <a id="js-new-list-btn" class="btn btn-block btn-primary">
-        <i class="fa fa-lg fa-plus"></i>
-        New List</a>
-      </div>
+<div class="newsletter-actions">
+  <%= simple_form_for [:user, :tools, @mailing_list], remote: true do |f|%>
+  <%= f.input_field :mailchimp_list_id, as: :hidden, id: 'js-mailing-list-id' %>
 
-      <div class="col-md-10">
-        <p>Group all your customers' email addresses into a list.
-          Send them messages, newsletters and updates about your products. You can send them directly from here or through your
-          <b>MailChimp</b> or <b>Campaign Monitor</b> account.
-        </p>
-      </div>
-
+  <div id="js-new-list-msg">
+    <div class="new-list-action">
+      <a id="js-new-list-btn" class="js-ml-msg"><i class="fa fa-lg fa-plus"></i> New List</a>
+      <%= button_tag(type: 'submit', class: "btn-app btn-block js-new-ml") do %>
+      Create List
+      <% end %>
     </div>
-    <div id="js-new-list-form" class="row hid">
-      <%= simple_form_for [:user, :tools, @mailing_list], remote: true do |f|%>
-      <%= f.input_field :mailchimp_list_id, as: :hidden, id: 'js-mailing-list-id' %>
-      <div class="col-md-2">
-
-       <%= button_tag(type: 'submit', class: "btn btn-block btn-primary") do %>
-       Create List
-       <% end %>
-     </div>
-
-     <div class="col-md-10">
-      <div class="row">
-       <div class="col-md-8">
-        <%= f.input_field :name, placeholder: "List Name" %>
-      </div>
-
-      <div class="col-md-4">
-        <select name="mailing_list[products][]" data-width="100%"
-        multiple data-selected-text-format="count" title='All Products' class="mbn">
-        <% current_user.products.each do |product| %>
-        <option value="<%= product.id %>"><%= product.name %></option>
-        <% end %>
-      </select>
+    <div class="new-list-msg">
+      <p class="js-ml-msg">Group all your customers' email addresses into a list.
+        Send them messages, newsletters and updates about your products. You can send them directly from here or through your
+        <b>MailChimp</b> or <b>Campaign Monitor</b> account.
+      </p>
+      <%= render partial: 'new_list_form', :locals => {:f => f} %>
     </div>
-  </div>
-  <div class="integration-form-div">
-   <div class="integration-box mailchimp">
-    <div class="integration-header">
-     <%= image_tag "mailchimp_logo.png", class: 'payment-logo', width: '40px' %>
-     <% if current_user.mailchimp_token %>
-     <input id="js-mailchimp-switch" name="mailchimp_list[mailchimp]"
-     class="m-l-5 pull-right" style="top:13px;" type="checkbox" data-toggle="switch" />
-     <% else %>
-     <a id="js-connect-sync" href="/auth/mailchimp" class="btn btn-sm btn-inverse pull-right">Connect</a>
-     <% end %>
-   </div>
-   <div class="integration-content unfocused mailchimp-integration">
-    <% if current_user.mailchimp_token %>
-    <div id="the-basics" class="row form-group">
-     <div class="col-md-6">
-      <p>Select <b>MailChimp</b> list that want to sync</p>
-    </div>
-    <div class="col-md-6 ">
-      <%= f.input_field :mailchimp_list_name, placeholder: "Search Mailchimp List",
-      class:"form-control input-sm tt-query typeahead"  %>
-      <span id="js-search-mailchimp" class="hid input-icon fa fa-spinner fa-spin"></span>
-
-    </div>
-  </div>
-
-  <% else %>
-  <div class="sync-connect  unfocused integration-content">
-    <p>Before sync Mailing List you need to connect with your <b>Mailchimp</b> account</p>
   </div>
   <% end %>
-
 </div>
-</div>
-<div class="integration-box">
-  <div class="integration-header">
-    <%= image_tag "campaign_monitor_logo.png", class: 'payment-logo', width: '56px' %>
-    <% if current_user.createsend_token %>
-    <input id="js-createsend-switch" name="mailing_list[createsend]"
-    class="m-l-5 pull-right" style="top:13px;" type="checkbox" data-toggle="switch" />
-    <% else %>
-    <a id="js-connect-sync" href="/auth/createsend" class="btn btn-sm btn-inverse pull-right">Connect</a>
-    <% end %>
-  </div>
-
-  <div class="sync-connect  unfocused integration-content createsend-integration">
-    <% if current_user.createsend_token %>
-    <div id="the-basics" class="row form-group">
-     <div class="col-md-4">
-      <p>Client</p>
-        <span id="js-load-cs-client" class="hid fa fa-spinner fa-spin"></span>
-    </div>
-    <div class="col-md-8">
-      <select name="clients[]" data-width="100%" id="js-createsend-clients-list" title='Choose a Client' class="selectpicker">
-        <option  selected>Choose a Client</option>
-      </select>
-
-      <span id="js-search-mailchimp" class="hid input-icon fa fa-spinner fa-spin"></span>
-      <%= f.input_field :createsend_list_name, as: :hidden,
-      id: 'js-createsend-list-name' %>
-    </div>
-  </div>
-  <div id="the-basics" class="row form-group">
-   <div class="col-md-4">
-    <p>List</p>
-    <span id="js-load-cs-list" class="hid fa fa-spinner fa-spin"></span>
-  </div>
-  <div class="col-md-8 ">
-    <select class="select optional" data-width="100%"
-    id="js-createsend-select-list" name="mailing_list[createsend_list_id]" >
-    <option  selected>Choose a List</option>
-  </select>
-  <span id="js-load-cs-client" class="hid input-icon fa fa-spinner fa-spin"></span>
-
-</div>
-</div>
-<% else %>
-<p>Before sync Mailing List you need to connect with your <b>Campaign Monitor</b> account</p>
-<% end %>
-</div>
-</div>
-</div>
-<% end %>
-</div>
-</div>
-<div class="newsletter-list m-t-20">
-
-  <table>
-    <thead>
-      <tr>
-        <th style="width:12%;"></th>
-        <th class="list-name">List Name</th>
-        <th class="subscribers"> Subscribers</th>
-        <th class="last-update">Last Update</th>
-        <th class="actions"></th>
-      </tr>
-    </thead>
-    <tbody id="js-mailing-list">
-     <% if @list.blank? %>
-     <tr><td colspan="4"><p class="text-center text-muted">No mailing list founds</p></td></tr>
-     <% else %>
-     <%= render @list %>
-     <% end %>
-   </tbody>
- </table>
- <div class="pagination">
-   <div>
-     <%# paginate @orders %>
-   </div>
+<div class="newsletter-list">
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:12%;">Sync</th>
+          <th class="list-name">List Name</th>
+          <th class="subscribers"> Subscribers</th>
+          <th class="last-update">Last Update</th>
+          <th class="actions"></th>
+        </tr>
+      </thead>
+      <tbody id="js-mailing-list">
+       <% if @list.blank? %>
+       <tr><td colspan="5"><p class="text-center text-muted">No mailing list founds</p></td></tr>
+       <% else %>
+       <%= render @list %>
+       <% end %>
+     </tbody>
+   </table>
  </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
+<div id="newsletter-pagination">
+ <%= paginate @list %>
 </div>
-
-
+</div>

@@ -1,8 +1,5 @@
 <div id="js-checkout-tab" class="checkout-tab" data-product-id="<%= @product.id %>"
  data-action="<%= @action %>" data-paypal="<%= @paypal %>">
-<script type="text/javascript">
-  var PAYMILL_PUBLIC_KEY = '<%= @product.user.credit_card_public_token %>';
-</script>
  <div class="top">
    <div id="js-close-buy" class="close-btn"></div>
    <div class="checkout-preview">

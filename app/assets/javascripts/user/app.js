@@ -2,17 +2,15 @@
 
   Up.init = function() {
     if ($("#js-message").text().length > 20) { Up.alert.open();}
-    $("select").selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-default'});
-    $(".select").removeClass('form-control');
+    $("select").select2({style: 'btn btn-primary', menuStyle: 'dropdown-default'});
 
     if($("select").data('selected')){
-     $('.selectpicker').selectpicker('val', $("select").data('selected'));
+     $('.selectpicker').select2('val', $("select").data('selected'));
    }
 
-
-   $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+   $("[data-toggle='switch']").bootstrapSwitch();
    var page = Utils.getPage();
-console.log(page);
+   console.log(page)
    try {
      window[page.controller.capitalize()][page.action.capitalize()]();
    } catch(e) {
@@ -27,7 +25,7 @@ Up.alert = {
     $('.animated-alert').animate({
      top: 55
    }, 500);
-    setTimeout(Up.alert.close, 4500);
+    setTimeout(Up.alert.close, 5000);
   },
   close: function() {
     $('.animated-alert').animate({

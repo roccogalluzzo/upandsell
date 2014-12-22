@@ -18,7 +18,7 @@ Settings / <span>Account</span>
 
    <div class="avatar-upload"><button id="js-preview-btn" class="btn btn-primary">Select</button></div>
 
-   <div class="overlay">
+   <div class="avatar-overlay">
     <%= f.input_field :avatar, id: 'file-input', accept: "image/*",
     class: 'btn-preview input-thumb fileInput', id: 'js-preview-select' %>
   </div>
@@ -85,7 +85,7 @@ Settings / <span>Account</span>
    <p>Account Currency</p>
  </div>
  <div class="row-input">
-   <%= f.input_field :currency, collection: ['USD', 'EUR', 'GBP'] %>
+   <%= f.input_field :currency, collection: ['USD', 'EUR', 'GBP'], class: 'form-control select select-primary select-block mbl' %>
  </div>
 </div>
 <div class="form-row">
@@ -93,7 +93,19 @@ Settings / <span>Account</span>
    <p>Emails after Sales</p>
  </div>
  <div class="row-input">
-   <%= f.check_box :email_after_sale, class: "switch", data:{toggle: "switch"} %>
+   <div class="bootstrap-switch-square">
+     <%= f.check_box :email_after_sale, class: "switch", data:{toggle: "switch"} %>
+   </div>
+ </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+  <p>Site Newsletter</p>
+ </div>
+ <div class="row-input">
+   <div class="bootstrap-switch-square">
+     <%= f.check_box :newsletter, class: "switch", data:{toggle: "switch"} %>
+   </div>
  </div>
 </div>
 <div class="form-row">

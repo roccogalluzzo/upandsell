@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="payment-box">
+    <div class="form-group with_feedback required user_cc_number">
+      <label class="with_feedback required control-label" for="user_cc_number">
+        Credit Card Number
+        <%= image_tag 'cc_icons/amex_e.png' %>
+        <%= image_tag 'cc_icons/mastercard_e.png' %>
+        <%= image_tag 'cc_icons/visa_e.png' %>
+      </label>
+
+      <div class="form-group has-feedback">
+        <input class="with_feedback required form-control" id="cc_number" name="user[cc_number]" stripe-data="cc_number" type="text">
+        <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group with_feedback required user_cc_expire col-sm-4">
+        <label class="with_feedback control-label" for="user_cc_expire">Expiration Date</label>
+
+        <div class="form-group has-feedback">
+          <input class="with_feedback form-control" id="cc_expire" name="user[cc_expire]" stripe-data="cc_expire" type="text">
+          <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
+        </div>
+
+      </div>
+      <div class="form-group with_feedback user_cc_cvc col-sm-4">
+        <label class="with_feedback control-label" for="user_cc_cvc">Security Code</label>
+
+        <div class="form-group has-feedback">
+          <input class="with_feedback form-control"name="user[cc_cvc]" id="cc_cvc" stripe-data="cc_cvc" type="text">
+          <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
+        </div>
+      </div>
+      <div class="cvc-info">
+        <span>The last 3 digits displayed on the back of your card</span>
+      </div>
+    </div>
+  </div>
+
+</div>

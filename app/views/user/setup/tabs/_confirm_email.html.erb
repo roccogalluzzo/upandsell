@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <p> We have sent an email to <b id="email"><%= current_user.email %></b>. </p>
+    <p> Please click the link in the message to confirm your email andress.</p>
+    <p>
+      <%= link_to "Resend", user_resend_email_path, remote: true,
+      data: { disable_with: "Resending..."},
+      class: "btn-app", id: "resend-email" %>
+
+      <a class="btn btn-default" id="change-email">Change Email</a></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="change-email">
+     <%= form_tag user_update_email_path,
+     disable_with: "Saving...", method: :patch, remote: true, id: 'js-email-box',
+     class: "form-inline hid" do %>
+
+     <div class="form-group" style="width:50%;">
+      <input id="new-email" type="email" name="user[email]"
+      style="width:100%;" class="form-control" placeholder="New Email">
+    </div>
+    <button type="submit" class="btn-app">Save</button>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2 text-center">
+    <small>Make sure to check your junk or spam folder.
+     The sender is <b>bot@upandsell.me</b></small>
+   </div></div>

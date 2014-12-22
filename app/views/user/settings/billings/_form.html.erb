@@ -1,0 +1,119 @@
+<div id='billing-form'>
+  <%= simple_form_for current_user, url: user_settings_billing_path, method: @method, remote: true do |f| %>
+  <%= f.input :stripe_token, as: :hidden, id: 'stripe_token' %>
+  <div class="billing-inputs">
+    <div class="billing-type">
+      <div class="radio radio-inline">
+        <label>
+          <input type="radio" name="user[business_type]" value="private" checked>
+          Private
+        </label>
+      </div>
+      <div class="radio radio-inline">
+        <label>
+          <input type="radio" name="user[business_type]" value="company">
+          Company
+        </label>
+      </div>
+    </div>
+    <%= f.input :country, as: :country,
+    class: 'select select-primary select-block mbl',
+      priority: ["IT", "GB", "US"], selected: "IT" %>
+
+      <%= f.input :legal_name, as: :with_feedback, input_html: {value: f.object.legal_name || current_user.name} %>
+      <%= f.input :tax_code, as: :with_feedback %>
+
+      <div class="row">
+        <%= f.input :address, as: :with_feedback, :wrapper_html => { :class => 'col-sm-9' } %>
+        <%= f.input :zip_code, as: :with_feedback, :wrapper_html => { :class => 'col-sm-3' } %>
+      </div>
+      <div class="row">
+        <%= f.input :city, as: :with_feedback, :wrapper_html => { :class => 'col-sm-9' } %>
+        <%= f.input :province, as: :with_feedback, :wrapper_html => { :class => 'col-sm-3' } %>
+      </div>
+      <div id="billing-plans">
+        <h5>Choose A plan</h5>
+        <p class="change-price"><a id="js-change-price" data-text="(See prices in EUR)"
+          data-switch-month="<%= @month_price %>$"
+          data-switch-year="<%= @year_price %>$" href="#">(See estimated prices in USD)</a></p>
+        <div class="radio radio-inline">
+          <label>
+            <input type="radio" name="user[plan_type]" value="monthly" checked>
+            <div class="active-plan billing-plan month-plan">
+              <h6>Monthly Plan</h6>
+              <p class="price-tag"><span class="month-price">24.99€</span><span class="period">/month</span></p>
+            </div>
+          </label>
+        </div>
+        <div class="radio radio-inline">
+          <label>
+            <input type="radio" name="user[plan_type]" value="yearly">
+            <div class="billing-plan year-plan">
+              <h6>Yearly Plan</h6>
+              <p class="price-tag"><span class="year-price">249.99€</span><span class="period">/year</span></p>
+              <p class="discount-plan">(save 50$)</p>
+            </div>
+          </label>
+        </div>
+
+      </div>
+      <div class="setup-payments-row">
+        <h5>Payment Details</h5>
+        <% unless defined?(edit) && edit %>
+        <p>This is just to open your account, we won't charge your card until trial ends.</p>
+        <% end %>
+        <div class="payment-box">
+          <div class="form-group with_feedback required user_cc_number">
+            <label class="with_feedback required control-label" for="user_cc_number">
+              Credit Card Number
+              <%= image_tag 'cc_icons/amex_e.png' %>
+              <%= image_tag 'cc_icons/mastercard_e.png' %>
+              <%= image_tag 'cc_icons/visa_e.png' %>
+            </label>
+
+            <div class="form-group has-feedback">
+              <input class="with_feedback required form-control" id="cc_number" name="user[cc_number]" stripe-data="cc_number" type="text">
+              <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group with_feedback required user_cc_expire col-sm-4">
+              <label class="with_feedback control-label" for="user_cc_expire">Expiration Date</label>
+
+              <div class="form-group has-feedback">
+                <input class="with_feedback form-control" id="cc_expire" name="user[cc_expire]" stripe-data="cc_expire" placeholder="MM/YY" type="text">
+                <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
+              </div>
+
+            </div>
+            <div class="form-group with_feedback user_cc_cvc col-sm-4">
+              <label class="with_feedback control-label" for="user_cc_cvc">Security Code</label>
+
+              <div class="form-group has-feedback">
+                <input class="with_feedback form-control"name="user[cc_cvc]" id="cc_cvc" stripe-data="cc_cvc" type="text">
+                <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
+              </div>
+            </div>
+            <div class="cvc-info">
+              <span>The last 3 digits displayed on the back of your card</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% if defined?(edit) && edit %>
+    </div>
+    <div class="action-edit-form">
+      <%= f.button :submit, "Save", class: "btn-app btn-lg", data: { disable_with: "Saving..." } %>
+    </div>
+      <% else %>
+      <div class="footer-billing">
+        <p>  If you don’t want to continue using Up&amp;Sell.Me, just cancel before the trial ends and you won’t be charged. Otherwise, you’ll pay for the service as long you don't cancel the subscription.</p>
+      </div>
+    </div>
+    <div class="action-form">
+      <%= f.button :submit, "Start your 30 day FREE TRIAL", class: "btn-action", data: { disable_with: "Processing..." } %>
+    </div>
+      <% end %>
+      <% end %>
+    </div>

@@ -1,9 +1,24 @@
-<div class="sign-box">
-    <div class="head">
-      <h3>Sign in</h3>
+<% content_for(:page_title)  { "Sign In" } %>
+
+<div class="sign-up-header">
+  <h1>Sign In</h1>
+</div>
+<div class="sign-in-container">
+  <div class="row">
+    <div class="sign-in-box">
+      <div class="body">
+    <div class="social-logins">
+      <div class="fb-login">
+        <a href="/users/auth/facebook" class="fb-btn"><span class="logo"><i class="fa fa-facebook"></i></span> <span class="text">Facebook</span></a>
+      </div>
+      <div class="google-login">
+        <a href="/users/auth/google_oauth2" class="google-btn"><span class="logo"><i class="fa fa-google"></i></span> <span class="text">Google</span></a>
+      </div>
     </div>
-<div class="body">
-    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), class: 'sign-form') do |f| %>
+    <div class="login-middleline row">
+      <p><span>or</span></p>
+    </div>
+    <%= simple_form_for(resource,  html: {'data-type' => 'json', class: 'sign-in-form'}, remote: true, as: resource_name, url: session_path(resource_name)) do |f| %>
     <input name="user[referer_id]" value="<%= @ref %>" type="hidden">
     <div class="form-group">
       <%= f.input_field :email, required: true, autofocus: true,
@@ -13,10 +28,13 @@
     <div class="form-group">
       <%= f.input_field :password, minlength: "6", required: true, placeholder: "Your Password" %>
     </div>
-    <%= f.button :submit, "Sign in", class: "btn-submit" %>
+    <div id="js-form-error">Invalid email or password.</div>
+    <%= f.button :submit, "Sign in", class: "btn-submit", data: { disable_with: "Processing..." } %>
     <% end %>
-    <div class="sign-box-links">
-    <small><%= link_to "Forget your Password ?", new_user_password_path %></small>
-    </div>
   </div>
+  <div class="sign-box-links">
+    <small><%= link_to "Forgot your Password ?", new_user_password_path %></small>
+  </div>
+</div>
+</div>
 </div>

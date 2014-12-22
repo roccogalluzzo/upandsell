@@ -1,5 +1,5 @@
 class SiteController < ApplicationController
-
+  skip_after_filter :intercom_rails_auto_include
   layout "site"
 
   def privacy
@@ -15,6 +15,11 @@ class SiteController < ApplicationController
   def demo
     @user = User.new
     @user.name = 'Mark Twain'
+    @user.bio = 'An American author and humorist. I wrote The Adventures of Tom Sawyer and
+    Adventures of Huckleberry Finn.'
+    @credit_card = true
+    @published = true
+    @downloads= 0
     @product = dummy_product
     render layout: 'demo'
   end
@@ -36,17 +41,19 @@ private
 def dummy_product
  @product = Product.new
  @product.name = 'The Adventures of Tom Sawyer'
- @product.price = 12
- @product.file_info = {size: 123456}
+ @product.price = 0
+ @product.file_info = {size: 684532}
  @product.file_key = 'demo.pdf'
  @product.description = "
- The Adventures of Tom Sawyer by Mark Twain is
- an 1876 novel about a young boy growing up along the Mississippi River.
- he story is set in the fictional town of St. Petersburg, inspired by
-  Hannibal, Missouri, where Twain lived. Tom Sawyer lives with his Aunt
-   Polly and his half-brother Sid. Tom dirties his clothes in a fight
-   and is made to whitewash the fence the next day as punishment.
-"
+ Most of the adventures in this book really happened. One or two were my own experiences.
+The others were experiences of boys in my school. Huck Finn really
+lived. Tom Sawyer is made of three real boys.
+My book is for boys and girls, but I hope that men and women
+also will read it. I hope that it will help them to remember pleasantly
+the days when they were boys and girls, and how they felt and thought
+and talked, what they believed, and what strange things they sometimes
+did.
+ "
  @product
 end
 end

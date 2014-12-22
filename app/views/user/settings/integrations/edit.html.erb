@@ -4,18 +4,17 @@
 Settings / <span>Integrations</span>
 <% end %>
 <%= render partial: "user/settings/tabs" %>
-<div class="settings-payments">
-  <div class="row-payments">
-    <%= image_tag "mailchimp-dark.png", class: 'payment-logo' %>
-    <%= link_to ( current_user.mailchimp_token ? "Connected" : "Connect"), '/auth/mailchimp',
-    class: 'payment-connect', disabled:( current_user.mailchimp_token ? true : false) %>
+<div class="settings-integrations">
+  <div class="integration-row">
+    <%= image_tag "mailchimp-dark.png", class: 'payment-logo', style: 'width: 285px;' %>
+    <%= link_to ( current_user.mailchimp_token ? "Connected" : "Connect"), '/users/auth/mailchimp',
+    class: 'payment-connect btn-app', disabled:( current_user.mailchimp_token ? true : false) %>
   </div>
 
-  <div class="row-payments">
-
+  <div class="integration-row">
     <%= image_tag "campaign_monitor.png", class: 'payment-logo' %>
-    <%= link_to ( current_user.createsend_token ? "Connected" : "Connect"), '/auth/createsend',
-    class: 'payment-connect', disabled:( current_user.createsend_token ? true : false) %>
+    <%= link_to ( current_user.createsend_token ? "Connected" : "Connect"), '/users/auth/createsend',
+    class: 'payment-connect btn-app', disabled:( current_user.createsend_token ? true : false) %>
   </div>
 </div>
 

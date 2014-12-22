@@ -31,6 +31,8 @@ def payment_params
     :credit_card, :paypal,
     :credit_card_gateway,
     :credit_card_public_token,
-    :credit_card_token )
+    :credit_card_token,
+    :credit_card_bt_merchant_id,
+    :credit_card_bt_currency )
 end
 end

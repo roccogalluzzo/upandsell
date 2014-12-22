@@ -1,95 +1,98 @@
 source 'http://rubygems.org'
 
-gem 'rails', '4.1.4'
-gem 'spring', group: :development
-gem 'puma'
-gem 'foreman'
-gem 'sdoc', require: false
+gem 'tabs', github: 'byterussian/tabs', branch: 'customization'
+gem 'carrierwave_direct', github: 'byterussian/carrierwave_direct'
+gem 'sass-rails', github: 'rails/sass-rails'
+gem 'less-rails', github: 'dv/less-rails', branch: 'fix-import-dependencies'
 
-#custom gems
+gem 'agent_orange'
+gem 'aws-sdk'
+gem 'bower-rails', '~> 0.7.0'
+gem 'braintree'
+gem 'carrierwave'
+gem 'carrierwave-processing'
+gem 'createsend'
+gem 'country_select', github: 'stefanpenner/country_select'
+gem 'countries'
 gem 'devise'
-gem "devise-async"
+gem 'devise-async'
+gem 'email_validator'
+gem 'entypo-rails'
+gem 'exchange', '~> 1.2.0'
+gem 'fog', require: 'fog/aws/storage'
+gem 'font-awesome-rails'
+gem 'foreman'
+gem 'geokit-rails'
+gem 'gibbon'
+gem 'hiredis', '~> 0.4.5'
+gem 'intercom-rails', '~> 0.2.26'
+gem 'jbuilder', '~> 1.2'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'kaminari'
+gem 'newrelic_rpm'
+gem 'maildown'
+gem 'mandrill-api', require: 'mandrill'
+gem 'mini_magick'
+gem 'money-rails'
+gem 'monetize'
+gem 'mysql2'
+gem 'omniauth-createsend'
+gem 'omniauth-facebook'
+gem "omniauth-google-oauth2"
+gem 'omniauth-mailchimp'
+gem 'omniauth-twitter'
+gem 'paranoia', '~> 2.0'
 gem 'paypal-sdk-adaptivepayments'
 gem 'paypal-sdk-permissions'
 gem 'paymill'
-gem 'money-rails'
-gem 'monetize'
-gem 'aws-sdk'
-gem 'simple_form'
-gem 'agent_orange'
-gem 'kaminari'
-gem 'sidekiq'
-gem 'sinatra', '>= 1.3.0', require: nil
-gem 'remotipart', '~> 1.2'
-gem 'rack-affiliates'
-gem 'carrierwave'
-gem 'fog'
-gem 'carrierwave_direct', git: 'https://github.com/Rodeoclash/carrierwave_direct'
-gem 'mini_magick'
-gem 'carrierwave-processing'
-gem "exchange", "~> 1.2.0"
-gem 'redcarpet'
-gem 'maildown'
-gem 'omniauth-createsend'
-gem 'omniauth-mailchimp'
-gem 'tabs', git: 'https://github.com/byterussian/tabs.git', branch: 'customization'
-gem 'email_validator'
 gem 'premailer-rails'
-gem "paranoia", "~> 2.0"
-
-gem 'omniauth-paymill'
-gem 'createsend'
-gem 'gibbon'
-gem 'mandrill-api'
-gem 'quiet_assets', group: :development
+gem 'puma'
+gem 'rails', '4.1.4'
+gem 'rack-affiliates'
+gem 'redcarpet'
+gem 'redis', '~> 3.0.1'
+gem 'remotipart', '~> 1.2'
+gem 'sanitize'
+gem 'sdoc', require: false
+gem 'sidekiq'
+gem 'simple_form'
+gem 'sinatra', '>= 1.3.0', require: false
+gem 'split'
+gem 'stripe'
+gem 'stripe_event'
+gem 'therubyracer', platforms: :ruby
+gem 'turbolinks'
+gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
-  gem 'rspec-rails'
-  gem 'factory_girl_rails'
   gem 'byebug'
-  gem 'guard-rspec', require: false
+  gem 'factory_girl_rails'
   gem 'fuubar'
+  gem 'guard-rspec', require: false
+  gem 'rb-fsevent'
+  gem 'rspec-rails'
   gem 'vcr'
 end
 group :test do
-  gem 'faker'
   gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'database_cleaner'
-  gem 'webmock'
-  gem 'timecop'
-  gem 'sqlite3'
+  gem 'faker'
+  gem 'selenium-webdriver'
   gem 'simplecov', '~> 0.7.1', require: false
+  gem 'sqlite3'
+  gem 'timecop'
+  gem 'webmock'
 end
 
-# database gems
-gem 'mysql2'
-gem "redis", "~> 3.0.1"
-gem "hiredis", "~> 0.4.5"
-
-# Javscript gems
-gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 1.2'
-gem 'therubyracer', platforms: :ruby
-gem 'uglifier', '>= 1.3.0'
-gem 'jquery-ui-rails'
-
-# Css gems
-gem "less-rails"
-gem 'sass-rails', github: 'rails/sass-rails'
-gem "bower-rails", "~> 0.7.0"
-gem "font-awesome-rails"
-gem 'entypo-rails'
-
-# Deployment
 group :development do
+  gem 'better_errors'
   gem 'capistrano', '~> 3.2.0'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
-  gem "better_errors"
-  gem 'pry-rails'
   gem 'guard-livereload', require: false
-  gem 'rb-fsevent'
+  gem 'pry-rails'
+  gem 'quiet_assets'
+  gem 'spring'
 end

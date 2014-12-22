@@ -1,18 +1,32 @@
-<div class="unsubscribe-box">
-  <div class="head">
-    <h3>Sign up</h3>
-  </div>
+<% content_for(:page_title)  { "Join Us" } %>
+<div class="sign-up-header">
+  <h1>Start selling with us</h1>
+</div>
+<div class="sign-up-container">
+  <div class="row">
+<div class="sign-box">
   <div class="body">
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), id: 'sign-form') do |f| %>
+    <div class="social-logins">
+      <div class="fb-login">
+        <a href="/users/auth/facebook" class="fb-btn"><span class="logo"><i class="fa fa-facebook"></i></span> <span class="text">Facebook</span></a>
+      </div>
+      <div class="google-login">
+      <a href="/users/auth/google_oauth2" class="google-btn"><span class="logo"><i class="fa fa-google"></i></span> <span class="text">Google</span></a>
+    </div>
+    </div>
+    <div class="login-middleline row">
+<p><span>or</span></p>
+    </div>
+    <%= simple_form_for(resource, as: resource_name, :html => {:'data-type' => 'json', class: 'sign-up-form'}, remote: true, format: :json, url: registration_path(resource_name), id: 'sign-form') do |f| %>
     <input name="user[referer_id]" value="<%= @ref %>" type="hidden">
-    <input name="user[invitation_token]" value="<%= @invite.invitation_token %>" type="hidden">
+
     <div class="form-group">
       <%= f.input_field :name, required: true, autofocus: true,
-      placeholder: "Your Name"
+      placeholder: "Your Full Name"
       %>
     </div>
     <div class="form-group">
-      <%= f.input_field :email, required: true, autofocus: true, disabled: true, value: @invite.email,
+      <%= f.input_field :email, required: true, autofocus: true,
       placeholder: "Your Email"
       %>
     </div>
@@ -24,10 +38,43 @@
      <small>By clicking Sign up, you agree to the <%= link_to "Terms of Service", terms_path %> and
       <%= link_to "Privacy Policy", privacy_path %>.</small>
     </div>
-    <%= f.button :submit, "Sign up", class: "btn-submit" %>
+    <div id="js-form-error">The email address supplied is not a valid email or is already in use.</div>
+    <%= f.button :submit, "Sign up", class: "btn-submit", data: { disable_with: "Processing..." } %>
     <% end %>
-    <div class="sign-box-links">
-      <small><%= link_to "Already a user?", new_session_path(resource_name) %></small>
+  </div>
+  <div class="sign-box-links">
+    <small><%= link_to "Already a user?", new_session_path(resource_name) %></small>
+  </div>
+</div>
+<div class="signup-pricing-section">
+  <div class="head">
+    <p>One edition. 30 days trial. 24.99€ per month. 24/7 customer service.
+      Try our service, start selling and contact us at anytime for any support.</p>
+    </div>
+    <div class="pricing-plans">
+      <div class="plan-blue">
+        <div class="plan-tag-blue">
+          <%= image_tag 'price_tag_blue.png' %>
+          <h6 class="tag-head">Pro</h6>
+          <span class="tag-currency">€</span><span class="tag-price">24</span>.<span class='tag-cents'>99</span>
+          <div class="bottom-tag">
+            <p class="f-p">Free Trial</p>
+            <p class="s-p">30 days</p>
+          </div>
+        </div>
+        <%
+
+        %>
+        <p  class="convert-price"><a id="js-change-price" data-text="See price in €" data-switch-currency="$" data-switch-int="<%= @price %>"  data-switch-cents="<%= @cents %>" href="#">See estimated price in $</a></p>
+        <div class="plan-text-blue">
+          <ul>
+            <li><span>Unlimited products</span></li>
+            <li><span>All Features Included</span></li>
+            <li><span>No Transaction Fees</span></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
+</div>
 </div>

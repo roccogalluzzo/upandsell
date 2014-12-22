@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  -moz-osx-font-smoothing: grayscale;
 }
 body {
   font-family:   "Helvetica Neue", "HelveticaNeue-Light", "Helvetica Neue Light", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -49,11 +50,11 @@ a {
 
 .btn-cookie {
  .btn-get-started;
- .btn-invite;
- padding: 5px 14px;
- font-size: 12px;
+ padding: 0px 12px;
+ font-size: 11px;
  height: 26px;
  margin-left: 5px;
+ margin-bottom: 0px;
 }
 .btn-tag {
   .btn;
@@ -86,6 +87,13 @@ a {
 .btn-trydemo {
   .btn-tag-blue;
   margin-top: 30px;
+  background-color: transparent !important;
+  &:focus {
+    color:  #a9d6ee !important;
+    box-shadow: none;
+    outline: none;
+
+  }
 }
 .hidden-animation {
   .hidden-md;
@@ -95,17 +103,30 @@ a {
   min-height: 100%;
   height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
   height: 100%;
-  margin-bottom: -110px; /* the bottom margin is the negative value of the footer's height */
+  margin-bottom: -140px; /* the bottom margin is the negative value of the footer's height */
   .container-fluid;
-  padding-bottom:  110px;
+  padding-bottom:  140px;
 }
 #footer {
-  height: 110px; /* .push must be the same height as .footer */
+  height: 140px; /* .push must be the same height as .footer */
 }
 
 .site {
-  padding-top: 150px;
-  background-color: #f5f7f9;
+  padding-top: 140px;
+  background-color: #4A4E62;
+//  color: white !important;
+}
+
+#terms {
+  background: white;
+  color: #333;
+  border-radius: 6px;
+  padding: 0 35px;
+margin-bottom: 50px;
+}
+#iubenda_policy {
+  background: white;
+  border-radius: 6px;
 }
 .site-container {
   .container;
@@ -118,7 +139,9 @@ a {
   .make-md-column(8);
   padding-bottom: 50px;
 }
-
+#iubenda_policy .iub_base_container {
+  color: white;
+}
 .section {
   .make-row();
   padding-top: 100px;
@@ -154,10 +177,12 @@ a {
   .checkout-demo-box {
     width: 349px;
     margin: 0 auto;
+    margin-top: 14px;
+    .hidden-xs;
   }
   .mock-checkout {
    position: absolute;
-   top: 96px;
+   top: 110px;
    width: 280px;
    margin: 0 auto;
    left: 0;
@@ -166,13 +191,10 @@ a {
  .section-illustration {
   .make-md-column-offset(1);
   .make-md-column(5);
-  .make-lg-column-offset(1);
-  .make-lg-column(4);
-
   //  text-align: center;
 }
 .section-text {
-  .make-md-column-offset(2);
+  .make-md-column-offset(1);
   .make-md-column(4);
   p {
     margin-top: 30px;
@@ -190,10 +212,12 @@ a {
   background: image-url("pay_section_separator.png") no-repeat center bottom;
   .section;
   .section-illustration {
-    .make-md-column-offset(1);
+    .make-md-column-offset(0);
     .make-md-column(5);
     text-align: center;
  // margin-left: 45px;
+   .hidden-xs;
+
 }
 .section-text {
   .make-md-column-offset(1);
@@ -241,8 +265,8 @@ a {
     font-size: 15px;
     text-align: left;
   }
-  .make-md-column(3);
-  .make-md-column-offset(1);
+  .make-md-column(4);
+  padding: 0 30px;
 }
 }
 
@@ -449,9 +473,13 @@ a {
 
 #footer {
   background-color: white;
+  .wrap-footer-beta {
+    border-top: none !important;
+  }
   .wrap-footer {
     background: image-url("footer-shadow.png") no-repeat center top;
     border-top: 1px solid #e3e3e3;
+    max-width: 970px;
     //padding-bottom: 25px;
     .container;
     .line-1 {
@@ -469,6 +497,17 @@ a {
       font-size: 13px;
       padding-right: 5px;
     }
+    .icon-twitter {
+      &:hover {
+        color: #54ACED;
+      }
+    }
+    .icon-facebook {
+      &:hover {
+        color: #3D5294;
+      }
+    }
+
     a {
       background-color: #f3f3f3;
       border-radius: 3px;
@@ -478,6 +517,9 @@ a {
       text-align: center;
       padding-top: 5px;
       display: inline-block;
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }
@@ -516,4 +558,3 @@ a {
 }
 }
 }
-

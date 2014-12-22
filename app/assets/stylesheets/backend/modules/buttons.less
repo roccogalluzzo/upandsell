@@ -1,0 +1,33 @@
+.btn-app {
+  &:extend(.btn);
+  .button-variant(#fff;  darken(@secondary, 10%); darken(@secondary, 30%);  darken(@secondary, 15%),   darken(@secondary, 80%));
+  border-radius: 3px !important;
+}
+
+.btn-dropbox {
+  &:extend(.btn);
+  .button-variant(#fff; #007ee5; darken(#007ee5, 5%);  darken(#007ee5, 15%));
+  margin-left: 3px;
+}
+
+.btn-computer {
+  &:extend(.btn-app);
+
+  &:hover {
+    color: white !important;
+    background-color: darken(@secondary, 15%);
+  }
+  input {
+    cursor: pointer;
+    height: 50px;
+    position: absolute;
+    width: 100px;
+    z-index: 99;
+    font-size: 50px;
+    opacity: 0 !important;
+    margin-top: -12px;
+    opacity: 0 !important;
+    -moz-opacity: 0 !important;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+  }
+}
