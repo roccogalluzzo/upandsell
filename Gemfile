@@ -67,6 +67,7 @@ gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'byebug'
+  gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'fuubar'
   gem 'guard-rspec', require: false
