@@ -5,12 +5,18 @@ class User::ProductsController < User::BaseController
   end
 
   def new
+    unless current_user.subscription_active
+      redirect_to root_path
+    end
     @product = Product.new
     @product.price_currency = current_user.currency
     @new_product = true
   end
 
   def create
+    unless current_user.subscription_active
+      redirect_to root_path
+    end
     product = current_user.products.build(product_params)
     product.description = Sanitize.fragment(product.description, Sanitize::Config::BASIC)
     if product.save
@@ -100,7 +106,6 @@ end
 private
 def is_owner?(product_id)
   if product_id != current_user.id
-    byebug
     render file: "public/500.html", status: :unauthorized
   end
 end

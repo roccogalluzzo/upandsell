@@ -66,6 +66,10 @@ class User < ActiveRecord::Base
     Rails.application.secrets.admins.include?(email)
   end
 
+  def beta_signup?
+    true if self.created_at < '24-12-2014'.to_datetime
+  end
+
   def send_welcome_email
     UserMailer.delay.welcome_email(self.id)
   end

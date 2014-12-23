@@ -36,6 +36,9 @@
         <p class="change-price"><a id="js-change-price" data-text="(See prices in EUR)"
           data-switch-month="<%= @month_price %>$"
           data-switch-year="<%= @year_price %>$" href="#">(See estimated prices in USD)</a></p>
+          <% if current_user.stripe_id.nil? && current_user.beta_signup? %>
+          <p class="beta-price">Note: As a beta user you have 6 months of free subscription</p>
+          <% end %>
         <div class="radio radio-inline">
           <label>
             <input type="radio" name="user[plan_type]" value="monthly" <%= 'checked' if current_user.plan_type =='monthly' || !defined?(edit) %>>

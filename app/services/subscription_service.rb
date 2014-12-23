@@ -9,12 +9,17 @@ class SubscriptionService
 
   def subscribe
     if @customer.nil?
+      trial_end = 30.days.from_now.to_i
+      if @user.beta_signup?
+        trial_end = '24-06-2015'.to_datetime.to_i
+      end
       @customer = Stripe::Customer.create(
       card: @user.stripe_token,
       email: @user.email,
       metadata: {id: @user.id, country: @user.country, name: @user.legal_name,
         type: @user.business_type, tax_code: @user.tax_code },
-        plan: @plans[@user.plan_type]
+        plan: @plans[@user.plan_type],
+        trial_end: trial_end
         )
     elsif self.is_subscribed?
       self.update_subscription
