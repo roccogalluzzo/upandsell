@@ -1,10 +1,10 @@
 (function ($, Stats, undefined) {
 
   Stats.init = function() {
-    window.s = { range: $(".product"), chart: {}};
+    window.s = { range: $(".product"), chart: {}, period: 'day'};
     Stats.Tab.init();
     AmCharts.ready(Stats.graph.init);
-    $('select').on('change', Stats.data.get);
+    $('select').on('change', Stats.data.product_get);
  };
 
  Stats.graph = {
@@ -102,6 +102,11 @@ Stats.data = {
    var params = {period: period, products: $('select').val()};
    jQuery.getJSON('/user/dashboard/metrics', params, Stats.data.update);
   },
+  product_get: function() {
+    Stats.Tab.toggle_loading();
+    var params = {period: s.period, products: $('select').val()};
+    jQuery.getJSON('/user/dashboard/metrics', params, Stats.data.update);
+  },
   onload_get: function() {
     Stats.Tab.toggle_loading();
     var params = {type: 'earnings', range: 30, products: $('select').val()};
@@ -115,12 +120,18 @@ Stats.data = {
     $('#js-sales').text(d.sales);
     $('#js-conversion-rate').text(d.conversion_rate);
     Stats.graph.load(d.graph_data);
+    if(d.demo == true){
+      Stats.Tab.set_demo();
+    }
   },
   update: function(d) {
     $('#js-visits').text(d.visits);
     $('#js-sales').text(d.sales);
     $('#js-conversion-rate').text(d.conversion_rate);
     Stats.graph.refresh(d.graph_data);
+    if(d.demo == true){
+      Stats.Tab.set_demo();
+    }
   }
 };
 
@@ -141,6 +152,10 @@ Stats.Tab = {
   },
   toggle_loading: function() {
     $('#loading-graph').fadeToggle(400);
+    $('#demo-graph').fadeOut(400);
+  },
+  set_demo: function() {
+    $('#demo-graph').fadeIn(400);
   }
 }
 

@@ -1,12 +1,12 @@
 TODO
 
-- visualizzare piano corrente in billing info
+- dashboard visualizzare messaggio se non ci sono dati
+
+- implementare sei mesi signup per user beta
+
+-limitare la creazione prodotti
 
 - implementare il canel subscription
 - implementare i webhooks stripe
 
 - email fine trial/account rinnovato/rinnovo fallito
-
-- finire dashboard
-
-- sistemare i punti del tag pricing home e join

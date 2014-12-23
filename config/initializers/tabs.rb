@@ -13,9 +13,9 @@ Tabs.configure do |config|
   config.decimal_precision = 2
 
   # unregisters any resolution
-  config.unregister_resolutions(:minute, :hour)
+  config.unregister_resolutions(:minute)
 
   # sets TTL for redis keys of specific resolutions
-  #config.set_expirations({ minute: 1.hour, hour: 1.day })
+  config.set_expirations({ hour: 2.day })
 
 end

@@ -25,12 +25,16 @@
 
   Billings.Edit = function () {
     s = init_settings();
+    window.edit = true;
     Billings.BillingForm.init();
     $('#js-toggle-billing-form').on('click', function(){
       $('#billing-edit-form').fadeToggle();
+      return false;
     });
-  };
-
+    $('#cc_number').rules( "remove", 'required');
+    $('#cc_expire').rules( "remove", 'required');
+    $('#cc_cvc').rules( "remove", 'required');
+  }
   Billings.BillingForm = {
     init: function () {
       $("select").addClass('form-control select select-primary select-block').select2({style: 'btn btn-primary', menuStyle: 'dropdown-default'});
@@ -69,13 +73,17 @@
     submit: function() {
       $('.btn-action').attr("disabled", "disabled");
       expire = $('#cc_expire').payment('cardExpiryVal');
+      if(window.edit && expire.month) {
       Stripe.card.createToken({
         number:  $('#cc_number').val().replace(/\s+/g, ''),
         cvc:  $('#cc_cvc').val(),
         exp_month: expire.month,
         exp_year: expire.year
       }, Billings.BillingForm.stripe);
-
+    }else {
+      var $form = $('form');
+      $form.trigger("submit.rails");
+    }
       return false;
     },
     stripe: function(status, response) {
@@ -124,7 +132,7 @@
         $('#cc_number').payment('formatCardNumber');
         $('#cc_expire').payment('formatCardExpiry');
         $('#cc_cvc').payment('formatCardCVC');
-        $.validator.addMethod("ccNumberValid", $.payment.validateCardNumber, " Credit Card Number is Invalid.");
+        $.validator.addMethod("ccNumberValid", Billings.BillingForm.validation.ccNumberValid, " Credit Card Number is Invalid.");
         $.validator.addMethod("ccExpValid", Billings.BillingForm.validation.ccExpValid, " Credit Card Data is Invalid.");
         $('form').validate({
           submitHandler: Billings.BillingForm.submit,
@@ -137,8 +145,14 @@
         });
       },
       ccExpValid: function (value) {
+        if(value === "") { return true}
         var data = $.payment.cardExpiryVal(value);
         return $.payment.validateCardExpiry(data.month, data.year);
+
+      },
+      ccNumberValid: function (value) {
+        if(value === "") { return true}
+          return $.payment.validateCardNumber(value);
       },
       showErrors: function (errorMap, errorList) {
         $.each(this.validElements(), function (index, element) {

@@ -38,6 +38,8 @@ class User::Settings::BillingsController < User::BaseController
           success = sub.update_card
         elsif  current_user.plan_type_changed?
         success = sub.update_subscription
+      else
+        success = current_user.save
         end
         if success
           render json: {}, status: :ok and return

@@ -38,7 +38,7 @@
           data-switch-year="<%= @year_price %>$" href="#">(See estimated prices in USD)</a></p>
         <div class="radio radio-inline">
           <label>
-            <input type="radio" name="user[plan_type]" value="monthly" checked>
+            <input type="radio" name="user[plan_type]" value="monthly" <%= 'checked' if current_user.plan_type =='monthly' || !defined?(edit) %>>
             <div class="active-plan billing-plan month-plan">
               <h6>Monthly Plan</h6>
               <p class="price-tag"><span class="month-price">24.99€</span><span class="period">/month</span></p>
@@ -47,7 +47,7 @@
         </div>
         <div class="radio radio-inline">
           <label>
-            <input type="radio" name="user[plan_type]" value="yearly">
+            <input type="radio" name="user[plan_type]" value="yearly"  <%= 'checked' if current_user.plan_type =='yearly' %> >
             <div class="billing-plan year-plan">
               <h6>Yearly Plan</h6>
               <p class="price-tag"><span class="year-price">249.99€</span><span class="period">/year</span></p>
@@ -72,13 +72,13 @@
             </label>
 
             <div class="form-group has-feedback">
-              <input class="with_feedback required form-control" id="cc_number" name="user[cc_number]" stripe-data="cc_number" type="text">
+              <input class="with_feedback form-control" id="cc_number" name="user[cc_number]" stripe-data="cc_number" type="text">
               <span class="form-control-feedback fa fa-2x fa-check text-success hidden"></span>
             </div>
           </div>
 
           <div class="row">
-            <div class="form-group with_feedback required user_cc_expire col-sm-4">
+            <div class="form-group with_feedback user_cc_expire col-sm-4">
               <label class="with_feedback control-label" for="user_cc_expire">Expiration Date</label>
 
               <div class="form-group has-feedback">

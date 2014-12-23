@@ -101,23 +101,23 @@ module Metric
       @visits = Visits.new
     end
 
-    def sales(from = Time.now)
-      @products.each { |p| @sales += sales_product(p.id, from) }
+    def sales(from = Time.now, period = :day)
+      @products.each { |p| @sales += sales_product(p.id, from, period) }
       @sales
     end
 
-    def sales_product(id, from)
-      r = Tabs.get_value_stats("product:#{id}:sales", from..Time.now, :day)
+    def sales_product(id, from, period)
+      r = Tabs.get_value_stats("product:#{id}:sales", from..Time.now, period)
       Sales.new(r)
     end
 
-    def visits(from = Time.now)
-      @products.each { |p| @visits += visits_product(p.id, from) }
+    def visits(from = Time.now, period = :day)
+      @products.each { |p| @visits += visits_product(p.id, from, period) }
       @visits
     end
 
-    def visits_product(id, from)
-      r = Tabs.get_counter_stats("product:#{id}:visits", from..Time.now, :day)
+    def visits_product(id, from, period)
+      r = Tabs.get_counter_stats("product:#{id}:visits", from..Time.now, period)
       Visits.new(r)
     end
 

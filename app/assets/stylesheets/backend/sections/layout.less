@@ -4,9 +4,31 @@
 @border-light:  1px solid #f4f4f4;
 @border-strong: 1px solid #ededed;
 
+
 .box {
   background-color: @box-background;
   border-radius: @box-border-radius;
+}
+
+#not-subscribed {
+  .box;
+  .make-row();
+  margin-bottom: 20px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+  i {
+    font-size: 60px;
+    margin: 10px;
+    color: @alizarin;
+  }
+  p {
+    margin: 20px;
+  }
+  a {
+    margin-top: 18px;
+    float: right;
+  }
 }
 
 .page-content {
