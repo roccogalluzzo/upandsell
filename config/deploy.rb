@@ -29,9 +29,17 @@ set :rbenv_roles, :all
 
 # Default value for keep_releases is 5
 set :keep_releases, 2
+before "deploy:starting", "deploy:set_env"
 after "deploy:updated", "newrelic:notice_deployment"
 
 namespace :deploy do
+
+  desc 'set env'
+  task :set_env do
+    on roles(:app) do
+      execute "source /etc/environment"
+    end
+  end
 
   desc 'Restart application'
   task :restart do
