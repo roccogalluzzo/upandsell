@@ -1,0 +1,70 @@
+<% content_for(:page_title)  { "Billing Information" } %>
+<%- content_for :title  do %>
+<i class="fa fa-lg fa-credit-card"></i>
+Settings / <span>Billing Information</span>
+<% end %>
+<%= render partial: "user/settings/tabs" %>
+<% if current_user.subscription_active %>
+<div class="subscription-info">
+  <div class="sub-plan-info">
+    <div class="t-plan">
+  <% if current_user.plan_type == 'monthly' %>
+  <h5>Monthly plan</h5>
+  <span>24.99€</span>
+  <% else %>
+  <h5>Yearly plan</h5>
+  <span>249.99€</span>
+  <% end %>
+  </div>
+</div>
+
+  <div class="sub-info">
+  <p>
+
+  <span>
+    Next payment will be processed on
+    <span class="text-muted"><%= (Time.now + 30.days).strftime("%d %B  %Y") %>.
+  </span>
+  </span>
+</p>
+  <p>
+    <%= image_tag "cc_icons/#{current_user.cc_brand.downcase}_e.png" %> XXXX-XXXX-XXXX-<%= current_user.last_4_digits %>
+    </p>
+</div>
+  <div class="sub-action">
+    <button id="js-btn-cancel-subscription" class="btn btn-danger">Cancel Subscription</button>
+    <button id="js-toggle-billing-form" class="btn-app">Edit Billing Info</button>
+</div>
+</div>
+<% end %>
+
+<div id="billing-edit-form" style="<%= 'display: none;' if current_user.subscription_active %>">
+    <%= render partial: "user/settings/billings/form", :locals => {:edit => true}  %>
+</div>
+
+<div class="payment-history">
+<h4>Payment History</h4>
+
+  <div id="payments-list">
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:6%">CC</th>
+            <th style="width:18%">Type</th>
+            <th style="width:44%">Date</th>
+            <th style="width:6%">Amount</th>
+            <th style="width:18%">Invoice</th>
+          </tr>
+        </thead>
+
+        <tbody role="alert" aria-live="polite" aria-relevant="all">
+          <tr><td colspan="6"><p class="text-center text-muted">No payments</p></td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+Stripe.setPublishableKey('<%= Rails.application.secrets.stripe['public_api_key'] %>');
+</script>

@@ -1,0 +1,143 @@
+.signup-container {
+  background-color: #4A4E62;
+}
+.subscription-info {
+  .make-row();
+  border-bottom: @border-light;
+  margin-top: -5px;
+  padding: 0px 0px 20px 0;
+  .sub-plan-info {
+    .make-sm-column(2);
+    border-right: 2px solid #e3e3e3;
+    .t-plan {
+      margin: 0 auto;
+      max-width: 160px;
+    border: 1px solid #e3e3e3;
+    padding: 2px;
+    background: white;
+    border-radius: 6px;
+    color: white;
+    text-align: center;
+    h5 {
+      margin: 0;
+      font-size: 18px;
+      text-transform: uppercase;
+      background-color: @secondary;
+      padding: 5px;
+      color: white;
+      font-weight: 500;
+      border-radius: 6px 6px 0 0;
+    }
+    span {
+      display: block;
+      font-size: 22px;
+      padding: 8px;
+      color: @primary;
+    }
+  }
+}
+
+.subscribe-info {
+  .make-sm-column(12);
+  text-align: center;
+  background-color: #fafafa;
+}
+
+  .sub-info {
+    font-size: 18px;
+    font-weight: bold;
+    .make-sm-column(7);
+    p {
+      margin: 0;
+    margin-bottom: 10px;
+    img {
+      height: 40px;
+    }
+    }
+  }
+  .sub-action {
+    .make-sm-column(3);
+    text-align: right;
+    #js-btn-cancel-subscription {
+      margin-bottom: 10px;
+    }
+  }
+}
+.plan-view {
+  color: #1abc9c;
+}
+#billing-edit-form {
+  .make-row();
+  padding: 30px 0;
+  background: rgb(69, 77, 96);
+
+  #billing-orm {
+      margin-top: 20px;
+      margin-bottom: 40px;
+      .action-form {
+        margin-top: 10px;
+      }
+  }
+}
+.payment-history {
+  .make-row();
+  margin-left: -20px;
+  margin-right: -20px;
+
+  h4 {
+    width: 100%;
+    border: @border-light;
+    padding: 12px;
+    margin-top: 0px;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #fafafa;
+    color: @primary;
+    margin-bottom: 0;
+  }
+}
+#payments-list {
+  .make-md-column(12);
+  margin-left: -20px;
+  margin-right: -20px;
+
+  div {
+    padding: 0;
+    table {
+      .table;
+      .table-condensed;
+      margin-bottom: 0px;
+      thead {
+        tr {
+          height: 40px;
+          border-bottom: 1px solid #f4f4f4;
+          text-transform: uppercase;
+          th {
+            border-right: 1px solid #f4f4f4;
+            line-height: 39px;
+            text-align: center;
+            font-size: 11px;
+            padding: 0 10px;
+          }
+        }
+      }
+      tbody {
+        tr {
+          border-bottom: @border-light;
+          &:last-child {
+            border-bottom: none !important;
+          }
+          td {
+            border-top: none;
+            text-align: center;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}

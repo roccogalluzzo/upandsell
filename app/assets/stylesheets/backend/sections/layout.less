@@ -4,9 +4,38 @@
 @border-light:  1px solid #f4f4f4;
 @border-strong: 1px solid #ededed;
 
+
 .box {
   background-color: @box-background;
   border-radius: @box-border-radius;
+}
+
+#not-subscribed {
+  .box;
+  .make-row();
+  margin-bottom: 20px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+  i {
+    font-size: 60px;
+    margin: 10px;
+    color: @alizarin;
+  }
+  .no-message {
+    margin: 20px;
+    font-weight: 800;
+  }
+  .no-beta {
+    margin: 20px;
+    font-weight: 400;
+    color: @concrete;
+    text-align: center;
+  }
+  a {
+    margin-top: 18px;
+    float: right;
+  }
 }
 
 .page-content {
@@ -45,6 +74,17 @@
     z-index: 2;
     span {
       color: @silver;
+    }
+    .select {
+      margin-bottom: 0 !important;
+      margin-left: 15px;
+      a {
+        padding: 7px 40px 7px 15px !important;
+        span {
+          color: white;
+          text-transform: initial;
+        }
+      }
     }
     i {
       margin-right: 5px;
@@ -245,5 +285,3 @@ i {
   border-bottom-color: white;
   border-top-color: white;
 }
-
-

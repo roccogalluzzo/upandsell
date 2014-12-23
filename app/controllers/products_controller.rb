@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
     @paypal = @user.paypal_active?
     @ga_code = @user.ga_code
     @credit_card = @user.credit_card_active?
-    @published = true if (@paypal || @credit_card) && @product.published
+    @published = true if (@paypal || @credit_card) && @product.published && @user.subscription_active
     return if !@published
 
     @coupons =  @product.coupons.active.not_expired.blank?

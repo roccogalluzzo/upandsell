@@ -3,13 +3,19 @@ require 'split/dashboard'
 
 Upandsell::Application.routes.draw do
 
+  mount StripeEvent::Engine, at: '/stripe'
 
   get '/auth/paypal' => 'user/settings/payments#paypal_connect', as: 'paypal_integration'
   get '/auth/paypal/callback' => 'user/settings/payments#paypal_callback', as: 'paypal_integration_callback'
 
   devise_for :users, controllers: {  omniauth_callbacks: 'omniauth_callbacks',
     confirmations: 'confirmations', registrations: "registrations" }
-    get '/users/auth/:provider/callback' => 'user/settings/integrations#create', as: 'integration_callback'
+
+    devise_scope :user do
+      delete "/logout" => "devise/sessions#destroy"
+      get "/join"   => "registrations#new"
+      get "/login" => "devise/sessions#new"
+    end
  # Front-end
  root 'landing#index'
  get 'no-beta' => 'landing#beta'
@@ -51,6 +57,8 @@ end
 namespace :user do
   root 'dashboard#index'
   get 'dashboard/metrics'  => 'dashboard#metrics'
+  get 'dashboard/onload_metrics'  => 'dashboard#onload_metrics'
+  get 'complete_signup' => 'settings/billings#new'
 
   resources :affiliations
   resources :products, except: [:show] do
@@ -82,6 +90,7 @@ end
 
 get 'setup', to: 'setup#index'
 get 'billing_details', to: 'setup#billing_details'
+post 'billing_details', to: 'setup#save_billing_details'
 get 'resend_email', to: 'setup#resend_email'
 patch 'update_email', to: 'setup#update_email'
 
@@ -96,7 +105,7 @@ namespace :settings do
   end
   resource :integrations, only: [:edit, :create]
   resource :emails, only: [:edit, :update]
-  resource :upgrade, only: [:edit, :update]
+  resource :billing, except: [:index]
 end
 
 end

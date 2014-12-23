@@ -1,4 +1,22 @@
 GIT
+  remote: git://github.com/byterussian/carrierwave_direct.git
+  revision: 1f515ce93515d96421e068231079cccb6f24ce74
+  specs:
+    carrierwave_direct (0.0.14)
+      carrierwave
+      fog
+      uuidtools
+
+GIT
+  remote: git://github.com/byterussian/tabs.git
+  revision: 4720b77a130e666aff6ca09a836aa85b759537f8
+  branch: customization
+  specs:
+    tabs (1.0.1)
+      activesupport (>= 3.2)
+      redis (~> 3.0.0)
+
+GIT
   remote: git://github.com/dv/less-rails.git
   revision: 0fb489ac737cc0cb425fe135fc0ad637399d8f6b
   branch: fix-import-dependencies
@@ -23,24 +41,6 @@ GIT
   specs:
     country_select (2.1.0)
       countries (~> 0.9, >= 0.9.3)
-
-GIT
-  remote: https://github.com/Rodeoclash/carrierwave_direct
-  revision: cefde1adc4b2a5c9253e0735307ee4a71be79fb0
-  specs:
-    carrierwave_direct (0.0.14)
-      carrierwave
-      fog
-      uuidtools
-
-GIT
-  remote: https://github.com/byterussian/tabs.git
-  revision: 4720b77a130e666aff6ca09a836aa85b759537f8
-  branch: customization
-  specs:
-    tabs (1.0.1)
-      activesupport (>= 3.2)
-      redis (~> 3.0.0)
 
 GEM
   remote: http://rubygems.org/
@@ -157,6 +157,8 @@ GEM
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
+    dotenv-rails (0.11.1)
+      dotenv (= 0.11.1)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -481,6 +483,9 @@ GEM
       json (~> 1.8.1)
       mime-types (>= 1.25, < 3.0)
       rest-client (~> 1.4)
+    stripe_event (1.4.0)
+      activesupport (>= 3.1)
+      stripe (~> 1.6)
     subexec (0.2.3)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
@@ -500,7 +505,7 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    uuidtools (2.1.4)
+    uuidtools (2.1.5)
     vcr (2.9.2)
     warden (1.2.3)
       rack (>= 1.0)
@@ -536,6 +541,7 @@ DEPENDENCIES
   database_cleaner
   devise
   devise-async
+  dotenv-rails
   email_validator
   entypo-rails
   exchange (~> 1.2.0)
@@ -595,6 +601,7 @@ DEPENDENCIES
   spring
   sqlite3
   stripe
+  stripe_event
   tabs!
   therubyracer
   timecop

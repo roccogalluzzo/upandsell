@@ -30,6 +30,9 @@ module Upandsell
     config.i18n.enforce_available_locales = true
     config.middleware.use Rack::Affiliates
     #config.action_dispatch.default_headers = {  'X-Frame-Options' => 'GOFORIT' }
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
     config.generators do |g|
         g.test_framework :rspec, :fixtures => true,
         :view_specs => false,

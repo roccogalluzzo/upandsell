@@ -27,6 +27,9 @@
 //= require jquery-tags-input/jquery.tagsinput.js
 //= require typehead.js/dist/typeahead.bundle.min.js
 //= require jquery.payment/lib/jquery.payment.js
+//= require amcharts/amcharts.js
+//= require amcharts/themes/dark.js
+//= require amcharts/serial.js
 //= require_tree ./user
 
 $(document).ready(Up.init);

@@ -1,9 +1,11 @@
-<div class="unsubscribe-box">
-<div class="head">
-<h3>Are you sure you want to unsubscribe?</h3>
-</div>
-<div class="body">
-<%= link_to  "Confirm unsubscription", confirm_unsubscribe_order_path(params),
- class:"btn-submit" %>
-</div>
+<div class="sign-in-container text-center">
+  <div class="row">
+    <div class="sign-in-box">
+      <div class="body">
+        <p><b>Are you sure you want to unsubscribe?</b></p>
+        <%= link_to  "Confirm unsubscription", confirm_unsubscribe_order_path(params),
+        class:"btn-submit" %>
+      </div>
+    </div>
+  </div>
 </div>

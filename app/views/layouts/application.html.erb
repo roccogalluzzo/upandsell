@@ -55,12 +55,13 @@
                 <li class="image-li">
                   <%= image_tag current_user.avatar, class: 'nav-avatar img-circle' %>
                 </li>
-
+                <% if current_user.subscription_active %>
                 <li class="first-li <%= ap(new_user_product_path) %>">
                  <%= link_to(new_user_product_path) do %>
                  <i class="fa  fa-plus"></i>
                  <% end %>
                </li>
+               <% end %>
                <% if is_admin? %>
                <li><%= link_to(admin_root_path) do %>
                  <i class="fa fa-user  icon-user-2"></i>
@@ -126,6 +127,22 @@
     </div>
     <div class="page-content">
       <div class="content">
+        <% unless current_user.subscription_active %>
+        <div id="not-subscribed">
+          <div class="col-md-1">
+            <i class="fa fa-warning"></i>
+            </div>
+          <div class="col-md-9">
+            <p class="no-message">You currently don't have an active subscription, so you can't create or sell products.</p>
+          <% if  current_user.stripe_id.nil? && current_user.beta_signup? %>
+            <p class="no-beta">As a beta user you can have 6 months of free subscription.</p>
+            <% end %>
+          </div>
+          <div class="col-md-2">
+       <a href="/user/settings/billing/edit" class="btn-app">Subscribe</a>
+     </div>
+        </div>
+        <% end %>
         <%= yield %>
       </div>
     </div>

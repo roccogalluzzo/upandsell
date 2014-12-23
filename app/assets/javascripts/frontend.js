@@ -8,49 +8,56 @@
 
 
 $(document).ready(function() {
+  Devise = {
+    init: function() {
+      $('#js-change-price').on('click', Devise.change_price);
+      $('.sign-in-form').on('ajax:success', Devise.sign_in_success);
+      $('.sign-up-form').on('ajax:success', Devise.sign_up_success);
+      $('.simple_form').on('ajax:error', Devise.form_error);
+    },
+    change_price: function() {
+      cur_currency = $('.tag-currency').text();
+      cur_int = $('.tag-price').text();
+      cur_cents = $('.tag-cents').text();
+      $('.tag-currency').text($(this).data('switch-currency'));
+      $('.tag-price').text($(this).data('switch-int'));
+      $('.tag-cents').text($(this).data('switch-cents'));
+      $(this).data('switch-int', cur_int);
+      $(this).data('switch-currency', cur_currency);
+      $(this).data('switch-cents', cur_cents);
 
-  $('#js-cookie-btn').on('click', function(){
-    $('#js-cookie-msg').addClass('animated fadeOutUp');
-    $.cookie('cookie-msg', 'accepted', { expires: 1000 });
-  });
-
-  if(!$.cookie('cookie-msg')){
-    $('#js-cookie-msg').addClass('animated fadeInUp').show();
+      cur_text = $(this).text();
+      $(this).text( $(this).data('text'));
+      $(this).data('text', cur_text);
+    },
+    sign_in_success: function() {
+      window.location.href = '/user';
+    },
+    sign_up_success: function() {
+      window.location.href = '/user/complete_signup';
+    },
+    form_error: function() {
+      $('#js-form-error').fadeIn(700);
+    }
+  };
+  Cookies = {
+    init: function() {
+      $('#js-cookie-btn').on('click', Cookies.click);
+      if(!$.cookie('cookie-msg')){
+        $('#js-cookie-msg').addClass('animated fadeInUp').show();
+      }
+    },
+    click: function() {
+      $('#js-cookie-msg').addClass('animated fadeOutUp');
+      $.cookie('cookie-msg', 'accepted', { expires: 1000 });
+    }
   }
-
   if($('body').hasClass('home')){
-
-   $(".invite").on("ajax:success", function(e, data, status, xhr){
-    $(".invite").slideUp();
-    $("#js-beta-invite-sent").show().slideDown();
-    ga('send', 'event', 'form', 'beta_requested');
-  });
-   $(".invite").on("ajax:error", function(e, data, status, xhr){
-     $(".form-error p").text(data.responseJSON.msg);
-     $(".form-error").removeClass('hidden-animation').addClass('animated fadeInUp').css('visibility', 'visible');
-     setTimeout(function(){ $('.form-error').removeClass('animated fadeInUp').css('visibility', 'hidden');},3000);
-   });
-   $(".invite").validate({ showErrors: function(errorMap, errorList) {
-    $.each(this.validElements(), function (index, element) {
-      var $element = $(element);
-      $element.data("title", "")
-      .tooltip("destroy");
-   // $element.removeClass("has-error animated swing fadeInUp");
- });
-   // Create new tooltips for invalid elements
-   $.each(errorList, function (index, error) {
-    var $element = $(error.element);
-    $element.tooltip("destroy")
-    .data("title", error.message)
-    .data("placement", "bottom")
-    .tooltip();
- //   $('.beta-input').removeClass('animated swing fadeInUp');
- // setTimeout(function(){  $('.beta-input').addClass('animated swing');},200);
-
-});
- }});
    Animations.init();
  }else {
+   Devise.init();
+
+
    $(".simple_form").validate({ showErrors: function(errorMap, errorList) {
     $.each(this.validElements(), function (index, element) {
       var $element = $(element);
@@ -71,4 +78,6 @@ $(document).ready(function() {
   }});
 
  }
+
+
 });

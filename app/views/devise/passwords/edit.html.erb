@@ -1,21 +1,29 @@
-<div class="col-md-6 col-md-offset-3 sign-box">
-<div class="head">
-<h3>Change your password</h3>
+<% content_for(:page_title)  { "Change your Password" } %>
+
+<div class="sign-up-header">
+  <h1>Change your password?</h1>
 </div>
-  <div class="body">
-<%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+<div class="sign-in-container">
+  <div class="row">
+    <div class="sign-in-box">
+      <div class="body">
+        <%= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
 
-  <%= f.input :reset_password_token, :as => :hidden %>
-  <%= f.full_error :reset_password_token %>
+        <%= f.input :reset_password_token, :as => :hidden %>
+        <%= f.full_error :reset_password_token %>
 
-  <div class="form-inputs">
-    <%= f.input :password, :label => "New password", :required => true, :autofocus => true %>
-    <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+        <div class="form-inputs">
+          <%= f.input :password, :label => "New password", :required => true, :autofocus => true %>
+          <%= f.input :password_confirmation, :label => "Confirm your new password", :required => true %>
+        </div>
+
+        <div id="js-form-error">Invalid password.</div>
+        <%= f.button :submit, "Send Reset Password Email", class: "btn-submit", data: { disable_with: "Processing..." } %>
+        <% end %>
+      </div>
+      <div class="sign-box-links">
+        <small><%= link_to "Go to Login", login_path %></small>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Change my password", class: "btn-submit"  %>
-  </div>
-<% end %>
-</div>
 </div>

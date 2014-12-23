@@ -1,50 +1,10 @@
 TODO
 
-design:
-* pagina demo
-- connettere il tutto con ajax ect
-- testare il tutto
-- il blocco non lo farei sparire dall'alto verso
- il basso ma al contrario lo farei uscire alla sinistra
- di tutto lo schermo come se fosse un slider che cambia
-- nella versione mobile scegli o lasci lo stesso spazio o lo spazio lo fa diventare grigio uniformando i colori
-ps non dimenticare l'hover sul pay non cambia colore
--
-e se puoi prova a cambiare lo sfondo giallino con il blu della home vedi come viene
- slide e arriva la parte di checkout lasciando le info del footer
-- rebrading pagine errore
-- rebrading emails
+- implementare sei mesi signup per user beta
 
+-limitare la creazione prodotti
 
-v refactoring settings
-v spec settings
-- refactoring orders
-- spec orders
-v refactoring metriche
-v spec metriche
-* refactoring front end
-v spec front end
+- implementare il canel subscription
+- implementare i webhooks stripe
 
-- email acquisti customizzabile
- - sezione per settare email customizzabile
-- invio email e sinc con mailchimp/altri
-- la pagina summary deve mostrare il simbolo valuta non EUR USD ect
-- studiare api campaign monitor
-- studiare sconti
-
-
-
-per domani
-
-
-v convertire modal sync in ajax
-- scrivere sync emails su sideqik
-v model email da inviare
-- testare l'invio
-
-
-anche no per domani
-
-- scrivere invio emails mandrill su sidekiq
-- testare il tutto
-- trovare un modo per fa visualizzare le ultime email inviate
+- email fine trial/account rinnovato/rinnovo fallito

@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'tabs', git: 'https://github.com/byterussian/tabs.git', branch: 'customization'
-gem 'carrierwave_direct', git: 'https://github.com/Rodeoclash/carrierwave_direct'
+gem 'tabs', github: 'byterussian/tabs', branch: 'customization'
+gem 'carrierwave_direct', github: 'byterussian/carrierwave_direct'
 gem 'sass-rails', github: 'rails/sass-rails'
 gem 'less-rails', github: 'dv/less-rails', branch: 'fix-import-dependencies'
 
@@ -60,12 +60,14 @@ gem 'simple_form'
 gem 'sinatra', '>= 1.3.0', require: false
 gem 'split'
 gem 'stripe'
+gem 'stripe_event'
 gem 'therubyracer', platforms: :ruby
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'byebug'
+  gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'fuubar'
   gem 'guard-rspec', require: false

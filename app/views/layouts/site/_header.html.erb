@@ -3,7 +3,7 @@
 		<div class="navbar-header">
 			<%= link_to(root_path,
 			class: "navbar-brand") do %>
-			<%= image_tag "logo_beta.png",
+			<%= image_tag "logo_a.png",
 			alt: 'Up&Sell.Me Logo',
 			title: 'Web app to sell your digital downloads' %>
 			<% end %>
@@ -14,10 +14,10 @@
 		Go To Dashboard
 		<% end %>
 		<% else %>
-		<%= link_to("Sign Up", new_user_registration_path,
+		<%= link_to("Sign Up & Pricing", join_path,
 		class: "navbar-btn") %>
 
-		<%= link_to("Sign In", new_user_session_path,
+		<%= link_to("Sign In", login_path,
 		class: "navbar-text-btn") %>
 		<% end %>
 	</div>
