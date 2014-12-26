@@ -73,7 +73,7 @@
     submit: function() {
       $('.btn-action').attr("disabled", "disabled");
       expire = $('#cc_expire').payment('cardExpiryVal');
-      if(window.edit && expire.month) {
+      if(expire) {
       Stripe.card.createToken({
         number:  $('#cc_number').val().replace(/\s+/g, ''),
         cvc:  $('#cc_cvc').val(),
