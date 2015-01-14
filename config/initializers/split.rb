@@ -1,5 +1,4 @@
-rails_root = ENV['RAILS_ROOT'] || File.dirname(__FILE__) + '/../..'
-rails_env = ENV['RAILS_ENV'] || 'development'
+rails_root = Rails.root.join('config', 'split.yml')
 
-split_config = YAML.load_file(rails_root + '/config/split.yml')
-Split.redis = split_config[rails_env]
+split_config = YAML.load_file(rails_root)
+Split.redis = split_config[Rails.env]
