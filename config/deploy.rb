@@ -5,7 +5,7 @@ set :application, 'upandsell'
 set :repo_url, 'git@bitbucket.org:angelbit/up-sell.git'
 
 # Default branch is :master
-ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
+#ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/var/www/upandsell'
