@@ -1,7 +1,7 @@
 <% content_for(:page_title)  { "Orders" } %>
 <%- content_for :title  do %>
 <i class="fa fa-lg icon-reciept-1"></i>
-Orders  <span style="color: #888">(<%= Order.all.count %>)</span>
+Orders  <span style="color: #888">(<%= Order.completed.count %>)</span>
 <% end %>
 
 <div class="row p-b-15">

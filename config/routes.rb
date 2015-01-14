@@ -112,7 +112,6 @@ end
 
 namespace :admin do
  mount Sidekiq::Web => 'sidekiq'
- mount Split::Dashboard => "split"
 
  root 'dashboard#index'
  resources :users, only: [:index,:show]
@@ -126,5 +125,11 @@ resources :emails, only: [:index, :create] do
 end
 resources :affiliations, only: [:index]
 end
+
+match "/admin/split" => Split::Dashboard, :anchor => false, :via => [:get, :post], :constraints => lambda { |request|
+  request.env['warden'].authenticated? # are we authenticated?
+  request.env['warden'].authenticate! # authenticate if not already
+  request.env['warden'].user.admin?
+}
 
 end

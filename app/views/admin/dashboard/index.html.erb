@@ -4,73 +4,50 @@
 <i class="fa fa-lg fa-cubes"></i>
 Admin Dashboard
 <% end %>
+<div id="admin-dashboard-page">
+<div class="metric-row">
 
-<div class="summary">
- <div class="summary-widget">
-  <div class="earnings" style="height: 411px;">
-    <div class="title">
-      <h5>EARNINGS</h5>
-    </div>
-    <div class="box">
-      <p>TODAY</p>
-      <h4>
-        <span class="earnings-today"> <%=  @earnings[:today] %></span>
-        <%= currency_symbol current_user.currency %>
-      </h4>
-    </div>
-    <div class="box">
-      <p>THIS WEEK</p>
-      <h4>
-        <span class="earnings-week"> <%=  @earnings[:week] %></span>
-        <%= currency_symbol current_user.currency %>
-      </h4>
-    </div>
-    <div class="box">
-      <p>THIS MONTH</p>
-      <h4>
-        <span class="earnings-month"> <%=  @earnings[:month] %></span>
-        <%= currency_symbol current_user.currency %>
-      </h4>
-    </div>
+<div class="metric-box">
+  <span class="metric-var"><%= @users %></span>
+  <span class="metric-name">Active Users</span>
+</div>
 
-    <div class="overlay-graph">
-      <div class="overlayer-wrapper">
-        <%= content_tag "div", id: "chart", class: "graph",
-        data: { earnings: @earnings[:summary_data], currency: currency_symbol(current_user.currency) } do %>
-        <div id="js-earnings" style="height:275px;"></div><% end %>
-      </div>
-    </div>
-  </div>
+<div class="metric-box">
+  <span class="metric-var">todo</span>
+  <span class="metric-name">Trial Users</span>
+</div>
 
-  <div class="stats">
-    <div class="stats-box">
-    <p>TODAY SIGNUPS</p>
-      <div class="clearfix"></div>
-      <h4 class="sales-month"><%= @users_today || 0%></h4>
-      <div class="clearfix"></div>
-    </div>
-    <div class="stats-box">
-      <p>USERS</p>
-      <div class="clearfix"></div>
-      <h4 class="sales-month"><%= @users || 0%></h4>
-      <div class="clearfix"></div>
-    </div>
+<div class="metric-box">
+  <span class="metric-var"><%= @users_trial %></span>
+  <span class="metric-name">Not Active Users</span>
+</div>
 
-    <div class="stats-box">
-      <p>PRODUTS</p>
-      <div class="clearfix"></div>
-      <h4 class="visits-month"><%= @products || 0%></h4>
-      <div class="clearfix"></div>
-    </div>
+<div class="metric-box">
+  <span class="metric-var"><%= @users_today %></span>
+  <span class="metric-name">Today sign ups</span>
+</div>
+</div>
 
-    <div class="stats-box">
-      <p>AVERAGE PRODUCT PRICE</p>
-      <div class="clearfix"></div>
-      <h4>
-        <span class="conversion-rate"><%= humanized_money_with_symbol @average_product_price || 0%></span>
-      </h4>
-      <div class="clearfix"></div>
-    </div>
-  </div>
+<div class="metric-row">
+<div class="metric-box">
+  <span class="metric-var"><%=  @average_product_price %></span>
+  <span class="metric-name">AVG. Product Price</span>
+</div>
+
+<div class="metric-box">
+  <span class="metric-var"><%= @products %></span>
+  <span class="metric-name">N. Products</span>
+</div>
+
+<div class="metric-box">
+  <span class="metric-var"><%= @orders %></span>
+  <span class="metric-name">N. Orders</span>
+</div>
+
+<div class="metric-box">
+  <span class="metric-var"><%= @orders_today %></span>
+  <span class="metric-name">Today Sales</span>
+</div>
+</div>
 </div>
 

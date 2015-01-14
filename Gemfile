@@ -58,7 +58,7 @@ gem 'sdoc', require: false
 gem 'sidekiq'
 gem 'simple_form'
 gem 'sinatra', '>= 1.3.0', require: false
-gem 'split'
+gem 'split', :require => 'split/dashboard'
 gem 'stripe'
 gem 'stripe_event'
 gem 'therubyracer', platforms: :ruby

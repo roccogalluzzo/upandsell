@@ -2,15 +2,18 @@ class Admin::DashboardController < Admin::BaseController
 
  def index
 
-  @users = User.count
+  @users = User.active.count
+  @users_trial = User.not_active.count
   @users_today = User.where(
-    created_at: (DateTime.now.at_beginning_of_day.utc..Time.now.utc)).count
+    created_at: (DateTime.now.at_beginning_of_day.utc..Time.now.utc)).active.count
   @products = Product.count
  @products_av = Product.group('price_currency').average('price_cents')
  @average_product_price = Money.new(@products_av["USD"])
+ @orders = Order.completed.count
+ @orders_today = Order.where(
+    created_at: (DateTime.now.at_beginning_of_day.utc..Time.now.utc)).completed.count
 
- sales = Metric::Product.new(Product.all).sales(30.days.ago).get
- @earnings = get_earnings(sales)
+
 end
 
 def products

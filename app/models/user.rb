@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   serialize :createsend_token
 
   scope :newsletter, -> { where newsletter: true }
+  scope :not_active, -> { where subscription_active: false }
+  scope :active, -> { where subscription_active: true }
+
 
   validates_presence_of :name, :email
   validates_confirmation_of :password
