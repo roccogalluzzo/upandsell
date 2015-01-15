@@ -20,7 +20,7 @@ before_script:
   - RAILS_ENV=test rake db:migrate
 
 script:
-  - bin/rspec -f documentation -o shippable/testresults/results.txt
+  - rspec --format RspecJunitFormatter  --out shippable/testresults/results.txt
 
 after_success:
   - cap production deploy

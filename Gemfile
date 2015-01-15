@@ -79,6 +79,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'faker'
+  gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'simplecov', '~> 0.7.1', require: false
   gem 'sqlite3'
