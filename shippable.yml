@@ -1,13 +1,9 @@
 language: ruby
 rvm:
   - 2.1.5
-env:
-  - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
 
-
-language: ruby
-rvm:
-  - 2.1.5
+services:
+    - redis
 
 env:
   global:
