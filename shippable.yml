@@ -20,9 +20,11 @@ before_script:
   - RAILS_ENV=test rake db:migrate
 
 script:
-  - rspec --format RspecJunitFormatter  --out shippable/testresults/results.txt
+  - rake ci:all
 
 after_success:
+  - eval `ssh-agent -s`
+  - ssh-add
   - cap production deploy
 
 notifications:

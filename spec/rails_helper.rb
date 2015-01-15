@@ -1,4 +1,11 @@
 require 'simplecov'
+
+if ENV["COVERAGE_REPORTS"]
+  require 'simplecov-csv'
+  SimpleCov.formatter = SimpleCov::Formatter::CSVFormatter
+  SimpleCov.coverage_dir(ENV["COVERAGE_REPORTS"])
+end
+
 SimpleCov.start 'rails' do
   add_filter "/helpers/"
 end
@@ -29,7 +36,7 @@ connection = Fog::Storage.new({
   :aws_secret_access_key    => aws["secret_access_key"]
   })
 
-  connection.directories.create(key: aws["bucket"])
+connection.directories.create(key: aws["bucket"])
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   c.hook_into :webmock

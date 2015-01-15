@@ -77,11 +77,11 @@ group :development, :test do
 end
 group :test do
   gem 'capybara'
+  gem 'ci_reporter_rspec'
   gem 'database_cleaner'
   gem 'faker'
-  gem 'rspec_junit_formatter'
-  gem 'selenium-webdriver'
   gem 'simplecov', '~> 0.7.1', require: false
+  gem 'simplecov-csv'
   gem 'sqlite3'
   gem 'timecop'
   gem 'webmock'
