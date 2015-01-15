@@ -1,3 +1,4 @@
+cache: true
 language: ruby
 rvm:
   - 2.1.5
