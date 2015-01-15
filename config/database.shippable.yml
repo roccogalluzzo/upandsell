@@ -7,13 +7,10 @@ development:
   password:
 
 test:
-  adapter: mysql
-  encoding: unicode
-  database: upsell_test
+  adapter: sqlite3
+  database: db/test.sqlite3
   pool: 5
-  username: shippable
-  password:
-  min_messages: warning
+  timeout: 5000
 
 production:
   adapter: postgresql
