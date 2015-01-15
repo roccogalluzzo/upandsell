@@ -11,7 +11,7 @@ test:
   encoding: unicode
   database: up-sell_test
   pool: 5
-  username: mysql
+  username: shippable
   password:
   min_messages: warning
 
