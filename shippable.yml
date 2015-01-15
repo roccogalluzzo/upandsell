@@ -23,8 +23,6 @@ script:
   - bin/rspec -f documentation -o shippable/testresults/results.txt
 
 after_success:
-  - eval `ssh-agent -s`
-  - ssh-add
   - cap production deploy
 
 notifications:
