@@ -1,0 +1,35 @@
+language: ruby
+rvm:
+  - 2.1.2
+env:
+  - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
+
+
+language: ruby
+rvm:
+  - 2.1.5
+
+env:
+  global:
+    - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
+
+before_install:
+  - gem install capistrano
+
+before_script:
+  - mkdir -p shippable/testresults
+  - mkdir -p shippable/codecoverage
+  - mysql -e 'create database if not exists rails;'
+  - RAILS_ENV=test rake db:migrate
+
+script:
+  - bin/rspec -f documentation -o shippable/testresults/results.txt
+
+after_success:
+  - eval `ssh-agent -s`
+  - ssh-add
+  - cap production deploy
+
+notifications:
+     email:
+         recipients: rocco@galluzzo.me
