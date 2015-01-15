@@ -20,7 +20,7 @@ before_script:
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
   - cp config/database.shippable.yml config/database.yml
-  - mysql -e 'create database if not exists up-sell_test;'
+  - mysql -e 'create database if not exists upsell_test;'
   - RAILS_ENV=test rake db:migrate
 
 script:

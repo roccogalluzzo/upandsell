@@ -9,7 +9,7 @@ development:
 test:
   adapter: mysql
   encoding: unicode
-  database: up-sell_test
+  database: upsell_test
   pool: 5
   username: shippable
   password:
