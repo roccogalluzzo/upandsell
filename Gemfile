@@ -7,7 +7,7 @@ gem 'less-rails', github: 'dv/less-rails', branch: 'fix-import-dependencies'
 
 gem 'agent_orange'
 gem 'aws-sdk'
-gem 'bower-rails', '~> 0.7.0'
+gem 'bower-rails'
 gem 'braintree'
 gem 'carrierwave'
 gem 'carrierwave-processing'
