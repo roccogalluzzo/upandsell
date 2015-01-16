@@ -23,5 +23,8 @@
     "ScrollMagic": "1.2.0",
     "jquery.cookie": "latest",
     "bootstrapvalidator": "latest"
+  },
+  "resolutions": {
+    "jquery": ">=1.7.0"
   }
 }
