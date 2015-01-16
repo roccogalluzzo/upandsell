@@ -22,6 +22,7 @@
     "ScrollMagic": "1.2.0",
     "jquery.cookie": "latest",
     "select2": "latest",
+    "jquery.scrollTo": "latest",
     "bootstrapvalidator": "latest"
   },
   "resolutions": {
