@@ -8,5 +8,5 @@ require File.expand_path('../config/application', __FILE__)
 Upandsell::Application.load_tasks
 
 namespace :ci do
-  task :all => ['ci:setup:rspec', 'rspec']
+  task :all => ['ci:setup:rspec', 'spec']
 end
