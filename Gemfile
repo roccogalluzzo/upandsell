@@ -80,7 +80,7 @@ group :test do
   gem 'ci_reporter_rspec'
   gem 'database_cleaner'
   gem 'faker'
-  gem 'simplecov', '~> 0.7.1', require: false
+  gem 'simplecov'
   gem 'simplecov-csv'
   gem 'sqlite3'
   gem 'timecop'
