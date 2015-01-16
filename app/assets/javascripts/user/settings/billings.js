@@ -28,7 +28,7 @@
     window.edit = true;
     Billings.BillingForm.init();
     $('#js-toggle-billing-form').on('click', function(){
-      $('#billing-edit-form').fadeToggle();
+      $('form').fadeToggle();
       return false;
     });
     $('#cc_number').rules( "remove", 'required');
@@ -81,13 +81,13 @@
         exp_year: expire.year
       }, Billings.BillingForm.stripe);
     }else {
-      var $form = $('#billing-edit-form');
+      var $form = $('form');
       $form.trigger("submit.rails");
     }
       return false;
     },
     stripe: function(status, response) {
-      var $form = $('#billing-edit-form');
+      var $form = $('form');
       if (response.error) {
         Up.alert.open(response.error.message);
         return false
@@ -134,7 +134,7 @@
         $('#cc_cvc').payment('formatCardCVC');
         $.validator.addMethod("ccNumberValid", Billings.BillingForm.validation.ccNumberValid, " Credit Card Number is Invalid.");
         $.validator.addMethod("ccExpValid", Billings.BillingForm.validation.ccExpValid, " Credit Card Data is Invalid.");
-        $('#billing-edit-form').validate({
+        $('form').validate({
           submitHandler: Billings.BillingForm.submit,
           showErrors: Billings.BillingForm.validation.showErrors,
           errorPlacement: Billings.BillingForm.validation.errorPlacement,
