@@ -23,13 +23,14 @@ set :rbenv_ruby, '2.1.2'
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all
 
-
+fetch(:default_env).merge!(rails_env: :production, path: "/usr/local/bin:$PATH")
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 # Default value for keep_releases is 5
 set :keep_releases, 2
 before "deploy:starting", "deploy:set_env"
+before 'deploy:updated', 'bower:install'
 after "deploy:updated", "newrelic:notice_deployment"
 
 namespace :deploy do
