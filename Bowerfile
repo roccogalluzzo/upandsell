@@ -20,5 +20,6 @@ asset "animateCSS"
 asset "jquery-simulate-ext", "1.3.0"
 asset "ScrollMagic", "1.2.0"
 asset "jquery.cookie"
+asset "select2"
 asset "bootstrapvalidator"
 
