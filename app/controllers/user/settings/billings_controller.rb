@@ -50,8 +50,7 @@ class User::Settings::BillingsController < User::BaseController
   end
 
   def destroy
-    SubscriptionService.new(current_user).cancel_subscription
-    redirect_to edit_user_settings_billing_path
+    SubscriptionService.new(current_user).unsubscribe
   end
 
   private
