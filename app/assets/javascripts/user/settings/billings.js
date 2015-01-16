@@ -43,9 +43,9 @@
       $('#user_country').on('change', Billings.BillingForm.update_fields);
       $("input[name='user[business_type]']:radio").on('change', Billings.BillingForm.update_fields);
       Billings.BillingForm.update_fields();
-      $('form').bind('ajax:beforeSend', Billings.BillingForm.success);
-      $('form').bind('ajax:success', Billings.BillingForm.success);
-      $('form').bind('ajax:error', Billings.BillingForm.error);
+      $('#billing-edit-form').bind('ajax:beforeSend', Billings.BillingForm.success);
+      $('#billing-edit-form').bind('ajax:success', Billings.BillingForm.success);
+      $('#billing-edit-form').bind('ajax:error', Billings.BillingForm.error);
       $('#js-change-price').on('click',  Billings.BillingForm.change_price);
     },
     change_price: function() {
@@ -81,13 +81,13 @@
         exp_year: expire.year
       }, Billings.BillingForm.stripe);
     }else {
-      var $form = $('form');
+      var $form = $('#billing-edit-form');
       $form.trigger("submit.rails");
     }
       return false;
     },
     stripe: function(status, response) {
-      var $form = $('form');
+      var $form = $('#billing-edit-form');
       if (response.error) {
         Up.alert.open(response.error.message);
         return false
@@ -134,7 +134,7 @@
         $('#cc_cvc').payment('formatCardCVC');
         $.validator.addMethod("ccNumberValid", Billings.BillingForm.validation.ccNumberValid, " Credit Card Number is Invalid.");
         $.validator.addMethod("ccExpValid", Billings.BillingForm.validation.ccExpValid, " Credit Card Data is Invalid.");
-        $('form').validate({
+        $('#billing-edit-form').validate({
           submitHandler: Billings.BillingForm.submit,
           showErrors: Billings.BillingForm.validation.showErrors,
           errorPlacement: Billings.BillingForm.validation.errorPlacement,
