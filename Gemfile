@@ -69,6 +69,7 @@ group :development, :test do
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
+  gem 'faker'
   gem 'fuubar'
   gem 'guard-rspec', require: false
   gem 'rb-fsevent'
@@ -79,10 +80,12 @@ group :test do
   gem 'capybara'
   gem 'ci_reporter_rspec'
   gem 'database_cleaner'
-  gem 'faker'
+  gem 'poltergeist'
+  gem 'capybara-select2', github: 'byterussian/capybara-select2'
   gem 'simplecov'
   gem 'simplecov-csv'
   gem 'sqlite3'
+  gem 'rspec-activemodel-mocks'
   gem 'timecop'
   gem 'webmock'
 end

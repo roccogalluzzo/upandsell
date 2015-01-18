@@ -11,21 +11,6 @@ FactoryGirl.define do
     gateway 'paypal'
     user
     product
-  end
 
-  factory :order_completed, parent: :order do
-    status 'completed'
-  end
-
-  factory :order_yankee, parent: :order do
-    price_currency 'USD'
-  end
-
-  factory :order_french, parent: :order do
-    price_currency 'EUR'
-  end
-
-  factory :order_english, parent: :order do
-    price_currency 'GBP'
   end
 end

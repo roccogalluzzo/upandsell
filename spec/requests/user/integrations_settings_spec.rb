@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 describe "Integrations Settings" do
- before :all do
-   post 'users/sign_in',
-   'user[email]' => USER.email, 'user[password]' => USER.password
- end
+  before :each do
+  user = create(:user)
+  post 'users/sign_in',
+  'user[email]' => user.email, 'user[password]' => user.password
+end
 
- describe "Mailchimp" do
+describe "Mailchimp" do
   it "store api token on db" do
   end
 end

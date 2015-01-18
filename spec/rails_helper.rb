@@ -1,6 +1,5 @@
 require 'simplecov'
 require 'simplecov-csv'
-
 if ENV["COVERAGE_REPORTS"]
   SimpleCov.formatter = SimpleCov::Formatter::CSVFormatter
   SimpleCov.coverage_dir(ENV["COVERAGE_REPORTS"])
@@ -9,22 +8,31 @@ end
 SimpleCov.start 'rails' do
   add_filter "/helpers/"
 end
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+
 ENV["RAILS_ENV"] ||= 'test'
+
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'webmock/rspec'
 require 'sidekiq/testing'
+require 'capybara/poltergeist'
 
-# Requires supporting ruby files with custom matchers and macros, etc, in
-# spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
-# run as spec files by default. This means that files in spec/support that end
-# in _spec.rb will both be required and run as specs, causing the specs to be
-# run twice. It is recommended that you do not name files matching this glob to
-# end with _spec.rb. You can configure this pattern with with the --pattern
-# option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
+
+ Capybara.javascript_driver = :poltergeist
+
+Capybara.default_wait_time = 15
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, {
+    debug: false,
+    default_wait_time: 30,
+    js_errors: true,
+    inspector: true,
+    phantomjs_options: ['--ignore-ssl-errors=yes', '--ssl-protocol=any'],
+    timeout: 90})
+end
+
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 
@@ -44,8 +52,6 @@ VCR.configure do |c|
   c.allow_http_connections_when_no_cassette = true
 end
 
-# Checks for pending migrations before tests are run.
-# If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
@@ -66,24 +72,26 @@ RSpec.configure do |config|
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  config.include ValidUserRequestHelper
   config.include FactoryGirl::Syntax::Methods
+  config.include Capybara::DSL
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-    USER ||= FactoryGirl.create :user_with_products
+    DatabaseCleaner.strategy = :truncation
   end
 
   config.around(:each) do |example|
+
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.start
+    example.run
+    DatabaseCleaner.clean
     Redis.new(Upandsell::Application.config.redis).flushdb
-    DatabaseCleaner.cleaning do
-      example.run
-    end
+    Capybara.reset_sessions!
   end
+
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.

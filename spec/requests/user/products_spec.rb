@@ -2,46 +2,47 @@ require 'rails_helper'
 
 describe "Products" do
   before { skip }
- before :all do
-   post 'users/sign_in',
-   'user[email]' => USER.email, 'user[password]' => USER.password
- end
-
- describe "Add New Product" do
-  let(:product) {{product: { name: 'produ', price: 400}}}
-
-  context "valid data" do
-
-   it "create a new product" do
-    post '/user/products/files', {name: 'test.exe'}
-    file_key = JSON(response.body)['key']
-    FOG.put_object('upandsell-dev', file_key, 'test')
-    product[:product]["file_key"] = file_key
-    post '/user/products', product
-    expect(response.status).to eq(200)
+  before :all do
+    user = create(:user)
+    post 'users/sign_in',
+    'user[email]' => user.email, 'user[password]' => user.password
   end
 
-  it "create a new product with preview image" do
-    post '/user/products/files', {name: 'test2.exe'}
-    file_key = JSON(response.body)['key']
-    FOG.put_object('upandsell-dev', file_key, 'test')
-    product[:product][:file_key] = file_key
-    product[:product][:preview] = Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/files/test.png",
-     "image/png")
-    post '/user/products', product
-    expect(response.status).to eq(200)
+  describe "Add New Product" do
+    let(:product) {{product: { name: 'produ', price: 400}}}
+
+    context "valid data" do
+
+     it "create a new product" do
+      post '/user/products/files', {name: 'test.exe'}
+      file_key = JSON(response.body)['key']
+      FOG.put_object('upandsell-dev', file_key, 'test')
+      product[:product]["file_key"] = file_key
+      post '/user/products', product
+      expect(response.status).to eq(200)
+    end
+
+    it "create a new product with preview image" do
+      post '/user/products/files', {name: 'test2.exe'}
+      file_key = JSON(response.body)['key']
+      FOG.put_object('upandsell-dev', file_key, 'test')
+      product[:product][:file_key] = file_key
+      product[:product][:preview] = Rack::Test::UploadedFile.new("#{Rails.root}/spec/fixtures/files/test.png",
+       "image/png")
+      post '/user/products', product
+      expect(response.status).to eq(200)
+    end
+
   end
 
-end
+  context "invalid data" do
 
-context "invalid data" do
+    it "not create a new product" do
+      post '/user/products', product
+      expect(response.status).to eq(422)
+    end
 
-  it "not create a new product" do
-    post '/user/products', product
-    expect(response.status).to eq(422)
   end
-
-end
 end
 
 describe "Edit a Product" do

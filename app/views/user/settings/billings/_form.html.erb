@@ -5,13 +5,13 @@
     <div class="billing-type">
       <div class="radio radio-inline">
         <label>
-          <input type="radio" name="user[business_type]" value="private" checked>
+          <input id="type-private" type="radio" name="user[business_type]" value="private" checked>
           Private
         </label>
       </div>
       <div class="radio radio-inline">
         <label>
-          <input type="radio" name="user[business_type]" value="company">
+          <input id="type-company" type="radio" name="user[business_type]" value="company">
           Company
         </label>
       </div>
@@ -63,7 +63,7 @@
       <div class="setup-payments-row">
         <h5>Payment Details</h5>
         <% unless defined?(edit) && edit %>
-        <p>This is just to open your account, we won't charge your card until trial ends.</p>
+        <p>This is just to open your account. We won't charge your card until your trial period ends.</p>
         <% end %>
         <div class="payment-box">
           <div class="form-group with_feedback required user_cc_number">
@@ -111,7 +111,7 @@
     </div>
       <% else %>
       <div class="footer-billing">
-        <p>  If you don’t want to continue using Up&amp;Sell.Me, just cancel before the trial ends and you won’t be charged. Otherwise, you’ll pay for the service as long you don't cancel the subscription.</p>
+        <p>If you don't want to continue using Up&amp;Sell.me, just cancel before the trial ends and you won’t be charged. Otherwise, you’ll pay for the service as long you don't cancel the subscription.</p>
       </div>
     </div>
     <div class="action-form">

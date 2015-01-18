@@ -1,36 +1,8 @@
 FactoryGirl.define do
   factory :user do
-    name "John"
-    sequence(:email) { |n| "person#{n}@byebye.com" }
+    name Faker::Name.name
+    email {Faker::Internet.email}
     password '12345678'
     password_confirmation '12345678'
-    credit_card_token 'c22776f4745902e568b0532f73e5a723'
-  end
-
-
-  factory :user_with_products, parent: :user do
-    ignore do
-      products 1
-    end
-
-    after(:create) do |user, evaluator|
-      create_list(:product, evaluator.products, user: user)
-    end
-  end
-  factory :user_with_products_and_sales, parent: :user do
-    ignore do
-      products 2
-    end
-
-    after(:create) do |user, evaluator|
-      create_list(:product_with_orders, evaluator.products, user: user)
-    end
-  end
-
-  factory :user_yankee, parent: :user_with_products_and_sales do
-    currency 'USD'
-  end
-    factory :user_french, parent: :user_with_products_and_sales do
-    currency 'EUR'
   end
 end
