@@ -31,5 +31,3 @@ after_success:
 notifications:
   email:
     recipients: rocco@galluzzo.me
-      on_success: change
-      on_failure: always
