@@ -19,6 +19,9 @@ before_script:
   - cp config/database.shippable.yml config/database.yml
   - mysql -e 'create database if not exists upsell_test;'
   - RAILS_ENV=test rake db:migrate
+  - source ~/.nvm/nvm.sh
+  - npm install -g bower
+  - bundle exec rake bower:install
 
 script:
   - rake ci:all
