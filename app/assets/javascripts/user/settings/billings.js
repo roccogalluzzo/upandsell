@@ -28,7 +28,7 @@
     window.edit = true;
     Billings.BillingForm.init();
     $('#js-toggle-billing-form').on('click', function(){
-      $('#billing-edit-form').fadeToggle();
+      $('form').fadeToggle();
       return false;
     });
     $('#cc_number').rules( "remove", 'required');
@@ -43,9 +43,9 @@
       $('#user_country').on('change', Billings.BillingForm.update_fields);
       $("input[name='user[business_type]']:radio").on('change', Billings.BillingForm.update_fields);
       Billings.BillingForm.update_fields();
-      $('form').bind('ajax:beforeSend', Billings.BillingForm.success);
-      $('form').bind('ajax:success', Billings.BillingForm.success);
-      $('form').bind('ajax:error', Billings.BillingForm.error);
+      $('#billing-edit-form').bind('ajax:beforeSend', Billings.BillingForm.success);
+      $('#billing-edit-form').bind('ajax:success', Billings.BillingForm.success);
+      $('#billing-edit-form').bind('ajax:error', Billings.BillingForm.error);
       $('#js-change-price').on('click',  Billings.BillingForm.change_price);
     },
     change_price: function() {

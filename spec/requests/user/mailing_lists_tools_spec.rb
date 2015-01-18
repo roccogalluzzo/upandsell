@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 describe "Mailing List" do
- before :all do
+  before :each do
+   user = create(:user)
    post 'users/sign_in',
-   'user[email]' => USER.email, 'user[password]' => USER.password
+   'user[email]' => user.email, 'user[password]' => user.password
  end
 
  describe "Create" do

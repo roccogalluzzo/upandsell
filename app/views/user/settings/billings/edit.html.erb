@@ -32,7 +32,8 @@ Settings / <span>Billing Information</span>
     </p>
 </div>
   <div class="sub-action">
-    <button id="js-btn-cancel-subscription" class="btn btn-danger">Cancel Subscription</button>
+      <%= link_to " Cancel Subscription", user_settings_billing_path, method: :delete,
+   id: "js-btn-cancel-subscription", class:"btn btn-danger" %>
     <button id="js-toggle-billing-form" class="btn-app">Edit Billing Info</button>
 </div>
 </div>

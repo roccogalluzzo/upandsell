@@ -1,7 +1,7 @@
 <% content_for(:page_title)  { "Complete Sign Up" } %>
 <%- content_for :title  do %>
 <i class="fa fa-lg fa-credit-card"></i>
-Account / <span>Complete Sign Up</span>
+Account / <span>Billing Info</span>
 <% end %>
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 
@@ -9,7 +9,7 @@ Account / <span>Complete Sign Up</span>
 Stripe.setPublishableKey('<%= Rails.application.secrets.stripe['public_api_key'] %>');
 </script>
 <div class="setup-billing">
-  <h3>Complete Sign Up</h3>
+  <h3>Complete your sign up process</h3>
   <h5>Fill out your billing information to start your free trial</h5>
   <%= render partial: "user/settings/billings/form" %>
 </div>

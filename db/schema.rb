@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20141206231950) do
     t.datetime "invitation_accepted_at"
   end
 
+  add_index "invites", ["email"], name: "index_invites_on_email", unique: true, using: :btree
   add_index "invites", ["invitation_token"], name: "index_invites_on_invitation_token", unique: true, using: :btree
 
   create_table "mailing_list_emails", force: true do |t|
