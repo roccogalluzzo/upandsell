@@ -12,6 +12,8 @@ env:
 
 before_install:
   - gem install capistrano
+  - sudo sed -i "/^# deb.*multiverse/ s/^# //" /etc/apt/sources.list
+  - sudo apt-get update
   - "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections"
   - "sudo apt-get install ttf-mscorefonts-installer"
   - "sudo apt-get install x-ttcidfont-conf"
