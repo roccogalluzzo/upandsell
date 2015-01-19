@@ -15,6 +15,7 @@ feature "User complete Sign Up", js: true do
       end
 
       scenario "of a private IT" do
+
       end
 
       scenario "of a company IT " do
