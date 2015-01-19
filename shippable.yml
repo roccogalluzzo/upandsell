@@ -12,6 +12,7 @@ env:
 
 before_install:
   - gem install capistrano
+  - sudo apt-get install ttf-mscorefonts-installer
 
 before_script:
   - mkdir -p shippable/testresults
