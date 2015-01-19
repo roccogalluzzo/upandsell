@@ -12,7 +12,10 @@ env:
 
 before_install:
   - gem install capistrano
-  - sudo apt-get install fontconfig libfontconfig-dev libfontenc-dev libfontenc1 libxfont-dev libxfont1 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic ttf-mscorefonts-installer libxext-dev libwayland-dev
+  - "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections"
+  - "sudo apt-get install ttf-mscorefonts-installer"
+  - "sudo apt-get install x-ttcidfont-conf"
+  - sudo apt-get install fontconfig libfontconfig-dev libfontenc-dev libfontenc1 libxfont-dev libxfont1 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic libxext-dev libwayland-dev
 
 
 before_script:
