@@ -22,7 +22,7 @@ require 'capybara/poltergeist'
 
  Capybara.javascript_driver = :poltergeist
 if ENV["COVERAGE_REPORTS"]
-Capybara.default_wait_time = 30
+Capybara.default_wait_time = 15
 end
 Capybara.default_wait_time = 10
 Capybara.register_driver :poltergeist do |app|
