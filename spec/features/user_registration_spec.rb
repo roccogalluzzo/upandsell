@@ -16,7 +16,7 @@ feature "User Registration", js: true do
       scenario "new user is created" do
         click_button "Sign up"
         wait_for_ajax
-        expect(page).to have_content 'Complete Sign Up'
+        expect(page).to have_content 'Complete your sign up process'
       end
     end
     context "registering with invalid data" do
