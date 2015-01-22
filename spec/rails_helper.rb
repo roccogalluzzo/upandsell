@@ -1,6 +1,6 @@
 require 'simplecov'
-require 'simplecov-csv'
 if ENV["COVERAGE_REPORTS"]
+  require 'simplecov-csv'
   SimpleCov.formatter = SimpleCov::Formatter::CSVFormatter
   SimpleCov.coverage_dir(ENV["COVERAGE_REPORTS"])
 end
@@ -18,10 +18,37 @@ require 'capybara/rspec'
 require 'webmock/rspec'
 require 'sidekiq/testing'
 require 'capybara/poltergeist'
+require 'thin'
+require 'stripe_mock'
+require 'billy/rspec'
 
+StripeMock.spawn_server
 
- Capybara.javascript_driver = :poltergeist
+Billy.configure do |c|
+  c.cache = true
+  c.cache_request_headers = false
+  c.ignore_params = ["http://www.google-analytics.com/__utm.gif",
+   "https://r.twimg.com/jot",
+   "http://p.twitter.com/t.gif",
+   "http://p.twitter.com/f.gif",
+   "http://www.facebook.com/plugins/like.php",
+   "https://www.facebook.com/dialog/oauth",
+   "http://cdn.api.twitter.com/1/urls/count.json"]
+   c.path_blacklist = []
+   c.merge_cached_responses_whitelist = []
+   c.persist_cache = false
+  c.ignore_cache_port = true # defaults to true
+  c.non_successful_cache_disabled = false
+  c.non_successful_error_level = :warn
+  c.non_whitelisted_requests_disabled = false
+  c.cache_path = 'spec/req_cache/',
+  c.dynamic_jsonp = true
+  c.dynamic_jsonp_keys = ["callback"]
+end
+
+Capybara.javascript_driver = :poltergeist_billy
 Capybara.default_wait_time = 10
+
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, {
     debug: false,

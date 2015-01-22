@@ -9,43 +9,96 @@ feature "User complete Sign Up", js: true do
     end
 
     context "with valid data" do
-      background do
+
+      before(:all) do
+        @client = StripeMock.start_client
+      end
+
+      before(:each) do
+        @client.clear_server_data
+        Stripe::Plan.create(
+          amount: 2499,
+          interval: 'month',
+          name: 'Monthly App Plan',
+          currency: 'eur',
+          id: 'MONTHLY_PLAN')
+        Stripe::Plan.create(
+          amount: 24999,
+          interval: 'month',
+          name: 'Yearly App Plan',
+          currency: 'eur',
+          id: 'YEARLY_PLAN')
+
         fill_common_form_fields
         fill_credit_card
+        token = StripeMock.generate_card_token(last4: "1111", exp_year: 2020)
+        stub_success_token(token)
       end
 
-      scenario "of a private IT" do
-
-      end
-
-      scenario "of a company IT " do
-         find('#type-company')
-        .trigger('click')
-      end
-
-      scenario "of a private EU" do
-       select1('user_country', query: 'France', :choose => "France")
+      after(:all) do
+       @client.close!
      end
 
-     scenario "of a company EU " do
-      select1('user_country', query: 'France', :choose => "France")
-      find('#type-company')
-      .trigger('click')
+     scenario "of a private IT" do
+      submit_subscription_data
+      expect(page).to have_content 'SETUP'
     end
 
-    scenario "private from the rest of the world" do
-      select1('user_country', query: 'Canada', :choose => "Canada")
-    end
+    scenario "of a company IT " do
+     find('#type-company')
+     .trigger('click')
+     submit_subscription_data
+     expect(page).to have_content 'SETUP'
+   end
 
+   scenario "of a private EU" do
+     select1('user_country', query: 'France', :choose => "France")
+     submit_subscription_data
+     expect(page).to have_content 'SETUP'
+   end
+
+   scenario "of a company EU " do
+    select1('user_country', query: 'France', :choose => "France")
+    find('#type-company')
+    .trigger('click')
+    submit_subscription_data
+    expect(page).to have_content 'SETUP'
   end
+
+  scenario "private from the rest of the world" do
+    select1('user_country', query: 'Canada', :choose => "Canada")
+    submit_subscription_data
+    expect(page).to have_content 'SETUP'
+  end
+
 end
+end
+end
+
+def submit_subscription_data
+  click_button('Start your 30 day FREE TRIAL')
+  wait_for_ajax
+end
+
+def stub_success_token(token)
+  proxy.stub('https://api.stripe.com:443/v1/tokens').
+  and_return(Proc.new { |params|
+    { :code => 200, :text => "#{params['callback'][0]}({
+      'id': '#{token}',
+      'livemode': false,
+      'created': 1379062337,
+      'used': false,
+      'object': 'token',
+      'type': 'card'
+      },
+      200)" } })
 end
 
 def fill_common_form_fields
   fill_in "user_legal_name", with: Faker::Name.name
   fill_in "user_tax_code", with: '12345678'
   fill_in "user_address", with: Faker::Address.street_address
-  fill_in "user_zip_code", with: Faker::Address.zip_code
+  fill_in "user_zip_code", with: '89040'
   fill_in "user_city", with: Faker::Address.city
   fill_in "user_province", with: Faker::Address.state_abbr
 end

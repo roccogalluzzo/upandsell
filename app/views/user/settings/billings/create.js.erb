@@ -1,5 +1,4 @@
 <% if @success %>
-ga('send', 'event', 'sign_up', 'subscribed');
 window.location.href = '<%= escape_javascript(user_setup_path) %>';
 <% else %>
 Up.alert.open('Error:' +  <%= escape_javascript(current_user.errors.full_messages[0]) %>);
