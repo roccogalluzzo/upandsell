@@ -19,7 +19,7 @@ feature "User Registration", js: true do
         if ENV['COVERAGE_REPORTS']
           save_screenshot('shippable/capybara/test.png', :full => true)
         end
-        expect(page).to have_content 'Complete your sign up process'
+        expect(page).to have_content 'start your free trial'
       end
     end
     context "registering with invalid data" do
