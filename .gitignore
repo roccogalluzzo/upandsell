@@ -36,3 +36,4 @@ doc/api/classes/ActionController/LiveTestResponse.html
 
 /node_modules/*
 npm-debug.log
+stripe-mock-server.log

@@ -28,7 +28,7 @@
     window.edit = true;
     Billings.BillingForm.init();
     $('#js-toggle-billing-form').on('click', function(){
-      $('form').fadeToggle();
+      $('#billing-edit-form').slideToggle();
       return false;
     });
     $('#cc_number').rules( "remove", 'required');
@@ -43,68 +43,83 @@
       $('#user_country').on('change', Billings.BillingForm.update_fields);
       $("input[name='user[business_type]']:radio").on('change', Billings.BillingForm.update_fields);
       Billings.BillingForm.update_fields();
-      $('#billing-edit-form').bind('ajax:beforeSend', Billings.BillingForm.success);
-      $('#billing-edit-form').bind('ajax:success', Billings.BillingForm.success);
-      $('#billing-edit-form').bind('ajax:error', Billings.BillingForm.error);
-      $('#js-change-price').on('click',  Billings.BillingForm.change_price);
-    },
-    change_price: function() {
-      cur_month = $('.month-price').text();
-      cur_year = $('.year-price').text();
-      $('.month-price').text($(this).data('switch-month'));
-      $('.year-price').text($(this).data('switch-year'));
+     // $('#billing-edit-form').bind('ajax:beforeSend', Billings.BillingForm.success);
+     $('#billing-edit-form').bind('ajax:success', Billings.BillingForm.success);
+     $('form').bind('ajax:error', Billings.BillingForm.error);
+     $('#js-change-price').on('click',  Billings.BillingForm.change_price);
+   },
+   change_price: function() {
+    cur_month = $('.month-price').text();
+    cur_year = $('.year-price').text();
+    $('.month-price').text($(this).data('switch-month'));
+    $('.year-price').text($(this).data('switch-year'));
 
-      $(this).data('switch-month', cur_month);
-      $(this).data('switch-year', cur_year);
+    $(this).data('switch-month', cur_month);
+    $(this).data('switch-year', cur_year);
 
-      cur_text = $(this).text();
-      $(this).text( $(this).data('text'));
-      $(this).data('text', cur_text);
-      return false;
-    },
-    beforeSend: function(data) {
+    cur_text = $(this).text();
+    $(this).text( $(this).data('text'));
+    $(this).data('text', cur_text);
+    return false;
+  },
+  beforeSend: function(data) {
 
-    },
-    success: function(e, data) {
-    },
-    error: function(e, xhr, status) {
-
-    },
-    submit: function() {
-      $('.btn-action').attr("disabled", "disabled");
-      expire = $('#cc_expire').payment('cardExpiryVal');
-      if(expire) {
-      Stripe.card.createToken({
-        number:  $('#cc_number').val().replace(/\s+/g, ''),
-        cvc:  $('#cc_cvc').val(),
-        exp_month: expire.month,
-        exp_year: expire.year
-      }, Billings.BillingForm.stripe);
-    }else {
-      var $form = $('form');
-      $form.trigger("submit.rails");
+  },
+  success: function(e, data, xhr) {
+    if($('#billing-edit-form').data('subscription-active') == false){
+      window.location.href = '/user/settings/billing/edit';
     }
-      return false;
-    },
-    stripe: function(status, response) {
-      var $form = $('form');
-      if (response.error) {
-        Up.alert.open(response.error.message);
-        return false
-      } else {
-        $('#user_stripe_token').val(response.id);
-        $form.trigger("submit.rails");
-      }
-    },
-    update_fields: function () {
-      type = $("input[name='user[business_type]']:checked").val();
-      country = $('#user_country').val();
+    $('.btn-action').attr("disabled", '').text('Save');
+    if(data.plan_type == 'monthly'){
+      $('.monthly-plan').removeClass('hidden');
+      $('.yearly-plan').addClass('hidden');
+    }else {
+      $('.monthly-plan').addClass('hidden');
+      $('.yearly-plan').removeClass('hidden');
+    }
+    $('#js-cc-last-4').text(data.last_4_digits);
+    Up.alert.open("Billing Info Updated");
+    $('#billing-edit-form').slideUp();
 
-      if(type == 'company') {
-        s.name_label.text(window.lang.name_company);
-      }else{
-        s.name_label.text(window.lang.name_private);
-      }
+  },
+  error: function(e, xhr, status) {
+   $('.btn-action').attr("disabled", '').text('Save');
+ },
+ submit: function() {
+  $('.btn-action').attr("disabled", "disabled").val('Processing...').text('Saving...');
+  expire = $('#cc_expire').payment('cardExpiryVal');
+  if(expire.month) {
+    Stripe.card.createToken({
+      number:  $('#cc_number').val().replace(/\s+/g, ''),
+      cvc:  $('#cc_cvc').val(),
+      exp_month: expire.month,
+      exp_year: expire.year
+    }, Billings.BillingForm.stripe);
+  }else {
+    var $form = $('form');
+    $form.trigger("submit.rails");
+  }
+  return false;
+},
+stripe: function(status, response) {
+  var $form = $('form');
+  if (response.error) {
+    Up.alert.open(response.error.message);
+    return false
+  } else {
+    $('#user_stripe_token').val(response.id);
+    $form.trigger("submit.rails");
+  }
+},
+update_fields: function () {
+  type = $("input[name='user[business_type]']:checked").val();
+  country = $('#user_country').val();
+
+  if(type == 'company') {
+    s.name_label.text(window.lang.name_company);
+  }else{
+    s.name_label.text(window.lang.name_private);
+  }
 
       // Italy logic
       if (country == 'IT'){
@@ -146,7 +161,7 @@
       },
       ccExpValid: function (value) {
         if(value === "") { return true}
-        var data = $.payment.cardExpiryVal(value);
+          var data = $.payment.cardExpiryVal(value);
         return $.payment.validateCardExpiry(data.month, data.year);
 
       },

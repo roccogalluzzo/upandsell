@@ -31,7 +31,7 @@ class SubscriptionService
     @user.last_4_digits = @customer.cards.data.first["last4"]
     @user.cc_brand = @customer.cards.data.first["brand"].downcase
     @user.stripe_id = @customer.id
-    @user.subscription_end = @customer.subscriptions.data[0].current_period_end
+    @user.subscription_end = Time.at(@customer.subscriptions.data[0].current_period_end).to_datetime
     @user.subscription_active = true
     @user.save
 
@@ -47,7 +47,7 @@ class SubscriptionService
      subscription.prorate = false
      subscription.save
      @user.subscription_active = true
-     @user.subscription_end = subscription.current_period_end
+     @user.subscription_end = Time.at(subscription.current_period_end).to_datetime
      @user.save
     end
 
@@ -94,7 +94,7 @@ class SubscriptionService
   def is_subscribed?
       unless @customer.nil?
         subscription = @customer.subscriptions.data[0]
-        if subscription.status == 'trialing' || subscription.status == 'active'
+        if subscription && (subscription.status == 'trialing' || subscription.status == 'active')
           return true
         end
       end

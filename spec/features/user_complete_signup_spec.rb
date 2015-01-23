@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "User complete Sign Up", js: true do
+feature "User complete Sign Up", js: true, stripe: true do
 
   context "when submit Billing form" do
     background do
@@ -10,34 +10,12 @@ feature "User complete Sign Up", js: true do
 
     context "with valid data" do
 
-      before(:all) do
-        @client = StripeMock.start_client
-      end
-
       before(:each) do
-        @client.clear_server_data
-        Stripe::Plan.create(
-          amount: 2499,
-          interval: 'month',
-          name: 'Monthly App Plan',
-          currency: 'eur',
-          id: 'MONTHLY_PLAN')
-        Stripe::Plan.create(
-          amount: 24999,
-          interval: 'month',
-          name: 'Yearly App Plan',
-          currency: 'eur',
-          id: 'YEARLY_PLAN')
-
         fill_common_form_fields
         fill_credit_card
         token = StripeMock.generate_card_token(last4: "1111", exp_year: 2020)
         stub_success_token(token)
       end
-
-      after(:all) do
-       @client.close!
-     end
 
      scenario "of a private IT" do
       submit_subscription_data

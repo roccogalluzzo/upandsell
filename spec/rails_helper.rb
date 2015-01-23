@@ -86,9 +86,6 @@ RSpec.configure do |config|
     ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
   end
 
-  config.before :each, js: true do
-    wait_for_ajax
-  end
   config.before(:each) do | example |
     # Clears out the jobs for tests using the fake testing
     Sidekiq::Worker.clear_all
@@ -123,6 +120,14 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
     Redis.new(Upandsell::Application.config.redis).flushdb
     Capybara.reset_sessions!
+  end
+
+  config.around(:each, stripe: true) do |example|
+    @client = StripeMock.start_client
+    Features::StripeHelpers.setup_stripe
+    example.run
+    @client.clear_server_data
+    @client.close!
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests

@@ -16,9 +16,6 @@ feature "User Registration", js: true do
       scenario "new user is created" do
         click_button "Sign up"
         wait_for_ajax
-        if ENV['COVERAGE_REPORTS']
-          save_screenshot('shippable/capybara/test.png', :full => true)
-        end
         expect(page).to have_content 'start your free trial'
       end
     end
