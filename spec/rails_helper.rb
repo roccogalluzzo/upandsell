@@ -82,7 +82,14 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
 
- config.before(:each) do | example |
+  config.before :all do
+    ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
+  end
+
+  config.before :each, js: true do
+    wait_for_ajax
+  end
+  config.before(:each) do | example |
     # Clears out the jobs for tests using the fake testing
     Sidekiq::Worker.clear_all
 

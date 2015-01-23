@@ -4,7 +4,7 @@ feature "User complete Sign Up", js: true do
 
   context "when submit Billing form" do
     background do
-      SessionHelpers.create_logged_in_user
+      @user = SessionHelpers.create_logged_in_user
       visit user_complete_signup_path
     end
 
@@ -69,6 +69,16 @@ feature "User complete Sign Up", js: true do
     select1('user_country', query: 'Canada', :choose => "Canada")
     submit_subscription_data
     expect(page).to have_content 'SETUP'
+  end
+
+  scenario "Yearly Plan" do
+    select1('user_country', query: 'Canada', :choose => "Canada")
+    find('.year-plan').trigger('click')
+
+    submit_subscription_data
+    sleep 3
+    visit edit_user_settings_billing_path
+    expect(page).to have_content 'YEARLY PLAN'
   end
 
 end
