@@ -20,5 +20,19 @@ FactoryGirl.define do
       cc_brand 'mastercard'
       plan_type 'monthly'
     end
+
+    factory :cc_user, parent: :user do
+      credit_card true
+      credit_card_gateway 'Stripe'
+      credit_card_token 'token'
+      credit_card_public_token 'public_token'
+    end
+
+    factory :paypal_user, parent: :user do
+      paypal true
+      paypal_email 'rocco@galluzzo.me'
+      paypal_token 'token'
+      paypal_token_secret 'public_token'
+    end
   end
 end

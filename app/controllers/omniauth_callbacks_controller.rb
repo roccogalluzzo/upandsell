@@ -21,6 +21,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def after_sign_up_path_for(resource)
-    user_setup_path
+    user_complete_signup_path
   end
 end

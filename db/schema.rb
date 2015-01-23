@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141206231950) do
+ActiveRecord::Schema.define(version: 20150123220524) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",                       null: false
@@ -152,15 +152,15 @@ ActiveRecord::Schema.define(version: 20141206231950) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "name",                                       null: false
-    t.string   "email",                                      null: false
-    t.string   "encrypted_password",                         null: false
-    t.string   "currency",                                   null: false
-    t.boolean  "credit_card",            default: false
-    t.boolean  "paypal",                 default: false
+    t.string   "name",                                           null: false
+    t.string   "email",                                          null: false
+    t.string   "encrypted_password",                             null: false
+    t.string   "currency",                                       null: false
+    t.boolean  "credit_card",                default: false
+    t.boolean  "paypal",                     default: false
     t.text     "credit_card_info"
     t.text     "paypal_info"
-    t.boolean  "email_after_sale",       default: true
+    t.boolean  "email_after_sale",           default: true
     t.string   "ga_code"
     t.text     "settings"
     t.datetime "created_at"
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 20141206231950) do
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,         null: false
+    t.integer  "sign_in_count",              default: 0,         null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -183,8 +183,8 @@ ActiveRecord::Schema.define(version: 20141206231950) do
     t.text     "custom_email_message"
     t.string   "avatar"
     t.string   "bio"
-    t.boolean  "newsletter",             default: true
-    t.string   "business_type",          default: "private"
+    t.boolean  "newsletter",                 default: true
+    t.string   "business_type",              default: "private"
     t.string   "country"
     t.string   "legal_name"
     t.string   "tax_code"
@@ -199,6 +199,14 @@ ActiveRecord::Schema.define(version: 20141206231950) do
     t.string   "cc_brand"
     t.string   "stripe_token"
     t.string   "plan_type"
+    t.string   "credit_card_gateway"
+    t.string   "credit_card_token"
+    t.string   "credit_card_public_token"
+    t.string   "credit_card_bt_merchant_id"
+    t.string   "credit_card_bt_currency"
+    t.string   "paypal_email"
+    t.string   "paypal_token"
+    t.string   "paypal_token_secret"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

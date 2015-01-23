@@ -1,6 +1,12 @@
 class User < ActiveRecord::Base
   include Unsubscribable
 
+  has_many :orders
+  has_many :products
+  has_many :referrals
+  has_many :referrals_payments
+  has_many :coupons
+
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,
   :confirmable, :async, :omniauthable
@@ -23,11 +29,6 @@ class User < ActiveRecord::Base
 
   validates :credit_card_gateway, inclusion: { in: %w(Paymill Stripe Braintree) }, allow_blank: true
 
-  has_many :orders
-  has_many :products
-  has_many :referrals
-  has_many :referrals_payments
-  has_many :coupons
 
   mount_uploader :avatar, AvatarUploader
 
@@ -39,38 +40,22 @@ class User < ActiveRecord::Base
   after_create :send_welcome_email
   after_create :add_to_mailchimp
 
-  def self.serialize_payment_info(type, *args)
-    args.each do |method_name|
-      eval "
-      def #{type}_#{method_name}
-        (self.#{type}_info || {})[:#{method_name}]
-      end
-      def #{type}_#{method_name}=(value)
-        self.#{type}_info ||= {}
-        self.#{type}_info[:#{method_name}] = value
-      end
-      "
-    end
-  end
-
-  serialize_payment_info :paypal, :email, :token, :token_secret
-  serialize_payment_info :credit_card, :token, :public_token, :gateway, :bt_merchant_id, :bt_currency
-
-
-  def credit_card_active?
-    true if self.credit_card && !self.credit_card_gateway.blank? && !self.credit_card_token.blank? && !self.credit_card_public_token.blank?
-  end
-
-  def paypal_active?
-    true if self.paypal && !self.paypal_email.blank?
-  end
-
   def admin?
     Rails.application.secrets.admins.include?(email)
   end
 
   def beta_signup?
     true if self.created_at < '24-12-2014'.to_datetime
+  end
+
+  def credit_card_active?
+    return true if self.credit_card && !self.credit_card_gateway.blank? && !self.credit_card_token.blank? && !self.credit_card_public_token.blank?
+    false
+  end
+
+  def paypal_active?
+    return true if self.paypal && !self.paypal_email.blank?
+    false
   end
 
   def send_welcome_email
@@ -113,10 +98,16 @@ class User < ActiveRecord::Base
 
       # Create the user if it's a new registration
       if user.nil?
+        if auth[:provider] == 'facebook'
+          avatar_url = auth[:info][:image].gsub('http://','https://')
+        else
+          avatar_url = auth.info.image
+        end
         user = User.new(
           name: auth.extra.raw_info.name,
           email: email,
-          password: Devise.friendly_token[0,20]
+          password: Devise.friendly_token[0,20],
+          remote_avatar_url: avatar_url
           )
         user.skip_confirmation!
         user.save!
