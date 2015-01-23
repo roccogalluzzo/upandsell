@@ -166,7 +166,7 @@ other downloadable products</h2>
            <div class="container">
              <div class="head">
                <h6>Pricing</h6>
-               <p>One edition. 30 days free trial. 24.99€ per month. 24/7 customer service.
+               <p>One edition. <%= Rails.application.secrets.trial_days %> days free trial. 24.99€ per month. 24/7 customer service.
                 Try our service, start selling and contact us at anytime you need support.</p>
               </div>
               <div class="pricing-plans">
@@ -177,7 +177,7 @@ other downloadable products</h2>
                   <span class="tag-currency">€</span><span class="tag-price">24</span>.99
                   <div class="bottom-tag">
                     <p class="f-p">Free Trial</p>
-                    <p class="s-p">30 days</p>
+                    <p class="s-p"><%= Rails.application.secrets.trial_days %> days</p>
                   </div>
                 </div>
                 <div class="plan-text-blue">

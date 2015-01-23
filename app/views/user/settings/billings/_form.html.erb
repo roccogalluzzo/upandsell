@@ -115,7 +115,9 @@
       </div>
     </div>
     <div class="action-form">
-      <%= f.button :submit, "Start your 30 day FREE TRIAL", class: "btn-action", data: { disable_with: "Processing..." } %>
+
+      <% trial_days = Rails.application.secrets.trial_days %>
+      <%= f.button :submit, "Start your #{trial_days} day FREE TRIAL", class: "btn-action", data: { disable_with: "Processing..." } %>
     </div>
       <% end %>
       <% end %>

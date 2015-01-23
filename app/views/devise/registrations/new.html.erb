@@ -48,7 +48,7 @@
 </div>
 <div class="signup-pricing-section">
   <div class="head">
-    <p>One edition. 30 days freel trial. 24.99€ per month. 24/7 customer service.
+    <p>One edition. <%= Rails.application.secrets.trial_days %> days freel trial. 24.99€ per month. 24/7 customer service.
       Try our service, start selling and contact us at anytime you need support.</p>
     </div>
     <div class="pricing-plans">
@@ -59,7 +59,7 @@
           <span class="tag-currency">€</span><span class="tag-price">24</span>.<span class='tag-cents'>99</span>
           <div class="bottom-tag">
             <p class="f-p">Free Trial</p>
-            <p class="s-p">30 days</p>
+            <p class="s-p"><%= Rails.application.secrets.trial_days %> days</p>
           </div>
         </div>
         <%

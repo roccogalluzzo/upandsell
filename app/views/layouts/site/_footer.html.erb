@@ -1,36 +1,39 @@
 <div id="footer">
-<div class="wrap-footer wrap-footer-beta">
-  <div class="line-1">
-  <div class="footer-brand">
-      <%= link_to(root_path) do %>
-      <%= image_tag "footer_logo.png" %>
-      <% end %>
+  <div class="wrap-footer wrap-footer-beta">
+    <div class="line-1">
+      <div class="footer-brand">
+        <%= link_to(root_path) do %>
+        <%= image_tag "footer_logo.png" %>
+        <% end %>
+      </div>
+      <div class="social-icons">
+        <span>Follow us:</span>
+        <a href="https://www.facebook.com/pages/UpSellme/590644707644241"
+        class="icon-facebook"></a>
+        <a href="https://twitter.com/upandsell_me" class="icon-twitter"></a>
+      </div>
     </div>
-    <div class="social-icons">
-      <span>Follow us:</span>
-      <a href="https://www.facebook.com/pages/UpSellme/590644707644241"
-      class="icon-facebook"></a>
-      <a href="https://twitter.com/upandsell_me" class="icon-twitter"></a>
+
+    <div class="line-2">
+      <div class="site-info">
+        <p>Easily sell your digital products.</p>
+        <p>email: <a href="mailto:support@upandsell.me">info@upandsell.me</a></p>
+        <p style="margin-top: 5px;">Grafo Ventures di Giandomenico Sica<br />
+         VAT: 08479430962</p>
+
+       </div>
+
+       <div class="site-links">
+        <ul>
+          <li>
+            <%= link_to "terms of service |", terms_path %>
+          </li>
+
+          <li>
+            <%= link_to "privacy policy", privacy_path %>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-
-  <div class="line-2">
-  <div class="site-info">
-    <p>Easily sell your digital products.</p>
-    <p>email: <a href="mailto:support@upandsell.me">info@upandsell.me</a></p>
-  </div>
-
-    <div class="site-links">
-      <ul>
-        <li>
-          <%= link_to "terms of service |", terms_path %>
-        </li>
-
-        <li>
-          <%= link_to "privacy policy", privacy_path %>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
 </div>

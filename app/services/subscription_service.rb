@@ -9,9 +9,9 @@ class SubscriptionService
 
   def subscribe
     if @customer.nil?
-      trial_end = 30.days.from_now.to_i
+      trial_end = Rails.application.secrets.trial_days.days.from_now.to_i
       if @user.beta_signup?
-        trial_end = '24-06-2015'.to_datetime.to_i
+        trial_end = 6.months.from_now.to_i
       end
       @customer = Stripe::Customer.create(
       card: @user.stripe_token,

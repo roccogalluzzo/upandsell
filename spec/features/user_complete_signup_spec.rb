@@ -86,7 +86,7 @@ end
 end
 
 def submit_subscription_data
-  click_button('Start your 30 day FREE TRIAL')
+  click_button('Start your 14 day FREE TRIAL')
   wait_for_ajax
 end
 
