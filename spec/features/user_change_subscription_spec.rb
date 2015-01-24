@@ -31,6 +31,7 @@ feature "Change Subscriptions settings", js: true, stripe: true do
         fill_in "user_legal_name", with: 'Rocco Galluzzo'
         click_button('Save')
         wait_for_ajax
+        sleep 2
         expect(page).to have_content 'Billing Info Updated'
       end
 
