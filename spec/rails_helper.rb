@@ -46,14 +46,24 @@ Billy.configure do |c|
   c.dynamic_jsonp_keys = ["callback"]
 end
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {
-    phantomjs_options: ['--ignore-ssl-errors=yes', '--ssl-protocol=any'],
-    timeout: 90})
+Capybara.register_driver :pg_billy do |app|
+ options = {
+   js_errors: false,
+   timeout: 180,
+   phantomjs_logger: Puma::NullIO.new,
+   logger: nil,
+   phantomjs_options:
+   [
+    '--load-images=no',
+    '--ignore-ssl-errors=yes',
+    "--proxy=#{Billy.proxy.host}:#{Billy.proxy.port}"
+  ]
+}
+Capybara::Poltergeist::Driver.new(app, options)
 end
 
-Capybara.javascript_driver = :poltergeist_billy
-Capybara.default_wait_time = 15
+Capybara.javascript_driver = :pg_billy
+Capybara.default_wait_time = 10
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
