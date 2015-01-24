@@ -82,6 +82,7 @@ group :test do
   gem 'capybara'
   gem 'ci_reporter_rspec'
   gem 'database_cleaner'
+  gem "nyan-cat-formatter"
   gem 'simplecov'
   gem 'simplecov-csv'
   gem 'sqlite3'
