@@ -37,7 +37,7 @@ class UserMailer <  Devise::Mailer
   def trial_will_expire_email(user_id)
     @user = User.find user_id
     mail(to: @user.email,
-    subject: "",
+    subject: "Your free trial is ending in 3 days",
     template_path: 'notifications',
     template_name: 'trial_will_expire')
   end
