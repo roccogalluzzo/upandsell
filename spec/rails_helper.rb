@@ -46,18 +46,14 @@ Billy.configure do |c|
   c.dynamic_jsonp_keys = ["callback"]
 end
 
-Capybara.javascript_driver = :poltergeist_billy
-Capybara.default_wait_time = 10
-
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, {
-    debug: false,
-    default_wait_time: 30,
-    js_errors: true,
-    inspector: true,
     phantomjs_options: ['--ignore-ssl-errors=yes', '--ssl-protocol=any'],
     timeout: 90})
 end
+
+Capybara.javascript_driver = :poltergeist_billy
+Capybara.default_wait_time = 15
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
