@@ -5,41 +5,46 @@
   <meta name="viewport" content="width=device-width"/>
   <%= render partial: 'layouts/emails/ink' %>
   <style>
-  body, .body {
-    background-color: #fafafa !important;
-  }
+    body, .body {
+      background-color: #F5F7F9 !important;
+    }
+
     h1 {
       text-align: center !important;
-      color:#595d64 !important ;
-      padding-top: 10px !important;
-      padding-bottom: 25px !important;
+      color:#373332 !important ;
       margin: 0 !important;
-      font-size: 25px !important;
+      font-size: 22px !important;
       font-family:'Helvetica Neue', sans-serif !important;
-      border-bottom: 1px solid #e3e3e3 !important;
-      margin-left: 17px !important;
-      margin-right: 17px !important;
+      padding: 0 25px;
+      padding-top: 35px;
       line-height: 28px !important;
-      font-weight: 500 !important;
+      font-weight: 600 !important;
+    }
+    h1 > i {
+      color: #9A9A9A;
     }
     p {
       text-align: center;
-      color: #888 !important;
+      color: #676767 !important;
       font-family: "Helvetica","Arial",sans-serif !important;
       line-height: 1.3 !important;
       text-align: center !important;
       font-size: 18px;
     }
 
+    p > i {
+      color: #999 !important;
+      font-size: 20px;
+    }
+
     .header {
       border-top: 4px solid #4a4e62 !important;
     }
     .logo {
-      margin-top: 25px !important;
-      margin-bottom: 25px !important;
-      width:195px !important;
+      margin-bottom: 12px !important;
+      margin-top: 24px !important;
       float: none !important;
-      max-width: 195px !important;
+      height: 31px !important;
     }
 
     .main-box {
@@ -47,16 +52,18 @@
      border:1px solid #e3e3e3 !important;
      border-radius:6px !important;
      border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom: 20px;
+     border-spacing: 0;
+     margin-bottom: 20px;
    }
    .box-title {
-    padding-left: 10px !important;
+    /*padding-left: 10px !important;*/
   }
 
-
+  .body-message{
+    margin-top: 12px !important;
+  }
   .box-message p {
-    margin: 5px 40px 0px 40px !important;
+    margin: 0px 40px 0px 40px !important;
   }
   .box-btn div {
     margin-top: 10px !important;
@@ -86,7 +93,7 @@
 }
 .box-email-info p{
  border-top: 1px solid #e3e3e3;
- margin-top: 60px;
+ margin-top: 30px;
  padding-top: 15px;
  color: #888;
  font-size: 13px; line-height: 1.3;
@@ -122,13 +129,14 @@
     <table class="container main-box">
       <tr>
         <td>
-          <table class="row">
+          <table class="row head-message">
             <tr>
               <td class="wrapper last">
                 <table class="twelve columns">
                   <tr>
                     <td class="box-title">
                       <h1 class="box-h1"><%= yield :h1 %></h1>
+                      <h2><%= yield :h2 %></h2>
                     </td>
                     <td class="expander"></td>
                   </tr>
@@ -137,7 +145,7 @@
             </tr>
           </table>
 
-          <table class="row">
+          <table class="row body-message">
             <tr>
               <td class="wrapper last">
                 <table class="twelve columns">

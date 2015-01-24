@@ -1,24 +1,22 @@
 <% content_for :title do %>
-You just sold <%= @order.product.name %>
+Your free trial is ending in 3 days
 <% end %>
 <% content_for :h1 do %>
-You just sold a copy of <b><%= @order.product.name %></b>
+Your 14-day free trial will be over in a few days.
 <% end %>
 
 <% content_for :msg do %>
-Your new customer's email is <a
-style="color:#53aede"
-href="mailto:<%= @order.email %>">
-<%= @order.email %>
-</a>.
-For order details go on your <a style="color:#53aede" href="https://upandsell.me/user">dashboard</a>.
-<% end %>
-
-<div style="margin-top:10px"></div>
+<i>Just a friendly reminder that your Up&amp;Sell.me 14-day
+ free trial will be over in a few days.</i>
+ <br />
+ <br />
+ In <b>3 days</b> from now, we will start to charge you for the chosen subscription until you cancel it.
+ <% end %>
+ <div style="margin-top:10px"></div>
 
 
-<% content_for :footer do %>
-<p>
+ <% content_for :footer do %>
+ <p>
   Sent to <b><%= @user.email %></b>.
   <%= link_to "Deactivate notifications",
   unsubscribe_user_url(@user.unsubscribe_token('sales')),

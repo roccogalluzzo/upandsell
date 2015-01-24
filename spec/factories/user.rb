@@ -19,6 +19,7 @@ FactoryGirl.define do
       subscription_end {1.month.from_now}
       cc_brand 'mastercard'
       plan_type 'monthly'
+      stripe_id 'cus_00000000000000'
     end
 
     factory :cc_user, parent: :user do

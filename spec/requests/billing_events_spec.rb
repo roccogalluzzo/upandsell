@@ -1,13 +1,34 @@
 require 'rails_helper'
 
-describe "Billing Events" do
+describe SubscriptionWebhooks do
 
-  describe "charge.failed" do
-
-    xit "is successful" do
-      post '/_billing_events', id: 'evt_customer_created'
-      expect(response.code).to eq "200"
-      # Additional expectations...
+  describe 'trial_will_end' do
+    before do
+      stub_event 'evt_customer_subscription_trial_will_end'
+      @user = create(:active_user)
     end
+    it 'should send the trial_will_end email to the user' do
+      Sidekiq::Worker.clear_all
+      post '/stripe', id: 'evt_customer_subscription_trial_will_end'
+      expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 1
+    end
+  end
+
+  describe 'payment_succeeded' do
+    before do
+      stub_event 'evt_customer_subscription_trial_will_end'
+      @user = create(:active_user)
+    end
+
+
+  end
+
+  describe 'payment_failed'
+  describe 'subscription.deleted'
+
+  def stub_event(fixture_id, status = 200)
+    stub_request(:get, "https://api.stripe.com/v1/events/#{fixture_id}").
+    to_return(status: status,
+      body: File.read("spec/fixtures/stripe_webhooks/#{fixture_id}.json") )
   end
 end
