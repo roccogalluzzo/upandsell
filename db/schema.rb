@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123220524) do
+ActiveRecord::Schema.define(version: 20150124003832) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",                       null: false
@@ -149,6 +149,20 @@ ActiveRecord::Schema.define(version: 20150123220524) do
     t.text     "content"
     t.datetime "sent_at"
     t.string   "target"
+  end
+
+  create_table "subscription_payments", force: true do |t|
+    t.integer  "user_id",                                 null: false
+    t.string   "stripe_payment_id",                       null: false
+    t.integer  "amount_due_cents",        default: 0,     null: false
+    t.string   "amount_due_currency",     default: "USD", null: false
+    t.datetime "payed_at"
+    t.datetime "period_start"
+    t.datetime "period_end"
+    t.string   "status"
+    t.string   "plan"
+    t.datetime "created_at"
+    t.string   "credit_card_bt_currency"
   end
 
   create_table "users", force: true do |t|

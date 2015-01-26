@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :referrals
   has_many :referrals_payments
   has_many :coupons
+  has_many :subscription_payments
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,

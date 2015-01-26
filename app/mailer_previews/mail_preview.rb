@@ -26,12 +26,23 @@ class MailPreview < ActionMailer::Preview
     mail
   end
 
-    def trial_will_expire
+  def trial_will_expire
     user = User.first
     mail = UserMailer.trial_will_expire_email(user)
     mail
   end
 
+  def payment_succeeded
+    user = User.first
+    mail = UserMailer.payment_succeeded_email(user)
+    mail
+  end
+
+  def subscription_cancelled
+    user = User.first
+    mail = UserMailer.subscription_deleted_email(user)
+    mail
+  end
 
   def confirmation_instructions
     UserMailer.confirmation_instructions(User.first, {})

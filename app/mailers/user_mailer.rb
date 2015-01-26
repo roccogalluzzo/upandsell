@@ -45,7 +45,7 @@ class UserMailer <  Devise::Mailer
   def payment_succeeded_email(user_id)
     @user = User.find user_id
     mail(to: @user.email,
-    subject: "",
+    subject: "Your subscription has been renewed successfully",
     template_path: 'notifications',
     template_name: 'payment_succeeded')
   end
@@ -61,9 +61,9 @@ class UserMailer <  Devise::Mailer
   def subscription_deleted_email(user_id)
     @user = User.find user_id
     mail(to: @user.email,
-    subject: "",
+    subject: "Subscription cancelled",
     template_path: 'notifications',
-    template_name: 'payment_succeeded')
+    template_name: 'subscription_deleted')
   end
 
   def refund_email(user_id, order_id)

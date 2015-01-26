@@ -1,17 +1,12 @@
 <% content_for :title do %>
- Subscription renewed successfully
+Your subscription has been renewed successfully.
 <% end %>
 <% content_for :h1 do %>
-Your Subscription renewed successfully
+Thank you for using our service!
 <% end %>
 
 <% content_for :msg do %>
-Your new customer's email is <a
-style="color:#53aede"
-href="mailto:<%= @order.email %>">
-<%= @order.email %>
-</a>.
-For order details go on your <a style="color:#53aede" href="https://upandsell.me/user">dashboard</a>.
+We've just charged you the <%= @user.plan_type %> subscription fee
 <% end %>
 
 <div style="margin-top:10px"></div>

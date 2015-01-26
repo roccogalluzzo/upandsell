@@ -73,49 +73,49 @@
                  <i class="fa  icon-settings-wheel-fill"></i>
                  <% end %>
                </li>
-             <li><%= link_to(destroy_user_session_path, method: :delete) do %>
-               <i class="fa  fa-power-off"></i>
+               <li><%= link_to(destroy_user_session_path, method: :delete) do %>
+                 <i class="fa  fa-power-off"></i>
+                 <% end %>
+               </li>
+             </ul>
+
+
+           </div>
+         </div>
+
+         <div id="content">
+          <div class="page-sidebar" id="main-menu">
+           <div class="page-sidebar-wrapper" id="main-menu-wrapper">
+             <% if !current_user.confirmed? || !(current_user.paypal || current_user.credit_card) %>
+             <div id="sidebar-setup-box">
+               <%= link_to "Account Setup", user_setup_path, class: 'btn-app' %>
+             </div>
+             <% end %>
+             <ul>
+              <li class="<%= ap(user_root_path) %>">
+                <%= link_to user_root_path do %>
+                <i class="fa fa-lg fa-w icon-graph-up-2"></i>
+                <span> Summary </span>
+                <% end %>
+              </li>
+              <li class="<%= ac('products') %>">
+               <%= link_to user_products_path do %>
+               <i class="fa fa-lg fa-w icon-tag-2"></i>
+               <span> Products </span>
                <% end %>
              </li>
-           </ul>
-
-
-         </div>
-       </div>
-
-       <div id="content">
-        <div class="page-sidebar" id="main-menu">
-         <div class="page-sidebar-wrapper" id="main-menu-wrapper">
-         <% if !current_user.confirmed? || !(current_user.paypal || current_user.credit_card) %>
-           <div id="sidebar-setup-box">
-           <%= link_to "Account Setup", user_setup_path, class: 'btn-app' %>
-          </div>
-          <% end %>
-          <ul>
-            <li class="<%= ap(user_root_path) %>">
-              <%= link_to user_root_path do %>
-              <i class="fa fa-lg fa-w icon-graph-up-2"></i>
-              <span> Summary </span>
+             <li class="<%= ac('orders') %>">
+              <%= link_to user_orders_path do %>
+              <i class="fa  fa-lg fa-w icon-reciept-1"></i>
+              <span>Orders</span>
               <% end %>
             </li>
-            <li class="<%= ac('products') %>">
-             <%= link_to user_products_path do %>
-             <i class="fa fa-lg fa-w icon-tag-2"></i>
-             <span> Products </span>
-             <% end %>
-           </li>
-           <li class="<%= ac('orders') %>">
-            <%= link_to user_orders_path do %>
-            <i class="fa  fa-lg fa-w icon-reciept-1"></i>
-            <span>Orders</span>
-            <% end %>
-          </li>
-          <li class="<%= ac('mailing_lists') || ac('coupons') || ac('emails') %>">
-            <%= link_to  user_tools_mailing_lists_path do %>
-            <i class="fa  fa-lg fa-w fa-bullhorn"></i>
-            <span>Marketing</span>
-            <% end %>
-          </li>
+            <li class="<%= ac('mailing_lists') || ac('coupons') || ac('emails') %>">
+              <%= link_to  user_tools_mailing_lists_path do %>
+              <i class="fa  fa-lg fa-w fa-bullhorn"></i>
+              <span>Marketing</span>
+              <% end %>
+            </li>
         <!--   <li class="<%= ap(user_affiliations_path) %>">
             <%= link_to user_affiliations_path do %>
             <i class="fa  fa-lg fa-w icon-connection"></i>
@@ -131,24 +131,41 @@
         <div id="not-subscribed">
           <div class="col-md-1">
             <i class="fa fa-warning"></i>
-            </div>
+          </div>
           <div class="col-md-9">
             <p class="no-message">You currently don't have an active subscription, so you can't create or sell products.</p>
-          <% if  current_user.stripe_id.nil? && current_user.beta_signup? %>
+            <% if  current_user.stripe_id.nil? && current_user.beta_signup? %>
             <p class="no-beta">As a beta user you can have 6 months of free subscription.</p>
             <% end %>
           </div>
           <div class="col-md-2">
-       <a href="/user/settings/billing/edit" class="btn-app">Subscribe</a>
+           <a href="/user/settings/billing/edit" class="btn-app">Subscribe</a>
+         </div>
+       </div>
+       <% end %>
+       <%= yield %>
      </div>
-        </div>
-        <% end %>
-        <%= yield %>
-      </div>
-    </div>
-    <!-- END PAGE CONTAINER -->
-  </div>
-  <!-- END CONTENT -->
+   </div>
+   <!-- END PAGE CONTAINER -->
+ </div>
+ <!-- END CONTENT -->
 </div>
+<script>
+  UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/ZrXL5QpQBVsHDvgKWSY1Q.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+
+  UserVoice.push(['set', {
+    accent_color: '#4A4E62',
+    trigger_color: 'white',
+    trigger_background_color: '#addad5'
+  }]);
+
+
+  UserVoice.push(['identify', {}]);
+
+
+  UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+
+  UserVoice.push(['autoprompt', {}]);
+</script>
 </body>
 </html>

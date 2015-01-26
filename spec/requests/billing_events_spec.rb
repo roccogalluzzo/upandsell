@@ -14,15 +14,7 @@ describe SubscriptionWebhooks do
     end
   end
 
-  describe 'payment_succeeded' do
-    before do
-      stub_event 'evt_customer_subscription_trial_will_end'
-      @user = create(:active_user)
-    end
-
-
-  end
-
+  describe 'payment_succeeded'
   describe 'payment_failed'
   describe 'subscription.deleted'
 
