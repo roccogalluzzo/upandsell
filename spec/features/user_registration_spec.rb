@@ -29,7 +29,6 @@ feature "User Registration", js: true do
       scenario "show error message" do
         click_button "Sign up"
         wait_for_ajax
-        save_screenshot('file.png', :full => true)
         expect(page).to have_content('Sign In')
       end
     end
