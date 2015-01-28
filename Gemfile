@@ -88,6 +88,7 @@ group :test do
   gem 'sqlite3'
   gem 'poltergeist'
   gem 'puffing-billy', github: "oesmith/puffing-billy"
+  gem 'rspec-sidekiq'
   gem 'stripe-ruby-mock', github: 'rebelidealist/stripe-ruby-mock'
   gem 'thin'
   gem 'rspec-activemodel-mocks'

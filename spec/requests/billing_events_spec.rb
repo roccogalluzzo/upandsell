@@ -3,11 +3,12 @@ require 'rails_helper'
 describe SubscriptionWebhooks do
 
   describe 'trial_will_end' do
+
     before do
       stub_event 'evt_customer_subscription_trial_will_end'
-      @user = create(:active_user)
     end
     it 'should send the trial_will_end email to the user' do
+      create(:stripe_user)
       Sidekiq::Worker.clear_all
       post '/stripe', id: 'evt_customer_subscription_trial_will_end'
       expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq 1

@@ -9,6 +9,7 @@ describe User do
   describe 'welcome_email' do
     context 'when user create new account' do
       it 'should send the welcome email and email confirmation' do
+          Sidekiq::Worker.clear_all
         expect {UserMailer.delay.welcome(user.id)}
         .to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(2)
       end
