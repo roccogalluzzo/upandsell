@@ -38,7 +38,13 @@ class MailPreview < ActionMailer::Preview
     mail
   end
 
-  def subscription_cancelled
+  def payment_failed
+    user = User.first
+    mail = UserMailer.payment_failed_email(user)
+    mail
+  end
+
+  def subscription_deleted
     user = User.first
     mail = UserMailer.subscription_deleted_email(user)
     mail

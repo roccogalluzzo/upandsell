@@ -12,11 +12,32 @@ Your 14-day free trial will be over in a few days.
  <br />
  In <b>3 days</b> from now, we will start to charge you for the chosen subscription until you cancel it.
  <% end %>
+
  <div style="margin-top:10px"></div>
+ <table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="text-pad box-email-info">
+           <p>
+             This email has been sent to you as part of your Up&amp;Sell.me membership.
+             Please do not reply to this email, as we are unable to
+             respond from this email address. If you need help or would like to contact us,
+             please send an email at
+             <a style="color:#53aede;" href="mailto:support@upandsell.me">support@upandsell.me</a>.
+           </p>
+         </td>
+         <td class="expander"></td>
+       </tr>
+     </table>
+   </td>
+ </tr>
+</table>
 
 
- <% content_for :footer do %>
- <p>
+<% content_for :footer do %>
+<p>
   Sent to <b><%= @user.email %></b>.
   <%= link_to "Deactivate notifications",
   unsubscribe_user_url(@user.unsubscribe_token('sales')),

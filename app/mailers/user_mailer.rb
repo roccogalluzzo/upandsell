@@ -53,7 +53,7 @@ class UserMailer <  Devise::Mailer
   def payment_failed_email(user_id)
     @user = User.find user_id
     mail(to: @user.email,
-    subject: "",
+    subject: "Withdrawal Failed",
     template_path: 'notifications',
     template_name: 'payment_failed')
   end

@@ -2,15 +2,45 @@
 Your subscription has been renewed successfully.
 <% end %>
 <% content_for :h1 do %>
-Thank you for using our service!
+Your subscription has been renewed successfully
 <% end %>
 
 <% content_for :msg do %>
-We've just charged you the <%= @user.plan_type %> subscription fee
+We've just charged you the <%= @user.plan_type %> subscription fee of
+<b><%= @user.plan_type == 'monthly' ? '€24.99/month' : '€249.99/year' %></b>. Thank you for using our service!
+
+
+
 <% end %>
 
 <div style="margin-top:10px"></div>
 
+<table class="row">
+  <tr>
+    <td class="wrapper last">
+      <table class="twelve columns">
+        <tr>
+          <td class="text-pad box-email-info">
+           <p>
+             This email has been sent to you as part of your Up&amp;Sell.me membership.
+             Please do not reply to this email, as we are unable to
+             respond from this email address. If you need help or would like to contact us,
+             please send an email at
+             <a style="color:#53aede;" href="mailto:support@upandsell.me">support@upandsell.me</a>.
+           </p>
+         </td>
+         <td class="expander"></td>
+       </tr>
+     </table>
+   </td>
+ </tr>
+</table>
 
 <% content_for :footer do %>
+<p>
+  Sent to <b><%= @user.email %></b>.
+  <%= link_to "Deactivate notifications",
+  unsubscribe_user_url(@user.unsubscribe_token('sales')),
+  style:"color:#999" %>
+</p>
 <% end %>
