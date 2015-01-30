@@ -51,6 +51,7 @@ gem 'paymill'
 gem 'premailer-rails'
 gem 'puma'
 gem 'rails', '4.1.4'
+gem "rails_config"
 gem 'rack-affiliates'
 gem 'redcarpet'
 gem 'redis', '~> 3.0.1'
@@ -60,12 +61,14 @@ gem 'sdoc', require: false
 gem 'sidekiq'
 gem 'simple_form'
 gem 'sinatra', '>= 1.3.0', require: false
+gem 'shrimp'
 gem 'split', :require => 'split/dashboard'
 gem 'stripe'
 gem 'stripe_event'
 gem 'therubyracer', platforms: :ruby
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+gem 'valvat'
 
 group :development, :test do
   gem 'byebug'
