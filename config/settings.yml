@@ -1,0 +1,3 @@
+seller_vat_number: '08479430962'
+registered_countries: ['IT']
+invoice_number_format: '%{year}%<sequence>06d'

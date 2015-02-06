@@ -1,12 +1,13 @@
 class User < ActiveRecord::Base
   include Unsubscribable
+  include Subscribable
 
   has_many :orders
   has_many :products
   has_many :referrals
   has_many :referrals_payments
   has_many :coupons
-  has_many :subscription_payments
+  has_many :subscription_invoices
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,

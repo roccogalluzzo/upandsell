@@ -68,7 +68,7 @@ gem 'stripe_event'
 gem 'therubyracer', platforms: :ruby
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
-gem 'valvat'
+gem 'valvat', :github => 'byterussian/valvat', :branch => 'fix-issue-37'
 
 group :development, :test do
   gem 'byebug'
