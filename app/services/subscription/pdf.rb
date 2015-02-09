@@ -1,0 +1,3 @@
+class Subscription::Pdf
+
+end

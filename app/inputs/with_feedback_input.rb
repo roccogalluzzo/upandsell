@@ -1,5 +1,5 @@
 class WithFeedbackInput < SimpleForm::Inputs::FileInput
-  def input
+  def input(wrapper_options)
     template.content_tag(:div, class: 'form-group has-feedback') do
       template.concat @builder.text_field(attribute_name, input_html_options)
       template.concat icon_right

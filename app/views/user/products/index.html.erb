@@ -6,7 +6,7 @@ Products
 <div class="products-page-index">
   <div class="products-actions">
     <div>
-      <% if current_user.subscription_active %>
+      <% if current_user.subscribed? %>
       <%= link_to(new_user_product_path, class: 'btn-app') do %>
       <i class="fa fa-lg fa-plus"></i>
       New Product
@@ -26,7 +26,7 @@ Products
    <% if @products.blank? %>
    <div class="no-products">
      <p>No products yet</p>
-     <% if current_user.subscription_active %>
+     <% if current_user.subscribed? %>
      <p>
       <%= link_to "Add One Now",
       new_user_product_path, class: "btn-app" %>

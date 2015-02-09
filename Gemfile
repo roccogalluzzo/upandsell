@@ -6,7 +6,7 @@ gem 'sass-rails', github: 'rails/sass-rails'
 gem 'less-rails', github: 'dv/less-rails', branch: 'fix-import-dependencies'
 
 gem 'agent_orange'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 gem 'bower-rails'
 gem 'braintree'
 gem 'carrierwave'
@@ -50,7 +50,8 @@ gem 'paypal-sdk-permissions'
 gem 'paymill'
 gem 'premailer-rails'
 gem 'puma'
-gem 'rails', '4.1.4'
+gem 'rails', '4.1.9'
+gem "rails_config"
 gem 'rack-affiliates'
 gem 'redcarpet'
 gem 'redis', '~> 3.0.1'
@@ -60,12 +61,14 @@ gem 'sdoc', require: false
 gem 'sidekiq'
 gem 'simple_form'
 gem 'sinatra', '>= 1.3.0', require: false
+gem 'shrimp'
 gem 'split', :require => 'split/dashboard'
 gem 'stripe'
 gem 'stripe_event'
 gem 'therubyracer', platforms: :ruby
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+gem 'valvat', :github => 'byterussian/valvat', :branch => 'fix-issue-37'
 
 group :development, :test do
   gem 'byebug'
@@ -86,14 +89,16 @@ group :test do
   gem 'simplecov'
   gem 'simplecov-csv'
   gem 'sqlite3'
+  gem "capybara-webkit"
+  gem "selenium-webdriver"
   gem 'poltergeist'
-  gem 'puffing-billy', github: "oesmith/puffing-billy"
+  gem 'puffing-billy'
   gem 'rspec-sidekiq'
-  gem 'stripe-ruby-mock', github: 'rebelidealist/stripe-ruby-mock'
-  gem 'thin'
   gem 'rspec-activemodel-mocks'
   gem 'timecop'
   gem 'webmock'
+  gem 'stripe-ruby-mock', github: 'byterussian/stripe-ruby-mock'
+  gem 'thin'
 end
 
 group :development do

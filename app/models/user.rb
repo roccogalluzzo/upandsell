@@ -1,12 +1,13 @@
 class User < ActiveRecord::Base
   include Unsubscribable
+  include Subscribable
 
   has_many :orders
   has_many :products
   has_many :referrals
   has_many :referrals_payments
   has_many :coupons
-  has_many :subscription_payments
+  has_many :subscription_invoices
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,
@@ -61,6 +62,10 @@ class User < ActiveRecord::Base
 
   def send_welcome_email
     UserMailer.delay.welcome_email(self.id)
+  end
+
+  def subscribed?
+    self.subscription_end > Time.now
   end
 
   def add_to_mailchimp

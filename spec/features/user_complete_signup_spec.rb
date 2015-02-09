@@ -5,6 +5,8 @@ feature "User complete Sign Up", js: true, stripe: true do
   context "when submit Billing form" do
     background do
       @user = SessionHelpers.create_logged_in_user
+      proxy.stub('https://js.stripe.com/v2*').and_return(File.new(Rails.root.join("spec/support/stripe.js")))
+
       visit user_complete_signup_path
     end
 
@@ -15,51 +17,52 @@ feature "User complete Sign Up", js: true, stripe: true do
         fill_credit_card
         token = StripeMock.generate_card_token(last4: "1111", exp_year: 2020)
         stub_success_token(token)
+        page.driver.debug
       end
 
-     scenario "of a private IT" do
+      scenario "of a private IT" do
+        submit_subscription_data
+        expect(page).to have_content 'SETUP'
+      end
+
+      scenario "of a company IT " do
+       find('#type-company')
+       .trigger('click')
+       submit_subscription_data
+       expect(page).to have_content 'SETUP'
+     end
+
+     scenario "of a private EU" do
+       select1('user_country', query: 'France', :choose => "France")
+       submit_subscription_data
+       expect(page).to have_content 'SETUP'
+     end
+
+     scenario "of a company EU " do
+      select1('user_country', query: 'France', :choose => "France")
+      find('#type-company')
+      .trigger('click')
       submit_subscription_data
       expect(page).to have_content 'SETUP'
     end
 
-    scenario "of a company IT " do
-     find('#type-company')
-     .trigger('click')
-     submit_subscription_data
-     expect(page).to have_content 'SETUP'
-   end
+    scenario "private from the rest of the world" do
+      select1('user_country', query: 'Canada', :choose => "Canada")
+      submit_subscription_data
+      expect(page).to have_content 'SETUP'
+    end
 
-   scenario "of a private EU" do
-     select1('user_country', query: 'France', :choose => "France")
-     submit_subscription_data
-     expect(page).to have_content 'SETUP'
-   end
+    scenario "Yearly Plan" do
+      select1('user_country', query: 'Canada', :choose => "Canada")
+      find('.year-plan').trigger('click')
 
-   scenario "of a company EU " do
-    select1('user_country', query: 'France', :choose => "France")
-    find('#type-company')
-    .trigger('click')
-    submit_subscription_data
-    expect(page).to have_content 'SETUP'
+      submit_subscription_data
+      sleep 3
+      visit edit_user_settings_billing_path
+      expect(page).to have_content 'YEARLY PLAN'
+    end
+
   end
-
-  scenario "private from the rest of the world" do
-    select1('user_country', query: 'Canada', :choose => "Canada")
-    submit_subscription_data
-    expect(page).to have_content 'SETUP'
-  end
-
-  scenario "Yearly Plan" do
-    select1('user_country', query: 'Canada', :choose => "Canada")
-    find('.year-plan').trigger('click')
-
-    submit_subscription_data
-    sleep 3
-    visit edit_user_settings_billing_path
-    expect(page).to have_content 'YEARLY PLAN'
-  end
-
-end
 end
 end
 
@@ -69,10 +72,10 @@ def submit_subscription_data
 end
 
 def stub_success_token(token)
-  proxy.stub('https://api.stripe.com:443/v1/tokens').
+  proxy.stub('https://api.stripe.com/v1/tokens').
   and_return(Proc.new { |params|
     { :code => 200, :text => "#{params['callback'][0]}({
-      'id': '#{token}',
+      'id': 'ciao',
       'livemode': false,
       'created': 1379062337,
       'used': false,
