@@ -8,7 +8,7 @@ config = Exchange::Configuration.new do |c|
   }
 
   c.api = {
-    subclass: :xavier_media,
+    subclass: :ecb,
     retries: 3,
     protocol: :http,
     fallback: :ecb
