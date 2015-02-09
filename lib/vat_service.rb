@@ -108,7 +108,7 @@ class VatService
     # Companies pay VAT in the origin country when you are VAT registered there.
     # Individuals always need to pay the VAT rate set in their origin country.
     if registered?(country_code) || (eu?(country_code) && !vat_registered)
-      VAT_RATES[country_code]
+      return 22 #VAT_RATES[country_code]
 
     # Companies in other EU countries don't need to pay VAT.
     # All non-EU customers don't need to pay VAT.
