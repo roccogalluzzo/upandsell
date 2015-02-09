@@ -55,7 +55,7 @@
                 <li class="image-li">
                   <%= image_tag current_user.avatar, class: 'nav-avatar img-circle' %>
                 </li>
-                <% if current_user.subscription_active %>
+                <% if current_user.subscribed? %>
                 <li class="first-li <%= ap(new_user_product_path) %>">
                  <%= link_to(new_user_product_path) do %>
                  <i class="fa  fa-plus"></i>
@@ -127,7 +127,7 @@
     </div>
     <div class="page-content">
       <div class="content">
-        <% unless current_user.subscription_active %>
+        <% unless current_user.subscribed? %>
         <div id="not-subscribed">
           <div class="col-md-1">
             <i class="fa fa-warning"></i>

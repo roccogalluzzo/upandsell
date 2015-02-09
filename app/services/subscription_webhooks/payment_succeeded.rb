@@ -6,6 +6,7 @@ module SubscriptionWebhooks
      invoice.process_payment(stripe_invoice_id: stripe_invoice.id)
 
       # send emails
+      user = User.find_by_stripe_id stripe_invoice.customer
     end
   end
 end

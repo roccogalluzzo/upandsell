@@ -34,6 +34,8 @@ class User::Settings::BillingsController < User::BaseController
 
       if current_user.stripe_id.nil?
         success = current_user.create_subscription
+      elsif !current_user.subscription_active
+        success = current_user.subscribe
       elsif current_user.stripe_token_changed? &&  current_user.plan_type_changed?
         success = current_user.change_plan
         success = current_user.change_card

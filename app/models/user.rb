@@ -64,6 +64,10 @@ class User < ActiveRecord::Base
     UserMailer.delay.welcome_email(self.id)
   end
 
+  def subscribed?
+    self.subscription_end > Time.now
+  end
+
   def add_to_mailchimp
     UserMailchimpSync.perform_async(self.id)
   end
