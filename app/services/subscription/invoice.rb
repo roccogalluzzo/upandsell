@@ -4,15 +4,14 @@ module Subscription
    AlreadyFinalized = Class.new(StandardError)
 
   # customer_id - Stripe customer id.
-  def initialize(customer_id:, user_id:)
+  def initialize(customer_id:)
     @customer_id = customer_id
-    @user_id = user_id
+    @user = User.find_by_stripe_id(customer_id)
   end
 
   def ensure_vat(stripe_invoice_id:)
     # Get/create an internal invoice.
     invoice = ensure_invoice(stripe_invoice_id)
-
     # Only apply VAT if not applied yet.
     if !invoice.added_vat?
       stripe_invoice = stripe_service.apply_vat(invoice_id: stripe_invoice_id)
@@ -99,7 +98,7 @@ module Subscription
 
   def ensure_invoice(stripe_id)
     sub = SubscriptionInvoice.where(stripe_id: stripe_id).first_or_initialize
-    sub.user_id = @user_id
+    sub.user_id = @user.id
     sub.stripe_customer_id = @customer_id
     sub
   end

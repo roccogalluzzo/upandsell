@@ -23,6 +23,7 @@ class Subscription::Stripe
         plan: @plans[user.plan_type],
         trial_end: user.trial_end
         )
+
     @customer
   end
 

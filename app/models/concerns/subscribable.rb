@@ -3,7 +3,7 @@ module Subscribable
 
   def create_subscription
     customer = Subscription::Stripe.create_customer(self)
-    return customer if customer == false
+    return false if !customer
 
     self.last_4_digits = customer.cards.data.first["last4"]
     self.cc_brand = customer.cards.data.first["brand"].downcase
@@ -11,6 +11,7 @@ module Subscribable
     self.subscription_end = Time.at(customer.subscriptions.data[0].current_period_end).to_datetime
     self.subscription_active = true
     self.save
+    customer
   end
 
   def change_plan
