@@ -1,5 +1,3 @@
-include ActionDispatch::TestProcess
-
 FactoryGirl.define do
   factory :order do
     email "ddd@cldlf.com"
@@ -11,6 +9,5 @@ FactoryGirl.define do
     gateway 'paypal'
     user
     product
-
   end
 end
