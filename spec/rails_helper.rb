@@ -18,13 +18,11 @@ require 'capybara/rspec'
 require 'billy/rspec'
 require 'webmock/rspec'
 require 'capybara/poltergeist'
-require 'thin'
-require 'stripe_mock'
 
 
 
-WebMock::API.stub_request(:get, "www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml")
-.to_return(File.new(Rails.root.join("spec/support/ex_rates.xml")))
+#WebMock::API.stub_request(:get, "www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml")
+#.to_return(File.new(Rails.root.join("spec/support/ex_rates.xml")))
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 

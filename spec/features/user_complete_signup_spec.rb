@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-feature "User complete Sign Up", js: true, stripe: true do
+feature "User complete Sign Up", js: true do
 
   context "when submit Billing form" do
     background do
       @user = SessionHelpers.create_logged_in_user
-      proxy.stub('https://js.stripe.com/v2*').and_return(File.new(Rails.root.join("spec/support/stripe.js")))
-
-      visit user_complete_signup_path
+      VCR.use_cassette("load_stripe_js", :record => :new_episodes) do
+        visit user_complete_signup_path
+      end
     end
 
     context "with valid data" do
@@ -15,54 +15,65 @@ feature "User complete Sign Up", js: true, stripe: true do
       before(:each) do
         fill_common_form_fields
         fill_credit_card
-        token = StripeMock.generate_card_token(last4: "1111", exp_year: 2020)
-        stub_success_token(token)
-        page.driver.debug
       end
 
       scenario "of a private IT" do
-        submit_subscription_data
-        expect(page).to have_content 'SETUP'
+        VCR.use_cassette("feature_complete_sign_up_private_IT", :record => :new_episodes) do
+          submit_subscription_data
+          page.save_screenshot('complete_signup_IT.png')
+          expect(page).to have_content 'SETUP'
+        end
       end
 
       scenario "of a company IT " do
-       find('#type-company')
-       .trigger('click')
-       submit_subscription_data
-       expect(page).to have_content 'SETUP'
+        VCR.use_cassette("feature_complete_sign_up_company_IT", :record => :new_episodes) do
+         find('#type-company')
+         .trigger('click')
+         submit_subscription_data
+         expect(page).to have_content 'SETUP'
+       end
      end
 
      scenario "of a private EU" do
+      VCR.use_cassette("feature_complete_sign_up_private_EU", :record => :new_episodes) do
        select1('user_country', query: 'France', :choose => "France")
        submit_subscription_data
        expect(page).to have_content 'SETUP'
      end
+   end
 
-     scenario "of a company EU " do
+   scenario "of a company EU " do
+    VCR.use_cassette("feature_complete_sign_up_company_EU", :record => :new_episodes) do
       select1('user_country', query: 'France', :choose => "France")
       find('#type-company')
       .trigger('click')
       submit_subscription_data
       expect(page).to have_content 'SETUP'
     end
+  end
 
-    scenario "private from the rest of the world" do
+  scenario "private from the rest of the world" do
+    VCR.use_cassette("feature_complete_sign_up_extra_EU", :record => :new_episodes) do
       select1('user_country', query: 'Canada', :choose => "Canada")
       submit_subscription_data
       expect(page).to have_content 'SETUP'
     end
-
-    scenario "Yearly Plan" do
-      select1('user_country', query: 'Canada', :choose => "Canada")
-      find('.year-plan').trigger('click')
-
-      submit_subscription_data
-      sleep 3
-      visit edit_user_settings_billing_path
-      expect(page).to have_content 'YEARLY PLAN'
-    end
-
   end
+
+  scenario "Yearly Plan" do
+    VCR.use_cassette("feature_complete_sign_up_extra_EU_yearly", :record => :new_episodes) do
+    select1('user_country', query: 'Canada', :choose => "Canada")
+    find('.year-plan').trigger('click')
+
+    submit_subscription_data
+    sleep 3
+    visit edit_user_settings_billing_path
+      page.save_screenshot('complete_signup_IT.png')
+    expect(page).to have_content 'YEARLY PLAN'
+  end
+end
+
+end
 end
 end
 

@@ -8,7 +8,8 @@ config = Exchange::Configuration.new do |c|
   }
 
   c.api = {
-    subclass: :ecb,
+    :subclass => :open_exchange_rates,
+    :app_id => "ae2dfadfe001425caf71503cf97d8b99",
     retries: 3,
     protocol: :http,
     fallback: :ecb

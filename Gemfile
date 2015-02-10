@@ -78,6 +78,7 @@ group :development, :test do
   gem 'fuubar'
   gem 'guard-rspec', require: false
   gem 'rb-fsevent'
+  gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'vcr'
 end
@@ -97,8 +98,6 @@ group :test do
   gem 'rspec-activemodel-mocks'
   gem 'timecop'
   gem 'webmock'
-  gem 'stripe-ruby-mock', github: 'byterussian/stripe-ruby-mock'
-  gem 'thin'
 end
 
 group :development do
