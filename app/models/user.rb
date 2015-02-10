@@ -65,6 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def subscribed?
+    return false if self.subscription_end.nil?
     self.subscription_end > Time.now
   end
 
