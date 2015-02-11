@@ -35,6 +35,19 @@ module Subscribable
     self.save
   end
 
+  def apply_coupon(code)
+    return false if self.coupon_active == code
+    return false if User.where(coupon_active: code).count >= 10
+
+    subscription = Subscription::Stripe.new(customer_id: self.stripe_id)
+    .apply_coupon(self.subscription_end + 3.months)
+    return subscription if subscription == false
+
+    self.coupon_active = code.upcase
+    self.subscription_end = Time.at(subscription.current_period_end).to_datetime
+    self.save
+  end
+
   def change_card
     customer = Subscription::Stripe.new(customer_id: self.stripe_id).change_card(self.stripe_token)
     return customer if customer == false

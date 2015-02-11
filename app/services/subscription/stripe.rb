@@ -32,50 +32,62 @@ class Subscription::Stripe
     @plans = {'monthly' => 'MONTHLY_PLAN', 'yearly' => 'YEARLY_PLAN'}
   end
 
+  def apply_coupon(new_trial_end)
+    if self.is_subscribed?
+      subscription = customer.subscriptions.retrieve(customer.subscriptions.data[0].id)
+      subscription.trial_end = new_trial_end.to_i
+      subscription.save
+    end
+
+  rescue Stripe::StripeError => e
+    Rails.logger.error "Stripe Error: " + e.message
+    false
+  end
+
   def subscribe(new_plan, token)
-   if !self.is_subscribed?
-    customer.subscriptions.create({plan: @plans[new_plan], card: token})
+    if !self.is_subscribed?
+      customer.subscriptions.create({plan: @plans[new_plan], card: token})
+    end
   end
-end
 
-def change_plan(new_plan)
-  if self.is_subscribed?
-    subscription = customer.subscriptions.retrieve(customer.subscriptions.data[0].id)
-    subscription.plan = @plans[new_plan]
-    subscription.prorate = false
-    subscription.save
+  def change_plan(new_plan)
+    if self.is_subscribed?
+      subscription = customer.subscriptions.retrieve(customer.subscriptions.data[0].id)
+      subscription.plan = @plans[new_plan]
+      subscription.prorate = false
+      subscription.save
+    end
+  rescue Stripe::StripeError => e
+    Rails.logger.error "Stripe Error: " + e.message
+    false
   end
-rescue Stripe::StripeError => e
-  Rails.logger.error "Stripe Error: " + e.message
-  false
-end
 
-def change_card(token)
-  customer.card = token
-  customer.save
+  def change_card(token)
+    customer.card = token
+    customer.save
 
-rescue Stripe::StripeError => e
-  Rails.logger.error "Stripe Error: " + e.message
-  false
-end
-
-def cancel_subscription
-  byebug
-  subscription = customer.subscriptions.data[0]
-  customer.subscriptions.retrieve(subscription.id).delete(at_period_end: true).cancel_at_period_end
-
-rescue Stripe::StripeError => e
-  Rails.logger.error "Stripe Error: " + e.message
-  false
-end
-
-def is_subscribed?
-  subscription = customer.subscriptions.data[0]
-  if subscription && (subscription.status == 'trialing' || subscription.status == 'active')
-    return true
+  rescue Stripe::StripeError => e
+    Rails.logger.error "Stripe Error: " + e.message
+    false
   end
-  false
-end
+
+  def cancel_subscription
+    byebug
+    subscription = customer.subscriptions.data[0]
+    customer.subscriptions.retrieve(subscription.id).delete(at_period_end: true).cancel_at_period_end
+
+  rescue Stripe::StripeError => e
+    Rails.logger.error "Stripe Error: " + e.message
+    false
+  end
+
+  def is_subscribed?
+    subscription = customer.subscriptions.data[0]
+    if subscription && (subscription.status == 'trialing' || subscription.status == 'active')
+      return true
+    end
+    false
+  end
 
   # Applies VAT to a Stripe invoice if necessary.
   # Copies customer metadata to the invoice, to make it immutable

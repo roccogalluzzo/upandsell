@@ -66,6 +66,30 @@
     }
   }
 }
+
+.subscription-coupons {
+  .make-row();
+  border-bottom: @border-light;
+  margin-top: 10px;
+  padding: 0px 0px 20px 0;
+
+  .coupon-info {
+    font-size: 18px;
+    font-weight: bold;
+    .make-sm-column(8);
+    p {
+      margin: 0;
+    margin-top: 10px;
+    }
+  }
+  .coupon-action {
+    .make-sm-column(2);
+    text-align: right;
+    #js-btn-cancel-subscription {
+      margin-bottom: 10px;
+    }
+  }
+}
 .plan-view {
   color: #1abc9c;
 }

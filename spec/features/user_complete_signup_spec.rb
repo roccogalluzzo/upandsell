@@ -68,8 +68,7 @@ feature "User complete Sign Up", js: true do
     submit_subscription_data
     sleep 3
     visit edit_user_settings_billing_path
-      page.save_screenshot('complete_signup_IT.png')
-    expect(page).to have_content 'YEARLY PLAN'
+    expect(page).to have_content 'Next payment will be processed on'
   end
 end
 

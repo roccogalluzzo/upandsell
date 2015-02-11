@@ -34,6 +34,9 @@
     $('#cc_number').rules( "remove", 'required');
     $('#cc_expire').rules( "remove", 'required');
     $('#cc_cvc').rules( "remove", 'required');
+    $('#billing-form').find('form').bind('ajax:success', Billings.BillingForm.success);
+    $('.subscription-coupons').find('form').bind('ajax:success', Billings.BillingCoupons.success);
+    $('.subscription-coupons').find('form').bind('ajax:error', Billings.BillingCoupons.error);
   }
   Billings.BillingForm = {
     init: function () {
@@ -44,8 +47,7 @@
       $("input[name='user[business_type]']:radio").on('change', Billings.BillingForm.update_fields);
       Billings.BillingForm.update_fields();
      // $('#billing-edit-form').bind('ajax:beforeSend', Billings.BillingForm.success);
-     $('#billing-edit-form').bind('ajax:success', Billings.BillingForm.success);
-     $('form').bind('ajax:error', Billings.BillingForm.error);
+     $('#billing-form').find('form').bind('ajax:error', Billings.BillingForm.error);
      $('#js-change-price').on('click',  Billings.BillingForm.change_price);
    },
    change_price: function() {
@@ -96,13 +98,13 @@
       exp_year: expire.year
     }, Billings.BillingForm.stripe);
   }else {
-    var $form = $('form');
+    var $form = $('#billing-form').find('form');
     $form.trigger("submit.rails");
   }
   return false;
 },
 stripe: function(status, response) {
-  var $form = $('form');
+  var $form = $('#billing-form').find('form');
   if (response.error) {
     Up.alert.open(response.error.message);
     return false
@@ -149,7 +151,7 @@ update_fields: function () {
         $('#cc_cvc').payment('formatCardCVC');
         $.validator.addMethod("ccNumberValid", Billings.BillingForm.validation.ccNumberValid, " Credit Card Number is Invalid.");
         $.validator.addMethod("ccExpValid", Billings.BillingForm.validation.ccExpValid, " Credit Card Data is Invalid.");
-        $('form').validate({
+        $('#billing-form').find('form').validate({
           submitHandler: Billings.BillingForm.submit,
           showErrors: Billings.BillingForm.validation.showErrors,
           errorPlacement: Billings.BillingForm.validation.errorPlacement,
@@ -237,5 +239,29 @@ update_fields: function () {
         }
       },
     }
-  }
+  };
+  Billings.BillingCoupons = {
+    success: function(e, data, xhr) {
+      $('.coupon-info').find('p').html(data.message);
+      $('.coupon-info p span')
+      .animate({ backgroundColor: jQuery.Color('#FFFFAA')}, 500 )
+      .animate({ backgroundColor: jQuery.Color('#FFFFFF')}, 5000 );
+
+      $('.subscription-end').html(data.trial_end);
+      $('.subscription-end')
+      .animate({ backgroundColor: jQuery.Color('#FFFFAA')}, 500 )
+      .animate({ backgroundColor: jQuery.Color('#FFFFFF')}, 5000 );
+
+    },
+    error: function(e, xhr, status) {
+     $('#coupon_code').addClass('animated swing');
+     $('#coupon_code').parent().addClass('has-error');
+
+     $('#coupon_code').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+       $('#coupon_code').removeClass('animated swing');
+       $('#coupon_code').parent().removeClass('has-error');
+     });
+
+   }
+ }
 }(jQuery, window.Billings = window.Billings || {}));

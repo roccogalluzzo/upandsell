@@ -23,4 +23,5 @@ asset "jquery.cookie"
 asset "select2"
 asset "jquery.scrollTo"
 asset "bootstrapvalidator"
+asset "jquery-color"
 

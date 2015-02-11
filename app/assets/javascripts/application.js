@@ -30,6 +30,7 @@
 //= require amcharts/amcharts.js
 //= require amcharts/themes/dark.js
 //= require amcharts/serial.js
+//= require jquery-color/jquery.color.js
 //= require_tree ./user
 
 $(document).ready(Up.init);

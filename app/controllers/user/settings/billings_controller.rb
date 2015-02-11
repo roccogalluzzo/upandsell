@@ -28,6 +28,18 @@ class User::Settings::BillingsController < User::BaseController
     @year_price =  249.99.in(:eur).to(:usd).to_s(:plain)
   end
 
+  def apply_coupon
+    if params[:coupon][:code].upcase == 'CIAO'
+      if current_user.apply_coupon('CIAO')
+        render json: {
+          message: '<span><b>CIAO</b> - <span class="text-muted">3 months FREE</span></span>',
+          trial_end: current_user.subscription_end.strftime("%d %B  %Y")
+          }, status: :ok and return
+      end
+    end
+    render json: {}, status: :unprocessable_entity
+  end
+
   def update
     if billing_info_valid?
       current_user.attributes = billing_params

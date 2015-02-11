@@ -22,7 +22,7 @@ Settings / <span>Billing Information</span>
 
       <span>
         Next payment will be processed on
-        <span class="text-muted"><%= current_user.subscription_end.strftime("%d %B  %Y") %>.
+        <span class="text-muted subscription-end"><%= current_user.subscription_end.strftime("%d %B  %Y") %>.
         </span>
       </span>
     </p>
@@ -37,11 +37,30 @@ Settings / <span>Billing Information</span>
     <button id="js-toggle-billing-form" class="btn-app">Edit Billing Info</button>
   </div>
 </div>
+<div class="subscription-coupons">
+  <div class="coupon-info">
+    <p>
+    <% if current_user.coupon_active %>
+    <b>CIAO</b> - <span class="text-muted">3 months FREE</span>
+    <% else %>
+      <span class="text-muted">No Active Coupons</span>
+      <% end %>
+    </p>
+  </div>
+  <%= simple_form_for :coupon, url: apply_coupon_user_settings_billing_path, method: :post, remote: true do |f| %>
+  <div class="col-md-2">
+    <%= f.input_field :code %>
+  </div>
+  <div class="coupon-action">
+    <%= f.button :submit, "Reedem Coupon", class: "btn btn-inverse", data: { disable_with: "Processing..." } %>
+  </div>
+  <% end %>
+</div>
 <% end %>
 
 <div id="billing-edit-form" data-subscription-active="<%= current_user.subscription_active %>"
  style="<%= 'display: none;' if current_user.subscription_active %>">
-  <%= render partial: "user/settings/billings/form", :locals => {:edit => true}  %>
+ <%= render partial: "user/settings/billings/form", :locals => {:edit => true}  %>
 </div>
 
 <div class="payment-history">

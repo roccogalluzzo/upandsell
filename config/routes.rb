@@ -105,7 +105,9 @@ namespace :settings do
   end
   resource :integrations, only: [:edit, :create]
   resource :emails, only: [:edit, :update]
-  resource :billing, except: [:index]
+  resource :billing, except: [:index] do
+    post 'apply_coupon'
+  end
 end
 
 end

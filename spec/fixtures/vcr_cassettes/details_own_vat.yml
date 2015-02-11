@@ -1,0 +1,48 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://ec.europa.eu/taxation_customs/vies/services/checkVatService
+    body:
+      encoding: UTF-8
+      string: <?xml version="1.0" encoding="UTF-8"?><env:Envelope xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns1="urn:ec.europa.eu:taxud:vies:services:checkVat"
+        xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ins0="urn:ec.europa.eu:taxud:vies:services:checkVat:types"><env:Body><ins0:checkVatApprox><ins0:countryCode>LU</ins0:countryCode><ins0:vatNumber>21416127</ins0:vatNumber><ins0:requesterCountryCode>IE</ins0:requesterCountryCode><ins0:requesterVatNumber>6388047V</ins0:requesterVatNumber></ins0:checkVatApprox></env:Body></env:Envelope>
+    headers:
+      User-Agent:
+      - HTTPClient/1.0 (2.6.0.1, ruby 2.1.5 (2014-11-13))
+      Accept:
+      - "*/*"
+      Date:
+      - Tue, 10 Feb 2015 20:25:47 GMT
+      Soapaction:
+      - '"checkVatApprox"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '604'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 10 Feb 2015 20:25:46 GMT
+      Transfer-Encoding:
+      - chunked
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Server:
+      - Europa
+      Proxy-Connection:
+      - Keep-Alive
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: UTF-8
+      string: |-
+        <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><checkVatApproxResponse xmlns="urn:ec.europa.eu:taxud:vies:services:checkVat:types"><countryCode>LU</countryCode><vatNumber>21416127</vatNumber><requestDate>2015-02-10+01:00</requestDate><valid>true</valid><traderName>EBAY EUROPE S.A R.L.</traderName><traderCompanyType>---</traderCompanyType><traderAddress>22, BOULEVARD ROYAL
+        L-2449  LUXEMBOURG</traderAddress><requestIdentifier>WAPIAAAAUt1K0rlQ</requestIdentifier></checkVatApproxResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Tue, 10 Feb 2015 20:25:48 GMT
+recorded_with: VCR 2.9.3

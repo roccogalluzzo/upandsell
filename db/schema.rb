@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150131205127) do
+ActiveRecord::Schema.define(version: 20150210230502) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",                       null: false
@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 20150131205127) do
     t.string   "paypal_email"
     t.string   "paypal_token"
     t.string   "paypal_token_secret"
+    t.string   "coupon_active"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
