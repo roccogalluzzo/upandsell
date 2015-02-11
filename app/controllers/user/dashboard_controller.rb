@@ -15,7 +15,7 @@ class User::DashboardController < User::BaseController
     demo = false
     visits = Metric::Product.new(products).visits(1.days.ago, :hour).get
     sales = Metric::Product.new(products).sales(1.days.ago, :hour).exchange_to(current_user.currency.to_sym).get
-    if visits[:visits] == 0 &&  sales[:sales] == 0
+    if sales[:sales] == 0
       js_data = demo_data(:day)
       demo = true
     else
@@ -45,7 +45,7 @@ class User::DashboardController < User::BaseController
 
     visits = Metric::Product.new(@products).visits(period, pd).get
     sales = Metric::Product.new(@products).sales(period, pd).exchange_to(current_user.currency.to_sym).get
-    if visits[:visits] == 0 &&  sales[:sales] == 0
+    if  sales[:sales] == 0
       js_data = demo_data(params[:period].to_sym)
       demo = true
     else
