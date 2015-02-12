@@ -1,9 +1,9 @@
 class User::DashboardController < User::BaseController
 
   def index
-    if current_user.currency = 'usd'
+    if current_user.currency == 'USD'
       @currency = '$'
-    elsif current_user.currency = 'gbp'
+    elsif current_user.currency == 'GBP'
       @currency = '£'
     else
       @currency = '€'
