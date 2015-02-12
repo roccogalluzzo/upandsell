@@ -46,7 +46,7 @@ module S3File
   def self.upload_from_url(name, url)
    file = ProductUploader.new
    file.success_action_redirect = '/'
-   key = file.store_key(file.temp_store_key(name))
+   key = file.temp_store_key(name)
 
    open(url) {|f|
     file =  @s3.directories.new(key: @c['bucket']).files.create({
