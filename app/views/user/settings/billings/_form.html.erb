@@ -5,20 +5,22 @@
     <div class="billing-type">
       <div class="radio radio-inline">
         <label>
-          <input id="type-private" type="radio" name="user[business_type]" value="private" checked>
+          <input id="type-private" type="radio" name="user[business_type]" value="private"
+          <%= 'checked' if  current_user.business_type == 'private' || current_user.business_type == nil %> >
           Private
         </label>
       </div>
       <div class="radio radio-inline">
         <label>
-          <input id="type-company" type="radio" name="user[business_type]" value="company">
+          <input id="type-company" type="radio" name="user[business_type]"
+           value="company"  <%= 'checked' if  current_user.business_type == 'company' %> >
           Company
         </label>
       </div>
     </div>
     <%= f.input :country, as: :country,
     class: 'select select-primary select-block mbl',
-      priority: ["IT", "GB", "US"], selected: "IT" %>
+      priority: ["IT", "GB", "US"], selected: current_user.country || "IT" %>
 
       <%= f.input :legal_name, as: :with_feedback, input_html: {value: f.object.legal_name || current_user.name} %>
       <%= f.input :tax_code, as: :with_feedback %>
