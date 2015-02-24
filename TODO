@@ -1,10 +1,6 @@
 TODO
 
-- implementare sei mesi signup per user beta
 
--limitare la creazione prodotti
-
-- implementare il canel subscription
-- implementare i webhooks stripe
+- genera fattura
 
 - email fine trial/account rinnovato/rinnovo fallito

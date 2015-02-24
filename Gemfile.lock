@@ -754,6 +754,7 @@ DEPENDENCIES
   redcarpet
   redis (~> 3.0.1)
   remotipart (~> 1.2)
+  rest-client
   rspec-activemodel-mocks
   rspec-rails
   rspec-sidekiq

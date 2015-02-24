@@ -55,6 +55,7 @@ gem 'rails', '4.1.9'
 gem "rails_config"
 gem 'rack-affiliates'
 gem 'redcarpet'
+gem 'rest-client'
 gem 'redis', '~> 3.0.1'
 gem 'remotipart', '~> 1.2'
 gem 'sanitize'

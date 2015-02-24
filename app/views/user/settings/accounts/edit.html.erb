@@ -118,6 +118,24 @@ Settings / <span>Account</span>
  </div>
 </div>
 <div class="form-row">
+  <div class="row-label">
+   <p>Webhook Order URL</p>
+ </div>
+ <div class="row-input">
+   <%= f.input_field :webhook_order_url,
+   placeholder:"" %>
+ </div>
+</div>
+<div class="form-row">
+  <div class="row-label">
+   <p>Webhook Refund URL</p>
+ </div>
+ <div class="row-input">
+   <%= f.input_field :webhook_refund_url,
+   placeholder:"" %>
+ </div>
+</div>
+<div class="form-row">
  <div class="form-actions"><hr />
    <%= button_tag(type: 'submit', class: "btn btn-primary btn-form") do %>
    <i class='fa fa-lg fa-lock hidden'>&nbsp; </i> Save Settings
