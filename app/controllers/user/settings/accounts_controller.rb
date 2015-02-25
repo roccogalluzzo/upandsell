@@ -22,7 +22,6 @@ end
 private
 def user_params
   params.require(:user).permit( :email, :name, :bio, :avatar, :email_after_sale, :ga_code,
-   :currency, :current_password, :password,
-   :password_confirmation)
+   :currency, :current_password, :password, :password_confirmation, :webhook_order_url, :webhook_refund_url)
 end
 end
