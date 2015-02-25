@@ -58,6 +58,7 @@ gem 'redcarpet'
 gem 'rest-client'
 gem 'redis', '~> 3.0.1'
 gem 'remotipart', '~> 1.2'
+gem 'rollbar', '~> 1.4.2'
 gem 'sanitize'
 gem 'sdoc', require: false
 gem 'sidekiq'

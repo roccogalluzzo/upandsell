@@ -32,6 +32,7 @@ set :keep_releases, 2
 before "deploy:starting", "deploy:set_env"
 before 'deploy:updated', 'bower:install'
 after "deploy:updated", "newrelic:notice_deployment"
+after :deploy, 'notify_rollbar'
 
 namespace :deploy do
 
@@ -60,4 +61,13 @@ namespace :deploy do
     end
   end
 
+end
+task :notify_rollbar do
+  on roles(:app) do |h|
+    revision = `git log -n 1 --pretty=format:"%H"`
+    local_user = `whoami`
+    rollbar_token = '0fbf1d3a866542708f030d210a7706e0'
+    rails_env = fetch(:rails_env, 'production')
+    execute "curl https://api.rollbar.com/api/1/deploy/ -F access_token=#{rollbar_token} -F environment=#{rails_env} -F revision=#{revision} -F local_username=#{local_user} >/dev/null 2>&1", :once => true
+  end
 end
