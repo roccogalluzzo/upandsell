@@ -32,7 +32,6 @@ set :keep_releases, 2
 before "deploy:starting", "deploy:set_env"
 before 'deploy:updated', 'bower:install'
 after "deploy:updated", "newrelic:notice_deployment"
-after :deploy, 'notify_rollbar'
 
 namespace :deploy do
 
@@ -71,3 +70,6 @@ task :notify_rollbar do
     execute "curl https://api.rollbar.com/api/1/deploy/ -F access_token=#{rollbar_token} -F environment=#{rails_env} -F revision=#{revision} -F local_username=#{local_user} >/dev/null 2>&1", :once => true
   end
 end
+
+after :deploy, 'notify_rollbar'
+
