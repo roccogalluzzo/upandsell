@@ -9,10 +9,9 @@ describe Subscription::Invoice, stripe: true do
     accounting_id: '10001',
     other: 'random'
     }}
-    let(:stripe_helper) { StripeMock.create_test_helper }
 
-
-      let(:plan) do
+    let(:plan) do
+      VCR.use_cassette("service_invoice_create_plan", :record => :new_episodes) do
         begin
           Stripe::Plan.retrieve('test')
         rescue
@@ -20,29 +19,38 @@ describe Subscription::Invoice, stripe: true do
           id: 'test',
           name: 'Test Plan',
           amount: 1499,
-          currency: 'usd',
+          currency: 'eur',
           interval: 'month'
         end
       end
+    end
 
-      before do
-        @user = create(:active_user)
-        @user.stripe_token  = StripeMock.generate_card_token(last4: "1111", exp_year: 2020)
-        @user.save
-        @customer = @user.create_subscription
-      end
+    before do
+      @user = create(:active_user)
+    end
 
-      let(:service) { Subscription::Invoice.new(customer_id: @customer.id) }
+    describe '#ensure_vat' do
+      it 'is idempotent' do
+        VCR.use_cassette("service_invoice_ensure_vat") do
+          @user.stripe_token  = Stripe::Token.create(
+            :card => {
+              :number => "4242424242424242",
+              :exp_month => 2,
+              :exp_year => 2016,
+              :cvc => "314"
+              },
+              ).id
+          @user.save
+          customer = @user.create_subscription
+          service = Subscription::Invoice.new(customer_id: customer.id)
 
-      describe '#ensure_vat' do
-        it 'is idempotent' do
           Stripe::InvoiceItem.create \
-          customer: @customer.id,
+          customer: customer.id,
           amount: 100,
-          currency: 'usd'
+          currency: 'eur'
 
         # Apply VAT on the upcoming invoice.
-        stripe_invoice = Stripe::Invoice.create(customer: @customer.id)
+        stripe_invoice = Stripe::Invoice.create(customer: customer.id)
 
         invoice = service.ensure_vat(stripe_invoice_id: stripe_invoice.id)
         expect(invoice).to be_kind_of(SubscriptionInvoice)
@@ -50,27 +58,39 @@ describe Subscription::Invoice, stripe: true do
 
         # Apply again.
         service.ensure_vat(stripe_invoice_id: stripe_invoice.id)
-
-        invoice = @customer.invoices.last
-        expect(invoice.total).to eq 121
+        invoice = customer.invoices.data.first
+        expect(invoice.total).to eq 122
 
         expect(SubscriptionInvoice.count).to eq 1
         invoice = SubscriptionInvoice.first
         expect(invoice.added_vat?).to eq true
       end
     end
+  end
 
-    describe '#process_payment' do
+  describe '#process_payment' do
 
-      it 'finalizes the invoice' do
-        VCR.use_cassette('process_payment') do
-          Stripe::InvoiceItem.create \
-          customer: @customer.id,
-          amount: 100,
-          currency: 'usd'
+    it 'finalizes the invoice' do
+      VCR.use_cassette('service_invoice_finalize') do
+       @user.stripe_token  = Stripe::Token.create(
+        :card => {
+          :number => "4242424242424242",
+          :exp_month => 2,
+          :exp_year => 2016,
+          :cvc => "314"
+          },
+          ).id
+       @user.save
+       customer = @user.create_subscription
+       service = Subscription::Invoice.new(customer_id: customer.id)
 
-          stripe_invoice = Stripe::Invoice.create(customer: @customer.id)
-          service.ensure_vat(stripe_invoice_id: stripe_invoice.id)
+       Stripe::InvoiceItem.create \
+       customer: customer.id,
+       amount: 100,
+       currency: 'eur'
+
+       stripe_invoice = Stripe::Invoice.create(customer: customer.id)
+       service.ensure_vat(stripe_invoice_id: stripe_invoice.id)
 
         # Pay the invoice before processing the payment.
         stripe_invoice.pay
@@ -81,12 +101,12 @@ describe Subscription::Invoice, stripe: true do
         expect(invoice.subtotal).to eq 100
         expect(invoice.discount_amount).to eq 0
         expect(invoice.subtotal_after_discount).to eq 100
-        expect(invoice.vat_amount).to eq 21
-        expect(invoice.vat_rate).to eq 21
-        expect(invoice.total).to eq 121
-        expect(invoice.currency).to eq 'usd'
-        expect(invoice.customer_country_code).to eq 'NL'
-        expect(invoice.customer_vat_number).to eq 'NL123'
+        expect(invoice.vat_amount).to eq 22
+        expect(invoice.vat_rate).to eq 22
+        expect(invoice.total).to eq 122
+        expect(invoice.currency).to eq 'eur'
+        expect(invoice.customer_country_code).to eq 'IT'
+        expect(invoice.customer_vat_number).to eq '12345678'
         expect(invoice.stripe_customer_id).to eq customer.id
         expect(invoice.customer_vat_registered).to eq false
         expect(invoice.card_brand).to eq 'Visa'
@@ -97,33 +117,68 @@ describe Subscription::Invoice, stripe: true do
 
     describe 'when the total amount is zero' do
       it 'does not finalize the invoice' do
-        VCR.use_cassette('process_payment_zero') do
-          customer.subscriptions.create(plan: plan.id, trial_end: (Time.now.to_i + 1000))
-          stripe_invoice = customer.invoices.first
-          invoice = service.process_payment(stripe_invoice_id: stripe_invoice.id)
-          expect(invoice.finalized?).to eq false
-        end
-      end
-    end
-  end
+        VCR.use_cassette('service_invoice_process_payment_zero') do
+         @user.stripe_token  = Stripe::Token.create(
+          :card => {
+            :number => "4242424242424242",
+            :exp_month => 2,
+            :exp_year => 2016,
+            :cvc => "314"
+            },
+            ).id
+         @user.save
+         customer = @user.create_subscription
+         service = Subscription::Invoice.new(customer_id: customer.id)
 
-  describe '#process_refund' do
+         customer.subscriptions.create(plan: plan.id, trial_end: (Time.now.to_i + 1000))
+         stripe_invoice = customer.invoices.first
+         invoice = service.process_payment(stripe_invoice_id: stripe_invoice.id)
+         expect(invoice.finalized?).to eq false
+       end
+     end
+   end
+ end
 
-    it 'is an orphan refund' do
-      VCR.use_cassette('process_refund_orphan') do
-        expect { service.process_refund(stripe_invoice_id: 'xyz') }.to raise_error Subscription::Invoice::OrphanRefund
-      end
-    end
+ describe '#process_refund' do
+  it 'is an orphan refund' do
+    VCR.use_cassette('service_invoice_process_refund_orphan') do
+      expect {
+       @user.stripe_token  = Stripe::Token.create(
+        :card => {
+          :number => "4242424242424242",
+          :exp_month => 2,
+          :exp_year => 2016,
+          :cvc => "314"
+          },
+          ).id
+       @user.save
+       customer = @user.create_subscription
+       service = Subscription::Invoice.new(customer_id: customer.id)
+       service.process_refund(stripe_invoice_id: 'xyz') }.to raise_error Subscription::Invoice::OrphanRefund
+     end
+   end
 
-    describe 'when it is a real refund' do
-      it 'creates a credit note' do
-        VCR.use_cassette('process_refund') do
-          Stripe::InvoiceItem.create \
-          customer: @customer.id,
-          amount: 100,
-          currency: 'usd'
+   describe 'when it is a real refund' do
+    it 'creates a credit note' do
+      VCR.use_cassette('service_invoice_process_refund') do
+       @user.stripe_token  = Stripe::Token.create(
+        :card => {
+          :number => "4242424242424242",
+          :exp_month => 2,
+          :exp_year => 2016,
+          :cvc => "314"
+          },
+          ).id
+       @user.save
+       customer = @user.create_subscription
+       service = Subscription::Invoice.new(customer_id: customer.id)
 
-          stripe_invoice = Stripe::Invoice.create(customer: @customer.id)
+       Stripe::InvoiceItem.create \
+       customer: customer.id,
+       amount: 100,
+       currency: 'eur'
+
+       stripe_invoice = Stripe::Invoice.create(customer: customer.id)
 
         # Pay the invoice before processing the payment.
         stripe_invoice.pay

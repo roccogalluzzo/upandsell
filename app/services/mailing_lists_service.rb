@@ -1,5 +1,4 @@
 class MailingListsService
-
   def initialize(provider, token)
     @provider = ("Providers::#{provider.classify}").constantize
     @provider_name = provider
@@ -24,5 +23,4 @@ class MailingListsService
 end
 
 module  MLProvider
-
 end

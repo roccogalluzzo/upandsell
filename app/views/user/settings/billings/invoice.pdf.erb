@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>Invoice <%= @invoice.number %></title>
+  <%= wicked_pdf_stylesheet_link_tag "invoice" %>
+</head>
+<body>
+
+  <div id="invoice">
+    <div id="invoice-header">
+      <%= wicked_pdf_image_tag'logo-grafo.jpg', class: 'logo screen' %>
+      <div id="company-address" class="vcard">
+        <div class="fn org">
+          <strong><%=  AppSettings.seller_company_name %></strong>
+        </div>
+        <div class="adr">
+          <div class="street-address">
+            <%= AppSettings.seller_address_line1 %>
+            <br />
+            <%= AppSettings.seller_address_line2 %>
+          </div>
+          <div class="locality">
+            Italy
+          </div>
+        </div>
+        <div class="email">
+         info@upandsell.me
+       </div>
+       <p>
+         <br />
+         <strong> VAT <%= AppSettings.seller_vat_number %></strong>
+       </p>
+     </div>
+   </div>
+
+   <div id="invoice-info">
+     <h2> Invoice <strong><%= @invoice.number %></strong></h2>
+     <p><%= format_date(@invoice.finalized_at) %></p>
+     <% if @stripe.paid %>
+     <p><b><%= "Paid with #{@invoice.card_brand} #{@invoice.card_last4}" %></b></p>
+     <% else %>
+     <p id="payment-due"><%= "Payment due by #{format_date(@invoice.due_at)}" %></p>
+     <% end %>
+     <p id="payment-total"><%= format_money(@invoice.total, @invoice.currency) %></p>
+   </div>
+
+   <div id="client-details" class="vcard">
+     <div class="fn">
+      <%= @invoice.customer_name %>
+    </div>
+    <div class="adr">
+      <div class="street-address">
+       <%= @invoice.customer_address %>
+     </div>
+     <div class="locality">
+      <%= country_name(@invoice.customer_country_code) %>
+    </div>
+  </div>
+  <p>
+    <br />
+    <% if @invoice.customer_vat_registered %>
+    <strong>VAT <%= @invoice.customer_vat_number %></strong>
+    <% end %>
+  </p>
+</div>
+<br />
+<table id="invoice-amount">
+ <thead>
+  <tr id="header_row">
+    <th class="left details_th"> Details</th>
+    <th class="unitprice_th">Price (<%= @invoice.currency.upcase %>)</th>
+    <th class="subtotal_th"> Price (EUR)</th>
+  </tr>
+</thead>
+<tfoot>
+  <% if @invoice.discount? %>
+  <tr id="discount_tr">
+    <td class="item_r"> #{coupon.percent_off}% Discount</td>
+    <td class="item_r">format_money(invoice.discount_amount, invoice.currency)</td>
+    <td class="item_r"></td>
+  </tr>
+  <% end %>
+  <tr id="net_total_tr">
+    <td class="item_r">Net Total</td>
+    <td class="item_r"><%= format_money(@invoice.subtotal_after_discount, @invoice.currency) %></td>
+    <td class="item_r"></td>
+  </tr>
+  <tr id="vat_tr">
+    <td class="item_r">
+      <% if @invoice.vat? %>
+      <%= "VAT (#{@invoice.vat_rate.to_i}%)" %>
+      <% else %>
+      VAT*
+      <% end %>
+    </td>
+    <td class="item_r"><%= format_money(@invoice.vat_amount, @invoice.currency) %></td>
+    <td class="item_r"><%= format_money(@invoice.vat_amount_eur, :eur) %></td>
+  </tr>
+  <tr id="total_tr">
+    <td id="total_currency" class="total">
+      <span class="currency">Total</span>
+    </td>
+    <td class="total"><%= format_money(@invoice.total, @invoice.currency) %></td>
+    <td class="total"><%= format_money(@invoice.total_eur, :eur) %></td>
+  </tr>
+</tfoot>
+<tbody>
+  <% @stripe.lines.each_with_index do |line, i| %>
+  <tr class="item <%= ('odd' if i % 2 == 0) %>">
+    <% if line.type == 'subscription' %>
+    <td class="item_l"><%= "#{line.plan.name} (#{format_date(line.period.start)} - #{format_date(line.period.end)})" %>
+      <td class="item_r"> <%= format_money(line.amount, line.currency) %></td>
+      <td class="item_r"></td>
+      <% elsif line.type == 'invoiceitem' && line.metadata[:type] != 'vat' %>
+      <td class="item_l"> <%= line.description %></td>
+      <td class="item_r"><%= format_money(line.amount, line.currency) %></td>
+      <td class="item_r"></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div id="payment-details">
+  <h2>Payment Details</h2>
+</div>
+
+<div id="footnote">
+  <p>
+    <% if !@invoice.vat? %>
+    <% if @invoice.eu? %>
+    VAT Reverse-charged
+    <% else %>
+    No EU VAT applicable - Article 59 Directive 2006/112/EC
+    <% end %>
+    <% end %>
+  </p>
+</div>
+</div>
+</body>
+</html>

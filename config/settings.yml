@@ -1,3 +1,6 @@
+seller_company_name: 'Grafo Ventures di Giandomenico Sica'
+seller_address_line1: 'Via Giacomo Watt, 9'
+seller_address_line2: '20143 Milano'
 seller_vat_number: '08479430962'
 registered_countries: ['IT']
 invoice_number_format: '%{year}%<sequence>06d'

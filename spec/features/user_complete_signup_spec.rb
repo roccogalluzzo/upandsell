@@ -20,7 +20,6 @@ feature "User complete Sign Up", js: true do
       scenario "of a private IT" do
         VCR.use_cassette("feature_complete_sign_up_private_IT", :record => :new_episodes) do
           submit_subscription_data
-          page.save_screenshot('complete_signup_IT.png')
           expect(page).to have_content 'SETUP'
         end
       end
@@ -68,7 +67,7 @@ feature "User complete Sign Up", js: true do
     submit_subscription_data
     sleep 3
     visit edit_user_settings_billing_path
-    expect(page).to have_content 'Next payment will be processed on'
+    expect(page).to have_content 'YEARLY PLAN'
   end
 end
 

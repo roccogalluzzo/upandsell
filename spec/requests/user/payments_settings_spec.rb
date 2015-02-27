@@ -17,11 +17,11 @@ describe "Payments Settings" do
     end
   end
 
-  it "save paypal connect to db" do
+  xit "save paypal connect to db" do
     VCR.use_cassette('paypal_connect_complete') do
       action = get paypal_integration_callback_path,
       request_token: 'AAAAAAAZ6-lEF6DxKBwh', verification_code: 'M.TMIZXa61gEo6Qtm33xFA'
-      expect( flash[:notice]).to match 'Gateway Connected'
+      expect(flash[:notice]).to match 'Gateway Connected'
     end
   end
 

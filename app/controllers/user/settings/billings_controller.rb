@@ -1,5 +1,18 @@
 class User::Settings::BillingsController < User::BaseController
   layout 'complete_signup', only: [:new]
+
+  def invoice
+    @invoice = SubscriptionInvoice.find 13
+    @invoice.finalized_at = Time.now
+    @stripe =  Stripe::Invoice.retrieve(@invoice.stripe_id)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render :pdf => "file_name"
+      end
+    end
+  end
+
   def new
     @method = :post
 

@@ -106,12 +106,11 @@ namespace :settings do
   resource :integrations, only: [:edit, :create]
   resource :emails, only: [:edit, :update]
   resource :billing, except: [:index] do
+    get 'invoice/:id', to: 'billings#invoice'
     post 'apply_coupon'
   end
 end
-
 end
-
 namespace :admin do
  mount Sidekiq::Web => 'sidekiq'
 

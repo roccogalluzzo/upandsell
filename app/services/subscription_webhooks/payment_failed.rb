@@ -1,7 +1,6 @@
 module SubscriptionWebhooks
   class PaymentFailed
     def call(event)
-
       data = event['data']
       user = User.find_by!(stripe_id: data['customer'])
       SubscriptionPayment.new(
@@ -16,7 +15,7 @@ module SubscriptionWebhooks
         status: 'failed'
         ).save
 
-        # send emails
+      # send emails
     end
   end
 end

@@ -1,0 +1,713 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/tokens
+    body:
+      encoding: US-ASCII
+      string: card[number]=4242424242424242&card[exp_month]=2&card[exp_year]=2016&card[cvc]=314
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_6uBq0SMfkKrgiBZ4ZWPVSGgN
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin13.0","publisher":"stripe","uname":"Darwin
+        Roccos-iMac.local 13.4.0 Darwin Kernel Version 13.4.0: Sun Aug 17 19:50:11
+        PDT 2014; root:xnu-2422.115.4~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '81'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 24 Feb 2015 22:23:58 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '740'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_3F3DMht6pQNrXHeD
+      Stripe-Version:
+      - '2014-11-05'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "tok_15Zr5uAQkfalJzyKEJKc5xuG",
+          "livemode": false,
+          "created": 1424816638,
+          "used": false,
+          "object": "token",
+          "type": "card",
+          "card": {
+            "id": "card_15Zr5uAQkfalJzyKePWs8wn6",
+            "object": "card",
+            "last4": "4242",
+            "brand": "Visa",
+            "funding": "credit",
+            "exp_month": 2,
+            "exp_year": 2016,
+            "fingerprint": "gNiJZFbJHY3B44bd",
+            "country": "US",
+            "name": null,
+            "address_line1": null,
+            "address_line2": null,
+            "address_city": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_country": null,
+            "cvc_check": null,
+            "address_line1_check": null,
+            "address_zip_check": null,
+            "dynamic_last4": null,
+            "customer": null
+          },
+          "client_ip": "79.34.101.6"
+        }
+    http_version: 
+  recorded_at: Tue, 24 Feb 2015 22:23:56 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: US-ASCII
+      string: card=tok_15Zr5uAQkfalJzyKEJKc5xuG&email=elian_ortiz%40wiza.org&metadata[id]=7&metadata[country_code]=IT&metadata[vat_registered]=false&metadata[name]=Mrs.%20Marguerite%20Schaden&metadata[address]=721%20Lizeth%20Walks&metadata[type]=private&metadata[vat_number]=12345678&plan=MONTHLY_PLAN&trial_end=1426026236
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_6uBq0SMfkKrgiBZ4ZWPVSGgN
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin13.0","publisher":"stripe","uname":"Darwin
+        Roccos-iMac.local 13.4.0 Darwin Kernel Version 13.4.0: Sun Aug 17 19:50:11
+        PDT 2014; root:xnu-2422.115.4~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '308'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 24 Feb 2015 22:24:00 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '3418'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_S6hCl3iazTdGOPWX
+      Stripe-Version:
+      - '2014-11-05'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "object": "customer",
+          "created": 1424816640,
+          "id": "cus_5lNrcaYp6sYmjx",
+          "livemode": false,
+          "description": null,
+          "email": "elian_ortiz@wiza.org",
+          "delinquent": false,
+          "metadata": {
+            "id": "7",
+            "country_code": "IT",
+            "vat_registered": "false",
+            "name": "Mrs. Marguerite Schaden",
+            "address": "721 Lizeth Walks",
+            "type": "private",
+            "vat_number": "12345678"
+          },
+          "subscriptions": {
+            "object": "list",
+            "total_count": 1,
+            "has_more": false,
+            "url": "/v1/customers/cus_5lNrcaYp6sYmjx/subscriptions",
+            "data": [
+              {
+                "id": "sub_5lNrvE8xO7qdr2",
+                "plan": {
+                  "interval": "month",
+                  "name": "Monthly Plan",
+                  "created": 1424815983,
+                  "amount": 2499,
+                  "currency": "eur",
+                  "id": "MONTHLY_PLAN",
+                  "object": "plan",
+                  "livemode": false,
+                  "interval_count": 1,
+                  "trial_period_days": 14,
+                  "metadata": {},
+                  "statement_descriptor": null,
+                  "statement_description": null
+                },
+                "object": "subscription",
+                "start": 1424816640,
+                "status": "trialing",
+                "customer": "cus_5lNrcaYp6sYmjx",
+                "cancel_at_period_end": false,
+                "current_period_start": 1424816640,
+                "current_period_end": 1426026236,
+                "ended_at": null,
+                "trial_start": 1424816640,
+                "trial_end": 1426026236,
+                "canceled_at": null,
+                "quantity": 1,
+                "application_fee_percent": null,
+                "discount": null,
+                "tax_percent": null,
+                "metadata": {}
+              }
+            ]
+          },
+          "discount": null,
+          "account_balance": 0,
+          "currency": "eur",
+          "cards": {
+            "object": "list",
+            "total_count": 1,
+            "has_more": false,
+            "url": "/v1/customers/cus_5lNrcaYp6sYmjx/cards",
+            "data": [
+              {
+                "id": "card_15Zr5uAQkfalJzyKePWs8wn6",
+                "object": "card",
+                "last4": "4242",
+                "brand": "Visa",
+                "funding": "credit",
+                "exp_month": 2,
+                "exp_year": 2016,
+                "fingerprint": "gNiJZFbJHY3B44bd",
+                "country": "US",
+                "name": null,
+                "address_line1": null,
+                "address_line2": null,
+                "address_city": null,
+                "address_state": null,
+                "address_zip": null,
+                "address_country": null,
+                "cvc_check": "pass",
+                "address_line1_check": null,
+                "address_zip_check": null,
+                "dynamic_last4": null,
+                "customer": "cus_5lNrcaYp6sYmjx"
+              }
+            ]
+          },
+          "default_card": "card_15Zr5uAQkfalJzyKePWs8wn6",
+          "sources": {
+            "object": "list",
+            "total_count": 1,
+            "has_more": false,
+            "url": "/v1/customers/cus_5lNrcaYp6sYmjx/sources",
+            "data": [
+              {
+                "id": "card_15Zr5uAQkfalJzyKePWs8wn6",
+                "object": "card",
+                "last4": "4242",
+                "brand": "Visa",
+                "funding": "credit",
+                "exp_month": 2,
+                "exp_year": 2016,
+                "fingerprint": "gNiJZFbJHY3B44bd",
+                "country": "US",
+                "name": null,
+                "address_line1": null,
+                "address_line2": null,
+                "address_city": null,
+                "address_state": null,
+                "address_zip": null,
+                "address_country": null,
+                "cvc_check": "pass",
+                "address_line1_check": null,
+                "address_zip_check": null,
+                "dynamic_last4": null,
+                "customer": "cus_5lNrcaYp6sYmjx"
+              }
+            ]
+          },
+          "default_source": "card_15Zr5uAQkfalJzyKePWs8wn6"
+        }
+    http_version: 
+  recorded_at: Tue, 24 Feb 2015 22:23:58 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers/cus_5lNrcaYp6sYmjx/subscriptions
+    body:
+      encoding: US-ASCII
+      string: plan=test&trial_end=1424817642
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_6uBq0SMfkKrgiBZ4ZWPVSGgN
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin13.0","publisher":"stripe","uname":"Darwin
+        Roccos-iMac.local 13.4.0 Darwin Kernel Version 13.4.0: Sun Aug 17 19:50:11
+        PDT 2014; root:xnu-2422.115.4~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '30'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 24 Feb 2015 22:24:06 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '807'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_6TXAmhv2H5o3RDOr
+      Stripe-Version:
+      - '2014-11-05'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "sub_5lNrWGBNu1s1Gl",
+          "plan": {
+            "interval": "month",
+            "name": "Test Plan",
+            "created": 1424816644,
+            "amount": 1499,
+            "currency": "eur",
+            "id": "test",
+            "object": "plan",
+            "livemode": false,
+            "interval_count": 1,
+            "trial_period_days": null,
+            "metadata": {},
+            "statement_descriptor": null,
+            "statement_description": null
+          },
+          "object": "subscription",
+          "start": 1424816646,
+          "status": "trialing",
+          "customer": "cus_5lNrcaYp6sYmjx",
+          "cancel_at_period_end": false,
+          "current_period_start": 1424816646,
+          "current_period_end": 1424817642,
+          "ended_at": null,
+          "trial_start": 1424816646,
+          "trial_end": 1424817642,
+          "canceled_at": null,
+          "quantity": 1,
+          "application_fee_percent": null,
+          "discount": null,
+          "tax_percent": null,
+          "metadata": {}
+        }
+    http_version: 
+  recorded_at: Tue, 24 Feb 2015 22:24:04 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/invoices?customer=cus_5lNrcaYp6sYmjx
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_6uBq0SMfkKrgiBZ4ZWPVSGgN
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin13.0","publisher":"stripe","uname":"Darwin
+        Roccos-iMac.local 13.4.0 Darwin Kernel Version 13.4.0: Sun Aug 17 19:50:11
+        PDT 2014; root:xnu-2422.115.4~1/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 24 Feb 2015 22:24:08 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '4224'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_A5L70eRGtjUvMiUQ
+      Stripe-Version:
+      - '2014-11-05'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "object": "list",
+          "has_more": false,
+          "url": "/v1/invoices",
+          "data": [
+            {
+              "date": 1424816646,
+              "id": "in_15Zr62AQkfalJzyKX6ajwOhB",
+              "period_start": 1424816640,
+              "period_end": 1424816646,
+              "lines": {
+                "object": "list",
+                "total_count": 1,
+                "has_more": false,
+                "url": "/v1/invoices/in_15Zr62AQkfalJzyKX6ajwOhB/lines",
+                "data": [
+                  {
+                    "id": "sub_5lNrWGBNu1s1Gl",
+                    "object": "line_item",
+                    "type": "subscription",
+                    "livemode": false,
+                    "amount": 0,
+                    "currency": "eur",
+                    "proration": false,
+                    "period": {
+                      "start": 1424816646,
+                      "end": 1424817642
+                    },
+                    "subscription": null,
+                    "quantity": 1,
+                    "plan": {
+                      "interval": "month",
+                      "name": "Test Plan",
+                      "created": 1424816644,
+                      "amount": 1499,
+                      "currency": "eur",
+                      "id": "test",
+                      "object": "plan",
+                      "livemode": false,
+                      "interval_count": 1,
+                      "trial_period_days": null,
+                      "metadata": {},
+                      "statement_descriptor": null,
+                      "statement_description": null
+                    },
+                    "description": null,
+                    "metadata": {}
+                  }
+                ]
+              },
+              "subtotal": 0,
+              "total": 0,
+              "customer": "cus_5lNrcaYp6sYmjx",
+              "object": "invoice",
+              "attempted": true,
+              "closed": true,
+              "forgiven": false,
+              "paid": true,
+              "livemode": false,
+              "attempt_count": 0,
+              "amount_due": 0,
+              "currency": "eur",
+              "starting_balance": 0,
+              "ending_balance": 0,
+              "next_payment_attempt": null,
+              "webhooks_delivered_at": null,
+              "charge": null,
+              "discount": null,
+              "application_fee": null,
+              "subscription": "sub_5lNrWGBNu1s1Gl",
+              "tax_percent": null,
+              "tax": null,
+              "metadata": {},
+              "statement_descriptor": null,
+              "description": null,
+              "receipt_number": null,
+              "statement_description": null
+            },
+            {
+              "date": 1424816640,
+              "id": "in_15Zr5wAQkfalJzyKAiqcryLm",
+              "period_start": 1424816640,
+              "period_end": 1424816640,
+              "lines": {
+                "object": "list",
+                "total_count": 1,
+                "has_more": false,
+                "url": "/v1/invoices/in_15Zr5wAQkfalJzyKAiqcryLm/lines",
+                "data": [
+                  {
+                    "id": "sub_5lNrvE8xO7qdr2",
+                    "object": "line_item",
+                    "type": "subscription",
+                    "livemode": false,
+                    "amount": 0,
+                    "currency": "eur",
+                    "proration": false,
+                    "period": {
+                      "start": 1424816640,
+                      "end": 1426026236
+                    },
+                    "subscription": null,
+                    "quantity": 1,
+                    "plan": {
+                      "interval": "month",
+                      "name": "Monthly Plan",
+                      "created": 1424815983,
+                      "amount": 2499,
+                      "currency": "eur",
+                      "id": "MONTHLY_PLAN",
+                      "object": "plan",
+                      "livemode": false,
+                      "interval_count": 1,
+                      "trial_period_days": 14,
+                      "metadata": {},
+                      "statement_descriptor": null,
+                      "statement_description": null
+                    },
+                    "description": null,
+                    "metadata": {}
+                  }
+                ]
+              },
+              "subtotal": 0,
+              "total": 0,
+              "customer": "cus_5lNrcaYp6sYmjx",
+              "object": "invoice",
+              "attempted": true,
+              "closed": true,
+              "forgiven": false,
+              "paid": true,
+              "livemode": false,
+              "attempt_count": 0,
+              "amount_due": 0,
+              "currency": "eur",
+              "starting_balance": 0,
+              "ending_balance": 0,
+              "next_payment_attempt": null,
+              "webhooks_delivered_at": null,
+              "charge": null,
+              "discount": null,
+              "application_fee": null,
+              "subscription": "sub_5lNrvE8xO7qdr2",
+              "tax_percent": null,
+              "tax": null,
+              "metadata": {},
+              "statement_descriptor": null,
+              "description": null,
+              "receipt_number": null,
+              "statement_description": null
+            }
+          ]
+        }
+    http_version: 
+  recorded_at: Tue, 24 Feb 2015 22:24:06 GMT
+- request:
+    method: get
+    uri: https://api.stripe.com/v1/invoices/in_15Zr62AQkfalJzyKX6ajwOhB
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_6uBq0SMfkKrgiBZ4ZWPVSGgN
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin13.0","publisher":"stripe","uname":"Darwin
+        Roccos-iMac.local 13.4.0 Darwin Kernel Version 13.4.0: Sun Aug 17 19:50:11
+        PDT 2014; root:xnu-2422.115.4~1/RELEASE_X86_64 x86_64"}'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Tue, 24 Feb 2015 22:24:10 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1772'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_j9bf6jz25MTtY1rT
+      Stripe-Version:
+      - '2014-11-05'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "date": 1424816646,
+          "id": "in_15Zr62AQkfalJzyKX6ajwOhB",
+          "period_start": 1424816640,
+          "period_end": 1424816646,
+          "lines": {
+            "object": "list",
+            "total_count": 1,
+            "has_more": false,
+            "url": "/v1/invoices/in_15Zr62AQkfalJzyKX6ajwOhB/lines",
+            "data": [
+              {
+                "id": "sub_5lNrWGBNu1s1Gl",
+                "object": "line_item",
+                "type": "subscription",
+                "livemode": false,
+                "amount": 0,
+                "currency": "eur",
+                "proration": false,
+                "period": {
+                  "start": 1424816646,
+                  "end": 1424817642
+                },
+                "subscription": null,
+                "quantity": 1,
+                "plan": {
+                  "interval": "month",
+                  "name": "Test Plan",
+                  "created": 1424816644,
+                  "amount": 1499,
+                  "currency": "eur",
+                  "id": "test",
+                  "object": "plan",
+                  "livemode": false,
+                  "interval_count": 1,
+                  "trial_period_days": null,
+                  "metadata": {},
+                  "statement_descriptor": null,
+                  "statement_description": null
+                },
+                "description": null,
+                "metadata": {}
+              }
+            ]
+          },
+          "subtotal": 0,
+          "total": 0,
+          "customer": "cus_5lNrcaYp6sYmjx",
+          "object": "invoice",
+          "attempted": true,
+          "closed": true,
+          "forgiven": false,
+          "paid": true,
+          "livemode": false,
+          "attempt_count": 0,
+          "amount_due": 0,
+          "currency": "eur",
+          "starting_balance": 0,
+          "ending_balance": 0,
+          "next_payment_attempt": null,
+          "webhooks_delivered_at": null,
+          "charge": null,
+          "discount": null,
+          "application_fee": null,
+          "subscription": "sub_5lNrWGBNu1s1Gl",
+          "tax_percent": null,
+          "tax": null,
+          "metadata": {},
+          "statement_descriptor": null,
+          "description": null,
+          "receipt_number": null,
+          "statement_description": null
+        }
+    http_version: 
+  recorded_at: Tue, 24 Feb 2015 22:24:07 GMT
+recorded_with: VCR 2.9.3

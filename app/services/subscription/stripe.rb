@@ -71,10 +71,9 @@ class Subscription::Stripe
     false
   end
 
-  def cancel_subscription
-    byebug
-    subscription = customer.subscriptions.data[0]
-    customer.subscriptions.retrieve(subscription.id).delete(at_period_end: true).cancel_at_period_end
+def cancel_subscription
+  subscription = customer.subscriptions.data[0]
+  customer.subscriptions.retrieve(subscription.id).delete(at_period_end: true).cancel_at_period_end
 
   rescue Stripe::StripeError => e
     Rails.logger.error "Stripe Error: " + e.message
@@ -101,7 +100,8 @@ class Subscription::Stripe
 
     # Add VAT to the invoice.
     vat, invoice_item = charge_vat(stripe_invoice.subtotal,
-      invoice_id: invoice_id, currency: stripe_invoice.currency)
+      invoice_id: invoice_id,
+      currency: stripe_invoice.currency)
 
     Stripe::Invoice.retrieve(invoice_id)
   end
@@ -126,18 +126,18 @@ class Subscription::Stripe
     subtotal_after_discount = subtotal - discount.to_i
 
     # If there is vat and a discount, we need to recalculate VAT and the discount.
-    calculation = if vat_line && stripe_invoice.discount
+    if vat_line && stripe_invoice.discount
       # Recalculate VAT based on the total after discount
       vat_amount, vat_rate = calculate_vat(subtotal_after_discount).to_a
 
-      {
+      calculation = {
         discount_amount: discount,
         subtotal_after_discount: subtotal_after_discount,
         vat_amount: vat_amount,
         vat_rate: vat_rate
       }
     else
-      {
+      calculation =  {
         discount_amount: stripe_invoice.subtotal - stripe_invoice.total,
         subtotal_after_discount: subtotal_after_discount,
         vat_amount: (vat_line && vat_line.amount).to_i,
@@ -145,10 +145,11 @@ class Subscription::Stripe
       }
     end
 
-    calculation.merge! \
-    subtotal: subtotal,
-    total: stripe_invoice.total,
-    currency: stripe_invoice.currency
+    calculation.merge!(
+      subtotal: subtotal,
+      total: stripe_invoice.total,
+      currency: stripe_invoice.currency
+      )
   end
 
   def customer_metadata
@@ -197,18 +198,17 @@ class Subscription::Stripe
   end
 
   def calculate_vat(amount)
-    vat_service.calculate \
-    amount: amount,
-    country_code: customer.metadata[:country_code],
-    vat_registered: (customer.metadata[:vat_registered] == 'true')
+    vat_service.calculate(
+      amount: amount,
+      country_code: customer.metadata[:country_code],
+      vat_registered: (customer.metadata[:vat_registered] == 'true'))
   end
 
   def calculate_vat_rate
-    vat_service.vat_rate \
-    country_code: customer.metadata[:country_code],
-    vat_registered: (customer.metadata[:vat_registered] == 'true')
+    vat_service.vat_rate(
+      country_code: customer.metadata[:country_code],
+      vat_registered: (customer.metadata[:vat_registered] == 'true'))
   end
-
 
   # Calculates the amount of discount given on an amount
   # with a certain Stripe coupon.
@@ -219,9 +219,9 @@ class Subscription::Stripe
   #
   # Returns discount rounded up to 1 cent.
   def calculate_discount(s, vat_rate, t)
-    vr = vat_rate/100.0
+    vr = vat_rate / 100.0
 
-    d = (s * (1 + vr) - t)/(1 + vr)
+    d = (s * (1 + vr) - t) / (1 + vr)
     d.round
   end
 

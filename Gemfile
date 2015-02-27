@@ -72,14 +72,17 @@ gem 'therubyracer', platforms: :ruby
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'valvat', :github => 'byterussian/valvat', :branch => 'fix-issue-37'
+gem 'wicked_pdf'
 
 group :development, :test do
-  gem 'byebug'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'fuubar'
   gem 'guard-rspec', require: false
+  gem 'pry-byebug'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
   gem 'rb-fsevent'
   gem 'spring-commands-rspec'
   gem 'rspec-rails'
@@ -105,6 +108,8 @@ end
 
 group :development do
   gem 'better_errors'
+  gem 'bullet'
+  gem 'rack-mini-profiler'
   gem 'capistrano', '~> 3.2.0'
   gem 'capistrano-rbenv', '~> 2.0'
   gem 'capistrano-bundler', '~> 1.1.2'

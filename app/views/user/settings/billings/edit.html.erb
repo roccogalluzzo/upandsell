@@ -4,7 +4,7 @@
 Settings / <span>Billing Information</span>
 <% end %>
 <%= render partial: "user/settings/tabs" %>
-<% if current_user.subscription_active %>
+<% if current_user.subscribed? %>
 <div class="subscription-info">
   <div class="sub-plan-info">
     <div class="monthly-plan t-plan <%= 'hidden' unless current_user.plan_type == 'monthly' %>">
@@ -19,23 +19,36 @@ Settings / <span>Billing Information</span>
 
   <div class="sub-info">
     <p>
-
       <span>
-        Next payment will be processed on
-        <span class="text-muted subscription-end"><%= current_user.subscription_end.strftime("%d %B  %Y") %>.
-        </span>
-      </span>
-    </p>
-    <p>
-      <%= image_tag "cc_icons/#{current_user.cc_brand.downcase}_e.png" %>
-      XXXX-XXXX-XXXX-<span id="js-cc-last-4"><%= current_user.last_4_digits %></span>
-    </p>
-  </div>
-  <div class="sub-action">
-    <%= link_to " Cancel Subscription", user_settings_billing_path, method: :delete,
-    id: "js-btn-cancel-subscription", class:"btn btn-danger" %>
-    <button id="js-toggle-billing-form" class="btn-app">Edit Billing Info</button>
-  </div>
+       <% if current_user.subscription_deleted %>
+       The subscription expires on
+       <% else %>
+       Next payment will be processed on
+       <% end %>
+       <span class="text-muted"><%= current_user.subscription_end.strftime("%d %B  %Y") %>.
+       </span>
+     </span>
+   </p>
+   <p>
+    <%= image_tag "cc_icons/#{current_user.cc_brand.downcase}_e.png" %>
+    XXXX-XXXX-XXXX-<span id="js-cc-last-4"><%= current_user.last_4_digits %></span>
+  </p>
+</div>
+<div class="sub-action">
+  <% unless current_user.subscription_deleted %>
+  <%= link_to " Cancel Subscription", user_settings_billing_path, method: :delete,
+  id: "js-btn-cancel-subscription", class:"btn btn-danger" %>
+  <% end %>
+
+  <button id="js-toggle-billing-form" class="btn-app">
+   <% if current_user.subscription_deleted %>
+   Subscribe
+   <% else %>
+   Edit Billing Info
+   <% end %>
+ </button>
+</div>
+
 </div>
 <div class="subscription-coupons">
   <div class="coupon-info">
@@ -58,8 +71,9 @@ Settings / <span>Billing Information</span>
 </div>
 <% end %>
 
-<div id="billing-edit-form" data-subscription-active="<%= current_user.subscription_active %>"
- style="<%= 'display: none;' if current_user.subscription_active %>">
+
+<div id="billing-edit-form" data-subscription-active="<%= current_user.subscribed? %>"
+ style="<%= 'display: none;' if current_user.subscribed? %>">
  <%= render partial: "user/settings/billings/form", :locals => {:edit => true}  %>
 </div>
 

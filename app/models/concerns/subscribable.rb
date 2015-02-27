@@ -10,6 +10,7 @@ module Subscribable
     self.stripe_id = customer.id
     self.subscription_end = Time.at(customer.subscriptions.data[0].current_period_end).to_datetime
     self.subscription_active = true
+    self.subscription_deleted = false
     self.save
     customer
   end
@@ -22,6 +23,7 @@ module Subscribable
     self.last_4_digits = stripe.customer.cards.data.first["last4"]
     self.cc_brand =  stripe.customer.cards.data.first["brand"].downcase
     self.subscription_active = true
+    self.subscription_deleted = false
     self.subscription_end = Time.at(sub.current_period_end).to_datetime
     self.save
   end
@@ -31,6 +33,7 @@ module Subscribable
     return subscription if subscription == false
 
     self.subscription_active = true
+    self.subscription_deleted = false
     self.subscription_end = Time.at(subscription.current_period_end).to_datetime
     self.save
   end
@@ -60,7 +63,7 @@ module Subscribable
   def cancel_subscription
     customer = Subscription::Stripe.new(customer_id: self.stripe_id).cancel_subscription
     return customer if customer == false
-
+    self.subscription_deleted = true
     self.subscription_active = false
     self.save
   end

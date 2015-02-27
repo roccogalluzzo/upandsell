@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224225433) do
+ActiveRecord::Schema.define(version: 20150225143323) do
 
   create_table "coupons", force: true do |t|
     t.integer  "product_id",                       null: false
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20150224225433) do
     t.datetime "sent_at"
   end
 
+  add_index "mailing_list_emails", ["mailing_list_id"], name: "index_mailing_list_emails_on_mailing_list_id", using: :btree
+
   create_table "mailing_lists", force: true do |t|
     t.string   "name",                 null: false
     t.integer  "user_id",              null: false
@@ -75,6 +77,10 @@ ActiveRecord::Schema.define(version: 20150224225433) do
     t.integer "mailing_list_id"
     t.integer "product_id"
   end
+
+  add_index "mailing_lists_products", ["mailing_list_id", "product_id"], name: "index_mailing_lists_products_on_mailing_list_id_and_product_id", using: :btree
+  add_index "mailing_lists_products", ["mailing_list_id"], name: "index_mailing_lists_products_on_mailing_list_id", using: :btree
+  add_index "mailing_lists_products", ["product_id"], name: "index_mailing_lists_products_on_product_id", using: :btree
 
   create_table "orders", force: true do |t|
     t.integer  "product_id",                              null: false
@@ -99,6 +105,9 @@ ActiveRecord::Schema.define(version: 20150224225433) do
     t.integer  "number"
     t.integer  "coupon_id"
   end
+
+  add_index "orders", ["product_id"], name: "index_orders_on_product_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name",                           null: false
@@ -131,6 +140,8 @@ ActiveRecord::Schema.define(version: 20150224225433) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "referrals", ["user_id"], name: "index_referrals_on_user_id", using: :btree
 
   create_table "referrals_payments", force: true do |t|
     t.integer  "user_id"
@@ -193,6 +204,7 @@ ActiveRecord::Schema.define(version: 20150224225433) do
   end
 
   add_index "subscription_invoices", ["stripe_id"], name: "index_subscription_invoices_on_stripe_id", unique: true, using: :btree
+  add_index "subscription_invoices", ["user_id"], name: "index_subscription_invoices_on_user_id", using: :btree
 
   create_table "subscription_payments", force: true do |t|
     t.integer  "user_id",                                 null: false
@@ -267,6 +279,7 @@ ActiveRecord::Schema.define(version: 20150224225433) do
     t.string   "coupon_active"
     t.string   "webhook_order_url"
     t.string   "webhook_refund_url"
+    t.boolean  "subscription_deleted"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

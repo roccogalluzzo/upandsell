@@ -7,6 +7,7 @@ end
 
 SimpleCov.start 'rails' do
   add_filter "/helpers/"
+  add_group "Services", "app/services"
 end
 
 ENV["RAILS_ENV"] ||= 'test'
@@ -21,8 +22,8 @@ require 'capybara/poltergeist'
 
 
 
-#WebMock::API.stub_request(:get, "www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml")
-#.to_return(File.new(Rails.root.join("spec/support/ex_rates.xml")))
+WebMock::API.stub_request(:get, "http://openexchangerates.org/api/latest.json?app_id=ae2dfadfe001425caf71503cf97d8b99")
+.to_return(File.new(Rails.root.join("spec/support/ex_rates.json")))
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 

@@ -9,11 +9,18 @@ feature "User Create a Subscription", js: true, stripe: true do
     end
 
     context "with valid data" do
-
       scenario "should see subscription active page" do
+        VCR.use_cassette("feature_billing_create_subscription", :record => :new_episodes) do
         fill_common_form_fields
         fill_credit_card
-        token = StripeMock.generate_card_token(last4: "1111", exp_year: 2020)
+        token =  Stripe::Token.create(
+            :card => {
+              :number => "4242424242424242",
+              :exp_month => 2,
+              :exp_year => 2016,
+              :cvc => "314"
+              },
+              ).id
         stub_success_token(token)
         find('.year-plan').trigger('click')
         click_button('Save')
@@ -21,9 +28,10 @@ feature "User Create a Subscription", js: true, stripe: true do
         sleep 10
         expect(page).to have_content 'Next payment will be processed on'
       end
-
     end
+
   end
+end
 end
 
 def stub_success_token(token)
