@@ -2,11 +2,10 @@ class User::Settings::BillingsController < User::BaseController
   layout 'complete_signup', only: [:new]
 
   def invoice
-    @invoice = SubscriptionInvoice.find 13
-    @invoice.finalized_at = Time.now
+    @invoice = SubscriptionInvoice.find params[:id]
+    return false unless @invoice.finalized?
     @stripe =  Stripe::Invoice.retrieve(@invoice.stripe_id)
     respond_to do |format|
-      format.html
       format.pdf do
         render :pdf => "file_name"
       end
@@ -39,6 +38,7 @@ class User::Settings::BillingsController < User::BaseController
     @method = :put
     @month_price = 24.99.in(:eur).to(:usd).to_s(:plain)
     @year_price =  249.99.in(:eur).to(:usd).to_s(:plain)
+    @invoices =  SubscriptionInvoice.finalized
   end
 
   def apply_coupon

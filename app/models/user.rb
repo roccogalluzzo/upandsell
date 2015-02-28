@@ -46,6 +46,10 @@ class User < ActiveRecord::Base
     Rails.application.secrets.admins.include?(email)
   end
 
+  def company?
+    self.tax_code && self.business_type == 'company'
+  end
+
   def beta_signup?
     true if self.created_at < '24-12-2014'.to_datetime
   end

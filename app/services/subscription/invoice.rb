@@ -70,22 +70,24 @@ module Subscription
   private
 
   def snapshot_customer(invoice)
-    metadata = stripe_service.customer_metadata.slice(
-      :email, :name, :company_name, :country_code, :address, :vat_registered, :vat_number, :ip_address)
-
-    # Transform vat_registered into boolean
-    metadata[:vat_registered] = metadata[:vat_registered] == 'true'
-
-    # Prepend :customer
-    customer_metadata = metadata.map do |k,v|
-      ["customer_#{k}".to_sym, v]
-    end.to_h
-
-    # Add the customer id
-    customer_metadata[:stripe_customer_id] = @customer_id
+    customer = stripe_service.customer_metadata
 
     # Save to invoice
-    invoice.update(customer_metadata)
+    invoice.update(
+      customer_name: customer.legal_name,
+      customer_country_code: customer.country,
+      customer_address: customer.address,
+      customer_vat_registered: customer.company?,
+      customer_vat_number: customer.tax_code,
+      stripe_customer_id: @customer_id
+      # TODO CITY AND CAP
+      # TODO
+      # "ip_address"
+    #  "ip_country_code"
+      #  "vies_company_name"
+      #  "vies_address"
+     # "vies_request_identifier"
+     )
   end
 
   def snapshot_card(card, invoice)

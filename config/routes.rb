@@ -106,7 +106,7 @@ namespace :settings do
   resource :integrations, only: [:edit, :create]
   resource :emails, only: [:edit, :update]
   resource :billing, except: [:index] do
-    get 'invoice/:id', to: 'billings#invoice'
+    get 'invoice/:id', to: 'billings#invoice', as: 'invoice_download'
     post 'apply_coupon'
   end
 end

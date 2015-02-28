@@ -73,6 +73,7 @@ module Subscribable
   end
 
   def trial_end
+    return nil if Rails.env.development?
     return 0 unless self.stripe_id.nil?
     if self.beta_signup?
       return 6.months.from_now.to_i

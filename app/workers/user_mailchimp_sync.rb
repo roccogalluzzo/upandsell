@@ -5,9 +5,6 @@ class UserMailchimpSync
     api_key = '3201c186e6483c000f50ef007c7e2107-us8'
     user = User.find user_id
     if subscribe
-      if Invite.find_by_email user.email
-        InviteMailchimpSync.perform_async(Invite.find_by_email(user.email).id, false)
-      end
       subscribe_user(api_key, user)
     else
      chimp = MailingListsService.new('mailchimp', api_key)

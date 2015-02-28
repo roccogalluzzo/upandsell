@@ -71,9 +71,9 @@ class Subscription::Stripe
     false
   end
 
-def cancel_subscription
-  subscription = customer.subscriptions.data[0]
-  customer.subscriptions.retrieve(subscription.id).delete(at_period_end: true).cancel_at_period_end
+  def cancel_subscription
+    subscription = customer.subscriptions.data[0]
+    customer.subscriptions.retrieve(subscription.id).delete(at_period_end: true).cancel_at_period_end
 
   rescue Stripe::StripeError => e
     Rails.logger.error "Stripe Error: " + e.message
@@ -153,7 +153,7 @@ def cancel_subscription
   end
 
   def customer_metadata
-    customer.metadata.to_h.merge!(email: customer.email)
+    User.find_by_stripe_id customer.id
   end
 
   def customer
@@ -200,15 +200,15 @@ def cancel_subscription
   def calculate_vat(amount)
     vat_service.calculate(
       amount: amount,
-      country_code: customer.metadata[:country_code],
-      vat_registered: (customer.metadata[:vat_registered] == 'true'))
-  end
+      country_code: customer_metadata.country,
+      vat_registered: customer_metadata.company?)
+    end
 
-  def calculate_vat_rate
-    vat_service.vat_rate(
-      country_code: customer.metadata[:country_code],
-      vat_registered: (customer.metadata[:vat_registered] == 'true'))
-  end
+    def calculate_vat_rate
+      vat_service.vat_rate(
+        country_code: customer_metadata.country,
+        vat_registered: customer_metadata.company?)
+    end
 
   # Calculates the amount of discount given on an amount
   # with a certain Stripe coupon.

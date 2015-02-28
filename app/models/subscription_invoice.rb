@@ -1,6 +1,8 @@
 class SubscriptionInvoice < ActiveRecord::Base
   belongs_to :user
 
+  scope :finalized, -> { where.not finalized_at: nil }
+
   def added_vat?
     !!added_vat
   end
@@ -29,48 +31,53 @@ class SubscriptionInvoice < ActiveRecord::Base
     end
 
     def self.reserve!
-        reserved_info = next_sequence.merge!(reserved_at: Time.now)
+      reserved_info = next_sequence.merge!(reserved_at: Time.now)
       # create the reserved slot.
       create reserved_info
-  end
+    end
 
-  def finalized?
-    !finalized_at.nil?
-  end
+    def finalized?
+      !finalized_at.nil?
+    end
 
-  def due_at
+    def due_at
    # finalized_at + Configuration.due_days.days
-  end
+ end
 
-  def discount?
-    discount_amount && discount_amount != 0
-  end
+ def discount?
+  discount_amount && discount_amount != 0
+end
 
-  def vat?
-    vat_amount && vat_amount != 0
-  end
+def vat?
+  vat_amount && vat_amount != 0
+end
 
-  def eu?
-    Valvat::Utils::EU_COUNTRIES.include?(customer_country_code)
-  end
+def eu?
+  Valvat::Utils::EU_COUNTRIES.include?(customer_country_code)
+end
 
-  def customer_name
-    super || customer_email
-  end
+def reverse_charge?
+  return false if self.customer_country_code == 'IT'
+  self.customer_vat_registered && Valvat::Utils::EU_COUNTRIES.include?(customer_country_code)
+end
 
-  def customer_company_name
-    super || vies_company_name
-  end
+def customer_name
+  super || customer_email
+end
 
-  def customer_address
-    super || vies_address
-  end
+def customer_company_name
+  super || vies_company_name
+end
 
-  private
+def customer_address
+  super || vies_address
+end
 
-  def self.next_sequence
-    year = Time.now.year
-    sequence_number = next_sequence_number(year)
+private
+
+def self.next_sequence
+  year = Time.now.year
+  sequence_number = next_sequence_number(year)
 
     # Number is a formatted version of this.
     number = AppSettings.invoice_number_format % { year: year, sequence: sequence_number }
@@ -84,11 +91,10 @@ class SubscriptionInvoice < ActiveRecord::Base
 
   def self.next_sequence_number(year)
     last_invoice =  SubscriptionInvoice
-    .where('number IS NOT NULL')
+    .where.not(number: nil)
     .where(year: year)
     .order(:finalized_at)
-    .limit(1)
-    .first
+    .last
 
     if last_invoice
       last_invoice.sequence_number + 1

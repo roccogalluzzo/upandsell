@@ -25,9 +25,9 @@
           </div>
         </div>
         <div class="email">
-         info@upandsell.me
-       </div>
-       <p>
+
+        </div>
+        <p>
          <br />
          <strong> VAT <%= AppSettings.seller_vat_number %></strong>
        </p>
@@ -35,7 +35,7 @@
    </div>
 
    <div id="invoice-info">
-     <h2> Invoice <strong><%= @invoice.number %></strong></h2>
+     <h2> Invoice <strong>#<%= @invoice.number %></strong></h2>
      <p><%= format_date(@invoice.finalized_at) %></p>
      <% if @stripe.paid %>
      <p><b><%= "Paid with #{@invoice.card_brand} #{@invoice.card_last4}" %></b></p>
@@ -69,8 +69,7 @@
  <thead>
   <tr id="header_row">
     <th class="left details_th"> Details</th>
-    <th class="unitprice_th">Price (<%= @invoice.currency.upcase %>)</th>
-    <th class="subtotal_th"> Price (EUR)</th>
+    <th class="subtotal_th"> Price</th>
   </tr>
 </thead>
 <tfoot>
@@ -78,13 +77,11 @@
   <tr id="discount_tr">
     <td class="item_r"> #{coupon.percent_off}% Discount</td>
     <td class="item_r">format_money(invoice.discount_amount, invoice.currency)</td>
-    <td class="item_r"></td>
   </tr>
   <% end %>
   <tr id="net_total_tr">
     <td class="item_r">Net Total</td>
     <td class="item_r"><%= format_money(@invoice.subtotal_after_discount, @invoice.currency) %></td>
-    <td class="item_r"></td>
   </tr>
   <tr id="vat_tr">
     <td class="item_r">
@@ -95,14 +92,12 @@
       <% end %>
     </td>
     <td class="item_r"><%= format_money(@invoice.vat_amount, @invoice.currency) %></td>
-    <td class="item_r"><%= format_money(@invoice.vat_amount_eur, :eur) %></td>
   </tr>
   <tr id="total_tr">
     <td id="total_currency" class="total">
       <span class="currency">Total</span>
     </td>
     <td class="total"><%= format_money(@invoice.total, @invoice.currency) %></td>
-    <td class="total"><%= format_money(@invoice.total_eur, :eur) %></td>
   </tr>
 </tfoot>
 <tbody>
@@ -115,28 +110,26 @@
       <% elsif line.type == 'invoiceitem' && line.metadata[:type] != 'vat' %>
       <td class="item_l"> <%= line.description %></td>
       <td class="item_r"><%= format_money(line.amount, line.currency) %></td>
-      <td class="item_r"></td>
       <% end %>
     </tr>
     <% end %>
   </tbody>
 </table>
-
+<% if @invoice.reverse_charge? %>
 <div id="payment-details">
   <h2>Payment Details</h2>
 </div>
 
 <div id="footnote">
   <p>
-    <% if !@invoice.vat? %>
     <% if @invoice.eu? %>
-    VAT Reverse-charged
+    Operazione senza addebito IVA ai sensi dell’art. 17, comma 6, D.P.R. 26 ottobre 1972, n.633 (INVERSIONE CONTABILE/REVERSE CHARGE). Esente da imposta di bollo.
     <% else %>
     No EU VAT applicable - Article 59 Directive 2006/112/EC
     <% end %>
-    <% end %>
   </p>
 </div>
+<% end %>
 </div>
 </body>
 </html>

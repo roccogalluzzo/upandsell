@@ -1,0 +1,16 @@
+<tr>
+  <td> <b>#<%= subscription_invoice.number %></b></td>
+  <td>
+    <%= subscription_invoice.card_last4 %> -
+    <%= image_tag "cc_icons/#{subscription_invoice.card_brand.downcase}.png" %>
+  </td>
+  <td>Plan</td>
+  <td>
+    <%= subscription_invoice.finalized_at.to_time.strftime('%e %b %Y') %>
+  </td>
+  <td><%= humanized_money_with_symbol Money.new(subscription_invoice.total, subscription_invoice.currency) %></td>
+
+  <td>
+  <%= link_to "Invoice", invoice_download_user_settings_billing_path(subscription_invoice.id, format: :pdf), :class => "btn btn-primary" %>
+  </td>
+</tr>
