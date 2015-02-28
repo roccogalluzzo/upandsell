@@ -5,12 +5,4 @@ namespace :mailchimp do
       UserMailchimpSync.perform_async(user.id)
     end
   end
-
-  desc "Sync Invites with mailchimp"
-  task sync_invites: :environment do
-    Invite.sent.each do |invite|
-      InviteMailchimpSync.perform_async(invite.id)
-    end
-  end
-
 end

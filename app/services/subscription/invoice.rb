@@ -81,6 +81,7 @@ module Subscription
       customer_vat_number: customer.tax_code,
       stripe_customer_id: @customer_id
       # TODO CITY AND CAP
+      # TODO PLAN
       # TODO
       # "ip_address"
     #  "ip_country_code"

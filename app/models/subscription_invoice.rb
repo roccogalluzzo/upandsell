@@ -80,7 +80,7 @@ def self.next_sequence
   sequence_number = next_sequence_number(year)
 
     # Number is a formatted version of this.
-    number = AppSettings.invoice_number_format % { year: year, sequence: sequence_number }
+    number = AppSettings.invoice_number_format % { year: year, sequence: sequence_number.to_s.rjust(3, '0') }
     {
       year: year,
       sequence_number: sequence_number,
