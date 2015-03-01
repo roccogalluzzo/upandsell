@@ -40,6 +40,7 @@ module Subscription
     # Now we are sure nothing is going to change the invoice anymore.
     # Do a final calculation of the invoice amounts.
     invoice.update(stripe_service.calculate_final(stripe_invoice: stripe_invoice))
+    snapshot_invoice(invoice, stripe_invoice)
 
     # Take a snapshot of the card used to make payment.
     # Note: There will be no charge in two cases:
@@ -59,15 +60,35 @@ module Subscription
     invoice = SubscriptionInvoice.find_by_stripe_id stripe_invoice_id
 
     if invoice
-      invoice.credit_note = true
-      invoice.save
-      invoice
+      credit_note = SubscriptionInvoice.create \
+      credit_note: true,
+      user_id:  @user.id,
+      stripe_id: invoice.stripe_id,
+      reference_number: invoice.id,
+      stripe_customer_id: @customer_id
+
+      credit_note.finalize!
     else
       raise OrphanRefund
     end
+    invoice = SubscriptionInvoice.find_by_stripe_id stripe_invoice_id
   end
 
   private
+
+  def snapshot_invoice(invoice, stripe_invoice)
+    if  !stripe_invoice.lines.data.first.plan.nil?
+      plan = stripe_invoice.lines.data.first.plan.id
+    else
+      plan = nil
+    end
+    invoice.update(
+      stripe_plan_id: plan,
+      invoice_period_start:  stripe_invoice.period_start,
+      invoice_period_end: stripe_invoice.period_end,
+      invoice_lines: stripe_invoice.lines
+      )
+  end
 
   def snapshot_customer(invoice)
     customer = stripe_service.customer_metadata
@@ -77,14 +98,14 @@ module Subscription
       customer_name: customer.legal_name,
       customer_country_code: customer.country,
       customer_address: customer.address,
+      customer_city: customer.city,
+      customer_cap: customer.zip_code,
       customer_vat_registered: customer.company?,
       customer_vat_number: customer.tax_code,
       stripe_customer_id: @customer_id
-      # TODO CITY AND CAP
-      # TODO PLAN
       # TODO
       # "ip_address"
-    #  "ip_country_code"
+      #  "ip_country_code"
       #  "vies_company_name"
       #  "vies_address"
      # "vies_request_identifier"

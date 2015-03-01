@@ -37,11 +37,7 @@
    <div id="invoice-info">
      <h2> Invoice <strong>#<%= @invoice.number %></strong></h2>
      <p><%= format_date(@invoice.finalized_at) %></p>
-     <% if @stripe.paid %>
      <p><b><%= "Paid with #{@invoice.card_brand} #{@invoice.card_last4}" %></b></p>
-     <% else %>
-     <p id="payment-due"><%= "Payment due by #{format_date(@invoice.due_at)}" %></p>
-     <% end %>
      <p id="payment-total"><%= format_money(@invoice.total, @invoice.currency) %></p>
    </div>
 
@@ -52,6 +48,8 @@
     <div class="adr">
       <div class="street-address">
        <%= @invoice.customer_address %>
+       <br />
+        <%= @invoice.customer_cap %>  <%= @invoice.customer_city %>
      </div>
      <div class="locality">
       <%= country_name(@invoice.customer_country_code) %>

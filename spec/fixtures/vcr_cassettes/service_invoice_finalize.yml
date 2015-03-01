@@ -89,7 +89,7 @@ http_interactions:
           },
           "client_ip": "79.34.101.6"
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:20:50 GMT
 - request:
     method: post
@@ -275,7 +275,7 @@ http_interactions:
           },
           "default_source": "card_15Zr2uAQkfalJzyKdUEVIQOl"
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:20:53 GMT
 - request:
     method: post
@@ -350,7 +350,7 @@ http_interactions:
           "quantity": null,
           "plan": null
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:20:55 GMT
 - request:
     method: post
@@ -434,7 +434,19 @@ http_interactions:
                 },
                 "subscription": null,
                 "quantity": null,
-                "plan": null,
+                "plan": {
+                  "interval": "month",
+                  "name": "Monthly Plan",
+                  "created": 1424815983,
+                  "amount": 2499,
+                  "currency": "eur",
+                  "id": "MONTHLY_PLAN",
+                  "object": "plan",
+                  "livemode": false,
+                  "interval_count": 1,
+                  "trial_period_days": 14,
+                  "metadata": {}
+                },
                 "description": null,
                 "metadata": {}
               }
@@ -468,7 +480,7 @@ http_interactions:
           "receipt_number": null,
           "statement_description": null
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:20:57 GMT
 - request:
     method: get
@@ -550,7 +562,19 @@ http_interactions:
                 },
                 "subscription": null,
                 "quantity": null,
-                "plan": null,
+                "plan": {
+                  "interval": "month",
+                  "name": "Monthly Plan",
+                  "created": 1424815983,
+                  "amount": 2499,
+                  "currency": "eur",
+                  "id": "MONTHLY_PLAN",
+                  "object": "plan",
+                  "livemode": false,
+                  "interval_count": 1,
+                  "trial_period_days": 14,
+                  "metadata": {}
+                },
                 "description": null,
                 "metadata": {}
               }
@@ -584,7 +608,7 @@ http_interactions:
           "receipt_number": null,
           "statement_description": null
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:20:59 GMT
 - request:
     method: get
@@ -768,7 +792,7 @@ http_interactions:
           },
           "default_source": "card_15Zr2uAQkfalJzyKdUEVIQOl"
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:21:00 GMT
 - request:
     method: post
@@ -844,9 +868,21 @@ http_interactions:
           "invoice": "in_15Zr30AQkfalJzyKWpCqfvIC",
           "subscription": null,
           "quantity": null,
-          "plan": null
+                 "plan": {
+                  "interval": "month",
+                  "name": "Monthly Plan",
+                  "created": 1424815983,
+                  "amount": 2499,
+                  "currency": "eur",
+                  "id": "MONTHLY_PLAN",
+                  "object": "plan",
+                  "livemode": false,
+                  "interval_count": 1,
+                  "trial_period_days": 14,
+                  "metadata": {}
+                }
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:21:02 GMT
 - request:
     method: get
@@ -928,7 +964,19 @@ http_interactions:
                 },
                 "subscription": null,
                 "quantity": null,
-                "plan": null,
+                       "plan": {
+                  "interval": "month",
+                  "name": "Monthly Plan",
+                  "created": 1424815983,
+                  "amount": 2499,
+                  "currency": "eur",
+                  "id": "MONTHLY_PLAN",
+                  "object": "plan",
+                  "livemode": false,
+                  "interval_count": 1,
+                  "trial_period_days": 14,
+                  "metadata": {}
+                },
                 "description": null,
                 "metadata": {}
               },
@@ -983,7 +1031,7 @@ http_interactions:
           "receipt_number": null,
           "statement_description": null
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:21:04 GMT
 - request:
     method: post
@@ -1067,7 +1115,19 @@ http_interactions:
                 },
                 "subscription": null,
                 "quantity": null,
-                "plan": null,
+                      "plan": {
+                  "interval": "month",
+                  "name": "Monthly Plan",
+                  "created": 1424815983,
+                  "amount": 2499,
+                  "currency": "eur",
+                  "id": "MONTHLY_PLAN",
+                  "object": "plan",
+                  "livemode": false,
+                  "interval_count": 1,
+                  "trial_period_days": 14,
+                  "metadata": {}
+                },
                 "description": null,
                 "metadata": {}
               },
@@ -1122,7 +1182,7 @@ http_interactions:
           "receipt_number": null,
           "statement_description": null
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:21:06 GMT
 - request:
     method: get
@@ -1204,7 +1264,19 @@ http_interactions:
                 },
                 "subscription": null,
                 "quantity": null,
-                "plan": null,
+                       "plan": {
+                  "interval": "month",
+                  "name": "Monthly Plan",
+                  "created": 1424815983,
+                  "amount": 2499,
+                  "currency": "eur",
+                  "id": "MONTHLY_PLAN",
+                  "object": "plan",
+                  "livemode": false,
+                  "interval_count": 1,
+                  "trial_period_days": 14,
+                  "metadata": {}
+                },
                 "description": null,
                 "metadata": {}
               },
@@ -1259,7 +1331,7 @@ http_interactions:
           "receipt_number": null,
           "statement_description": null
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:21:08 GMT
 - request:
     method: get
@@ -1396,6 +1468,6 @@ http_interactions:
           },
           "statement_description": null
         }
-    http_version: 
+    http_version:
   recorded_at: Tue, 24 Feb 2015 22:21:09 GMT
 recorded_with: VCR 2.9.3

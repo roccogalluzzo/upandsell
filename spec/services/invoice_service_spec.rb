@@ -186,7 +186,7 @@ describe Subscription::Invoice, stripe: true do
         invoice = service.process_payment(stripe_invoice_id: stripe_invoice.id)
 
         credit_note = service.process_refund(stripe_invoice_id: stripe_invoice.id)
-        expect(credit_note.credit_note).to eq true
+        expect(credit_note.finalized?).to eq true
       end
     end
   end
