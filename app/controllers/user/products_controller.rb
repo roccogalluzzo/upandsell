@@ -5,8 +5,8 @@ class User::ProductsController < User::BaseController
   end
 
   def new
-    unless current_user.subscription_active
-      redirect_to root_path
+    unless current_user.subscribed?
+      redirect_to user_root_path
     end
     @product = Product.new
     @product.price_currency = current_user.currency
@@ -14,7 +14,7 @@ class User::ProductsController < User::BaseController
   end
 
   def create
-    unless current_user.subscription_active
+    unless current_user.subscribed?
       redirect_to root_path
     end
     product = current_user.products.build(product_params)

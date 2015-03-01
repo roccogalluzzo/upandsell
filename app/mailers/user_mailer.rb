@@ -1,14 +1,14 @@
 class UserMailer <  Devise::Mailer
     helper :application # gives access to all helpers defined within `application_helper`.
   include Devise::Controllers::UrlHelpers # Optional. eg. `confirmation_url`
-  default from: "bot@upandsell.me"
+  default from: "Up&Sell.me <bot@upandsell.me>"
   layout 'email_notifications', except: 'welcome_email'
 
   def welcome_email(user_id)
     @user = User.find user_id
     @url  = 'http://example.com/login'
     mail(to: @user.email,
-      from: 'rocco@upandsell.me',
+      from: "Rocco from Up&Sell.me <rocco@upandsell.me>",
       subject: 'Welcome to Up&Sell.Me',
       template_path: 'notifications',
       template_name: 'welcome_email')
@@ -17,6 +17,8 @@ class UserMailer <  Devise::Mailer
   def sold_email(user_id, order_id)
     @user = User.find user_id
     @order  = Order.find order_id
+    unsubscribe_url = unsubscribe_user_url(@user.unsubscribe_token('sales'))
+    headers['List-Unsubscribe'] = "<#{unsubscribe_url}>"
     mail(to: @user.email,
      subject: "You sold #{@order.product.name}.",
      template_path: 'notifications',
@@ -26,6 +28,8 @@ class UserMailer <  Devise::Mailer
   def bought_email(user_id, order_id)
     @user = User.find user_id
     @order  = Order.find order_id
+    unsubscribe_url = unsubscribe_user_url(@user.unsubscribe_token('buyer_accepts_marketing'))
+    headers['List-Unsubscribe'] = "<#{unsubscribe_url}>"
     @twitter_url = twitter_url(@order.product.name, @order.product.slug)
     @facebook_url = facebook_url(@order.product.name, @order.product.slug)
     mail(to: @order.email,
@@ -37,34 +41,34 @@ class UserMailer <  Devise::Mailer
   def trial_will_expire_email(user_id)
     @user = User.find user_id
     mail(to: @user.email,
-    subject: "Your free trial is ending in 3 days",
-    template_path: 'notifications',
-    template_name: 'trial_will_expire')
+      subject: "Your free trial is ending in 3 days",
+      template_path: 'notifications',
+      template_name: 'trial_will_expire')
   end
 
   def payment_succeeded_email(user_id, invoice_id)
     @user = User.find user_id
     @invoice = SubscriptionInvoice.find invoice_id
     mail(to: @user.email,
-    subject: "Your subscription has been renewed successfully",
-    template_path: 'notifications',
-    template_name: 'payment_succeeded')
+      subject: "Your subscription has been renewed successfully",
+      template_path: 'notifications',
+      template_name: 'payment_succeeded')
   end
 
   def payment_failed_email(user_id)
     @user = User.find user_id
     mail(to: @user.email,
-    subject: "Withdrawal Failed",
-    template_path: 'notifications',
-    template_name: 'payment_failed')
+      subject: "Withdrawal Failed",
+      template_path: 'notifications',
+      template_name: 'payment_failed')
   end
 
   def subscription_deleted_email(user_id)
     @user = User.find user_id
     mail(to: @user.email,
-    subject: "Subscription cancelled",
-    template_path: 'notifications',
-    template_name: 'subscription_deleted')
+      subject: "Subscription cancelled",
+      template_path: 'notifications',
+      template_name: 'subscription_deleted')
   end
 
   def refund_email(user_id, order_id)

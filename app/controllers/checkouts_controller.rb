@@ -40,11 +40,12 @@ class CheckoutsController < ApplicationController
     if params[:coupon_id]
       coupon = Coupon.find params[:coupon_id]
       if coupon && coupon.active? && coupon.product.id = product.id
-        new_price =  coupon.discounted_price
+        new_price =  coupon.discounted_price.cents
+        coupon_id = coupon.id
       end
     end
     order = PaymentService.new(params[:gateway])
-    .pay(product, {coupon_id: coupon.id || nil, email: params[:email], token: params[:token], new_price: new_price})
+    .pay(product, {coupon_id: coupon_id || nil, email: params[:email], token: params[:token], new_price: new_price})
 
     if order && order.status == 'completed'
       if coupon && coupon.active? && coupon.product.id = product.id
