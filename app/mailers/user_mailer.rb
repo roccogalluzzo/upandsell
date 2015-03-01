@@ -42,8 +42,9 @@ class UserMailer <  Devise::Mailer
     template_name: 'trial_will_expire')
   end
 
-  def payment_succeeded_email(user_id)
+  def payment_succeeded_email(user_id, invoice_id)
     @user = User.find user_id
+    @invoice = SubscriptionInvoice.find invoice_id
     mail(to: @user.email,
     subject: "Your subscription has been renewed successfully",
     template_path: 'notifications',

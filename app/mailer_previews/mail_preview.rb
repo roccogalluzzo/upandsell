@@ -34,7 +34,8 @@ class MailPreview < ActionMailer::Preview
 
   def payment_succeeded
     user = User.first
-    mail = UserMailer.payment_succeeded_email(user)
+    invoice = SubscriptionInvoice.first
+    mail = UserMailer.payment_succeeded_email(invoice.user, invoice)
     mail
   end
 
@@ -45,7 +46,7 @@ class MailPreview < ActionMailer::Preview
   end
 
   def subscription_deleted
-    user = User.first
+    user = User.last
     mail = UserMailer.subscription_deleted_email(user)
     mail
   end

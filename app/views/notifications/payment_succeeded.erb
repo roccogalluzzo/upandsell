@@ -7,10 +7,9 @@ Your subscription has been renewed successfully
 
 <% content_for :msg do %>
 We've just charged you the <%= @user.plan_type %> subscription fee of
-<b><%= @user.plan_type == 'monthly' ? '€24.99/month' : '€249.99/year' %></b>. Thank you for using our service!
-
-
-
+<b><%= humanized_money_with_symbol Money.new(@invoice.total, @invoice.currency) %></b>.
+You can donwload the invoice from your user panel.
+ Thank you for using our service!
 <% end %>
 
 <div style="margin-top:10px"></div>

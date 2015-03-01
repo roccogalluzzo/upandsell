@@ -1,3 +1,4 @@
+<% if subscription_invoice.credit_note == false %>
 <tr>
   <td> <b>#<%= subscription_invoice.number %></b></td>
   <td>
@@ -11,6 +12,12 @@
   <td><%= humanized_money_with_symbol Money.new(subscription_invoice.total, subscription_invoice.currency) %></td>
 
   <td>
-  <%= link_to "Invoice", invoice_download_user_settings_billing_path(subscription_invoice.id, format: :pdf), :class => "btn btn-primary" %>
+    <%= link_to "Invoice", invoice_download_user_settings_billing_path(subscription_invoice.id, format: :pdf), :class => "btn btn-primary" %>
   </td>
 </tr>
+<% else %>
+<tr>
+  <td> <b>#<%= subscription_invoice.number %></b></td>
+  <td>Credit note</td>
+</tr>
+<% end %>
