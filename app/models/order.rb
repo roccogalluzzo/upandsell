@@ -63,7 +63,7 @@ class Order < ActiveRecord::Base
   private
   def increment_order_number
     if self.status == 'completed' && self.status_was != 'completed'
-     user = User.find(self.product.user_id)
+     user = User.find(self.user_id)
      prev_order = user.orders
      .where("status = ? OR status = ?", 'completed', 'refunded')
      .order("id DESC").first

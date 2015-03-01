@@ -25,14 +25,14 @@ FactoryGirl.define do
       stripe_id 'cus_00000000000000'
     end
 
-    factory :cc_user, parent: :user do
+    factory :cc_user, parent: :active_user do
       credit_card true
       credit_card_gateway 'Stripe'
       credit_card_token 'token'
       credit_card_public_token 'public_token'
     end
 
-    factory :paypal_user, parent: :user do
+    factory :paypal_user, parent: :active_user do
       paypal true
       paypal_email 'rocco@galluzzo.me'
       paypal_token 'token'

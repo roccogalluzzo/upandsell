@@ -66,6 +66,34 @@ describe Subscription::Invoice, stripe: true do
         expect(invoice.added_vat?).to eq true
       end
     end
+    it 'rescue stripe already finalizaded invoice' do
+      VCR.use_cassette("service_invoice_ensure_stripe_error") do
+        @user.stripe_token  = Stripe::Token.create(
+          :card => {
+            :number => "4242424242424242",
+            :exp_month => 2,
+            :exp_year => 2016,
+            :cvc => "314"
+            },
+            ).id
+        @user.save
+        customer = @user.create_subscription
+        service = Subscription::Invoice.new(customer_id: customer.id)
+
+        Stripe::InvoiceItem.create \
+        customer: customer.id,
+        amount: 100,
+        currency: 'eur'
+
+        stripe_invoice = Stripe::Invoice.create(customer: customer.id)
+        stripe_invoice.closed = true
+        stripe_invoice.save
+
+        invoice = service.ensure_vat(stripe_invoice_id: stripe_invoice.id)
+        expect(invoice).to be_kind_of(SubscriptionInvoice)
+        expect(invoice.added_vat?).to eq false
+      end
+    end
   end
 
   describe '#process_payment' do
@@ -209,8 +237,8 @@ describe Subscription::Invoice, stripe: true do
         invoice = invoice.reload
 
         expect(invoice.vies_company_name).to  eq 'EBAY EUROPE S.A R.L.'
-         expect(invoice.vies_address).to  eq "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG"
-         expect(invoice.vies_request_identifier).not_to be_nil
+        expect(invoice.vies_address).to  eq "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG"
+        expect(invoice.vies_request_identifier).not_to be_nil
       end
     end
   end
