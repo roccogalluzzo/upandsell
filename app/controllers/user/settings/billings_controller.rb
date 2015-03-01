@@ -4,10 +4,13 @@ class User::Settings::BillingsController < User::BaseController
   def invoice
     @invoice = SubscriptionInvoice.find params[:id]
     return false unless @invoice.finalized?
+    unless current_user.admin? || (@invoice.user_id == current_user.id)
+      return false
+    end
     @stripe =  Stripe::Invoice.retrieve(@invoice.stripe_id)
     respond_to do |format|
       format.pdf do
-        render :pdf => "file_name"
+        render :pdf => "invoice"
       end
     end
   end
@@ -38,7 +41,7 @@ class User::Settings::BillingsController < User::BaseController
     @method = :put
     @month_price = 24.99.in(:eur).to(:usd).to_s(:plain)
     @year_price =  249.99.in(:eur).to(:usd).to_s(:plain)
-    @invoices =  SubscriptionInvoice.finalized
+    @invoices =  current_user.subscription_invoices.finalized
   end
 
   def apply_coupon

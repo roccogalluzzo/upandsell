@@ -118,6 +118,7 @@ namespace :admin do
  resources :users, only: [:index,:show]
  resources :products, only: [:index,:show, :destroy]
  resources :orders, only: [:index,:show]
+  resources :invoices, only: [:index,:show]
 
 resources :emails, only: [:index, :create] do
   get 'send_test_email'
