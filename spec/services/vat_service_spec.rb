@@ -76,22 +76,6 @@ describe VatService do
     end
   end
 
-  describe '#load_vies_data' do
-    xit 'loads vies data into an invoice' do
-      VCR.use_cassette('load_vies_data') do
-        invoice = Invoice.create(customer_vat_number: 'LU21416127')
-
-        service.load_vies_data(invoice: invoice)
-
-        invoice = invoice.reload
-
-        invoice.vies_company_name.must_equal 'EBAY EUROPE S.A R.L.'
-        invoice.vies_address.must_equal "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG"
-        invoice.vies_request_identifier.wont_be_nil
-      end
-    end
-  end
-
   def example amount, country_code, company
     service.calculate(
       amount: amount, country_code: country_code, vat_registered: company)

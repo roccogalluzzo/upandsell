@@ -74,6 +74,18 @@ module Subscription
     invoice = SubscriptionInvoice.find_by_stripe_id stripe_invoice_id
   end
 
+  # Loads VIES data into the invoice model.
+  #
+  # Raises VatService::ViesDown if the VIES service is down.
+  def load_vies_data(invoice: invoice)
+    details = vat_service.details(vat_number: invoice.customer_vat_number,
+      own_vat: AppSettings.seller_vat_number)
+
+    invoice.update \
+    vies_company_name: details[:name].strip,
+    vies_address: details[:address].strip,
+    vies_request_identifier: details[:request_identifier]
+  end
   private
 
   def snapshot_invoice(invoice, stripe_invoice)
@@ -129,6 +141,10 @@ module Subscription
 
   def stripe_service
     @stripe_service ||= Subscription::Stripe.new(customer_id: @customer_id)
+  end
+
+  def vat_service
+    @vat_service ||= VatService.new
   end
 end
 end

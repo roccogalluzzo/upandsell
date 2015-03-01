@@ -3,17 +3,11 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new
     @page_title = "Join us"
-    if params[:ref]
-     @ref = params[:ref]
-   else
-    @ref = cookies[:aff_tag]
+    @price_usd = 24.99.in(:eur).to(:usd).to_s(:plain).split('.')
+    @price = @price_usd[0]
+    @cents =  @price_usd[1]
+
+    super
   end
-
-  @price_usd = 24.99.in(:eur).to(:usd).to_s(:plain).split('.')
-  @price = @price_usd[0]
-  @cents =  @price_usd[1]
-
-  super
-end
 
 end

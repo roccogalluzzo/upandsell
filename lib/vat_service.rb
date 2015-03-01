@@ -55,6 +55,7 @@ class VatService
   # Returns true or false
   def valid?(vat_number:)
     vies_valid = Valvat::Lookup.validate(vat_number)
+    binding.pry
     if vies_valid.nil?
       Valvat.new(vat_number).valid_checksum?
     else
@@ -80,19 +81,6 @@ class VatService
     raise ViesDown if details.nil?
 
     details
-  end
-
-  # Loads VIES data into the invoice model.
-  #
-  # Raises VatService::ViesDown if the VIES service is down.
-  def load_vies_data(invoice: invoice)
-    details = self.details(vat_number: invoice.customer_vat_number,
-      own_vat: AppSettings.seller_vat_number)
-
-    invoice.update \
-    vies_company_name: details[:name].strip,
-    vies_address: details[:address].strip,
-    vies_request_identifier: details[:request_identifier]
   end
 
   # Calculates VAT rate.

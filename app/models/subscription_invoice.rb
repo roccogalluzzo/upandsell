@@ -9,13 +9,6 @@ class SubscriptionInvoice < ActiveRecord::Base
 
   def added_vat!
     update added_vat: true
-
-    self
-  end
-
-  def pdf_generated!
-    update pdf_generated_at: Time.now
-
     self
   end
 
@@ -28,12 +21,6 @@ class SubscriptionInvoice < ActiveRecord::Base
       # update the invoice.
       update self.class.next_sequence
       self
-    end
-
-    def self.reserve!
-      reserved_info = next_sequence.merge!(reserved_at: Time.now)
-      # create the reserved slot.
-      create reserved_info
     end
 
     def finalized?
@@ -62,10 +49,6 @@ def reverse_charge?
 end
 
 def customer_name
-  super || customer_email
-end
-
-def customer_company_name
   super || vies_company_name
 end
 

@@ -190,5 +190,29 @@ describe Subscription::Invoice, stripe: true do
       end
     end
   end
+
+  describe '#load_vies_data' do
+    it 'loads vies data into an invoice' do
+      VCR.use_cassette('service_load_vies_data') do
+
+        invoice = @user.subscription_invoices
+        .create(
+          customer_vat_number: 'LU21416127',
+          stripe_id: 'stripe_id',
+          stripe_customer_id: 'stripe_id')
+
+        service = Subscription::Invoice.new(customer_id: 'stripe_id')
+
+
+        service.load_vies_data(invoice: invoice)
+
+        invoice = invoice.reload
+
+        expect(invoice.vies_company_name).to  eq 'EBAY EUROPE S.A R.L.'
+         expect(invoice.vies_address).to  eq "22, BOULEVARD ROYAL\nL-2449  LUXEMBOURG"
+         expect(invoice.vies_request_identifier).not_to be_nil
+      end
+    end
+  end
 end
 end
