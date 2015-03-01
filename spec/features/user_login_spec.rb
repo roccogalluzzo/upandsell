@@ -17,6 +17,7 @@ feature "User Login", js: true do
         fill_in "user_password", with: '12345678'
         click_button "Sign in"
         wait_for_ajax
+        sleep 2
         expect(page).to have_content 'SUMMARY'
       end
     end

@@ -33,6 +33,7 @@ feature "Change Subscriptions settings", js: true, stripe: true do
           stub_success_token(token)
           click_button('Save')
           wait_for_ajax
+          sleep 2
           expect(page).to have_content '4242'
         end
       end
