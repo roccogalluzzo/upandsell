@@ -61,8 +61,8 @@ describe Subscription::Invoice, stripe: true do
         invoice = customer.invoices.data.first
         expect(invoice.total).to eq 122
 
-        expect(SubscriptionInvoice.count).to eq 1
-        invoice = SubscriptionInvoice.first
+        expect(@user.subscription_invoices.count).to eq 1
+        invoice = @user.subscription_invoices.first
         expect(invoice.added_vat?).to eq true
       end
     end

@@ -63,16 +63,16 @@ describe Metric do
     expect(visits.visits.get[:data].first[1][:visits]).to eq(2)
   end
 
-  xit "get today  products sales exchanged currency" do
+  it "get today products sales exchanged currency" do
     product = create(:product)
     product2 = create(:product)
-    Timecop.freeze(Time.local(2014, 6, 9)) do
+    Timecop.freeze(Time.now) do
       metric = Metric::Product.new(product)
       metric.record_sale(500)
       metric = Metric::Product.new(product2)
       metric.record_sale(500)
       sales = Metric::Product.new(Product.find(product.id,product2.id))
-      expect(sales.sales.exchange_to(:usd).get[:data].first).to include({sales: 2})
+      expect(sales.sales.exchange_to(:usd).get[:data].first[1]).to include({sales: 2})
     end
   end
 end

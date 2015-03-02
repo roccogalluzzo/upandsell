@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe Product do
-  before { skip }
   it "get file extension" do
     product = create(:product)
     expect(product.extension).to eq('exe')
@@ -14,7 +13,8 @@ describe Product do
 
   it "get file download url" do
    product = create(:product)
-   expect(product.url).to match "https://upandsell-dev.s3-eu-west-1.amazonaws.com/uploads/products/1/test"
+   expect(product.url)
+   .to match /https:\/\/upandsell-s3-dev\.s3-eu-west-1\.amazonaws\.com\/uploads\/products.*/
  end
 
 end

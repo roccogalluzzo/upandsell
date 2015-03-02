@@ -5,7 +5,7 @@ FactoryGirl.define do
     user
     name "Dummy product"
     price 300
-    sequence(:file_key) { |n| "uploads/temp/products/1/test#{n}.exe" }
+    sequence(:file_key) { |n| S3File.request("test#{n}.exe")[:key] }
     price_currency 'USD'
     before(:create) do |instance|
      Fog.mock!
