@@ -30,49 +30,21 @@ feature "Connect with Third party services" do
    find(".createsend-connect").click
    expect(page).to have_content 'Connected'
    @user.reload
-   expect(page).to have_content 'Connected'
+   expect(@user.createsend_token).to have_content 'mock_token'
  end
 
 
 
  scenario "User connect Paypal Account" do
-  visit edit_user_settings_payments_path
-  VCR.use_cassette('paypal_connect', record: :once) do
-    find(".paypal-connect").click
-    expect(page).to have_content 'start your free trial'
+   VCR.use_cassette('paypal_connect_complete', record: :once) do
+    visit paypal_integration_callback_path(request_token: 'AAAAAAAcrl.7mjcjpKjl', verification_code: 'H2Iew8OWbpaUS4AIql70Pw')
+    expect(page).to have_content 'Gateway Connected'
+    @user.reload
+    expect(@user.paypal).to eq true
+    expect(@user.paypal_email.nil?).to eq false
+    expect(@user.paypal_token.nil?).to eq false
+    expect(@user.paypal_token_secret.nil?).to eq false
   end
 end
-scenario "User don't connect Paypal Account" do
-  visit edit_user_settings_payments_path
-  find(".paypal-connect").click
-  expect(page).to have_content 'start your free trial'
-end
-end
-
-
-describe "Paypal Connect" do
-
-  it "redirect to paypal connect url" do
-    VCR.use_cassette('paypal_connect', record: :once) do
-      expect(subject).not_to redirect_to(action: :edit)
-    end
-  end
-
-  xit "save paypal connect to db" do
-    VCR.use_cassette('paypal_connect_complete') do
-      action = get paypal_integration_callback_path,
-      request_token: 'AAAAAAAZ6-lEF6DxKBwh', verification_code: 'M.TMIZXa61gEo6Qtm33xFA'
-      expect(flash[:notice]).to match 'Gateway Connected'
-    end
-  end
-
-  it "no save paypal connect to db" do
-    VCR.use_cassette('paypal_connect_incomplete') do
-      action = get paypal_integration_callback_path,
-      request_token: 'AAAAZ6-lEF6DxKBwh', verification_code: 'M.TMIZXa61gEo6Qtm33xFA'
-
-      expect( flash[:alert]).to match 'Error during'
-    end
-  end
 
 end

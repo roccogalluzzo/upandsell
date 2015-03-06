@@ -5,18 +5,18 @@ http_interactions:
     uri: https://svcs.sandbox.paypal.com/Permissions/GetAccessToken
     body:
       encoding: UTF-8
-      string: '{"requestEnvelope":{"errorLanguage":"en_US"},"token":"AAAAAAAZ6-lEF6DxKBwh","verifier":"M.TMIZXa61gEo6Qtm33xFA"}'
+      string: '{"requestEnvelope":{"errorLanguage":"en_US"},"token":"AAAAAAAcrl.7mjcjpKjl","verifier":"H2Iew8OWbpaUS4AIql70Pw"}'
     headers:
       X-Paypal-Security-Userid:
-      - paypal_api1.upandsell.me
+      - paypal_api1.galluzzo.me
       X-Paypal-Security-Password:
-      - 4E5UCPB57PG6YNF9
+      - 7KUSGBREC2CPCV6Z
       X-Paypal-Application-Id:
-      - APP-8V434817UH486471B
+      - APP-80W284485P519543T
       X-Paypal-Sandbox-Email-Address:
       - paypal@upandsell.me
       X-Paypal-Security-Signature:
-      - sPxQ1QE08pceY0JRUjrNP0wGOlZAXh73eD9RNsGgSmy-YtVDg06-AGx
+      - Acjh9bsTgq2jtPSUrdTHavt9Fu.jAkv2NBeHP-egg5nDSmAIRmKL5Oov
       X-Paypal-Request-Data-Format:
       - JSON
       X-Paypal-Response-Data-Format:
@@ -35,29 +35,25 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 10 Feb 2015 20:24:15 GMT
+      - Fri, 06 Mar 2015 10:08:43 GMT
       Server:
       - Apache-Coyote/1.1
-      Cache-Control:
-      - no-cache
       X-Paypal-Message-Protocol:
       - NONE
       X-Paypal-Response-Data-Format:
       - JSON
       X-Ebay-Soa-Request-Id:
-      - 14b7529e-7bb0-a487-1b37-2257ffffc39a!Permissions!10.72.113.179![]
+      - 14bee8ef-be80-a487-1b37-2257ffffa314!Permissions!10.72.113.179![]
       X-Paypal-Operation-Name:
       - GetAccessToken
       X-Paypal-Service-Name:
       - "{http://svcs.paypal.com/types/perm}Permissions"
       X-Paypal-Service-Version:
       - 1.0.0
-      X-Paypal-Error-Response:
-      - 'TRUE'
       Content-Type:
       - application/json;charset=UTF-8
       Set-Cookie:
-      - Apache=10.72.108.11.1423599855539100; path=/; expires=Thu, 02-Feb-45 20:24:15
+      - Apache=10.72.108.11.1425636522975524; path=/; expires=Sun, 26-Feb-45 10:08:42
         GMT
       Vary:
       - Accept-Encoding
@@ -65,8 +61,67 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"responseEnvelope":{"timestamp":"2015-02-10T12:24:15.550-08:00","ack":"Failure","correlationId":"2f9b89729dbde","build":"2210301"},"error":[{"errorId":"560022","domain":"PLATFORM","subdomain":"Application","severity":"Error","category":"Application","message":"The
-        X-PAYPAL-APPLICATION-ID header contains an invalid value","parameter":["X-PAYPAL-APPLICATION-ID"]}]}'
+      string: '{"responseEnvelope":{"timestamp":"2015-03-06T02:08:43.177-08:00","ack":"Success","correlationId":"2ea5935dea702","build":"2210301"},"scope":["REFUND","ACCESS_BASIC_PERSONAL_DATA"],"token":"UtGDhIvhjXlU-XyrxkH29I5363WrOVv7fHzbVGrOOvjtTR-16BIHkg","tokenSecret":"sN9WxbqCvU.9KYImGNjj.oL.C8Y"}'
     http_version: 
-  recorded_at: Tue, 10 Feb 2015 20:24:16 GMT
+  recorded_at: Fri, 06 Mar 2015 10:08:43 GMT
+- request:
+    method: post
+    uri: https://svcs.sandbox.paypal.com/Permissions/GetBasicPersonalData
+    body:
+      encoding: UTF-8
+      string: '{"requestEnvelope":{"errorLanguage":"en_US"},"attributeList":{"attribute":["https://www.paypal.com/webapps/auth/schema/payerID"]}}'
+    headers:
+      X-Paypal-Application-Id:
+      - APP-80W284485P519543T
+      X-Paypal-Sandbox-Email-Address:
+      - paypal@upandsell.me
+      X-Paypal-Authorization:
+      - token=UtGDhIvhjXlU-XyrxkH29I5363WrOVv7fHzbVGrOOvjtTR-16BIHkg,signature=8KqPPAeSVyZvMFUsMX+l7fhHuH0=,timestamp=1425636523
+      X-Paypal-Request-Data-Format:
+      - JSON
+      X-Paypal-Response-Data-Format:
+      - JSON
+      User-Agent:
+      - PayPalSDK/sdk-core-ruby 0.3.1 (paypal-sdk-core 0.3.1; ruby 2.1.5p273-x86_64-darwin13.0)
+      X-Paypal-Request-Source:
+      - permissions-ruby-sdk-1.96.4
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 06 Mar 2015 10:08:45 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Paypal-Message-Protocol:
+      - NONE
+      X-Paypal-Response-Data-Format:
+      - JSON
+      X-Ebay-Soa-Request-Id:
+      - 14bee8f0-33e0-a488-7886-9c36ffffa32d!Permissions!10.72.135.136![]
+      X-Paypal-Operation-Name:
+      - GetBasicPersonalData
+      X-Paypal-Service-Name:
+      - "{http://svcs.paypal.com/types/perm}Permissions"
+      X-Paypal-Service-Version:
+      - 1.0.0
+      Content-Type:
+      - application/json;charset=UTF-8
+      Set-Cookie:
+      - Apache=10.72.108.11.1425636524853630; path=/; expires=Sun, 26-Feb-45 10:08:44
+        GMT
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: '{"responseEnvelope":{"timestamp":"2015-03-06T02:08:45.049-08:00","ack":"Success","correlationId":"c52ac226f5fec","build":"2210301"},"response":{"personalData":[{"personalDataKey":"https:\/\/www.paypal.com\/webapps\/auth\/schema\/payerID","personalDataValue":"2V7BJQA9VJTL8"}]}}'
+    http_version: 
+  recorded_at: Fri, 06 Mar 2015 10:08:45 GMT
 recorded_with: VCR 2.9.3

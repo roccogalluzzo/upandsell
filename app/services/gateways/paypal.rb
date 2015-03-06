@@ -34,11 +34,11 @@
       callback: callback_url })
 
      response = api.request_permissions(request_permissions)
+     return false unless response.success?
      api.grant_permission_url(response)
    end
 
    def self.connect(user, token, verification_code)
-
     api = PayPal::SDK::Permissions::API.new
     get_access_token = api.build_get_access_token(
       token: token, verifier: verification_code)
