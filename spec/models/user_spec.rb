@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe User do
+
   let(:user) {create(:user)}
   let(:cc_user) {build(:cc_user)}
   let(:paypal_user) {build(:paypal_user)}
@@ -9,7 +10,7 @@ describe User do
   describe 'welcome_email' do
     context 'when user create new account' do
       it 'should send the welcome email and email confirmation' do
-          Sidekiq::Worker.clear_all
+        Sidekiq::Worker.clear_all
         expect {UserMailer.delay.welcome(user.id)}
         .to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(2)
       end

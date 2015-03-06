@@ -4,6 +4,8 @@ require 'split/dashboard'
 Upandsell::Application.routes.draw do
 
   mount StripeEvent::Engine, at: '/stripe'
+  get '/users/auth/mailchimp/callback' => 'user/settings/integrations#create'
+  get '/users/auth/createsend/callback' => 'user/settings/integrations#create'
 
   get '/auth/paypal' => 'user/settings/payments#paypal_connect', as: 'paypal_integration'
   get '/auth/paypal/callback' => 'user/settings/payments#paypal_callback', as: 'paypal_integration_callback'
@@ -118,9 +120,9 @@ namespace :admin do
  resources :users, only: [:index,:show]
  resources :products, only: [:index,:show, :destroy]
  resources :orders, only: [:index,:show]
-  resources :invoices, only: [:index,:show]
+ resources :invoices, only: [:index,:show]
 
-resources :emails, only: [:index, :create] do
+ resources :emails, only: [:index, :create] do
   get 'send_test_email'
 end
 resources :affiliations, only: [:index]

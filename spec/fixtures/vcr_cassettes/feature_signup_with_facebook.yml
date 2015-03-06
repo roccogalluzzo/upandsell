@@ -1,0 +1,124 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://graph.facebook.com/100006587115307/picture?type=square
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Content-Type:
+      - image/jpeg
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Fb-Rev:
+      - '1627465'
+      Pragma:
+      - no-cache
+      Location:
+      - https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/v/t1.0-1/p50x50/10924751_1604280336468188_8276557149328818715_n.jpg?oh=b197bec073f5fad80e76268f65caa35f&oe=5589B1C7&__gda__=1434566749_6072302c5781321dea649e9c6fb8a387
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      Facebook-Api-Version:
+      - v1.0
+      Expires:
+      - Sat, 01 Jan 2000 00:00:00 GMT
+      X-Fb-Debug:
+      - H4sTkd5H8Qj0l92EaLMW29e+LTR8ONOxKk8WkABAe8ct4/GpPs/a3imxP0IIuKuFNTV5gwLcsvg/qiri74Rsjw==
+      Date:
+      - Thu, 05 Mar 2015 22:07:01 GMT
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Thu, 05 Mar 2015 22:07:00 GMT
+- request:
+    method: get
+    uri: https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/v/t1.0-1/p50x50/10924751_1604280336468188_8276557149328818715_n.jpg?__gda__=1434566749_6072302c5781321dea649e9c6fb8a387&oe=5589B1C7&oh=b197bec073f5fad80e76268f65caa35f
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Last-Modified:
+      - Fri, 23 Jan 2015 23:11:53 GMT
+      Content-Type:
+      - image/jpeg
+      Timing-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Origin:
+      - "*"
+      Content-Length:
+      - '1479'
+      Cache-Control:
+      - no-transform, max-age=1209600
+      Expires:
+      - Thu, 19 Mar 2015 22:07:02 GMT
+      Date:
+      - Thu, 05 Mar 2015 22:07:02 GMT
+      Connection:
+      - keep-alive
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        /9j/4AAQSkZJRgABAgAAAQABAAD/7QCcUGhvdG9zaG9wIDMuMAA4QklNBAQA
+        AAAAAIAcAmcAFFk0YmNMMDRBbGdLUDBReEF6dDhfHAIoAGJGQk1EMDEwMDBh
+        OWUwMTAwMDBmZjAxMDAwMDdhMDIwMDAwYTgwMjAwMDBlMDAyMDAwMGExMDMw
+        MDAwM2MwNDAwMDA3MzA0MDAwMGE5MDQwMDAwZTEwNDAwMDBjNzA1MDAwMP/b
+        AEMABgQFBgUEBgYFBgcHBggKEAoKCQkKFA4PDBAXFBgYFxQWFhodJR8aGyMc
+        FhYgLCAjJicpKikZHy0wLSgwJSgpKP/bAEMBBwcHCggKEwoKEygaFhooKCgo
+        KCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgo
+        KP/CABEIADIAMgMAIgABEQECEQH/xAAbAAEBAAIDAQAAAAAAAAAAAAAABAUG
+        AQMHAv/EABcBAQEBAQAAAAAAAAAAAAAAAAABAgP/xAAXAQEBAQEAAAAAAAAA
+        AAAAAAAAAQID/9oADAMAAAERAhEAAAH1Q4OUunXO9tL3RQlYumXXLzjHZGfb
+        Yt4hpzLxjtJGlS/om6jO/eLnNjCgAAAf/8QAIxAAAgIBAgYDAAAAAAAAAAAA
+        AgMBBAAFEQYQExUhMBQkMf/aAAgBAAABBQL0TO2OcKw73EsS8WVubTgY1K9N
+        s0t6U8Px4A/ON/TETHUqM1DpVSsGpYqWMbljHLiflIw5Sw/p1hmVDkGvbLNZ
+        hnY0/cposLO3FINpy0p06ep6P//EABwRAAICAgMAAAAAAAAAAAAAAAARARAC
+        EiAhQf/aAAgBAhEBPwE2Il1lPlPukIXL/8QAGBEBAAMBAAAAAAAAAAAAAAAA
+        AQAQETD/2gAIAQERAT8BgRMop5f/xAAnEAACAQQBAwMFAQAAAAAAAAABAhEA
+        AxIhMSJBURAwcSAyQ2Fi8P/aAAgBAAAGPwL2SxIAHJogWnI7EGheS7cN/KNn
+        k+I8fQzuYUd6hdWRwPNHUz+4q8xTvpqg+pVxKnkVku7J4Piv4oIggD1uBvxr
+        m3xXD5TGOJmmsFC3ZunVDHELv7d11Mo+TQhl6uN8+lw22UC6mDT2/wBNKbDY
+        kDliZnzSS6qQuJdZyOqiUBiJ3vUU7PhJxA14aaJlSpJ6diNz7P8A/8QAIRAB
+        AAICAQQDAQAAAAAAAAAAAQARITFBEFFhkTBx0aH/2gAIAQAAAT8h+ANmoFcr
+        TQQ8lfBO9R0tBsM/09S0QaZLVwTLJv6GPRoIOSx5JeE0w+wY1Ml9G0OIL0tJ
+        zMsW/gYL2Wpe/ghPB1RKiuiY50GsvxghWq8NvX0S3tlFkWXSy0wABwUWxoE3
+        RRD4fhQenTE5rWxnJ7ROZQAY1fuGK1mUgIdmJvhnfV4twtxeWO4ob+iMywio
+        Dqr4f//aAAwDAAABEQIRAAAQ4y88Yvg8HOj88888/8QAGxEBAAIDAQEAAAAA
+        AAAAAAAAAQARECExIFH/2gAIAQIRAT8QiDRkXsFVqC2MIekp8gDh6//EABoR
+        AAMBAAMAAAAAAAAAAAAAAAABERAgIUH/2gAIAQERAT8QGvQnp1CHlZWXl//E
+        ACIQAQEAAgIBBAMBAAAAAAAAAAERACExQVEQYYHwMHGR4f/aAAgBAAABPxD8
+        A1Ie+KpY3pd/5giWu4J2nR84BJpEipt0PjQW+oIrAxW0nYFnJPj6X94dfvG2
+        OAKqkQTfJ3iWRstxRqb8WZWMKC8npzFrfnGIUJoHOCHH2t+495ZQcnl/SvWT
+        EEBD3cYo4avj0RfCFtNE8vUYECoPMrLrZRvGnvABocJY4QpH2pw5TYTSNI0s
+        Z84Z4xFTeNL7Yy11YmMm22+PQWwDcB47tmh7DfWVtoSKAdKgacEarlpEnAUA
+        WCtrsNHFxs7ZkRSIoS2H9dZshFXyg8gfvCBfpRpam9xNbBv4f//Z
+    http_version: 
+  recorded_at: Thu, 05 Mar 2015 22:07:01 GMT
+recorded_with: VCR 2.9.3

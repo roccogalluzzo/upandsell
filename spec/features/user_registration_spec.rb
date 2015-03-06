@@ -34,6 +34,25 @@ feature "User Registration", js: true do
     end
   end
 
+  context "Social Sign Up" do
+    background do
+     mock_auth_hash
+     visit join_path
+   end
+   scenario "User clicks on Facebook link" do
+    VCR.use_cassette("feature_signup_with_facebook", :record => :new_episodes) do
+      find(".fb-btn").click
+      expect(page).to have_content 'start your free trial'
+    end
+  end
+
+  scenario "User clicks on Google link" do
+    VCR.use_cassette("feature_signup_with_google", :record => :new_episodes) do
+      find(".google-btn").click
+      expect(page).to have_content 'start your free trial'
+    end
+  end
+end
 end
 
 def fill_form_with_valid_data(args={})

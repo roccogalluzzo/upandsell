@@ -30,6 +30,7 @@ feature "Customer see product page", js: true do
       visit product_slug_path(@product.slug)
       expect(page).to have_content @product.name
       expect(page).to have_content "BUY NOW"
+      expect(page).to_not have_content "APPLY COUPON"
     end
 
     scenario 'active subscription and paypal' do
@@ -45,6 +46,7 @@ feature "Customer see product page", js: true do
       visit product_slug_path(@product.slug)
       expect(page).to have_content @product.name
       expect(page).to have_content "BUY NOW"
+      expect(page).to_not have_content "APPLY COUPON"
     end
   end
 end

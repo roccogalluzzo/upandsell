@@ -16,7 +16,7 @@ Settings / <span>Payments</span>
     <div class="paypal-box <% unless current_user.paypal %>unfocus <% end %>">
       <%= image_tag "paypal_logo.png", class: 'payment-logo' %>
       <%= link_to ( current_user.paypal_email ? "Connected" : "Connect"), paypal_integration_path,
-      class: 'payment-connect btn-app', disabled:( current_user.paypal_email ? true : false) %>
+      class: 'paypal-connect payment-connect btn-app', disabled:( current_user.paypal_email ? true : false) %>
     </div>
   </div>
 

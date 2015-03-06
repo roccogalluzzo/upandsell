@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
 
     # Get the identity and user if they exist
     identity = Identity.find_for_oauth(auth)
-
+    info = auth[:info]
     # If a signed_in_resource is provided it always overrides the existing user
     # to prevent the identity being locked with accidentally created accounts.
     # Note that this may leave zombie accounts (with no associated identity) which
@@ -103,19 +103,19 @@ class User < ActiveRecord::Base
       # Get the existing user by email if the provider gives us a verified email.
       # If no verified email was provided we assign a temporary email and ask the
       # user to verify it on the next step via UsersController.finish_signup
-      email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email)
-      email = auth.info.email
+      email_is_verified = info[:email] && (info[:verified] || info[:verified_email])
+      email = info[:email]
       user = User.where(:email => email).first if email
 
       # Create the user if it's a new registration
       if user.nil?
         if auth[:provider] == 'facebook'
-          avatar_url = auth[:info][:image].gsub('http://','https://')
+          avatar_url = info[:image].gsub('http://','https://')
         else
-          avatar_url = auth.info.image
+          avatar_url = info[:image]
         end
         user = User.new(
-          name: auth.extra.raw_info.name,
+          name: auth[:extra][:raw_info][:name],
           email: email,
           password: Devise.friendly_token[0,20],
           remote_avatar_url: avatar_url

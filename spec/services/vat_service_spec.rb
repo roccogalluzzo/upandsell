@@ -27,7 +27,7 @@ describe VatService do
 
   describe '#validate' do
     it 'validates the VAT number' do
-      VCR.use_cassette('validate_vat') do
+      VCR.use_cassette('service_validate_vat') do
         expect(service.valid?(vat_number: 'LU21416127')).to eq true
         expect(service.valid?(vat_number: 'IE6388047V')).to eq true
         expect(service.valid?(vat_number: 'LU21416128')).to eq false
