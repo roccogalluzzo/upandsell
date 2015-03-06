@@ -8,11 +8,11 @@ class User::Settings::IntegrationsController < User::BaseController
   def create
     provider = auth_hash[:provider]
     if provider == 'createsend'
-      access_token = {access_token: auth_hash.credentials.token,
-        refresh_token: auth_hash.credentials.refresh_token
+      access_token = {access_token: auth_hash[:credentials][:token],
+        refresh_token: auth_hash[:credentials][:refresh_token]
       }
     else
-      access_token = "#{auth_hash.credentials.token}-#{auth_hash.extra.metadata.dc}"
+      access_token = "#{auth_hash[:credentials][:token]}-#{auth_hash[:extra][:metadata][:dc]}"
     end
 
     if current_user.update_attribute("#{provider}_token", access_token)

@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
     @published = true if (@paypal || @credit_card) && @product.published && @user.subscribed?
     return if !@published
 
-    @coupons =  @product.coupons.active.not_expired.blank?
+    @coupons = !@product.coupons.active.not_expired.blank?
 
     #registra pagamento paypal se presente
     if params[:payKey]

@@ -88,6 +88,7 @@ Upload.S3 = {
     req = Upload.S3.signed_request(data.files[0].name);
     data.formData = req;
     attrs.file_key = req.key;
+    console.log(data)
     var jqXHR = data.submit();
     Upload.S3.cancel(true, jqXHR);
 
