@@ -15,7 +15,7 @@ module Subscription
     # Only apply VAT if not applied yet.
     if !invoice.added_vat?
       stripe_invoice = stripe_service.apply_vat(invoice_id: stripe_invoice_id)
-      invoice.added_vat!
+      invoice.update_attribute(:added_vat, true)
       snapshot_customer(invoice)
     end
 
@@ -53,7 +53,7 @@ module Subscription
     end
 
     invoice
-  rescue Invoice::AlreadyFinalized
+  rescue SubscriptionInvoice::AlreadyFinalized
   end
 
   def process_refund(stripe_invoice_id:)
