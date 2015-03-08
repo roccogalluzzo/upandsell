@@ -1,0 +1,113 @@
+{
+  "created": 1326853478,
+  "livemode": false,
+  "id": "evt_2949",
+  "type": "charge.refunded",
+  "object": "event",
+  "request": null,
+  "pending_webhooks": 1,
+  "api_version": "2014-11-05",
+  "data": {
+    "object": {
+      "id": "ch_00000000000000",
+      "object": "charge",
+      "created": 1425320957,
+      "livemode": false,
+      "paid": true,
+      "status": "paid",
+      "amount": 100,
+      "currency": "eur",
+      "refunded": true,
+      "source": {
+        "id": "card_00000000000000",
+        "object": "card",
+        "last4": "4242",
+        "brand": "Visa",
+        "funding": "credit",
+        "exp_month": 2,
+        "exp_year": 2016,
+        "fingerprint": "gNiJZFbJHY3B44bd",
+        "country": "US",
+        "name": null,
+        "address_line1": null,
+        "address_line2": null,
+        "address_city": null,
+        "address_state": null,
+        "address_zip": null,
+        "address_country": null,
+        "cvc_check": null,
+        "address_line1_check": null,
+        "address_zip_check": null,
+        "dynamic_last4": null,
+        "metadata": {
+        },
+        "customer": "cus_00000000000000"
+      },
+      "captured": true,
+      "card": {
+        "id": "card_00000000000000",
+        "object": "card",
+        "last4": "4242",
+        "brand": "Visa",
+        "funding": "credit",
+        "exp_month": 2,
+        "exp_year": 2016,
+        "fingerprint": "gNiJZFbJHY3B44bd",
+        "country": "US",
+        "name": null,
+        "address_line1": null,
+        "address_line2": null,
+        "address_city": null,
+        "address_state": null,
+        "address_zip": null,
+        "address_country": null,
+        "cvc_check": null,
+        "address_line1_check": null,
+        "address_zip_check": null,
+        "dynamic_last4": null,
+        "metadata": {
+        },
+        "customer": "cus_00000000000000"
+      },
+      "balance_transaction": "txn_00000000000000",
+      "failure_message": null,
+      "failure_code": null,
+      "amount_refunded": 100,
+      "customer": "cus_00000000000000",
+      "invoice": "in_00000000000000",
+      "description": null,
+      "dispute": null,
+      "metadata": {
+      },
+      "statement_descriptor": null,
+      "fraud_details": {
+      },
+      "receipt_email": "araceli_baumbach@kling.name",
+      "receipt_number": null,
+      "shipping": null,
+      "refunds": {
+        "object": "list",
+        "total_count": 0,
+        "has_more": false,
+        "url": "/v1/charges/ch_15byI5AQkfalJzyKg9Yr3eDX/refunds",
+        "data": [
+          {
+            "id": "re_5pixfjNqMYmqHC",
+            "amount": 100,
+            "currency": "eur",
+            "created": 1425817659,
+            "object": "refund",
+            "balance_transaction": "txn_5pixwiKbYDCtst",
+            "metadata": {
+            },
+            "charge": "ch_5pix5LCUKYWfHY",
+            "receipt_number": "1756-6378",
+            "reason": null
+          }
+        ]
+      },
+      "statement_description": null,
+      "fee": 0
+    }
+  }
+}

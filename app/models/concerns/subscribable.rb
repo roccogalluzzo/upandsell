@@ -68,11 +68,10 @@ module Subscribable
     self.save
   end
 
-  def renew_subscription
-    sub = Subscription::Stripe.new(customer_id: self.stripe_id).customer.subscriptions.data.first
+  def renew_subscription(sub)
     self.subscription_active = true
     self.subscription_deleted = false
-    self.subscription_end = Time.at(sub.current_period_end).to_datetime
+    self.subscription_end = Time.at(sub['current_period_end']).to_datetime
     self.save
   end
 
