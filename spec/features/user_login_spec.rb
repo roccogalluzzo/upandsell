@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "User Login", js: true do
+feature "User Login", retry: 4, js: true do
 
   context "when visiting Sign In page" do
     background do

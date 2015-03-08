@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "User complete Sign Up", js: true do
+feature "User complete Sign Up", retry: 4, js: true do
 
   context "when submit Billing form" do
     background do

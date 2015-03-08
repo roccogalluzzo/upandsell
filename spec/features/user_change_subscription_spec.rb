@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "Change Subscriptions settings", js: true, stripe: true do
+feature "Change Subscriptions settings", retry: 4, js: true, stripe: true do
   context "when update Billing form" do
     background do
       VCR.use_cassette("feature_billing_create_customer", :record => :new_episodes) do
@@ -46,7 +46,7 @@ feature "Change Subscriptions settings", js: true, stripe: true do
         fill_in "user_legal_name", with: 'Rocco Galluzzo'
         click_button('Save')
         wait_for_ajax
-        sleep 2
+        sleep 3
         expect(page).to have_content 'Billing Info Updated'
       end
 

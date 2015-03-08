@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "Connect with Third party services" do
+feature "Connect with Third party services", retry: 4 do
   background do
     VCR.use_cassette("feature_billing_create_customer", :record => :new_episodes) do
       token = Stripe::Token.create(

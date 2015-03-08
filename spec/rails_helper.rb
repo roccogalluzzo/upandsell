@@ -19,6 +19,7 @@ require 'capybara/rspec'
 require 'billy/rspec'
 require 'webmock/rspec'
 require 'capybara/poltergeist'
+require 'rspec/retry'
 
 WebMock::API.stub_request(:get, "http://openexchangerates.org/api/latest.json?app_id=ae2dfadfe001425caf71503cf97d8b99")
 .to_return(File.new(Rails.root.join("spec/support/ex_rates.json")))
@@ -33,4 +34,5 @@ RSpec.configure do |config|
   config.include Capybara::DSL
   config.use_transactional_fixtures = false
   config.infer_spec_type_from_file_location!
+  config.verbose_retry = true # show retry status in spec process
 end

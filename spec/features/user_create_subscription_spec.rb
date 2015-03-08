@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "User Create a Subscription", js: true, stripe: true do
+feature "User Create a Subscription",retry: 4, js: true, stripe: true do
 
   context "when submit Billing form" do
     background do

@@ -25,6 +25,12 @@ describe Subscription::Stripe, stripe: true do
         expect(stripe.apply_coupon(Time.at(1436374254).to_datetime).trial_end).to eq 1436374254
       end
     end
+    it 'doesnt apply a coupon' do
+      VCR.use_cassette("service_stripe_apply_coupon_error") do
+        stripe = Subscription::Stripe.new(customer_id: 'cus_fake')
+        expect(stripe.apply_coupon(Time.at(1436374254).to_datetime)).to eq false
+      end
+    end
   end
 
   describe '#subscribe'

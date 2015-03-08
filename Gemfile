@@ -80,6 +80,7 @@ group :development, :test do
   gem 'faker'
   gem 'fuubar'
   gem 'guard-rspec', require: false
+  gem 'rspec-retry'
   gem 'pry-byebug'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'

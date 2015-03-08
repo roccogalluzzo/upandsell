@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "User Registration", js: true do
+feature "User Registration", retry: 4, js: true do
 
   context "when visiting Sign Up page" do
     background do
