@@ -25,7 +25,7 @@ feature "User Create a Subscription", js: true, stripe: true do
         find('.year-plan').trigger('click')
         click_button('Save')
         wait_for_ajax
-        sleep 10
+        sleep 2
         expect(page).to have_content 'Next payment will be processed on'
       end
     end

@@ -9,12 +9,8 @@ class Order < ActiveRecord::Base
   scope :email_starts_with, -> (query) { where("email like ?", "%#{query}%")}
   validates :status, inclusion: { in: STATUS_NAMES }
   serialize :payment_details
-
-  before_create do
-    self.token = SecureRandom.urlsafe_base64(16)
-    self.amount_base_cents = self.amount.cents.in(self.amount_currency.downcase.to_sym).to(:eur)
-    self.buyer_accepts_marketing = true
-  end
+  before_create :setup_order
+  before_save :increment_order_number
 
   after_create do
     if !self.user.webhook_order_url.nil?
@@ -22,14 +18,8 @@ class Order < ActiveRecord::Base
     end
   end
 
-  before_save :increment_order_number
-
   def refund
-    if self.gateway != 'paypal'
-      service = PaymentService.new(self.gateway)
-    else
-      service = PaymentService.new('paypal')
-    end
+    service = PaymentService.new(self.gateway)
     service.refund(self.gateway_token, self.amount_cents, self.user_id)
     self.status = 'refunded'
     if self.save
@@ -58,6 +48,12 @@ class Order < ActiveRecord::Base
     if self.buyer_accepts_marketing
       MailingListAddSyncWorker.perform_async(self.id)
     end
+  end
+
+  def setup_order
+    self.token = SecureRandom.urlsafe_base64(16)
+    self.amount_base_cents = self.amount.cents.in(self.amount_currency.downcase.to_sym).to(:eur)
+    self.buyer_accepts_marketing = true
   end
 
   private

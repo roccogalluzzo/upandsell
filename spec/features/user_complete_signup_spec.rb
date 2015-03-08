@@ -65,7 +65,7 @@ feature "User complete Sign Up", js: true do
     find('.year-plan').trigger('click')
 
     submit_subscription_data
-    sleep 3
+    sleep 2
     visit edit_user_settings_billing_path
     expect(page).to have_content 'YEARLY PLAN'
   end

@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://svcs.sandbox.paypal.com/AdaptivePayments/Pay
+    body:
+      encoding: UTF-8
+      string: '{"requestEnvelope":{"errorLanguage":"en_US"},"actionType":"CREATE","cancelUrl":"http://ciao.com","currencyCode":"USD","ipnNotificationUrl":"http://upandsell.ngrok.com/checkout/ipn","receiverList":{"receiver":[{"amount":300.0}]},"returnUrl":"http://ciao.com&payKey=${payKey}"}'
+    headers:
+      X-Paypal-Security-Userid:
+      - paypal_api1.galluzzo.me
+      X-Paypal-Security-Password:
+      - 7KUSGBREC2CPCV6Z
+      X-Paypal-Application-Id:
+      - APP-80W284485P519543T
+      X-Paypal-Sandbox-Email-Address:
+      - paypal@upandsell.me
+      X-Paypal-Security-Signature:
+      - Acjh9bsTgq2jtPSUrdTHavt9Fu.jAkv2NBeHP-egg5nDSmAIRmKL5Oov
+      X-Paypal-Request-Data-Format:
+      - JSON
+      X-Paypal-Response-Data-Format:
+      - JSON
+      User-Agent:
+      - PayPalSDK/sdk-core-ruby 0.3.1 (paypal-sdk-core 0.3.1; ruby 2.1.5p273-x86_64-darwin13.0)
+      X-Paypal-Request-Source:
+      - adaptivepayments-ruby-sdk-1.117.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 08 Mar 2015 16:07:00 GMT
+      Server:
+      - Apache-Coyote/1.1
+      X-Ebay-Soa-Request-Id:
+      - 14bfa23b-d930-a488-6782-c40cff516b71!AdaptivePayments!10.72.134.120![]
+      X-Paypal-Service-Version:
+      - 1.0.0
+      X-Paypal-Service-Name:
+      - "{http://svcs.paypal.com/types/ap}AdaptivePayments"
+      X-Ebay-Soa-Response-Data-Format:
+      - JSON
+      X-Paypal-Operation-Name:
+      - Pay
+      Cache-Control:
+      - no-cache
+      X-Paypal-Error-Response:
+      - 'TRUE'
+      X-Ebay-Soa-Message-Protocol:
+      - NONE
+      Content-Type:
+      - application/json;charset=UTF-8
+      Set-Cookie:
+      - Apache=10.72.108.11.1425830821258844; path=/; expires=Tue, 28-Feb-45 16:07:01
+        GMT
+      Vary:
+      - Accept-Encoding
+      Content-Length:
+      - '262'
+    body:
+      encoding: UTF-8
+      string: '{"responseEnvelope":{"timestamp":"2015-03-08T09:07:01.335-07:00","ack":"Failure","correlationId":"937bee8fd291d","build":"15089777"},"error":[{"errorId":"580001","domain":"PLATFORM","subdomain":"Application","severity":"Error","category":"Application","message":"Invalid
+        request: None of the fields are specified to identify a receiver"}]}'
+    http_version: 
+  recorded_at: Sun, 08 Mar 2015 16:07:00 GMT
+recorded_with: VCR 2.9.3

@@ -5,18 +5,18 @@ http_interactions:
     uri: https://svcs.sandbox.paypal.com/Permissions/RequestPermissions
     body:
       encoding: UTF-8
-      string: '{"requestEnvelope":{"errorLanguage":"en_US"},"scope":["REFUND","ACCESS_BASIC_PERSONAL_DATA"],"callback":"http://www.example.com/auth/paypal/callback"}'
+      string: '{"requestEnvelope":{"errorLanguage":"en_US"},"scope":["REFUND","ACCESS_BASIC_PERSONAL_DATA"],"callback":"http://ciao.com"}'
     headers:
       X-Paypal-Security-Userid:
-      - paypal_api1.upandsell.me
+      - paypal_api1.galluzzo.me
       X-Paypal-Security-Password:
-      - 4E5UCPB57PG6YNF9
+      - 7KUSGBREC2CPCV6Z
       X-Paypal-Application-Id:
-      - APP-8V434817UH486471B
+      - APP-80W284485P519543T
       X-Paypal-Sandbox-Email-Address:
       - paypal@upandsell.me
       X-Paypal-Security-Signature:
-      - sPxQ1QE08pceY0JRUjrNP0wGOlZAXh73eD9RNsGgSmy-YtVDg06-AGx
+      - Acjh9bsTgq2jtPSUrdTHavt9Fu.jAkv2NBeHP-egg5nDSmAIRmKL5Oov
       X-Paypal-Request-Data-Format:
       - JSON
       X-Paypal-Response-Data-Format:
@@ -35,29 +35,25 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 10 Feb 2015 20:24:12 GMT
+      - Sun, 08 Mar 2015 16:32:20 GMT
       Server:
       - Apache-Coyote/1.1
-      Cache-Control:
-      - no-cache
       X-Paypal-Message-Protocol:
       - NONE
       X-Paypal-Response-Data-Format:
       - JSON
       X-Ebay-Soa-Request-Id:
-      - 14b7529d-bc30-a488-7886-9c36ffffc398!Permissions!10.72.135.136![]
+      - 14bfa3ae-a2d0-a487-1b37-2257ffffa188!Permissions!10.72.113.179![]
       X-Paypal-Operation-Name:
       - RequestPermissions
       X-Paypal-Service-Name:
       - "{http://svcs.paypal.com/types/perm}Permissions"
       X-Paypal-Service-Version:
       - 1.0.0
-      X-Paypal-Error-Response:
-      - 'TRUE'
       Content-Type:
       - application/json;charset=UTF-8
       Set-Cookie:
-      - Apache=10.72.108.11.1423599852474163; path=/; expires=Thu, 02-Feb-45 20:24:12
+      - Apache=10.72.108.11.1425832340004887; path=/; expires=Tue, 28-Feb-45 16:32:20
         GMT
       Vary:
       - Accept-Encoding
@@ -65,8 +61,7 @@ http_interactions:
       - chunked
     body:
       encoding: UTF-8
-      string: '{"responseEnvelope":{"timestamp":"2015-02-10T12:24:12.486-08:00","ack":"Failure","correlationId":"dc19cb5e9e7a4","build":"2210301"},"error":[{"errorId":"560022","domain":"PLATFORM","subdomain":"Application","severity":"Error","category":"Application","message":"The
-        X-PAYPAL-APPLICATION-ID header contains an invalid value","parameter":["X-PAYPAL-APPLICATION-ID"]}]}'
-    http_version:
-  recorded_at: Tue, 10 Feb 2015 20:24:13 GMT
+      string: '{"responseEnvelope":{"timestamp":"2015-03-08T09:32:20.241-07:00","ack":"Success","correlationId":"f0cddc51ab45b","build":"2210301"},"token":"AAAAAAAcsc9QqO5ikadm"}'
+    http_version: 
+  recorded_at: Sun, 08 Mar 2015 16:32:18 GMT
 recorded_with: VCR 2.9.3
