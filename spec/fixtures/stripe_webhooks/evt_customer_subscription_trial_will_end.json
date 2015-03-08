@@ -24,7 +24,7 @@
       "object": "subscription",
       "start": 1424171033,
       "status": "trialing",
-      "customer": "cus_test",
+      "customer": "cus_test2",
       "cancel_at_period_end": false,
       "current_period_start": 1424171033,
       "current_period_end": 1425380632,

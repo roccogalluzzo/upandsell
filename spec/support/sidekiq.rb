@@ -1,9 +1,7 @@
 RSpec.configure do |config|
 
-  config.before(:each) do | example |
-
+  config.before(:each, sidekiq: true) do | example |
     Sidekiq::Worker.clear_all
-
     if example.metadata[:sidekiq] == :fake
       Sidekiq::Testing.fake!
     elsif example.metadata[:sidekiq] == :inline
