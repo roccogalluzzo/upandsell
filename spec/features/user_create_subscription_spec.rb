@@ -10,10 +10,10 @@ feature "User Create a Subscription",retry: 4, js: true, stripe: true do
 
     context "with valid data" do
       scenario "should see subscription active page" do
-        VCR.use_cassette("feature_billing_create_subscription", :record => :new_episodes) do
-        fill_common_form_fields
-        fill_credit_card
-        token =  Stripe::Token.create(
+        VCR.use_cassette("feature_billing_create_subscription") do
+          fill_credit_card
+          fill_common_form_fields
+          token =  Stripe::Token.create(
             :card => {
               :number => "4242424242424242",
               :exp_month => 2,
@@ -21,17 +21,17 @@ feature "User Create a Subscription",retry: 4, js: true, stripe: true do
               :cvc => "314"
               },
               ).id
-        stub_success_token(token)
-        find('.year-plan').trigger('click')
-        click_button('Save')
-        wait_for_ajax
-        sleep 2
-        expect(page).to have_content 'Next payment will be processed on'
+          stub_success_token(token)
+          find('.year-plan').trigger('click')
+          click_button('Save')
+          wait_for_ajax
+          sleep 3
+          expect(page).to have_content 'Next payment will be processed on'
+        end
       end
-    end
 
+    end
   end
-end
 end
 
 def stub_success_token(token)

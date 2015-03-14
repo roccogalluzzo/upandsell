@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 24 Feb 2015 21:42:05 GMT
+      - Sat, 14 Mar 2015 18:42:52 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '740'
+      - '741'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_bPUqaLTqqdureoKu
+      - req_FhuXd4URUMJ8O8wc
       Stripe-Version:
       - '2014-11-05'
       Strict-Transport-Security:
@@ -58,14 +58,14 @@ http_interactions:
       encoding: UTF-8
       string: |
         {
-          "id": "tok_15ZqRNAQkfalJzyK2SONdDi3",
+          "id": "tok_15gKDoAQkfalJzyKSbnjFX39",
           "livemode": false,
-          "created": 1424814125,
+          "created": 1426358572,
           "used": false,
           "object": "token",
           "type": "card",
           "card": {
-            "id": "card_15ZqRNAQkfalJzyKTjr0NtSE",
+            "id": "card_15gKDoAQkfalJzyKbIeNw5cz",
             "object": "card",
             "last4": "4242",
             "brand": "Visa",
@@ -87,16 +87,16 @@ http_interactions:
             "dynamic_last4": null,
             "customer": null
           },
-          "client_ip": "79.34.101.6"
+          "client_ip": "79.34.58.182"
         }
     http_version: 
-  recorded_at: Tue, 24 Feb 2015 21:42:04 GMT
+  recorded_at: Sat, 14 Mar 2015 18:42:51 GMT
 - request:
     method: post
     uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: card=tok_15ZqRTAQkfalJzyKArav01Dx&email=tre%40emmerich.org&metadata[id]=7&metadata[country_code]=IT&metadata[vat_registered]=false&metadata[name]=Cyrus%20Brown&metadata[address]=219%20Glover%20Port&metadata[type]=private&metadata[vat_number]=12345678&plan=YEARLY_PLAN&trial_end=1426023730
+      string: card=tok_15gKDqAQkfalJzyKPfiJ8U6M&email=cayla%40wunsch.biz&metadata[id]=14&metadata[country_code]=IT&metadata[vat_registered]=false&metadata[name]=Miracle%20Daugherty&metadata[address]=1003%20McLaughlin%20Stream&metadata[type]=private&metadata[vat_number]=12345678&plan=YEARLY_PLAN&trial_end=1427568173
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -113,7 +113,7 @@ http_interactions:
         Roccos-iMac.local 13.4.0 Darwin Kernel Version 13.4.0: Sun Aug 17 19:50:11
         PDT 2014; root:xnu-2422.115.4~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
-      - '288'
+      - '302'
   response:
     status:
       code: 200
@@ -122,11 +122,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Tue, 24 Feb 2015 21:42:16 GMT
+      - Sat, 14 Mar 2015 18:42:56 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '3405'
+      - '3483'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -140,7 +140,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_YCKelPsBfYgHB0Cj
+      - req_LRjlmktSnWfDbONQ
       Stripe-Version:
       - '2014-11-05'
       Strict-Transport-Security:
@@ -150,18 +150,18 @@ http_interactions:
       string: |
         {
           "object": "customer",
-          "created": 1424814135,
-          "id": "cus_5lNBLPMPEmgvCv",
+          "created": 1426358576,
+          "id": "cus_5s4M8GqToicVKY",
           "livemode": false,
           "description": null,
-          "email": "tre@emmerich.org",
+          "email": "cayla@wunsch.biz",
           "delinquent": false,
           "metadata": {
-            "id": "7",
+            "id": "14",
             "country_code": "IT",
             "vat_registered": "false",
-            "name": "Cyrus Brown",
-            "address": "219 Glover Port",
+            "name": "Miracle Daugherty",
+            "address": "1003 McLaughlin Stream",
             "type": "private",
             "vat_number": "12345678"
           },
@@ -169,14 +169,14 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_5lNBLPMPEmgvCv/subscriptions",
+            "url": "/v1/customers/cus_5s4M8GqToicVKY/subscriptions",
             "data": [
               {
-                "id": "sub_5lNBRxUY7WMn1D",
+                "id": "sub_5s4MCtn4T8j1qY",
                 "plan": {
                   "interval": "month",
-                  "name": "Yearly Plan",
-                  "created": 1423610013,
+                  "name": "Up\u0026Sell.Me Yearly Plan",
+                  "created": 1425125519,
                   "amount": 24999,
                   "currency": "eur",
                   "id": "YEARLY_PLAN",
@@ -189,15 +189,15 @@ http_interactions:
                   "statement_description": null
                 },
                 "object": "subscription",
-                "start": 1424814135,
+                "start": 1426358576,
                 "status": "trialing",
-                "customer": "cus_5lNBLPMPEmgvCv",
+                "customer": "cus_5s4M8GqToicVKY",
                 "cancel_at_period_end": false,
-                "current_period_start": 1424814135,
-                "current_period_end": 1426023730,
+                "current_period_start": 1426358576,
+                "current_period_end": 1427568173,
                 "ended_at": null,
-                "trial_start": 1424814135,
-                "trial_end": 1426023730,
+                "trial_start": 1426358576,
+                "trial_end": 1427568173,
                 "canceled_at": null,
                 "quantity": 1,
                 "application_fee_percent": null,
@@ -214,10 +214,10 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_5lNBLPMPEmgvCv/cards",
+            "url": "/v1/customers/cus_5s4M8GqToicVKY/cards",
             "data": [
               {
-                "id": "card_15ZqRTAQkfalJzyK88Odzuwl",
+                "id": "card_15gKDqAQkfalJzyKOOn3GGpY",
                 "object": "card",
                 "last4": "1111",
                 "brand": "Visa",
@@ -237,19 +237,20 @@ http_interactions:
                 "address_line1_check": null,
                 "address_zip_check": null,
                 "dynamic_last4": null,
-                "customer": "cus_5lNBLPMPEmgvCv"
+                "metadata": {},
+                "customer": "cus_5s4M8GqToicVKY"
               }
             ]
           },
-          "default_card": "card_15ZqRTAQkfalJzyK88Odzuwl",
+          "default_card": "card_15gKDqAQkfalJzyKOOn3GGpY",
           "sources": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_5lNBLPMPEmgvCv/sources",
+            "url": "/v1/customers/cus_5s4M8GqToicVKY/sources",
             "data": [
               {
-                "id": "card_15ZqRTAQkfalJzyK88Odzuwl",
+                "id": "card_15gKDqAQkfalJzyKOOn3GGpY",
                 "object": "card",
                 "last4": "1111",
                 "brand": "Visa",
@@ -269,12 +270,13 @@ http_interactions:
                 "address_line1_check": null,
                 "address_zip_check": null,
                 "dynamic_last4": null,
-                "customer": "cus_5lNBLPMPEmgvCv"
+                "metadata": {},
+                "customer": "cus_5s4M8GqToicVKY"
               }
             ]
           },
-          "default_source": "card_15ZqRTAQkfalJzyK88Odzuwl"
+          "default_source": "card_15gKDqAQkfalJzyKOOn3GGpY"
         }
     http_version: 
-  recorded_at: Tue, 24 Feb 2015 21:42:14 GMT
+  recorded_at: Sat, 14 Mar 2015 18:42:55 GMT
 recorded_with: VCR 2.9.3

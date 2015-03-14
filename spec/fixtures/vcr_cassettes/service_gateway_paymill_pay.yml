@@ -1,0 +1,77 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://a304f4f8844b61d80a399f8dd3ec561f:@api.paymill.com/v2/payments
+    body:
+      encoding: US-ASCII
+      string: token=tok_d0c639a9047b742192c6
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 14 Mar 2015 17:40:48 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Strict-Transport-Security:
+      - max-age=16070400; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\n\t\"data\":{\n\t\t\"id\":\"pay_470733f43efcd34a02777275\",\n\t\t\"type\":\"creditcard\",\n\t\t\"client\":null,\n\t\t\"card_type\":\"visa\",\n\t\t\"country\":\"DE\",\n\t\t\"bin\":\"411111\",\n\t\t\"expire_month\":\"2\",\n\t\t\"expire_year\":\"2020\",\n\t\t\"card_holder\":\"\",\n\t\t\"last4\":\"1111\",\n\t\t\"updated_at\":1426354763,\n\t\t\"created_at\":1426354763,\n\t\t\"app_id\":null,\n\t\t\"is_recurring\":true,\n\t\t\"is_usable_for_preauthorization\":true\n\t},\n\t\"mode\":\"test\"\n}"
+    http_version: 
+  recorded_at: Sat, 14 Mar 2015 17:40:47 GMT
+- request:
+    method: post
+    uri: https://a304f4f8844b61d80a399f8dd3ec561f:@api.paymill.com/v2/transactions
+    body:
+      encoding: US-ASCII
+      string: amount=30000&currency=USD&payment=pay_470733f43efcd34a02777275
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 14 Mar 2015 17:44:05 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Strict-Transport-Security:
+      - max-age=16070400; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: "{\n\t\"data\":{\n\t\t\"id\":\"tran_2660df8c4398b463c5ffa8b78f88\",\n\t\t\"amount\":\"30000\",\n\t\t\"origin_amount\":30000,\n\t\t\"status\":\"closed\",\n\t\t\"description\":null,\n\t\t\"livemode\":false,\n\t\t\"refunds\":null,\n\t\t\"client\":{\n\t\t\t\"id\":\"client_78dbb43e8cd5b4a6a526\",\n\t\t\t\"email\":null,\n\t\t\t\"description\":null,\n\t\t\t\"app_id\":null,\n\t\t\t\"updated_at\":1426355045,\n\t\t\t\"created_at\":1426355045,\n\t\t\t\"payment\":[\n\t\t\t\t\"pay_470733f43efcd34a02777275\"\n\t\t\t],\n\t\t\t\"subscription\":null\n\t\t},\n\t\t\"currency\":\"USD\",\n\t\t\"created_at\":1426355045,\n\t\t\"updated_at\":1426355045,\n\t\t\"response_code\":20000,\n\t\t\"short_id\":\"7357.7357.7357\",\n\t\t\"is_fraud\":false,\n\t\t\"invoices\":[\n\n\t\t],\n\t\t\"app_id\":null,\n\t\t\"preauthorization\":null,\n\t\t\"fees\":[\n\n\t\t],\n\t\t\"payment\":{\n\t\t\t\"id\":\"pay_470733f43efcd34a02777275\",\n\t\t\t\"type\":\"creditcard\",\n\t\t\t\"client\":\"client_78dbb43e8cd5b4a6a526\",\n\t\t\t\"card_type\":\"visa\",\n\t\t\t\"country\":\"DE\",\n\t\t\t\"bin\":\"411111\",\n\t\t\t\"expire_month\":\"2\",\n\t\t\t\"expire_year\":\"2020\",\n\t\t\t\"card_holder\":\"\",\n\t\t\t\"last4\":\"1111\",\n\t\t\t\"updated_at\":1426355045,\n\t\t\t\"created_at\":1426354763,\n\t\t\t\"app_id\":null,\n\t\t\t\"is_recurring\":true,\n\t\t\t\"is_usable_for_preauthorization\":true\n\t\t},\n\t\t\"is_refundable\":true,\n\t\t\"is_markable_as_fraud\":true\n\t},\n\t\"mode\":\"test\"\n}"
+    http_version: 
+  recorded_at: Sat, 14 Mar 2015 17:44:04 GMT
+recorded_with: VCR 2.9.3

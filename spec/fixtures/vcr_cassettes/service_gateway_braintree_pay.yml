@@ -1,0 +1,182 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://xmxtnt4f2qkdbbtw:8603e05feca8a79c5af5976e9cad4758@api.sandbox.braintreegateway.com/merchants/8kcrqvtj3vxqx9fr/transactions
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <transaction>
+          <amount>300.00</amount>
+          <payment-method-nonce>61070cd0-d13e-49b2-ba70-5d8488edb69f</payment-method-nonce>
+          <type>sale</type>
+        </transaction>
+    headers:
+      Accept-Encoding:
+      - gzip
+      Accept:
+      - application/xml
+      User-Agent:
+      - Braintree Ruby Gem 2.40.0
+      X-Apiversion:
+      - '4'
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Date:
+      - Sat, 14 Mar 2015 18:53:32 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      X-Authentication:
+      - basic_auth
+      Strict-Transport-Security:
+      - max-age=31536000
+      - max-age=31536000; includeSubDomains
+      X-User:
+      - x3r9tfwdzj4n3xcz
+      Vary:
+      - Accept-Encoding
+      Content-Encoding:
+      - gzip
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"8feb836cb5ffa40d394be2785bf1ecb7"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - f7f46d11dd3ef3c3f9f43a43d06ddf2d
+      X-Runtime:
+      - '0.541077'
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAKyDBFUAA+xXTW/jNhC9768wfGdkOwmaBo6CFsUCBdpeslkUvQSUOLbY
+        UCSXpByrv75DUpaliErSS9FDfbJmnobzxZmn7f2xFosDGMuVvFuuL1bLBchS
+        MS73d8vHL5/JzfI+/7R1hkpLS4eo/NNiseUs/97sr27YNsO/XmIddY3NaeMq
+        ZfhfgJpO5LWu1ZBbKmCbhb9eVjbG4Fkt4VYRPBLyx4efttlU7MG0Vo10+eVq
+        dbFabbPu0WtqMGVFpSO0LL2QeN/ss35x5abdfNPX8rvNNkuh/NvKMDD4sJBc
+        3C2daWCZRe8MUAeMULfwHt8tGT46XsMy36zW12R1SdZXX9Y3t9eXt5ebP9Dv
+        /oXwfqPZP3v//EKXHesUeu0fQsJfe4jCHTfWEUlrSCgFndeVqtZUtgkN1JSL
+        hPwFCstdypaulEzJd/Q4SWo2jGpbcCGwz/7lCK0zANgHjBmwNpWCowPJfCVm
+        IUKVVHCXMm9gj5cklSeF90GEjk76i01p2vlwotq/TajQFd18CHX5Hko2WA1e
+        Tis1KA7GtGskS92SXmO7LqfG0HakxEQOpkfKiAXnBNSAt7KgrqySmIpr/X+z
+        /EebZVidbnKRHQfBbATQgyVgjDIEc6SVtJAMLeAGoY/R+c84998EnEyMq5a2
+        8iYmhHE4vJL+ivNrIvTQPQ7uF9qi5k+IXY67wE4Lu9VGlXga5uG0J2mAB0u/
+        ff794Zcft9mboLGVsSvrlV+Nc9qZNx12cP6DRs3B7+w5REgtY9x7gsmfwiax
+        HhQvfYF2WHh8A3unADPNSOP3Mp4SF/EMytEjiSs/qYIj1Pq0ZwulBFC5zHdU
+        WM83esBpr2MUpKSGdS3u1DOk7mDBZX619j8/DeVwjlzlUdw9dFcFTZLAbr5y
+        S7FX+ufTqNDcxFLWSroqXyEvmQgn2BaoQcqwWY3AQdqd2+1U4gdNYGiPD+dN
+        e5aevayUCMlOjw9e0z2Qxoi8ck7b2yyjFke0vSgM5dJfm67fL3BuZpq2fnI/
+        1YC9yp6E2qvsgPFfaLm/B3ngRkkPuLNUskIdkTD29uN5jeTfGuhKj7MfwRyH
+        x6QLQv+CpsjcHuWzVC/St2sURHUFVLgKI4QzYiCLIAYFd2d9fOxUjcFCY8/u
+        G+G52AD1WtMvDk8sORVn6EDWOU1bo8QAcRJ06ba2wdGJq08+nzEj6XgUqx3x
+        WipLGJ46VZ5yplhTBsI7SFsvi6ADyFoRy55nLlGv72jc+BJ15J9UHHvOtCMq
+        0C/SgAA01GXb3zykw6io9Qcpco/vLbz51REQsx8OsfcsctGidWAaaznF1ARJ
+        7+CAuFiFowpyqjk6MpXHMLPXcfaSLjdx6AmaJkJNYUvD9SxRGuj7IRVoGtG4
+        mBUjyEWIz2JynI2Q6JZxSSy6/OocP/kJDvkEx2PchtZL6iBaUadJNTNw5r4g
+        cERMfRsbRQblvxcxrpnG7fVx+OMnoISpVaz5wW+rHcDcnvHHqhcSqznRYhqK
+        xthIYhk4/Iiyp6EyUqVrM2DA6ePHmMkn8gfhcPQJwOFr0m54uo6dirwtZbAp
+        ywTBxYrMxO4j142DVGt0W4NwiTysCX/DpoyD5ckPlm02BxozmUGgY8IzJDOz
+        oPdtBfrznq3IkUaDIf/0NwAAAP//AwBkEv0GXREAAA==
+    http_version: 
+  recorded_at: Sat, 14 Mar 2015 18:53:31 GMT
+- request:
+    method: put
+    uri: https://xmxtnt4f2qkdbbtw:8603e05feca8a79c5af5976e9cad4758@api.sandbox.braintreegateway.com/merchants/8kcrqvtj3vxqx9fr/transactions/9rg48d/submit_for_settlement
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <transaction>
+          <amount nil="true"/>
+        </transaction>
+    headers:
+      Accept-Encoding:
+      - gzip
+      Accept:
+      - application/xml
+      User-Agent:
+      - Braintree Ruby Gem 2.40.0
+      X-Apiversion:
+      - '4'
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sat, 14 Mar 2015 18:53:34 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      X-Authentication:
+      - basic_auth
+      Strict-Transport-Security:
+      - max-age=31536000
+      - max-age=31536000; includeSubDomains
+      X-User:
+      - x3r9tfwdzj4n3xcz
+      Vary:
+      - Accept-Encoding
+      Content-Encoding:
+      - gzip
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Etag:
+      - '"654cd92c56e44054c00fe63391122b06"'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - 5f9311977ef7150e7b927f4051bd292f
+      X-Runtime:
+      - '0.318252'
+      X-Frame-Options:
+      - SAMEORIGIN
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAK6DBFUAA+xYUW/jNgx+768I8q46SVOsK1wXNwwHDNj20usw7KWQLSbW
+        Kks6SU7j/fpRsuPYtdwWGDDcw/UpJj9RJEWRn5reHyuxOICxXMm75fpytVyA
+        LBTjcn+3fPzymdws77OL1BkqLS0corKLxSLlLPvR7Lc3LE3wp5dYR11tM1vn
+        FXcO2NNOmScLzgmoQLo06QAe6xoNmaUC0iT89LKiNgZ3bgi3iqADkD0+/Jwm
+        U7EH00rV0mVXq9XlapUm3afXVGCKkkpHaFF4IfGe2mf94opNs/mqr+UPmzSJ
+        ofxqZRgY/FhILu6WztSwTFrvDFAMilC38B7fLRl+Ol7BMtus1tdkdUXW2y/r
+        m9vrq9urzV/od78grK81+/j6La4/L+iyY51Cr/1HSP9rD1G448Y6ImkFEaWg
+        87pCVZrKJqKBinIRkb9AbrmL2dKlkjH5jh4nSU2GUaU5FwKr7n+O0DoDgHXA
+        mAFrYyk4OpDMn8QsRKiCCu5i5g3s8crE8qTwPohQ0VF/sShNMx9Oq/arCRW6
+        pJsPoa7eQ8kaT4MX05MaHA7GtKsli92SXmO7KqfG0GakxEQOeknMyLlnkJy6
+        ooxiSq7192L5RotleDpd5yI7DoLZFkAPloAxyhDMkVbSQjS0gBuEPkZnv2Df
+        fxNwMjE+tbiVNzEhjMPhlfQ37F8ToYfusXG/0AY1f0Nb5TgL7PRgU21Ugbth
+        HmjtSmX4PzTAg6XfP//58OtPafImaGxl7Mp65UfjnHZmpcMKzj5p1ByARVcH
+        REgtY9x7gsmfwiaxHhQv/AHt8OBxBdZODmaakdrPZdylHcQzKEePpB35URUc
+        odKnOZsrJYDKZbajwnq+0QNOcx2jIAU1rCtxp54hdgdzLrPt2v/5biiHfWSb
+        teLuo7sqaJIEdvMHtxRrpf8+tQrNTXuUlZKuzFbISybCCbYBapAybFYjcJB2
+        +3YzlfhGE/ja48N50p6lZy9LJUKy4+2DV3QPpDYiK53T9jZJqMUWbS9zQ7n0
+        16ar90vsm4mmje/cTxVgrbInofYqOWD8l1ru70EeuFHSA+4slSxXR6SPvf12
+        v1ryrzV0R4+9H8Ecm8ekCkL9gqbI3B7ls1Qv0pdrK2jVJVDhSowQzoiBrAUx
+        yLk769vPTlUbPGis2X0tPBcboF5r+sHhiSWn4gwdyDqnaWOUGCBOgi7d1tbY
+        OnH0yeczZiQdt2K1I15LZQHDXafKU84Uq4tAeAdp62Ut6ACyUsSy55lL1Os7
+        Gje+RN1TgJQca840IyrQD9KAADTUZdvfPKTDqKj0Byl2j+8tdE+MU6P0Hez8
+        6giI2YdDW3sWuWjeODC1tZxiaoKkd3BAXKzCVgUZ1RwdmcrbMJNpnP899O1b
+        oX/k+fUtJKKXdEXSdn9B44ywzm1huJ5ljAN9360DXyUaGYpiBEkZ8TmN9vUR
+        Et0yLopFl1/t40cgwWkXIbuM23AHozporahTy57pvHNPKeyVU9/GRpFK+ocz
+        xjVzg3t9OwXxLSxhahXP/ODH9g5gbuD6bdULaU9zosU05LWxLZtn4PA1aU/d
+        daSKn83gKRDffoyZ/K/gg3A4+gTgFDJxN/y7BSsVCWzMYF0UEaaPJzITu49c
+        1w5ipdGNT8IlEtI6/AyUoe2wT77DpskcaEzpBoGOmd+Q1c2C3rcVeOB7tlqy
+        OGoM2cW/AAAA//8DAJ803yN0EgAA
+    http_version: 
+  recorded_at: Sat, 14 Mar 2015 18:53:33 GMT
+recorded_with: VCR 2.9.3

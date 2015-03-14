@@ -1,0 +1,62 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://xmxtnt4f2qkdbbtw:fake@api.sandbox.braintreegateway.com/merchants/8kcrqvtj3vxqx9fr/transactions
+    body:
+      encoding: UTF-8
+      string: |
+        <?xml version="1.0" encoding="UTF-8"?>
+        <transaction>
+          <amount type="integer">5000</amount>
+          <payment-method-nonce>fake_token</payment-method-nonce>
+          <type>sale</type>
+        </transaction>
+    headers:
+      Accept-Encoding:
+      - gzip
+      Accept:
+      - application/xml
+      User-Agent:
+      - Braintree Ruby Gem 2.40.0
+      X-Apiversion:
+      - '4'
+      Content-Type:
+      - application/xml
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Date:
+      - Sat, 14 Mar 2015 19:21:18 GMT
+      Content-Type:
+      - application/xml; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Www-Authenticate:
+      - Basic realm="Braintree API"
+      Vary:
+      - Accept-Encoding
+      Content-Encoding:
+      - gzip
+      X-Ua-Compatible:
+      - IE=Edge,chrome=1
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 1b17f64e9232a5f4652d19a412205fba
+      X-Runtime:
+      - '0.128182'
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAC6KBFUAA/IICQlQcEoszky2UnBMTk4tLlZISc3LTE3R4wIAAAD//wMA
+        aO1LWhsAAAA=
+    http_version: 
+  recorded_at: Sat, 14 Mar 2015 19:21:16 GMT
+recorded_with: VCR 2.9.3

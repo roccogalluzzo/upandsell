@@ -1,0 +1,39 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://a304f4f8844b61d80a399f8dd3ec561f:@api.paymill.com/v2/refunds/tran_2660df8c4398b463c5ffa8b78f88
+    body:
+      encoding: US-ASCII
+      string: amount=30000
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sat, 14 Mar 2015 17:51:55 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "{\n\t\"exception\":\"refund_amount_to_high\",\n\t\"error\":\"Amount
+        to high\"\n}"
+    http_version: 
+  recorded_at: Sat, 14 Mar 2015 17:51:54 GMT
+recorded_with: VCR 2.9.3

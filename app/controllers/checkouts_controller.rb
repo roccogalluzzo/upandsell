@@ -25,7 +25,7 @@ class CheckoutsController < ApplicationController
     else
       Braintree::Configuration.environment = :sandbox
     end
-    Braintree::Configuration.merchant_id = "tmnv8986bpp2tqnq"
+    Braintree::Configuration.merchant_id = user.credit_card_bt_merchant_id
     Braintree::Configuration.public_key = user.credit_card_public_token
     Braintree::Configuration.private_key = user.credit_card_token
     render json: { token: Braintree::ClientToken.generate }, status: :ok
