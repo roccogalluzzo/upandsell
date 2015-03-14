@@ -1,5 +1,5 @@
-    if Rails.env.production?
-      Braintree::Configuration.environment = :live
-    else
-      Braintree::Configuration.environment = :sandbox
-    end
+if Rails.env.production?
+  Braintree::Configuration.environment = :production
+else
+  Braintree::Configuration.environment = :sandbox
+end
