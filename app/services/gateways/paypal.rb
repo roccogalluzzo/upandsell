@@ -47,7 +47,9 @@ end
 def self.refund(token, amount, user_id)
   api = PayPal::SDK::AdaptivePayments::API.new
   refund = api.build_refund({payKey: token })
-  api.refund(refund)
+  status = api.refund(refund).refund_info_list.refund_info.first.refund_status
+  return true if status == 'REFUNDED'
+  false
 end
 
 def self.build_pay(product, payer)

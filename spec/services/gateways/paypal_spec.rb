@@ -60,5 +60,18 @@ describe Gateways::Paypal do
   end
 
   describe '@refund' do
+    it 'refund a payment' do
+      VCR.use_cassette("service_paypal_refund") do
+        response = Gateways::Paypal.refund('AP-6S388162S0527214K', 5000, 1)
+        expect(response).to eq true
+      end
+    end
+
+    it 'not refund an already refunded payment' do
+      VCR.use_cassette("service_paypal_refund_error") do
+        response = Gateways::Paypal.refund('AP-6S388162S0527214K', 5000, 1)
+        expect(response).to eq false
+      end
+    end
   end
 end

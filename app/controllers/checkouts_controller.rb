@@ -72,6 +72,7 @@ class CheckoutsController < ApplicationController
     coupon = Coupon.find params[:coupon_id]
     if coupon && coupon.active? && coupon.product.id = product.id
       new_price =  coupon.discounted_price
+      coupon_id = coupon.id
     end
   end
 
@@ -80,7 +81,7 @@ class CheckoutsController < ApplicationController
     cancel_url: product_url(id: product.id, payment: 'failed'),
     return_url: checkout_check_payment_url(id: product.id),
     new_price: new_price,
-    coupon_id: coupon.id || nil
+    coupon_id: coupon_id || nil
     })
 
   if order
@@ -138,8 +139,8 @@ else
   end
   Rails.logger.error "Paypal Error after buy from #{request.remote_ip} - paykey: #{params[:payKey]}"
   UserMailer.paypal_error_email(params[:payKey], request.remote_ip)
-  @title = "Paypal Error"
-  render 'paypal_error'
+
+  render 'paypal_error', layout: false
 end
 end
 
