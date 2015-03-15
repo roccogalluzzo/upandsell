@@ -20,11 +20,7 @@ class CheckoutsController < ApplicationController
 
   def braintree_token
     user = User.find(Product.find(params[:product_id]).user_id)
-    if Rails.env.production?
-      Braintree::Configuration.environment = :live
-    else
-      Braintree::Configuration.environment = :sandbox
-    end
+
     Braintree::Configuration.merchant_id = user.credit_card_bt_merchant_id
     Braintree::Configuration.public_key = user.credit_card_public_token
     Braintree::Configuration.private_key = user.credit_card_token
