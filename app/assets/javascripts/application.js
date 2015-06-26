@@ -24,7 +24,7 @@
 //= require morris.js/morris
 //= require zeroclipboard/dist/ZeroClipboard.min.js
 //= require froala_editor.min.js
-//= require jquery-tags-input/jquery.tagsinput.js
+//= require jquery-tags-input/src/jquery.tagsinput.js
 //= require typehead.js/dist/typeahead.bundle.min.js
 //= require jquery.payment/lib/jquery.payment.js
 //= require amcharts/amcharts.js
