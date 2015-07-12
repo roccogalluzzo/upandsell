@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
   :recoverable, :rememberable, :trackable, :validatable,
-  :confirmable, :async, :omniauthable
+  :confirmable, :async, :omniauthable, :switch_user
   serialize :settings
   serialize :credit_card_info
   serialize :paypal_info

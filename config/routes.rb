@@ -58,6 +58,7 @@ end
 
 namespace :user do
   root 'dashboard#index'
+  post 'dashboard/to_admin' => 'dashboard#to_admin'
   get 'dashboard/metrics'  => 'dashboard#metrics'
   get 'dashboard/onload_metrics'  => 'dashboard#onload_metrics'
   get 'complete_signup' => 'settings/billings#new'
@@ -117,12 +118,14 @@ namespace :admin do
  mount Sidekiq::Web => 'sidekiq'
 
  root 'dashboard#index'
- resources :users, only: [:index,:show]
- resources :products, only: [:index,:show, :destroy]
- resources :orders, only: [:index,:show]
- resources :invoices, only: [:index,:show]
+ resources :users, only: [:index,:show] do
+  post 'switch'
+end
+resources :products, only: [:index,:show, :destroy]
+resources :orders, only: [:index,:show]
+resources :invoices, only: [:index,:show]
 
- resources :emails, only: [:index, :create] do
+resources :emails, only: [:index, :create] do
   get 'send_test_email'
 end
 resources :affiliations, only: [:index]

@@ -67,6 +67,14 @@
                <li><%= link_to(admin_root_path) do %>
                  <i class="fa fa-user  icon-user-2"></i>
                  <% end %>
+
+               </li>
+               <% end %>
+               <% if @was_admin %>
+               <li><%= link_to(user_dashboard_to_admin_path, method: :post) do %>
+                 <i class="fa fa-user  icon-user-2"></i>
+                 <% end %>
+
                </li>
                <% end %>
                <li class="<%= ac('accounts') || ac('payments') || ac('emails') %>">
