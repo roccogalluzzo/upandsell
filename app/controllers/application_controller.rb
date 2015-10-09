@@ -6,13 +6,13 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(user)
-    if user.subscription_active
+  #  if user.subscription_active
      user_root_path
-   elsif !user.legal_name && !user.subscription_active && !user.address
-     user_complete_signup_path
-   else
-    edit_user_settings_billing_path
-  end
+   #elsif !user.legal_name && !user.subscription_active && !user.address
+    # user_complete_signup_path
+  # else
+  #  edit_user_settings_billing_path
+  #end
 end
 
 protected

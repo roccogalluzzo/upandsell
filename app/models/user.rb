@@ -69,8 +69,9 @@ class User < ActiveRecord::Base
   end
 
   def subscribed?
-    return false if self.subscription_end.nil?
-    self.subscription_end > Time.now
+    #return false if self.subscription_end.nil?
+    #self.subscription_end > Time.now
+    true
   end
 
   def add_to_mailchimp

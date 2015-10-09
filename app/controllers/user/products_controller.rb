@@ -5,18 +5,18 @@ class User::ProductsController < User::BaseController
   end
 
   def new
-    unless current_user.subscribed?
-      redirect_to user_root_path
-    end
+  #  unless current_user.subscribed?
+  #    redirect_to user_root_path
+  #  end
     @product = Product.new
     @product.price_currency = current_user.currency
     @new_product = true
   end
 
   def create
-    unless current_user.subscribed?
-      redirect_to root_path
-    end
+    #unless current_user.subscribed?
+    #  redirect_to root_path
+   #  end
     product = current_user.products.build(product_params)
     product.description = Sanitize.fragment(product.description, Sanitize::Config::BASIC)
     if product.save
