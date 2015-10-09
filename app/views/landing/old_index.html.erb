@@ -169,8 +169,30 @@
            <div class="container">
              <div class="head">
                <h6>Pricing</h6>
-               <p>free while in beta. No montlhy or transaction prices.</p>
+               <p>One edition. <%= Rails.application.secrets.trial_days %> days free trial. 24.99€ per month. 24/7 customer service.
+                Try our service, start selling and contact us at anytime you need support.</p>
               </div>
+              <div class="pricing-plans">
+                <div class="plan-blue">
+                 <div class="plan-tag-blue">
+                  <%= image_tag 'price_tag_blue.png' %>
+                  <h6 class="tag-head">Pro</h6>
+                  <span class="tag-currency">€</span><span class="tag-price">24</span>.99
+                  <div class="bottom-tag">
+                    <p class="f-p">Free Trial</p>
+                    <p class="s-p"><%= Rails.application.secrets.trial_days %> days</p>
+                  </div>
+                </div>
+                <div class="plan-text-blue">
+                  <ul>
+                    <li><span>Unlimited products</span></li>
+                    <li><span>All Features Included</span></li>
+                    <li><span>No Transaction Fees</span></li>
+                  </ul>
+                  <a href="/join" class="btn-tag-blue">Sign up for trial</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
