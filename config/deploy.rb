@@ -2,7 +2,7 @@
 #lock '3.2.0'
 
 set :application, 'upandsell'
-set :repo_url, 'git@bitbucket.org:angelbit/up-sell.git'
+set :repo_url, 'git@gitlab.com:byterussian/up-sell.git'
 
 # Default branch is :master
 #ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -72,4 +72,3 @@ task :notify_rollbar do
 end
 
 after :deploy, 'notify_rollbar'
-
