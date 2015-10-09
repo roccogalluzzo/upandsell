@@ -1,8 +1,8 @@
 <% content_for(:page_title)  { "Join Us" } %>
-<div class="sign-up-header">
+<div class="sign-in-header">
   <h1>Start selling with us</h1>
 </div>
-<div class="sign-up-container">
+<div class="sign-in-container">
   <div class="row">
 <div class="sign-box">
   <div class="body">
@@ -46,5 +46,36 @@
     <small><%= link_to "Already a user?", new_session_path(resource_name) %></small>
   </div>
 </div>
+<div class="signup-pricing-section">
+  <div class="head">
+    <p>One edition. <%= Rails.application.secrets.trial_days %> days freel trial. 24.99€ per month. 24/7 customer service.
+      Try our service, start selling and contact us at anytime you need support.</p>
+    </div>
+    <div class="pricing-plans">
+      <div class="plan-blue">
+        <div class="plan-tag-blue">
+          <%= image_tag 'price_tag_blue.png' %>
+          <h6 class="tag-head">Pro</h6>
+          <span class="tag-currency">€</span><span class="tag-price">24</span>.<span class='tag-cents'>99</span>
+          <div class="bottom-tag">
+            <p class="f-p">Free Trial</p>
+            <p class="s-p"><%= Rails.application.secrets.trial_days %> days</p>
+          </div>
+        </div>
+        <%
+
+        %>
+        <p  class="convert-price"><a id="js-change-price" data-text="See price in €" data-switch-currency="$" data-switch-int="<%= @price %>"  data-switch-cents="<%= @cents %>" href="#">See estimated price in $</a></p>
+        <div class="plan-text-blue">
+          <ul>
+            <li><span>Unlimited products</span></li>
+            <li><span>All Features Included</span></li>
+            <li><span>No Transaction Fees</span></li>
+          </ul>
+        </div>
+                <p class="vat-info">(Price does not include VAT)</p>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
