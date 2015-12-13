@@ -2,13 +2,13 @@
 #lock '3.2.0'
 
 set :application, 'upandsell'
-set :repo_url, 'git@gitlab.com:byterussian/up-sell.git'
+set :repo_url, 'github.com/byterussian/upandsell'
 
 # Default branch is :master
 #ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/var/www/upandsell'
+set :deploy_to, '/home/deployer/apps/upandsell'
 set :deploy_via, :remote_cache
 # Default value for :linked_files is []
 set :linked_files, %w{config/database.yml}
@@ -19,7 +19,7 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle}
 set :ssh_options, { forward_agent: true }
 # Rbenv settings
 set :rbenv_type, :user # or :system, depends on your rbenv setup
-set :rbenv_ruby, '2.1.2'
+set :rbenv_ruby, '2.2.3'
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all
 
