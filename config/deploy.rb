@@ -2,7 +2,7 @@
 #lock '3.2.0'
 
 set :application, 'upandsell'
-set :repo_url, 'github.com/byterussian/upandsell'
+set :repo_url, 'git@github.com:byterussian/upandsell.git'
 
 # Default branch is :master
 #ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
