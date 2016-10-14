@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'tabs', github: 'byterussian/tabs', branch: 'customization'
-gem 'carrierwave_direct', github: 'byterussian/carrierwave_direct'
+gem 'carrierwave_direct'
 gem 'sass-rails', github: 'rails/sass-rails'
 gem 'less-rails', github: 'dv/less-rails', branch: 'fix-import-dependencies'
 
